@@ -10,7 +10,7 @@ public class CameraHelper {
 	
 	private final float MAX_ZOOM_IN = 0.25f;
 	private final float MAX_ZOOM_OUT = 10.0f;
-	private float zoom; //= 1.0f;
+	private float zoom; 
 	public OrthographicCamera camera;
 	private Vector2 position;
 	private Sprite target;
@@ -19,7 +19,6 @@ public class CameraHelper {
 	{
 		position = new Vector2();
 		zoom = 1.0f;
-		this.camera = camera;
 	}
 	
 	public void update(float deltaTime)
