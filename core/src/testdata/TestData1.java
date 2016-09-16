@@ -96,7 +96,7 @@ public class TestData1
 		
 		pixmap.setColor(1, 1, 0, 1);
 	
-		//(0, 0) is top right
+		//(0, 0) is top left
 		pixmap.drawLine(0, 0, 32, 32);
 		
 		pixmap.setColor(0, 1, 1, 1);
