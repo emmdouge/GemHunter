@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Array;
 
 public class WorldController extends InputAdapter
 {
@@ -36,12 +38,16 @@ public class WorldController extends InputAdapter
 		int width = 32;
 		int height = 32;
 		
-		Pixmap pixmap = createProceduralPixmap(width, height);
-		Texture texture = new Texture(pixmap);
+		//create a list of texture regions
+		Array<TextureRegion> regions = new Array<TextureRegion>();
+		regions.add(Assets.instance.bunny.bunny);
+		regions.add(Assets.instance.feather.feather);
+		regions.add(Assets.instance.goldCoin.goldCoin);
 		
+		//create new sprites using a random texture region
 		for(int i = 0; i < testSprites.length; i++)
 		{
-			Sprite spr = new Sprite(texture);
+			Sprite spr = new Sprite(regions.random());
 			spr.setSize(1, 1);
 			spr.setOrigin(spr.getWidth()/2.0f, spr.getHeight()/2.0f);
 			
@@ -92,29 +98,48 @@ public class WorldController extends InputAdapter
 		// Camera Controls (move)
 		float camMoveSpeed = 5 * deltaTime;
 		float camMoveSpeedAccelerationFactor = 5;
-		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) camMoveSpeed *=
-		camMoveSpeedAccelerationFactor;
-		if (Gdx.input.isKeyPressed(Keys.LEFT)) moveCamera(-camMoveSpeed,
-		0);
-		if (Gdx.input.isKeyPressed(Keys.RIGHT)) moveCamera(camMoveSpeed,
-		0);
-		if (Gdx.input.isKeyPressed(Keys.UP)) moveCamera(0, camMoveSpeed);
-		if (Gdx.input.isKeyPressed(Keys.DOWN)) moveCamera(0,
-		-camMoveSpeed);
+		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
+		{
+			camMoveSpeed *=camMoveSpeedAccelerationFactor;
+		}
+		if (Gdx.input.isKeyPressed(Keys.LEFT)) 
+		{
+			moveCamera(-camMoveSpeed,0);
+		}
+		if (Gdx.input.isKeyPressed(Keys.RIGHT)) 
+		{
+			moveCamera(camMoveSpeed,0);
+		}
+		if (Gdx.input.isKeyPressed(Keys.UP)) 
+		{
+			moveCamera(0, camMoveSpeed);
+		}
+		if (Gdx.input.isKeyPressed(Keys.DOWN)) 
+		{
+			moveCamera(0,-camMoveSpeed);
+		}
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE))
 		cameraHelper.setPosition(0, 0);
 		
 		// Camera Controls (zoom)
 		float camZoomSpeed = 1 * deltaTime;
 		float camZoomSpeedAccelerationFactor = 5;
-		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) camZoomSpeed *=
-		camZoomSpeedAccelerationFactor;
+		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) 
+		{
+			camZoomSpeed *= camZoomSpeedAccelerationFactor;
+		}
 		if (Gdx.input.isKeyPressed(Keys.COMMA))
-		cameraHelper.addZoom(camZoomSpeed);
-		if (Gdx.input.isKeyPressed(Keys.PERIOD)) cameraHelper.addZoom(
-		-camZoomSpeed);
-		if (Gdx.input.isKeyPressed(Keys.SLASH)) cameraHelper.setZoom(1);
-		
+		{
+			cameraHelper.addZoom(camZoomSpeed);
+		}
+		if (Gdx.input.isKeyPressed(Keys.PERIOD)) 
+		{
+			cameraHelper.addZoom(-camZoomSpeed);
+		}	
+		if (Gdx.input.isKeyPressed(Keys.SLASH)) 
+		{
+			cameraHelper.setZoom(1);
+		}
 	}
 	
 	private void moveCamera (float x, float y) {
