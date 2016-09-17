@@ -7,12 +7,16 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Array;
+import com.douge.gdx.game.Assets;
 
 public class TestData1 
 {
 
 	public Sprite[] testSprites;
+	public Sprite[] testSpritesAssets;
 	public Texture texture;
 	public int selectedSpriteIndex = 0;
 	public final int NUM_SPRITES = 5;
@@ -20,6 +24,7 @@ public class TestData1
 	public TestData1()
 	{
 		testSprites = new Sprite[NUM_SPRITES];
+
 		int width = 32;
 		int height = 32;
 		
@@ -46,6 +51,29 @@ public class TestData1
 			sprite.setPosition(randomX, randomY);
 			
 			testSprites[i] = sprite;
+		}
+		
+		testSpritesAssets = new Sprite[NUM_SPRITES];
+		Array<TextureRegion> regions = new Array<TextureRegion>();
+		regions.add(Assets.instance.bunny.region);
+		regions.add(Assets.instance.goldCoin.region);
+		regions.add(Assets.instance.feather.region);
+		for(int i = 0; i < testSpritesAssets.length; i++)
+		{
+			Sprite sprite = new Sprite(regions.random());
+			
+			//set width and height of sprite in pixels
+			sprite.setSize(32, 32);
+			
+			//set origin to center of sprite for it to rotate at its center
+			sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
+			
+			float randomX = MathUtils.random(-20.0f, 20.0f);
+			float randomY = MathUtils.random(-20.0f, 20.0f);
+			
+			sprite.setPosition(randomX, randomY);
+			
+			testSpritesAssets[i] = sprite;
 		}
 	}
 	
@@ -85,8 +113,22 @@ public class TestData1
 		{
 			testSprites[selectedSpriteIndex].translateX(spriteMoveSpeed);
 		}
-		float camMoveSpeed = 5 * deltaTime;
-		float camMoveSpeedAccelerationFactor = 5;
+		if(Gdx.input.isKeyPressed(Keys.I))
+		{
+			testSpritesAssets[selectedSpriteIndex].translateY(spriteMoveSpeed);
+		}
+		if(Gdx.input.isKeyPressed(Keys.J))
+		{
+			testSpritesAssets[selectedSpriteIndex].translateX(-spriteMoveSpeed);
+		}
+		if(Gdx.input.isKeyPressed(Keys.K))
+		{
+			testSpritesAssets[selectedSpriteIndex].translateY(-spriteMoveSpeed);
+		}
+		if(Gdx.input.isKeyPressed(Keys.L))
+		{
+			testSpritesAssets[selectedSpriteIndex].translateX(spriteMoveSpeed);
+		}
 	}
 	
 	public void drawOnPixmap(Pixmap pixmap, int width, int height)

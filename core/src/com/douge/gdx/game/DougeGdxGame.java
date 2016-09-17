@@ -3,6 +3,7 @@ package com.douge.gdx.game;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 
 public class DougeGdxGame implements ApplicationListener {
 	private static final String TAG = DougeGdxGame.class.getName();
@@ -17,9 +18,12 @@ public class DougeGdxGame implements ApplicationListener {
 	@Override
 	public void create () {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
+		
+		//assetManager is an internal class within libgdx
+		Assets.instance.init(new AssetManager());
 		worldController = new WorldController();
 		worldRenderer = new WorldRenderer(worldController);
-
+		
 	}
 
 	/**
@@ -51,5 +55,6 @@ public class DougeGdxGame implements ApplicationListener {
 	@Override
 	public void dispose() {
 		worldRenderer.dispose();
+		Assets.instance.dispose();
 	}
 }

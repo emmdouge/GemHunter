@@ -125,7 +125,10 @@ public class WorldRenderer implements Disposable {
 		{
 			sprite.draw(batch);
 		}
-		
+		for(Sprite sprite: worldController.testData1.testSpritesAssets)
+		{
+			sprite.draw(batch);
+		}
 	}
 	
 

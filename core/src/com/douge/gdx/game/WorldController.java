@@ -122,6 +122,12 @@ public class WorldController extends InputAdapter
 			camHelper.setTarget(testData1.testSprites[testData1.selectedSpriteIndex]);
 			Gdx.app.debug(TAG, "Sprite " + testData1.selectedSpriteIndex + " selected");
 		}
+		if(keycode == Keys.TAB)
+		{
+			testData1.selectedSpriteIndex = (testData1.selectedSpriteIndex+1)%testData1.NUM_SPRITES;
+			camHelper.setTarget(testData1.testSpritesAssets[testData1.selectedSpriteIndex]);
+			Gdx.app.debug(TAG, "Sprite " + testData1.selectedSpriteIndex + " selected");	
+		}
 		if(keycode == Keys.ENTER)
 		{
 			if(camHelper.targetIsEmpty())
