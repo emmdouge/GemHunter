@@ -8,6 +8,6 @@ public class AssetGoldCoin {
 	
 	public AssetGoldCoin(TextureAtlas atlas)
 	{
-		goldCoin = atlas.findRegion("item_gold_coin");
+		goldCoin = atlas.findRegion("goldCoin5");
 	}
 }

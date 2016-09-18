@@ -8,7 +8,7 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 
 public class DesktopLauncher 
 {
-	private static final boolean rebuildAtlas = false;
+	private static final boolean rebuildAtlas = true;
 	private static final boolean drawDebugOutline = true;
 	
 	public static void main (String[] arg) 
@@ -23,7 +23,7 @@ public class DesktopLauncher
 			settings.maxHeight = 1024;
 			settings.duplicatePadding = false;
 			settings.debug = drawDebugOutline;
-			TexturePacker.process(settings, "assets-raw/images", "../core/assets/images", "canyonbunny");
+			TexturePacker.process(settings, "assets-raw/images/tiles", "../core/assets/images", "tiles");
 		}
 		new LwjglApplication(new DougeGdxGame(), config);
 	}

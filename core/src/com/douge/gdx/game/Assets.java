@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
 public class Assets implements Disposable, AssetErrorListener 
@@ -15,11 +16,13 @@ public class Assets implements Disposable, AssetErrorListener
 	public static final Assets instance = new Assets();
 	private AssetManager assetManager;
 	
-	public AssetBunny bunny;
-	public AssetRock rock;
+	public AssetAstronaut astronaut;
+	public AssetEnv env;
 	public AssetGoldCoin goldCoin;
-	public AssetFeather feather;
+	public AssetHeart heart;
 	public AssetLevelDecoration levelDecoration;
+	public AssetSurvivor survivor;
+	public AssetTiles tiles;
 	
 	
 	private Assets()
@@ -34,7 +37,12 @@ public class Assets implements Disposable, AssetErrorListener
 		assetManager.setErrorListener(this);
 		
 		//load texture atlas
-		assetManager.load(Constants.ATLAS_PATH, TextureAtlas.class);
+		assetManager.load(Constants.ASTRONAUT_ATLAS_PATH, TextureAtlas.class);
+		assetManager.load(Constants.COIN_ATLAS_PATH, TextureAtlas.class);
+		assetManager.load(Constants.ENVIRONMENT_ATLAS_PATH, TextureAtlas.class);
+		assetManager.load(Constants.HEART_ATLAS_PATH, TextureAtlas.class);
+		assetManager.load(Constants.SURVIVOR_ATLAS_PATH, TextureAtlas.class);
+		assetManager.load(Constants.TILE_ATLAS_PATH, TextureAtlas.class);
 		//start loading assets in directory specified by atlas path
 		assetManager.finishLoading();
 		
@@ -44,8 +52,28 @@ public class Assets implements Disposable, AssetErrorListener
 		{
 			Gdx.app.debug(TAG, assetName);
 		}
+
+		//create game resource assets
+		TextureAtlas atlas = assetManager.get(Constants.ASTRONAUT_ATLAS_PATH);
+		astronaut = new AssetAstronaut(atlas);
 		
-		TextureAtlas atlas = assetManager.get(Constants.ATLAS_PATH);
+		if(Assets.instance.astronaut.astronaut == null)
+		System.out.println("astro is null");	
+		
+		atlas = assetManager.get(Constants.COIN_ATLAS_PATH);
+		goldCoin = new AssetGoldCoin(atlas);
+		
+		atlas = assetManager.get(Constants.HEART_ATLAS_PATH);
+		heart = new AssetHeart(atlas);
+		
+		atlas = assetManager.get(Constants.ENVIRONMENT_ATLAS_PATH);
+		env = new AssetEnv(atlas);
+		
+		atlas = assetManager.get((Constants.SURVIVOR_ATLAS_PATH));
+		survivor = new AssetSurvivor(atlas);
+		
+		atlas = assetManager.get(Constants.TILE_ATLAS_PATH);
+		tiles = new AssetTiles(atlas);
 		
 		//enable texture smoothing for all textures in the atlas
 		for(Texture texture: atlas.getTextures())
@@ -53,12 +81,8 @@ public class Assets implements Disposable, AssetErrorListener
 			texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		}
 		
-		//create game resource assets
-		bunny = new AssetBunny(atlas);
-		goldCoin = new AssetGoldCoin(atlas);
-		feather = new AssetFeather(atlas);
-		rock = new AssetRock(atlas);
-		levelDecoration = new AssetLevelDecoration(atlas);
+		if(Assets.instance.astronaut.astronaut == null)
+		System.out.println("astro is null");
 	}
 	
 	@Override

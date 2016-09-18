@@ -1,0 +1,90 @@
+
+heart.png
+size: 128,16
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+h1
+  rotate: false
+  xy: 2, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+h10
+  rotate: false
+  xy: 92, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+h11
+  rotate: false
+  xy: 102, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+h12
+  rotate: false
+  xy: 112, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+h2
+  rotate: false
+  xy: 12, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+h3
+  rotate: false
+  xy: 22, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+h4
+  rotate: false
+  xy: 32, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+h5
+  rotate: false
+  xy: 42, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+h6
+  rotate: false
+  xy: 52, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+h7
+  rotate: false
+  xy: 62, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+h8
+  rotate: false
+  xy: 72, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+h9
+  rotate: false
+  xy: 82, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1

@@ -4,9 +4,6 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Pixmap.Format;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -35,14 +32,15 @@ public class WorldController extends InputAdapter
 	{
 		testSprites = new Sprite[5];
 		
-		int width = 32;
-		int height = 32;
-		
 		//create a list of texture regions
 		Array<TextureRegion> regions = new Array<TextureRegion>();
-		regions.add(Assets.instance.bunny.bunny);
-		regions.add(Assets.instance.feather.feather);
+		regions.add(Assets.instance.astronaut.astronaut);
 		regions.add(Assets.instance.goldCoin.goldCoin);
+		regions.add(Assets.instance.heart.heart);
+		regions.add(Assets.instance.survivor.survivor);
+		regions.add(Assets.instance.tiles.chest);
+		regions.add(Assets.instance.tiles.tileTop);
+		regions.add(Assets.instance.tiles.tileBot);
 		
 		//create new sprites using a random texture region
 		for(int i = 0; i < testSprites.length; i++)
@@ -60,21 +58,6 @@ public class WorldController extends InputAdapter
 		}
 	}
 
-	private Pixmap createProceduralPixmap(int width, int height) {
-		Pixmap pixmap = new Pixmap(width, height, Format.RGB888);
-		pixmap.setColor(1, 0, 0, 0.5f);
-		pixmap.fill();
-		
-		pixmap.setColor(1, 1, 0, 1);
-		pixmap.drawLine(0, 0, width, height);
-		pixmap.drawLine(width, 0, 0, height);
-		
-		pixmap.setColor(0, 1, 1, 1);
-		pixmap.drawRectangle(0, 0, width, height);
-		
-		return pixmap;
-	}
-
 	public void update(float deltaTime)
 	{
 		handleDebugInput(deltaTime);
@@ -86,14 +69,19 @@ public class WorldController extends InputAdapter
 		if (Gdx.app.getType() != ApplicationType.Desktop) return;
 		// Selected Sprite Controls
 		float sprMoveSpeed = 5 * deltaTime;
-		if (Gdx.input.isKeyPressed(Keys.A)) moveSelectedSprite(
-		-sprMoveSpeed, 0);
+		if (Gdx.input.isKeyPressed(Keys.A)) 
+		{
+			moveSelectedSprite(-sprMoveSpeed, 0);
+		}
 		if (Gdx.input.isKeyPressed(Keys.D))
-		moveSelectedSprite(sprMoveSpeed, 0);
-		if (Gdx.input.isKeyPressed(Keys.W)) moveSelectedSprite(0,
-		sprMoveSpeed);
-		if (Gdx.input.isKeyPressed(Keys.S)) moveSelectedSprite(0,
-		-sprMoveSpeed);
+		{
+			moveSelectedSprite(sprMoveSpeed, 0);
+		}
+		if (Gdx.input.isKeyPressed(Keys.W)) 
+		{
+			moveSelectedSprite(0,sprMoveSpeed);
+		}
+		if (Gdx.input.isKeyPressed(Keys.S)) moveSelectedSprite(0,-sprMoveSpeed);
 		
 		// Camera Controls (move)
 		float camMoveSpeed = 5 * deltaTime;
@@ -119,7 +107,9 @@ public class WorldController extends InputAdapter
 			moveCamera(0,-camMoveSpeed);
 		}
 		if (Gdx.input.isKeyPressed(Keys.BACKSPACE))
-		cameraHelper.setPosition(0, 0);
+		{
+			cameraHelper.setPosition(0, 0);
+		}
 		
 		// Camera Controls (zoom)
 		float camZoomSpeed = 1 * deltaTime;

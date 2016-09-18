@@ -1,0 +1,27 @@
+
+environment.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+blacktrees
+  rotate: false
+  xy: 2, 260
+  size: 919, 256
+  orig: 919, 256
+  offset: 0, 0
+  index: -1
+fog
+  rotate: false
+  xy: 2, 2
+  size: 919, 256
+  orig: 919, 256
+  offset: 0, 0
+  index: -1
+whiteclouds
+  rotate: false
+  xy: 2, 518
+  size: 919, 300
+  orig: 919, 300
+  offset: 0, 0
+  index: -1

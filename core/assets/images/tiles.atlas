@@ -1,0 +1,104 @@
+
+tiles.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+12
+  rotate: false
+  xy: 652, 459
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+14
+  rotate: false
+  xy: 36, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+24
+  rotate: false
+  xy: 188, 165
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+25
+  rotate: false
+  xy: 188, 131
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+26
+  rotate: false
+  xy: 222, 199
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+27
+  rotate: false
+  xy: 586, 355
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+3
+  rotate: false
+  xy: 2, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+5
+  rotate: false
+  xy: 188, 199
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+6
+  rotate: false
+  xy: 586, 389
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Pixel Treasure Chest Closed
+  rotate: false
+  xy: 586, 423
+  size: 64, 68
+  orig: 64, 68
+  offset: 0, 0
+  index: -1
+spike A
+  rotate: false
+  xy: 2, 233
+  size: 270, 258
+  orig: 270, 258
+  offset: 0, 0
+  index: -1
+spike B
+  rotate: false
+  xy: 2, 36
+  size: 184, 195
+  orig: 184, 195
+  offset: 0, 0
+  index: -1
+spike C
+  rotate: false
+  xy: 435, 192
+  size: 149, 299
+  orig: 149, 299
+  offset: 0, 0
+  index: -1
+spike D
+  rotate: false
+  xy: 274, 165
+  size: 159, 326
+  orig: 159, 326
+  offset: 0, 0
+  index: -1
