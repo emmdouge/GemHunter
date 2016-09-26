@@ -1,4 +1,4 @@
-package com.douge.gdx.game;
+package com.douge.gdx.game.assets;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 public class AssetGoldCoin {
 	public final AtlasRegion goldCoin;
 	
-	public AssetGoldCoin(TextureAtlas atlas)
+	protected AssetGoldCoin(TextureAtlas atlas)
 	{
 		goldCoin = atlas.findRegion("goldCoin5");
 	}

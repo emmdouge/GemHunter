@@ -1,4 +1,4 @@
-package com.douge.gdx.game;
+package com.douge.gdx.game.assets;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -11,7 +11,7 @@ public class AssetTiles {
 	public final AtlasRegion tileTop;
 	public final AtlasRegion tileBot;
 	
-	public AssetTiles(TextureAtlas atlas) {
+	protected AssetTiles(TextureAtlas atlas) {
 		chest = atlas.findRegion("Pixel Treasure Chest Closed");
 		tileTop = atlas.findRegion("3");
 		tileBot = atlas.findRegion("14");

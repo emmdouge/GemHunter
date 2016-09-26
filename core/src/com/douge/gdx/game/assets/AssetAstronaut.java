@@ -1,4 +1,4 @@
-package com.douge.gdx.game;
+package com.douge.gdx.game.assets;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -8,7 +8,7 @@ public class AssetAstronaut
 {
 	public AtlasRegion astronaut;
 	
-	public AssetAstronaut(TextureAtlas atlas)
+	protected AssetAstronaut(TextureAtlas atlas)
 	{
 		astronaut = atlas.findRegion("0000");
 	}

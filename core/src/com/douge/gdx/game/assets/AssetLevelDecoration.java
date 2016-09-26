@@ -1,4 +1,4 @@
-package com.douge.gdx.game;
+package com.douge.gdx.game.assets;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -13,7 +13,7 @@ public class AssetLevelDecoration {
 	
 	public final AtlasRegion waterOverlay;
 	
-	public AssetLevelDecoration(TextureAtlas atlas)
+	protected AssetLevelDecoration(TextureAtlas atlas)
 	{
 		cloud01 = atlas.findRegion("cloud01");
 		cloud02 = atlas.findRegion("cloud02");

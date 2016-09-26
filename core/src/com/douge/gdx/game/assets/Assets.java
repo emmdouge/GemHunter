@@ -1,4 +1,4 @@
-package com.douge.gdx.game;
+package com.douge.gdx.game.assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import com.douge.gdx.game.Constants;
 
 public class Assets implements Disposable, AssetErrorListener 
 {
@@ -16,6 +17,7 @@ public class Assets implements Disposable, AssetErrorListener
 	public static final Assets instance = new Assets();
 	private AssetManager assetManager;
 	
+	public AssetFonts fonts;
 	public AssetAstronaut astronaut;
 	public AssetEnv env;
 	public AssetGoldCoin goldCoin;
@@ -43,6 +45,7 @@ public class Assets implements Disposable, AssetErrorListener
 		assetManager.load(Constants.HEART_ATLAS_PATH, TextureAtlas.class);
 		assetManager.load(Constants.SURVIVOR_ATLAS_PATH, TextureAtlas.class);
 		assetManager.load(Constants.TILE_ATLAS_PATH, TextureAtlas.class);
+		assetManager.load(Constants.CANYONBUNNY_PATH, TextureAtlas.class);
 		//start loading assets in directory specified by atlas path
 		assetManager.finishLoading();
 		
@@ -74,6 +77,11 @@ public class Assets implements Disposable, AssetErrorListener
 		
 		atlas = assetManager.get(Constants.TILE_ATLAS_PATH);
 		tiles = new AssetTiles(atlas);
+		
+		atlas = assetManager.get(Constants.CANYONBUNNY_PATH);
+		levelDecoration = new AssetLevelDecoration(atlas);
+		
+		fonts = new AssetFonts();
 		
 		//enable texture smoothing for all textures in the atlas
 		for(Texture texture: atlas.getTextures())

@@ -8,7 +8,7 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 
 public class DesktopLauncher 
 {
-	private static final boolean rebuildAtlas = true;
+	private static final boolean rebuildAtlas = false;
 	private static final boolean drawDebugOutline = true;
 	
 	public static void main (String[] arg) 
