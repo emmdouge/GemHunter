@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.objects.AbstractGameObject;
 import com.douge.gdx.game.objects.Clouds;
+import com.douge.gdx.game.objects.RockBackground;
 import com.douge.gdx.game.objects.Trees;
 import com.douge.gdx.game.objects.Rock;
 import com.douge.gdx.game.objects.WaterOverlay;
@@ -21,7 +22,7 @@ public class Level
 	
 	public enum BLOCK_TYPE 
 	{
-		EMPTY(0, 0, 0), // black
+		ROCK_BACK(0, 0, 0), // black
 		ROCK(0, 255, 0), // green
 		PLAYER_SPAWNPOINT(255, 255, 255), // white
 		ITEM_FEATHER(255, 0, 255), // purple
@@ -46,10 +47,11 @@ public class Level
 	
 	// objects
 	public Array<Rock> rocks;
+	public Array<RockBackground> rocksBackground;
 	
 	// decoration
 	public Clouds clouds;
-	public Trees mountains;
+	public Trees trees;
 	public WaterOverlay waterOverlay;
 	
 	public Level (String filename) 
@@ -60,6 +62,7 @@ public class Level
 	{
 		// objects
 		rocks = new Array<Rock>();
+		rocksBackground = new Array<RockBackground>();
 		
 		// load image file that represents the level data
 		Pixmap pixmap = new Pixmap(Gdx.files.internal("../core/assets/levels/level-01.png"));
@@ -72,6 +75,7 @@ public class Level
 			{
 				AbstractGameObject obj = null;
 				float offsetHeight = 0;
+				
 				// height grows from bottom to top
 				float baseHeight = pixmap.getHeight() - pixelY;
 				
@@ -81,10 +85,14 @@ public class Level
 				// find matching color value to identify block type at (x,y)
 				// point and create the corresponding game object if there is a match
 		
-				// empty space
-				if (BLOCK_TYPE.EMPTY.sameColor(currentPixel)) 
+				// rock back
+				if (BLOCK_TYPE.ROCK_BACK.sameColor(currentPixel)) 
 				{
-					// do nothing
+						obj = new RockBackground();
+						float heightIncreaseFactor = 1f;
+						offsetHeight = -2.5f;
+						obj.position.set(pixelX, baseHeight * obj.dimension.y * heightIncreaseFactor + offsetHeight);
+						rocksBackground.add((RockBackground)obj);
 				}
 		
 				// rock
@@ -93,7 +101,7 @@ public class Level
 					if (lastPixel != currentPixel) 
 					{
 						obj = new Rock();
-						float heightIncreaseFactor = 0.25f;
+						float heightIncreaseFactor = 1f;
 						offsetHeight = -2.5f;
 						obj.position.set(pixelX, baseHeight * obj.dimension.y * heightIncreaseFactor + offsetHeight);
 						rocks.add((Rock)obj);
@@ -141,8 +149,8 @@ public class Level
 		// decoration
 		clouds = new Clouds(pixmap.getWidth());
 		clouds.position.set(0, 2);
-		mountains = new Trees(pixmap.getWidth());
-		mountains.position.set(-1, -1);
+		trees = new Trees(pixmap.getWidth());
+		trees.position.set(-1, -1);
 		waterOverlay = new WaterOverlay(pixmap.getWidth());
 		waterOverlay.position.set(0, -3.75f);
 		
@@ -157,15 +165,18 @@ public class Level
 	 */
 	public void render (SpriteBatch batch) 
 	{
-		// Draw Mountains
-		mountains.render(batch);
+		for(RockBackground rockBack: rocksBackground)
+		rockBack.render(batch);
+		
+		// Draw trees
+		trees.render(batch);
+		
+		// Draw Water Overlay
+		waterOverlay.render(batch);
 		
 		// Draw Rocks
 		for (Rock rock : rocks)
 		rock.render(batch);
-		
-		// Draw Water Overlay
-		waterOverlay.render(batch);
 		
 		// Draw Clouds
 		clouds.render(batch);

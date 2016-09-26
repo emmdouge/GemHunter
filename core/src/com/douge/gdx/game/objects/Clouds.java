@@ -1,4 +1,5 @@
 package com.douge.gdx.game.objects;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -88,6 +89,7 @@ public class Clouds extends AbstractGameObject
 	@Override
 	public void render (SpriteBatch batch) 
 	{
+		batch.setColor(Color.WHITE);
 		for (Cloud cloud : clouds)
 		{
 			cloud.render(batch);

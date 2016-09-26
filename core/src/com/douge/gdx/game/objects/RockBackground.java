@@ -5,13 +5,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.douge.gdx.game.assets.Assets;
 
-public class Rock extends AbstractGameObject
-{
+public class RockBackground extends AbstractGameObject{
 	private TextureRegion regMiddle;
 	
 	private int length;
 	
-	public Rock () 
+	public RockBackground () 
 	{
 		init();
 	}
@@ -19,7 +18,7 @@ public class Rock extends AbstractGameObject
 	private void init () 
 	{
 		dimension.set(1, 1);
-		regMiddle = Assets.instance.tiles.tileTop;
+		regMiddle = Assets.instance.tiles.tileBot;
 		// Start length of this rock
 		setLength(1);
 	}
@@ -36,7 +35,7 @@ public class Rock extends AbstractGameObject
 	@Override
 	public void render(SpriteBatch batch) 
 	{
-		batch.setColor(Color.GRAY);
+		batch.setColor(Color.DARK_GRAY);
 		
 		TextureRegion reg = null;
 		float relX = 0;
@@ -60,5 +59,4 @@ public class Rock extends AbstractGameObject
 			relX += dimension.x;
 		}
 	}
-
 }

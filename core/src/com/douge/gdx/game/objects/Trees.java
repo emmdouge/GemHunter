@@ -79,13 +79,7 @@ public class Trees extends AbstractGameObject
 	public void render(SpriteBatch batch) 
 	{
 		// distant mountains (dark gray)
-		drawMountain(batch, 0.5f, 0.5f, 0.5f);
-		
-		// distant mountains (gray)
-		drawMountain(batch, 0.25f, 0.25f, 0.7f);
-		
-		// distant mountains (light gray)
-		drawMountain(batch, 0.0f, 0.0f, 0.9f);
+		drawMountain(batch, 0.5f, 0f, 0f);
 	}
 
 }

@@ -1,4 +1,5 @@
 package com.douge.gdx.game.objects;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.douge.gdx.game.assets.Assets;
@@ -25,6 +26,8 @@ public class WaterOverlay extends AbstractGameObject
 	@Override
 	public void render (SpriteBatch batch) 
 	{
+		batch.setColor(Color.BLACK);
+		
 		TextureRegion reg = null;
 		reg = regWaterOverlay;
 		batch.draw(reg.getTexture(), 
@@ -35,6 +38,6 @@ public class WaterOverlay extends AbstractGameObject
 				rotation, 
 				reg.getRegionX(), reg.getRegionY(),
 				reg.getRegionWidth(), reg.getRegionHeight(),
-				false, false);
+				false, true);
 	}
 }
