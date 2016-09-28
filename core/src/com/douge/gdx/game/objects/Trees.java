@@ -19,7 +19,7 @@ public class Trees extends AbstractGameObject
 	}
 	private void init () 
 	{
-		dimension.set(10, 2);
+		dimension.set(10, 3);
 		regTreeLeft = Assets.instance.env.trees;
 		regTreeRight = Assets.instance.env.trees;
 		

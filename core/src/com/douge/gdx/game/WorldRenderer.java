@@ -101,7 +101,7 @@ public class WorldRenderer implements Disposable
 			{
 				batch.setColor(0.5f, 0.5f, 0.5f, 0.5f);
 			}
-			batch.draw(Assets.instance.astronaut.astronaut,
+			batch.draw(Assets.instance.heart.heart,
 					x + i * 50, y, 
 					50, 50, 
 					120, 100, 

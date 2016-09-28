@@ -10,6 +10,12 @@ public class Constants
 	public static final float VIEWPORT_GUI_WIDTH = 800.0f;
 	public static final float VIEWPORT_GUI_HEIGHT = 480.0f;
 	
+	//MIN MAX of world
+	public static final float CAMERA_X_MIN = 3.41f;
+	public static final float CAMERA_X_MAX = 124.7f;
+	public static final float CAMERA_Y_MIN = 1f;
+	public static final float CAMERA_Y_MAX = 28f;
+	
 	// Amount of extra lives at level start
 	public static final int LIVES_START = 3;
 	

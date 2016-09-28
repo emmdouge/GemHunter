@@ -10,6 +10,7 @@ public class CameraHelper {
 	
 	private final float MAX_ZOOM_IN = 0.25f;
 	private final float MAX_ZOOM_OUT = 10.0f;
+	public boolean clampCam = true;
 	private float zoom; 
 	public OrthographicCamera camera;
 	private Vector2 position;
@@ -66,6 +67,25 @@ public class CameraHelper {
 	
 	public void applyTo(OrthographicCamera camera)
 	{
+		if(clampCam == true)
+		{
+			if(position.x < Constants.CAMERA_X_MIN)
+			{
+				position.x = Constants.CAMERA_X_MIN;
+			}
+			if(position.x > Constants.CAMERA_X_MAX)
+			{
+				position.x = Constants.CAMERA_X_MAX;
+			}
+			if(position.y < Constants.CAMERA_Y_MIN)
+			{
+				position.y = Constants.CAMERA_Y_MIN;
+			}
+			if(position.y > Constants.CAMERA_Y_MAX)
+			{
+				position.y = Constants.CAMERA_Y_MAX;
+			}
+		}
 		camera.position.x = position.x;
 		camera.position.y = position.y;
 		camera.zoom = zoom;
@@ -86,4 +106,6 @@ public class CameraHelper {
 	{
 		return hasTarget()&& this.target.equals(target);
 	}
+
+
 }

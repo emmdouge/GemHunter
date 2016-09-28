@@ -99,8 +99,11 @@ public class WorldController extends InputAdapter
 	
 	private void moveCamera (float x, float y) 
 	{
+		Gdx.app.log(TAG, "(" + cameraHelper.getPosition().x + ", " + cameraHelper.getPosition().y + ")");
+
 		x += cameraHelper.getPosition().x;
 		y += cameraHelper.getPosition().y;
+		
 		cameraHelper.setPosition(x, y);
 	}
 
