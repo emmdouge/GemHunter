@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.douge.gdx.game.objects.AbstractGameObject;
 
 public class CameraHelper {
 	private static final String TAG = CameraHelper.class.getName();
@@ -14,7 +15,7 @@ public class CameraHelper {
 	private float zoom; 
 	public OrthographicCamera camera;
 	private Vector2 position;
-	private Sprite target;
+	private AbstractGameObject target;
 	
 	public CameraHelper()
 	{
@@ -31,8 +32,8 @@ public class CameraHelper {
 		 */
 		if(target != null)
 		{
-			position.x = target.getX() + target.getOriginX();
-			position.y = target.getY() + target.getOriginY();
+			position.x = target.position.x + target.origin.x;
+			position.y = target.position.y + target.origin.y;
 		}
 	}
 	
@@ -61,7 +62,7 @@ public class CameraHelper {
 		this.zoom = MathUtils.clamp(zoom, MAX_ZOOM_IN, MAX_ZOOM_OUT);
 	}
 	
-	public boolean targetIs(Sprite target) {
+	public boolean targetIs(AbstractGameObject target) {
 		return this.target == target;
 	}
 	
@@ -86,15 +87,16 @@ public class CameraHelper {
 				position.y = Constants.CAMERA_Y_MAX;
 			}
 		}
+		
 		camera.position.x = position.x;
 		camera.position.y = position.y;
 		camera.zoom = zoom;
 		camera.update();
 	}
 	
-	public void setTarget(Sprite sprite)
+	public void setTarget(AbstractGameObject object)
 	{
-		target = sprite;
+		target = object;
 	}
 	
 	public boolean hasTarget()
