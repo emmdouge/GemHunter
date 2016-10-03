@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.douge.gdx.game.objects.AbstractGameObject;
+import com.douge.gdx.game.objects.Astronaut;
 
 public class CameraHelper {
 	private static final String TAG = CameraHelper.class.getName();
@@ -35,6 +36,9 @@ public class CameraHelper {
 			position.x = target.position.x + target.origin.x;
 			position.y = target.position.y + target.origin.y;
 		}
+		
+	    // Prevent camera from moving down too far 
+	    position.y = Math.max(-1f, position.y); 
 	}
 	
 	public void setPosition(float x, float y)
@@ -104,9 +108,9 @@ public class CameraHelper {
 		return target != null;
 	}
 	
-	public boolean hasTarget(Sprite target)
+	public boolean hasTarget(AbstractGameObject astronaut)
 	{
-		return hasTarget()&& this.target.equals(target);
+		return hasTarget()&& this.target.equals(astronaut);
 	}
 
 

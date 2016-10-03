@@ -16,6 +16,11 @@ public class Constants
 	public static final float CAMERA_Y_MIN = 1f;
 	public static final float CAMERA_Y_MAX = 28f;
 	
+	// Delay after game over 
+	public static final float TIME_DELAY_GAME_OVER = 3; 
+	   
+	public static final float ITEM_GREENHEART_POWERUP_DURATION = 9; 
+	
 	// Amount of extra lives at level start
 	public static final int LIVES_START = 3;
 	

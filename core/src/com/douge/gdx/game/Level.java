@@ -1,11 +1,15 @@
 package com.douge.gdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.objects.AbstractGameObject;
+import com.douge.gdx.game.objects.Astronaut;
 import com.douge.gdx.game.objects.Clouds;
+import com.douge.gdx.game.objects.GoldCoin;
+import com.douge.gdx.game.objects.GreenHeart;
 import com.douge.gdx.game.objects.RockBackground;
 import com.douge.gdx.game.objects.Trees;
 import com.douge.gdx.game.objects.Rock;
@@ -19,6 +23,10 @@ import com.douge.gdx.game.objects.WaterOverlay;
 public class Level 
 {
 	public static final String TAG = Level.class.getName();
+	
+	public Astronaut astronaut; 
+	public Array<GoldCoin> goldcoins; 
+	public Array<GreenHeart> greenHearts; 
 	
 	public enum BLOCK_TYPE 
 	{
@@ -60,7 +68,12 @@ public class Level
 	}
 	private void init (String filename) 
 	{
-		// objects
+	    // player character 
+	    astronaut = null; 
+	     
+	    // objects 
+	    goldcoins = new Array<GoldCoin>(); 
+	    greenHearts = new Array<GreenHeart>(); 
 		rocks = new Array<Rock>();
 		rocksBackground = new Array<RockBackground>();
 		
@@ -115,16 +128,28 @@ public class Level
 				// player spawn point
 				else if (BLOCK_TYPE.PLAYER_SPAWNPOINT.sameColor(currentPixel)) 
 				{
+			          obj = new Astronaut(); 
+			          offsetHeight = -1.5f; 
+			          obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight); 
+			          astronaut = (Astronaut)obj; 
 				}
 				
 				// feather
 				else if (BLOCK_TYPE.ITEM_FEATHER.sameColor(currentPixel)) 
 				{
+			          obj = new GreenHeart(); 
+			          offsetHeight = -1.5f; 
+			          obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight); 
+			          greenHearts.add((GreenHeart)obj); 
 				}
 		
 				// gold coin
 				else if (BLOCK_TYPE.ITEM_GOLD_COIN.sameColor(currentPixel)) 
 				{
+			          obj = new GoldCoin(); 
+			          offsetHeight = -1.5f; 
+			          obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight); 
+			          goldcoins.add((GoldCoin)obj); 
 				}
 		
 				// unknown object/pixel color
@@ -159,6 +184,22 @@ public class Level
 		Gdx.app.debug(TAG, "level '" + filename + "' loaded");
 	}
 	
+	public void update (float deltaTime) 
+	{
+		astronaut.update(deltaTime);
+		
+		for(Rock rock : rocks)
+		rock.update(deltaTime);
+		
+		for(GoldCoin goldCoin : goldcoins)
+		goldCoin.update(deltaTime);
+		
+		for(GreenHeart greenHeart : greenHearts)
+		greenHeart.update(deltaTime);
+		
+		clouds.update(deltaTime);
+	}
+	
 	/**
 	 * Draws the level
 	 * @param batch the batch from the worldRenderer
@@ -170,6 +211,19 @@ public class Level
 		
 		// Draw trees
 		trees.render(batch);
+		
+	    // Draw Gold Coins 
+	    for (GoldCoin goldCoin : goldcoins) 
+	    goldCoin.render(batch); 
+	     
+	    // Draw Feathers 
+	    for (GreenHeart greenHeart : greenHearts) 
+	    greenHeart.render(batch); 
+	     
+	    batch.setColor(Color.WHITE);
+	    
+	    // Draw Player Character 
+	    astronaut.render(batch); 
 		
 		// Draw Water Overlay
 		waterOverlay.render(batch);
