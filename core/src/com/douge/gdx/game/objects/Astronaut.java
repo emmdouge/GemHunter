@@ -8,9 +8,9 @@ import com.douge.gdx.game.assets.Assets;
 public class Astronaut extends AbstractGameObject
 {
 	public static final String TAG = Astronaut.class.getName();
-	private final float JUMP_TIME_MAX = 0.3f;
-	private final float JUMP_TIME_MIN = 0.1f;
-	private final float JUMP_TIME_OFFSET_FLYING = JUMP_TIME_MAX - 0.018f;
+	public final float JUMP_TIME_MAX = 0.3f;
+	public final float JUMP_TIME_MIN = 0.1f;
+	public final float JUMP_TIME_OFFSET_FLYING = JUMP_TIME_MAX - 0.018f;
 	
 	public enum VIEW_DIRECTION 
 	{ 
