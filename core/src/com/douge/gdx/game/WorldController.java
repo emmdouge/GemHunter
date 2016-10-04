@@ -176,14 +176,14 @@ public class WorldController extends InputAdapter
 		}
 	};
 	
-	private void onCollisionBunnyWithGoldCoin(GoldCoin goldcoin) 
+	private void onCollisionAstronautWithGoldCoin(GoldCoin goldcoin) 
 	{
 		goldcoin.collected = true;
 		score += goldcoin.getScore();
 		Gdx.app.log(TAG, "Gold coin collected");
 	};
 	
-	private void onCollisionBunnyWithFeather(GreenHeart greenHeart) 
+	private void onCollisionAstronautWithGreenHeart(GreenHeart greenHeart) 
 	{
 		greenHeart.collected = true;
 		score += greenHeart.getScore();
@@ -228,7 +228,7 @@ public class WorldController extends InputAdapter
 				continue;
 			}
 			
-			onCollisionBunnyWithGoldCoin(goldcoin);
+			onCollisionAstronautWithGoldCoin(goldcoin);
 			break;
 		}
 		// Test collision: Bunny Head <-> Feathers
@@ -244,7 +244,7 @@ public class WorldController extends InputAdapter
 			{
 				continue;
 			}
-			onCollisionBunnyWithFeather(greenHeart);
+			onCollisionAstronautWithGreenHeart(greenHeart);
 			break;
 		}
 	}
