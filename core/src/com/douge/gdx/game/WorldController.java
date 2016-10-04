@@ -166,7 +166,8 @@ public class WorldController extends InputAdapter
 				break;
 			case FALLING:
 			case JUMP_FALLING:
-				astronaut.position.y = rock.position.y + astronaut.bounds.height + astronaut.origin.y;
+				//astronaut.position.y = rock.position.y + astronaut.bounds.height + astronaut.origin.y;
+				astronaut.position.y = rock.position.y + astronaut.bounds.height;
 				astronaut.jumpState = JUMP_STATE.GROUNDED;
 				break;
 			case JUMP_RISING:
