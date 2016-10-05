@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.douge.gdx.game.Constants;
 import com.douge.gdx.game.assets.Assets;
 
 public class Clouds extends AbstractGameObject
@@ -74,6 +75,10 @@ public class Clouds extends AbstractGameObject
 	{
 		for(int i = 0; i < clouds.size; i++)
 		{
+			if(clouds.get(i).position.x > Constants.CAMERA_X_MAX)
+			{
+				clouds.get(i).position.x = 0;
+			}
 			clouds.get(i).update(deltaTime);
 		}
 	}
