@@ -56,6 +56,7 @@ public class Clouds extends AbstractGameObject
 		regClouds = new Array<TextureRegion>();
 		regClouds.add(Assets.instance.env.clouds);
 		
+
 		int distFac = 5;
 		int numClouds = (int)(length / distFac);
 		clouds = new Array<Cloud>(2 * numClouds);
@@ -64,6 +65,16 @@ public class Clouds extends AbstractGameObject
 			Cloud cloud = spawnCloud();
 			cloud.position.x = i * distFac;
 			clouds.add(cloud);
+			cloud.velocity = new Vector2(1, 0);
+			cloud.maxVelocity = new Vector2(3, 0);
+		}
+	}
+	
+	public void update(float deltaTime)
+	{
+		for(int i = 0; i < clouds.size; i++)
+		{
+			clouds.get(i).update(deltaTime);
 		}
 	}
 	private Cloud spawnCloud () 
