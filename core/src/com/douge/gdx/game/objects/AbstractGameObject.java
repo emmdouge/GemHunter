@@ -46,6 +46,7 @@ public abstract class AbstractGameObject
 		position.y += velocity.y * deltaTime;
 	}
 	
+
 	protected void updateMotionX (float deltaTime) 
 	{
 		if (velocity.x != 0) 

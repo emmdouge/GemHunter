@@ -160,20 +160,7 @@ public class WorldController extends InputAdapter
 			return;
 		}
 		
-		switch (astronaut.jumpState) 
-		{
-			case GROUNDED:
-				break;
-			case FALLING:
-			case JUMP_FALLING:
-				//astronaut.position.y = rock.position.y + astronaut.bounds.height + astronaut.origin.y;
-				astronaut.position.y = rock.position.y + astronaut.bounds.height;
-				astronaut.jumpState = JUMP_STATE.GROUNDED;
-				break;
-			case JUMP_RISING:
-				astronaut.position.y = rock.position.y + astronaut.bounds.height + astronaut.origin.y;
-				break;
-		}
+		astronaut.context.setStateBasedOnCollisionWithRock(rock);
 	};
 	
 	private void onCollisionAstronautWithGoldCoin(GoldCoin goldcoin) 
@@ -272,14 +259,8 @@ public class WorldController extends InputAdapter
 			}
 			
 			// Bunny Jump
-			if (Gdx.input.isTouched() || Gdx.input.isKeyPressed(Keys.SPACE)) 
-			{
-				level.astronaut.setJumping(true);
-			} 
-			else 
-			{
-				level.astronaut.setJumping(false);
-			}
+			boolean jumpKeyPressed = Gdx.input.isTouched() || Gdx.input.isKeyPressed(Keys.SPACE);
+			level.astronaut.context.setStateBasedOnInput(jumpKeyPressed);
 		}
 	}
 	

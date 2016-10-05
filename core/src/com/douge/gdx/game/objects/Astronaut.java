@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.douge.gdx.game.Constants;
 import com.douge.gdx.game.assets.Assets;
+import com.douge.gdx.game.playerstate.PlayerStateContext;
+import com.sun.xml.internal.bind.CycleRecoverable.Context;
 
 public class Astronaut extends AbstractGameObject
 {
@@ -11,6 +13,8 @@ public class Astronaut extends AbstractGameObject
 	public final float JUMP_TIME_MAX = 0.3f;
 	public final float JUMP_TIME_MIN = 0.1f;
 	public final float JUMP_TIME_OFFSET_FLYING = JUMP_TIME_MAX - 0.018f;
+	
+	public PlayerStateContext context;
 	
 	public enum VIEW_DIRECTION 
 	{ 
@@ -58,6 +62,7 @@ public class Astronaut extends AbstractGameObject
 		
 		// Jump state
 		jumpState = JUMP_STATE.FALLING;
+		context = new PlayerStateContext(this);
 		timeJumping = 0;
 		
 		// Power-ups
@@ -67,26 +72,11 @@ public class Astronaut extends AbstractGameObject
 	
 	public void update(float deltaTime)
 	{
-		//calls updateMotionX and updateMotionY and moves them
-		super.update(deltaTime);
-		
-		if (velocity.x != 0) 
-		{
-			viewDirection = velocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
-		}
-		if (timeLeftGreenHeartPowerup > 0) 
-		{
-			timeLeftGreenHeartPowerup -= deltaTime;
-		}
-		if (timeLeftGreenHeartPowerup < 0) 
-		{
-			// disable power-up
-			timeLeftGreenHeartPowerup = 0;
-			setGreenHeartPowerup(false);
-		}
+		context.getCurrentState().execute(deltaTime);
 	}
 	
-	public void updateMotionX(float deltaTime)
+	@Override
+	public void updateMotionY(float deltaTime)
 	{
 		switch (jumpState) 
 		{
