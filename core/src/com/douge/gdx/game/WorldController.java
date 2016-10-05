@@ -243,18 +243,18 @@ public class WorldController extends InputAdapter
 			// Player Movement
 			if (Gdx.input.isKeyPressed(Keys.LEFT)) 
 			{
-				level.survivor.velocity.x = -level.survivor.terminalVelocity.x;
+				level.survivor.velocity.x = -level.survivor.maxVelocity.x;
 			} 
 			else if (Gdx.input.isKeyPressed(Keys.RIGHT)) 
 			{
-				level.survivor.velocity.x = level.survivor.terminalVelocity.x;
+				level.survivor.velocity.x = level.survivor.maxVelocity.x;
 			} 
 			else 
 			{
 				// Execute auto-forward movement on non-desktop platform
 				if (Gdx.app.getType() != ApplicationType.Desktop) 
 				{
-					level.survivor.velocity.x = level.survivor.terminalVelocity.x;
+					level.survivor.velocity.x = level.survivor.maxVelocity.x;
 				}
 			}
 			

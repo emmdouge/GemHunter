@@ -14,9 +14,9 @@ public abstract class AbstractGameObject
 	public float rotation;
 	
 	public Vector2 velocity; 
-	public Vector2 terminalVelocity; 
+	public Vector2 maxVelocity; 
 	public Vector2 friction; 
-	public Vector2 acceleration; 
+	public Vector2 gravity; 
 	public Rectangle bounds; 
 	
 	public AbstractGameObject () 
@@ -28,9 +28,9 @@ public abstract class AbstractGameObject
 		rotation = 0;
 		
 	    velocity = new Vector2(); 
-	    terminalVelocity = new Vector2(1, 1); 
+	    maxVelocity = new Vector2(1, 1); 
 	    friction = new Vector2(); 
-	    acceleration = new Vector2(); 
+	    gravity = new Vector2(); 
 	    bounds = new Rectangle(); 
 	}
 	
@@ -63,11 +63,11 @@ public abstract class AbstractGameObject
 		}
 		
 		// Apply acceleration
-		velocity.x += acceleration.x * deltaTime;
+		velocity.x += gravity.x * deltaTime;
 		
 		// Make sure the object's velocity does not exceed the
 		// positive or negative terminal velocity
-		velocity.x = MathUtils.clamp(velocity.x, -terminalVelocity.x, terminalVelocity.x);
+		velocity.x = MathUtils.clamp(velocity.x, -maxVelocity.x, maxVelocity.x);
 	}
 	
 	protected void updateMotionY (float deltaTime) 
@@ -86,11 +86,11 @@ public abstract class AbstractGameObject
 		}
 		
 		// Apply acceleration
-		velocity.y += acceleration.y * deltaTime;
+		velocity.y += gravity.y * deltaTime;
 		
 		// Make sure the object's velocity does not exceed the
 		// positive or negative terminal velocity
-		velocity.y = MathUtils.clamp(velocity.y, -terminalVelocity.y, terminalVelocity.y);
+		velocity.y = MathUtils.clamp(velocity.y, -maxVelocity.y, maxVelocity.y);
 	}
 	
 	public abstract void render (SpriteBatch batch);

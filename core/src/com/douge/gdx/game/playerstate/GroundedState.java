@@ -30,11 +30,11 @@ public class GroundedState extends PlayerState
 		}
 		
 		// Apply acceleration
-		player.velocity.x += player.acceleration.x * deltaTime;
+		player.velocity.x += player.gravity.x * deltaTime;
 		
 		// Make sure the object's velocity does not exceed the
 		// positive or negative terminal velocity
-		player.velocity.x = MathUtils.clamp(player.velocity.x, -player.terminalVelocity.x, player.terminalVelocity.x);
+		player.velocity.x = MathUtils.clamp(player.velocity.x, -player.maxVelocity.x, player.maxVelocity.x);
 		
 		context.setPlayerState(context.getFallingState());
 		

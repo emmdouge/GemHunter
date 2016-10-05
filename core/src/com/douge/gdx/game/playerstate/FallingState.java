@@ -30,11 +30,11 @@ public class FallingState extends PlayerState
 		}
 		
 		// Apply acceleration
-		player.velocity.x += player.acceleration.x * deltaTime;
+		player.velocity.x += player.gravity.x * deltaTime;
 		
 		// Make sure the object's velocity does not exceed the
 		// positive or negative terminal velocity
-		player.velocity.x = MathUtils.clamp(player.velocity.x, -player.terminalVelocity.x, player.terminalVelocity.x);
+		player.velocity.x = MathUtils.clamp(player.velocity.x, -player.maxVelocity.x, player.maxVelocity.x);
 		
 		// Move to new position
 		player.position.x += player.velocity.x * deltaTime;
@@ -47,7 +47,7 @@ public class FallingState extends PlayerState
 		if (player.timeJumping > 0 && player.timeJumping <= player.JUMP_TIME_MIN) 
 		{
 			// Still jumping
-			player.velocity.y = player.terminalVelocity.y;
+			player.velocity.y = player.maxVelocity.y;
 		}
 		
 		if (player.velocity.y != 0) 
@@ -64,11 +64,11 @@ public class FallingState extends PlayerState
 		}
 		
 		// Apply acceleration
-		player.velocity.y += player.acceleration.y * deltaTime;
+		player.velocity.y += player.gravity.y * deltaTime;
 		
 		// Make sure the object's velocity does not exceed the
 		// positive or negative terminal velocity
-		player.velocity.y = MathUtils.clamp(player.velocity.y, -player.terminalVelocity.y, player.terminalVelocity.y);
+		player.velocity.y = MathUtils.clamp(player.velocity.y, -player.maxVelocity.y, player.maxVelocity.y);
 		
 		if (player.velocity.x != 0) 
 		{
