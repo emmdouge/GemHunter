@@ -7,9 +7,9 @@ import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.playerstate.PlayerStateContext;
 import com.sun.xml.internal.bind.CycleRecoverable.Context;
 
-public class Astronaut extends AbstractGameObject
+public class Survivor extends AbstractGameObject
 {
-	public static final String TAG = Astronaut.class.getName();
+	public static final String TAG = Survivor.class.getName();
 	public final float JUMP_TIME_MAX = 0.3f;
 	public final float JUMP_TIME_MIN = 0.1f;
 	public final float JUMP_TIME_OFFSET_FLYING = JUMP_TIME_MAX - 0.018f;
@@ -30,21 +30,21 @@ public class Astronaut extends AbstractGameObject
 		JUMP_FALLING
 	}
 	
-	private TextureRegion regAstronaut;
+	private TextureRegion regSurvivor;
 	public VIEW_DIRECTION viewDirection;
 	public float timeJumping;
 	public JUMP_STATE jumpState;
 	public boolean hasGreenHeartPowerup;
 	public float timeLeftGreenHeartPowerup;
 	
-	public Astronaut() 
+	public Survivor() 
 	{
 		init();
 	}
 	public void init() 
 	{
 		dimension.set(1, 1);
-		regAstronaut = Assets.instance.astronaut.astronaut;
+		regSurvivor = Assets.instance.survivor.survivor;
 		
 		// Center image on game object
 		origin.set(dimension.x / 2, dimension.y / 2);
@@ -75,48 +75,9 @@ public class Astronaut extends AbstractGameObject
 		context.getCurrentState().execute(deltaTime);
 	}
 	
-	@Override
-	public void updateMotionY(float deltaTime)
-	{
-		switch (jumpState) 
-		{
-			case GROUNDED:
-				jumpState = JUMP_STATE.FALLING;
-			break;
-			case JUMP_RISING:
-				// Keep track of jump time
-				timeJumping += deltaTime;
-		
-				// Jump time left?
-				if (timeJumping <= JUMP_TIME_MAX) 
-				{
-					// Still jumping
-					velocity.y = terminalVelocity.y;
-				}
-			break;
-			case FALLING:
-
-			case JUMP_FALLING:
-				// Add delta times to track jump time
-				timeJumping += deltaTime;
-		
-				// Jump to minimal height if jump key was pressed too short
-				if (timeJumping > 0 && timeJumping <= JUMP_TIME_MIN) 
-				{
-					// Still jumping
-					velocity.y = terminalVelocity.y;
-				}
-		}
-		
-		if (jumpState != JUMP_STATE.GROUNDED)
-		{
-			super.updateMotionY(deltaTime);		
-		}
-	}
-	
 	public void render(SpriteBatch batch)
 	{
-		TextureRegion reg = regAstronaut;
+		TextureRegion reg = regSurvivor;
 		
 		// Set special color when game object has a feather power-up
 		if (hasGreenHeartPowerup) 
@@ -138,35 +99,6 @@ public class Astronaut extends AbstractGameObject
 		// Reset color to white
 		batch.setColor(1, 1, 1, 1);
 	}
-	
-	public void setJumping (boolean jumpKeyPressed) 
-	{
-		switch (jumpState) 
-		{
-			case GROUNDED: // Character is standing on a platform
-				if (jumpKeyPressed) 
-				{
-					// Start counting jump time from the beginning
-					timeJumping = 0;
-					jumpState = JUMP_STATE.JUMP_RISING;
-				}
-				break;
-			case JUMP_RISING: // Rising in the air
-				if (!jumpKeyPressed)
-				{
-					jumpState = JUMP_STATE.JUMP_FALLING;
-				}
-				break;
-			case FALLING:// Falling down
-			case JUMP_FALLING: // Falling down after jump
-				if (jumpKeyPressed && hasGreenHeartPowerup) 
-				{
-					timeJumping = JUMP_TIME_OFFSET_FLYING;
-					jumpState = JUMP_STATE.JUMP_RISING;
-				}
-				break;
-		}
-	};
 	
 	public void setGreenHeartPowerup (boolean pickedUp) 
 	{

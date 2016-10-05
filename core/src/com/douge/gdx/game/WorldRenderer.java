@@ -188,7 +188,7 @@ public class WorldRenderer implements Disposable
 	{
 		float x = -15;
 		float y = 30;
-		float timeLeftFeatherPowerup = worldController.level.astronaut.timeLeftGreenHeartPowerup;
+		float timeLeftFeatherPowerup = worldController.level.survivor.timeLeftGreenHeartPowerup;
 		if (timeLeftFeatherPowerup > 0) 
 		{
 			// Start icon fade in/out if the left power-up time

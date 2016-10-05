@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.objects.AbstractGameObject;
-import com.douge.gdx.game.objects.Astronaut;
+import com.douge.gdx.game.objects.Survivor;
 import com.douge.gdx.game.objects.Clouds;
 import com.douge.gdx.game.objects.GoldCoin;
 import com.douge.gdx.game.objects.GreenHeart;
@@ -24,7 +24,7 @@ public class Level
 {
 	public static final String TAG = Level.class.getName();
 	
-	public Astronaut astronaut; 
+	public Survivor survivor; 
 	public Array<GoldCoin> goldcoins; 
 	public Array<GreenHeart> greenHearts; 
 	
@@ -33,7 +33,7 @@ public class Level
 		ROCK_BACK(0, 0, 0), // black
 		ROCK(0, 255, 0), // green
 		PLAYER_SPAWNPOINT(255, 255, 255), // white
-		ITEM_FEATHER(255, 0, 255), // purple
+		ITEM_GREENHEART(255, 0, 255), // purple
 		ITEM_GOLD_COIN(255, 255, 0); // yellow
 		
 		private int color;
@@ -69,7 +69,7 @@ public class Level
 	private void init (String filename) 
 	{
 	    // player character 
-	    astronaut = null; 
+	    survivor = null; 
 	     
 	    // objects 
 	    goldcoins = new Array<GoldCoin>(); 
@@ -128,14 +128,14 @@ public class Level
 				// player spawn point
 				else if (BLOCK_TYPE.PLAYER_SPAWNPOINT.sameColor(currentPixel)) 
 				{
-			          obj = new Astronaut(); 
+			          obj = new Survivor(); 
 			          offsetHeight = -1.5f; 
 			          obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight); 
-			          astronaut = (Astronaut)obj; 
+			          survivor = (Survivor)obj; 
 				}
 				
 				// feather
-				else if (BLOCK_TYPE.ITEM_FEATHER.sameColor(currentPixel)) 
+				else if (BLOCK_TYPE.ITEM_GREENHEART.sameColor(currentPixel)) 
 				{
 			          obj = new GreenHeart(); 
 			          offsetHeight = -1.5f; 
@@ -186,7 +186,7 @@ public class Level
 	
 	public void update (float deltaTime) 
 	{
-		astronaut.update(deltaTime);
+		survivor.update(deltaTime);
 		
 		for(Rock rock : rocks)
 		rock.update(deltaTime);
@@ -223,7 +223,7 @@ public class Level
 	    batch.setColor(Color.WHITE);
 	    
 	    // Draw Player Character 
-	    astronaut.render(batch); 
+	    survivor.render(batch); 
 		
 		// Draw Water Overlay
 		waterOverlay.render(batch);

@@ -10,8 +10,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.assets.Assets;
-import com.douge.gdx.game.objects.Astronaut;
-import com.douge.gdx.game.objects.Astronaut.JUMP_STATE;
+import com.douge.gdx.game.objects.Survivor;
+import com.douge.gdx.game.objects.Survivor.JUMP_STATE;
 import com.douge.gdx.game.objects.GoldCoin;
 import com.douge.gdx.game.objects.GreenHeart;
 import com.douge.gdx.game.objects.Rock;
@@ -47,7 +47,7 @@ public class WorldController extends InputAdapter
 	{
 		score = 0;
 		level = new Level(Constants.LEVEL_01_PATH);
-		cameraHelper.setTarget(level.astronaut); 
+		cameraHelper.setTarget(level.survivor); 
 	}
 	
 
@@ -89,7 +89,7 @@ public class WorldController extends InputAdapter
 		if (Gdx.app.getType() != ApplicationType.Desktop) return;
 
 		// Camera Controls (move)
-		if (!cameraHelper.hasTarget(level.astronaut));
+		if (!cameraHelper.hasTarget(level.survivor));
 		{
 			float camMoveSpeed = 5 * deltaTime;
 			float camMoveSpeedAccelerationFactor = 5;
@@ -142,7 +142,7 @@ public class WorldController extends InputAdapter
 	
 	private void onCollisionBunnyHeadWithRock(Rock rock) 
 	{
-		Astronaut astronaut = level.astronaut;
+		Survivor astronaut = level.survivor;
 		
 		float heightDifference = Math.abs(astronaut.position.y - ( rock.position.y + rock.bounds.height));
 		if (heightDifference > 0.25f) 
@@ -174,14 +174,14 @@ public class WorldController extends InputAdapter
 	{
 		greenHeart.collected = true;
 		score += greenHeart.getScore();
-		level.astronaut.setGreenHeartPowerup(true);
+		level.survivor.setGreenHeartPowerup(true);
 		Gdx.app.log(TAG, "Feather collected");
 	};
 	
 	private void testCollisions () 
 	{
-		r1.set(level.astronaut.position.x, level.astronaut.position.y,
-				level.astronaut.bounds.width, level.astronaut.bounds.height);
+		r1.set(level.survivor.position.x, level.survivor.position.y,
+				level.survivor.bounds.width, level.survivor.bounds.height);
 		
 		// Test collision: Bunny Head <-> Rocks
 		for (Rock rock : level.rocks) 
@@ -238,29 +238,29 @@ public class WorldController extends InputAdapter
 	
 	private void handleInputGame (float deltaTime) 
 	{
-		if (cameraHelper.hasTarget(level.astronaut)) 
+		if (cameraHelper.hasTarget(level.survivor)) 
 		{
 			// Player Movement
 			if (Gdx.input.isKeyPressed(Keys.LEFT)) 
 			{
-				level.astronaut.velocity.x = -level.astronaut.terminalVelocity.x;
+				level.survivor.velocity.x = -level.survivor.terminalVelocity.x;
 			} 
 			else if (Gdx.input.isKeyPressed(Keys.RIGHT)) 
 			{
-				level.astronaut.velocity.x = level.astronaut.terminalVelocity.x;
+				level.survivor.velocity.x = level.survivor.terminalVelocity.x;
 			} 
 			else 
 			{
 				// Execute auto-forward movement on non-desktop platform
 				if (Gdx.app.getType() != ApplicationType.Desktop) 
 				{
-					level.astronaut.velocity.x = level.astronaut.terminalVelocity.x;
+					level.survivor.velocity.x = level.survivor.terminalVelocity.x;
 				}
 			}
 			
 			// Bunny Jump
 			boolean jumpKeyPressed = Gdx.input.isTouched() || Gdx.input.isKeyPressed(Keys.SPACE);
-			level.astronaut.context.setStateBasedOnInput(jumpKeyPressed);
+			level.survivor.context.setStateBasedOnInput(jumpKeyPressed);
 		}
 	}
 	
@@ -271,7 +271,7 @@ public class WorldController extends InputAdapter
 		
 	public boolean isPlayerInWater () 
 	{
-		return level.astronaut.position.y < -5;
+		return level.survivor.position.y < -5;
 	}
 	
 	private void moveCamera (float x, float y) 
@@ -296,7 +296,7 @@ public class WorldController extends InputAdapter
 	    // Toggle camera follow 
 	    else if (keycode == Keys.ENTER)  
 	    { 
-	      cameraHelper.setTarget(cameraHelper.hasTarget() ? null: level.astronaut); 
+	      cameraHelper.setTarget(cameraHelper.hasTarget() ? null: level.survivor); 
 	      Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget()); 
 	    } 
 	

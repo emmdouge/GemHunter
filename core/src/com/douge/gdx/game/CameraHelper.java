@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.douge.gdx.game.objects.AbstractGameObject;
-import com.douge.gdx.game.objects.Astronaut;
+import com.douge.gdx.game.objects.Survivor;
 
 public class CameraHelper {
 	private static final String TAG = CameraHelper.class.getName();

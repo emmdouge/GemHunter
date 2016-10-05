@@ -18,7 +18,6 @@ public class Assets implements Disposable, AssetErrorListener
 	private AssetManager assetManager;
 	
 	public AssetFonts fonts;
-	public AssetAstronaut astronaut;
 	public AssetEnv env;
 	public AssetGoldCoin goldCoin;
 	public AssetHeart heart;
@@ -39,7 +38,6 @@ public class Assets implements Disposable, AssetErrorListener
 		assetManager.setErrorListener(this);
 		
 		//load texture atlas
-		assetManager.load(Constants.ASTRONAUT_ATLAS_PATH, TextureAtlas.class);
 		assetManager.load(Constants.COIN_ATLAS_PATH, TextureAtlas.class);
 		assetManager.load(Constants.ENVIRONMENT_ATLAS_PATH, TextureAtlas.class);
 		assetManager.load(Constants.HEART_ATLAS_PATH, TextureAtlas.class);
@@ -57,11 +55,8 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 
 		//create game resource assets
-		TextureAtlas atlas = assetManager.get(Constants.ASTRONAUT_ATLAS_PATH);
-		astronaut = new AssetAstronaut(atlas);
-		
-		if(Assets.instance.astronaut.astronaut == null)
-		System.out.println("astro is null");	
+		TextureAtlas atlas = assetManager.get((Constants.SURVIVOR_ATLAS_PATH));
+		survivor = new AssetSurvivor(atlas);
 		
 		atlas = assetManager.get(Constants.COIN_ATLAS_PATH);
 		goldCoin = new AssetGoldCoin(atlas);
@@ -71,9 +66,6 @@ public class Assets implements Disposable, AssetErrorListener
 		
 		atlas = assetManager.get(Constants.ENVIRONMENT_ATLAS_PATH);
 		env = new AssetEnv(atlas);
-		
-		atlas = assetManager.get((Constants.SURVIVOR_ATLAS_PATH));
-		survivor = new AssetSurvivor(atlas);
 		
 		atlas = assetManager.get(Constants.TILE_ATLAS_PATH);
 		tiles = new AssetTiles(atlas);
@@ -88,9 +80,6 @@ public class Assets implements Disposable, AssetErrorListener
 		{
 			texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		}
-		
-		if(Assets.instance.astronaut.astronaut == null)
-		System.out.println("astro is null");
 	}
 	
 	@Override

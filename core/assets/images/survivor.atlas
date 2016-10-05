@@ -1,230 +1,202 @@
 
 survivor.png
-size: 1024,128
+size: 1024,64
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 0
   rotate: false
-  xy: 2, 54
-  size: 46, 50
-  orig: 46, 50
+  xy: 800, 8
+  size: 22, 45
+  orig: 22, 45
   offset: 0, 0
   index: -1
 1
   rotate: false
-  xy: 2, 2
-  size: 46, 50
-  orig: 46, 50
+  xy: 500, 7
+  size: 22, 46
+  orig: 22, 46
   offset: 0, 0
   index: -1
 10
   rotate: false
-  xy: 242, 54
-  size: 46, 50
-  orig: 46, 50
+  xy: 475, 4
+  size: 23, 49
+  orig: 23, 49
   offset: 0, 0
   index: -1
 11
   rotate: false
-  xy: 242, 2
-  size: 46, 50
-  orig: 46, 50
+  xy: 322, 12
+  size: 30, 41
+  orig: 30, 41
   offset: 0, 0
   index: -1
 12
   rotate: false
-  xy: 290, 54
-  size: 46, 50
-  orig: 46, 50
+  xy: 714, 21
+  size: 29, 32
+  orig: 29, 32
   offset: 0, 0
   index: -1
 13
   rotate: false
-  xy: 290, 2
-  size: 46, 50
-  orig: 46, 50
+  xy: 524, 24
+  size: 39, 29
+  orig: 39, 29
   offset: 0, 0
   index: -1
 14
   rotate: false
-  xy: 338, 54
-  size: 46, 50
-  orig: 46, 50
+  xy: 599, 18
+  size: 28, 35
+  orig: 28, 35
   offset: 0, 0
   index: -1
 15
   rotate: false
-  xy: 338, 54
-  size: 46, 50
-  orig: 46, 50
-  offset: 0, 0
-  index: -1
-22
-  rotate: false
-  xy: 338, 54
-  size: 46, 50
-  orig: 46, 50
-  offset: 0, 0
-  index: -1
-23
-  rotate: false
-  xy: 338, 54
-  size: 46, 50
-  orig: 46, 50
+  xy: 178, 18
+  size: 37, 35
+  orig: 37, 35
   offset: 0, 0
   index: -1
 16
   rotate: false
-  xy: 338, 2
-  size: 46, 50
-  orig: 46, 50
+  xy: 565, 18
+  size: 32, 35
+  orig: 32, 35
   offset: 0, 0
   index: -1
 17
   rotate: false
-  xy: 386, 54
-  size: 46, 50
-  orig: 46, 50
+  xy: 629, 18
+  size: 28, 35
+  orig: 28, 35
   offset: 0, 0
   index: -1
 18
   rotate: false
-  xy: 386, 2
-  size: 46, 50
-  orig: 46, 50
+  xy: 524, 4
+  size: 39, 18
+  orig: 39, 18
   offset: 0, 0
   index: -1
 19
   rotate: false
-  xy: 434, 54
-  size: 46, 50
-  orig: 46, 50
+  xy: 217, 15
+  size: 34, 38
+  orig: 34, 38
   offset: 0, 0
   index: -1
 2
   rotate: false
-  xy: 50, 54
-  size: 46, 50
-  orig: 46, 50
+  xy: 354, 9
+  size: 29, 44
+  orig: 29, 44
   offset: 0, 0
   index: -1
 20
   rotate: false
-  xy: 434, 2
-  size: 46, 50
-  orig: 46, 50
+  xy: 288, 15
+  size: 32, 38
+  orig: 32, 38
   offset: 0, 0
   index: -1
 21
   rotate: false
-  xy: 482, 54
-  size: 46, 50
-  orig: 46, 50
+  xy: 775, 15
+  size: 23, 38
+  orig: 23, 38
+  offset: 0, 0
+  index: -1
+22
+  rotate: false
+  xy: 253, 15
+  size: 33, 38
+  orig: 33, 38
+  offset: 0, 0
+  index: -1
+23
+  rotate: false
+  xy: 659, 15
+  size: 27, 38
+  orig: 27, 38
   offset: 0, 0
   index: -1
 24
   rotate: false
-  xy: 482, 2
-  size: 46, 50
-  orig: 46, 50
+  xy: 688, 15
+  size: 24, 38
+  orig: 24, 38
   offset: 0, 0
   index: -1
 25
   rotate: false
-  xy: 530, 54
-  size: 46, 50
-  orig: 46, 50
+  xy: 140, 16
+  size: 36, 37
+  orig: 36, 37
   offset: 0, 0
   index: -1
 26
   rotate: false
-  xy: 530, 2
-  size: 46, 50
-  orig: 46, 50
-  offset: 0, 0
-  index: -1
-27
-  rotate: false
-  xy: 578, 54
-  size: 46, 50
-  orig: 46, 50
-  offset: 0, 0
-  index: -1
-28
-  rotate: false
-  xy: 578, 2
-  size: 46, 50
-  orig: 46, 50
-  offset: 0, 0
-  index: -1
-29
-  rotate: false
-  xy: 626, 54
-  size: 46, 50
-  orig: 46, 50
+  xy: 101, 16
+  size: 37, 37
+  orig: 37, 37
   offset: 0, 0
   index: -1
 3
   rotate: false
-  xy: 50, 2
-  size: 46, 50
-  orig: 46, 50
-  offset: 0, 0
-  index: -1
-30
-  rotate: false
-  xy: 626, 2
-  size: 46, 50
-  orig: 46, 50
-  offset: 0, 0
-  index: -1
-31
-  rotate: false
-  xy: 674, 54
-  size: 46, 50
-  orig: 46, 50
+  xy: 66, 9
+  size: 33, 44
+  orig: 33, 44
   offset: 0, 0
   index: -1
 4
   rotate: false
-  xy: 98, 54
-  size: 46, 50
-  orig: 46, 50
+  xy: 385, 9
+  size: 29, 44
+  orig: 29, 44
   offset: 0, 0
   index: -1
 5
   rotate: false
-  xy: 98, 2
-  size: 46, 50
-  orig: 46, 50
+  xy: 416, 9
+  size: 29, 44
+  orig: 29, 44
+  offset: 0, 0
+  index: -1
+55
+  rotate: false
+  xy: 35, 2
+  size: 29, 51
+  orig: 29, 51
   offset: 0, 0
   index: -1
 6
   rotate: false
-  xy: 146, 54
-  size: 46, 50
-  orig: 46, 50
+  xy: 824, 9
+  size: 21, 44
+  orig: 21, 44
   offset: 0, 0
   index: -1
 7
   rotate: false
-  xy: 146, 2
-  size: 46, 50
-  orig: 46, 50
+  xy: 745, 23
+  size: 28, 30
+  orig: 28, 30
   offset: 0, 0
   index: -1
 8
   rotate: false
-  xy: 194, 54
-  size: 46, 50
-  orig: 46, 50
+  xy: 2, 4
+  size: 31, 49
+  orig: 31, 49
   offset: 0, 0
   index: -1
 9
   rotate: false
-  xy: 194, 2
-  size: 46, 50
-  orig: 46, 50
+  xy: 447, 4
+  size: 26, 49
+  orig: 26, 49
   offset: 0, 0
   index: -1

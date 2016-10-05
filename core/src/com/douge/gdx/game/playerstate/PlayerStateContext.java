@@ -1,8 +1,8 @@
 package com.douge.gdx.game.playerstate;
 
 import com.badlogic.gdx.Gdx;
-import com.douge.gdx.game.objects.Astronaut;
-import com.douge.gdx.game.objects.Astronaut.JUMP_STATE;
+import com.douge.gdx.game.objects.Survivor;
+import com.douge.gdx.game.objects.Survivor.JUMP_STATE;
 import com.douge.gdx.game.objects.Rock;
 
 public class PlayerStateContext 
@@ -12,9 +12,9 @@ public class PlayerStateContext
 	private JumpFallingState jumpFallingState;
 	private JumpRisingState jumpRisingState;
 	private PlayerState currentState;
-	private Astronaut player;
+	private Survivor player;
 	
-	public PlayerStateContext(Astronaut astronaut)
+	public PlayerStateContext(Survivor astronaut)
 	{
 		player = astronaut;
 		fallingState = new FallingState(astronaut, this);
