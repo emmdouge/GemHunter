@@ -26,6 +26,7 @@ public class Constants
 	
 	public static final String ATLAS_PATH = "../core/assets/images/mygame.atlas";
 	public static final String CANYONBUNNY_PATH = "../core/assets/images/canyonbunny.atlas";
+	public static final String GEM_ATLAS_PATH = "../core/assets/images/gems.atlas";
 	public static final String ENVIRONMENT_ATLAS_PATH = "../core/assets/images/environment.atlas";
 	public static final String ASTRONAUT_ATLAS_PATH = "../core/assets/images/astronaut.atlas";
 	public static final String HEART_ATLAS_PATH = "../core/assets/images/heart.atlas";

@@ -24,7 +24,7 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetLevelDecoration levelDecoration;
 	public AssetSurvivor survivor;
 	public AssetTiles tiles;
-	
+	public AssetGem gems;
 	
 	private Assets()
 	{
@@ -44,6 +44,7 @@ public class Assets implements Disposable, AssetErrorListener
 		assetManager.load(Constants.SURVIVOR_ATLAS_PATH, TextureAtlas.class);
 		assetManager.load(Constants.TILE_ATLAS_PATH, TextureAtlas.class);
 		assetManager.load(Constants.CANYONBUNNY_PATH, TextureAtlas.class);
+		assetManager.load(Constants.GEM_ATLAS_PATH, TextureAtlas.class);
 		//start loading assets in directory specified by atlas path
 		assetManager.finishLoading();
 		
@@ -57,6 +58,9 @@ public class Assets implements Disposable, AssetErrorListener
 		//create game resource assets
 		TextureAtlas atlas = assetManager.get((Constants.SURVIVOR_ATLAS_PATH));
 		survivor = new AssetSurvivor(atlas);
+		
+		atlas = assetManager.get(Constants.GEM_ATLAS_PATH);
+		gems = new AssetGem(atlas);
 		
 		atlas = assetManager.get(Constants.COIN_ATLAS_PATH);
 		goldCoin = new AssetGoldCoin(atlas);

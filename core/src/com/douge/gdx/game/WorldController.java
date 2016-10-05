@@ -13,7 +13,7 @@ import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.objects.Survivor;
 import com.douge.gdx.game.objects.Survivor.JUMP_STATE;
 import com.douge.gdx.game.objects.GoldCoin;
-import com.douge.gdx.game.objects.GreenHeart;
+import com.douge.gdx.game.objects.JumpDiamond;
 import com.douge.gdx.game.objects.Rock;
 
 public class WorldController extends InputAdapter
@@ -170,7 +170,7 @@ public class WorldController extends InputAdapter
 		Gdx.app.log(TAG, "Gold coin collected");
 	};
 	
-	private void onCollisionAstronautWithGreenHeart(GreenHeart greenHeart) 
+	private void onCollisionAstronautWithGreenHeart(JumpDiamond greenHeart) 
 	{
 		greenHeart.collected = true;
 		score += greenHeart.getScore();
@@ -219,7 +219,7 @@ public class WorldController extends InputAdapter
 			break;
 		}
 		// Test collision: Bunny Head <-> Feathers
-		for (GreenHeart greenHeart : level.greenHearts) 
+		for (JumpDiamond greenHeart : level.jumpDiamond) 
 		{
 			if (greenHeart.collected) 
 			{

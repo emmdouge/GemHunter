@@ -23,7 +23,7 @@ public class DesktopLauncher
 			settings.maxHeight = 1024;
 			settings.duplicatePadding = false;
 			settings.debug = drawDebugOutline;
-			TexturePacker.process(settings, "assets-raw/images/survivor", "../core/assets/images", "survivor");
+			TexturePacker.process(settings, "assets-raw/images/gems", "../core/assets/images", "gems");
 		}
 		new LwjglApplication(new DougeGdxGame(), config);
 	}

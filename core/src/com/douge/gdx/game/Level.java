@@ -9,7 +9,7 @@ import com.douge.gdx.game.objects.AbstractGameObject;
 import com.douge.gdx.game.objects.Survivor;
 import com.douge.gdx.game.objects.Clouds;
 import com.douge.gdx.game.objects.GoldCoin;
-import com.douge.gdx.game.objects.GreenHeart;
+import com.douge.gdx.game.objects.JumpDiamond;
 import com.douge.gdx.game.objects.RockBackground;
 import com.douge.gdx.game.objects.Trees;
 import com.douge.gdx.game.objects.Rock;
@@ -26,7 +26,7 @@ public class Level
 	
 	public Survivor survivor; 
 	public Array<GoldCoin> goldcoins; 
-	public Array<GreenHeart> greenHearts; 
+	public Array<JumpDiamond> jumpDiamond; 
 	
 	public enum BLOCK_TYPE 
 	{
@@ -73,7 +73,7 @@ public class Level
 	     
 	    // objects 
 	    goldcoins = new Array<GoldCoin>(); 
-	    greenHearts = new Array<GreenHeart>(); 
+	    jumpDiamond = new Array<JumpDiamond>(); 
 		rocks = new Array<Rock>();
 		rocksBackground = new Array<RockBackground>();
 		
@@ -137,10 +137,10 @@ public class Level
 				// feather
 				else if (BLOCK_TYPE.ITEM_GREENHEART.sameColor(currentPixel)) 
 				{
-			          obj = new GreenHeart(); 
+			          obj = new JumpDiamond(); 
 			          offsetHeight = -1.5f; 
 			          obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight); 
-			          greenHearts.add((GreenHeart)obj); 
+			          jumpDiamond.add((JumpDiamond)obj); 
 				}
 		
 				// gold coin
@@ -194,7 +194,7 @@ public class Level
 		for(GoldCoin goldCoin : goldcoins)
 		goldCoin.update(deltaTime);
 		
-		for(GreenHeart greenHeart : greenHearts)
+		for(JumpDiamond greenHeart : jumpDiamond)
 		greenHeart.update(deltaTime);
 		
 		clouds.update(deltaTime);
@@ -217,7 +217,7 @@ public class Level
 	    goldCoin.render(batch); 
 	     
 	    // Draw Feathers 
-	    for (GreenHeart greenHeart : greenHearts) 
+	    for (JumpDiamond greenHeart : jumpDiamond) 
 	    greenHeart.render(batch); 
 	     
 	    batch.setColor(Color.WHITE);

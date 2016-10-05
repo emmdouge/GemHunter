@@ -5,20 +5,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.douge.gdx.game.assets.Assets;
 
-public class GreenHeart extends AbstractGameObject
+public class JumpDiamond extends AbstractGameObject
 {
-	private TextureRegion regFeather;
+	private TextureRegion regJumpDiamond;
 	
 	public boolean collected;
 	
-	public GreenHeart() 
+	public JumpDiamond() 
 	{
 		init();
 	}
 	private void init () 
 	{
 		dimension.set(0.5f, 0.5f);
-		regFeather = Assets.instance.heart.heart;
+		regJumpDiamond = Assets.instance.gems.jumpGem;
 	
 		// Set bounding box for collision detection
 		bounds.set(0, 0, dimension.x, dimension.y);
@@ -27,13 +27,13 @@ public class GreenHeart extends AbstractGameObject
 	
 	public void render (SpriteBatch batch) 
 	{
-		batch.setColor(Color.GREEN);
+		//batch.setColor(Color.YELLOW);
 		if (collected) 
 		{
 			return;
 		}
 		
-		TextureRegion reg = regFeather;
+		TextureRegion reg = regJumpDiamond;
 		
 		batch.draw(reg.getTexture(), 
 				position.x, position.y,
