@@ -17,29 +17,29 @@ public class JumpRisingState extends PlayerState
 	@Override
 	public void execute(float deltaTime) 
 	{
-		if (player.velocity.x != 0) 
+		if (player.currentVelocity.x != 0) 
 		{
 			// Apply friction
-			if (player.velocity.x > 0) 
+			if (player.currentVelocity.x > 0) 
 			{
-				player.velocity.x = Math.max(player.velocity.x - player.friction.x * deltaTime, 0);
+				player.currentVelocity.x = Math.max(player.currentVelocity.x - player.friction.x * deltaTime, 0);
 			} 
 			else 
 			{
-				player.velocity.x = Math.min(player.velocity.x + player.friction.x * deltaTime, 0);
+				player.currentVelocity.x = Math.min(player.currentVelocity.x + player.friction.x * deltaTime, 0);
 			}
 		}
 		
 		// Apply acceleration
-		player.velocity.x += player.gravity.x * deltaTime;
+		player.currentVelocity.x += player.gravity.x * deltaTime;
 		
 		// Make sure the object's velocity does not exceed the
 		// positive or negative terminal velocity
-		player.velocity.x = MathUtils.clamp(player.velocity.x, -player.maxVelocity.x, player.maxVelocity.x);
+		player.currentVelocity.x = MathUtils.clamp(player.currentVelocity.x, -player.maxVelocity.x, player.maxVelocity.x);
 		
 		// Move to new position
-		player.position.x += player.velocity.x * deltaTime;
-		player.position.y += player.velocity.y * deltaTime;
+		player.position.x += player.currentVelocity.x * deltaTime;
+		player.position.y += player.currentVelocity.y * deltaTime;
 		
 		// Keep track of jump time
 		player.timeJumping += deltaTime;
@@ -48,37 +48,38 @@ public class JumpRisingState extends PlayerState
 		if (player.timeJumping <= player.JUMP_TIME_MAX) 
 		{
 			// Still jumping
-			player.velocity.y = player.maxVelocity.y;
+			player.currentVelocity.y = player.maxVelocity.y;
 		}
 		
-		if (player.velocity.y != 0) 
+		if (player.currentVelocity.y != 0) 
 		{
 			// Apply friction
-			if (player.velocity.y > 0) 
+			if (player.currentVelocity.y > 0) 
 			{
-				player.velocity.y = Math.max(player.velocity.y - player.friction.y * deltaTime, 0);
+				player.currentVelocity.y = Math.max(player.currentVelocity.y - player.friction.y * deltaTime, 0);
 			} 
 			else 
 			{
-				player.velocity.y = Math.min(player.velocity.y + player.friction.y * deltaTime, 0);
+				player.currentVelocity.y = Math.min(player.currentVelocity.y + player.friction.y * deltaTime, 0);
 			}
 		}
 		
 		// Apply acceleration
-		player.velocity.y += player.gravity.y * deltaTime;
+		player.currentVelocity.y += player.gravity.y * deltaTime;
 		
 		// Make sure the object's velocity does not exceed the
 		// positive or negative terminal velocity
-		player.velocity.y = MathUtils.clamp(player.velocity.y, -player.maxVelocity.y, player.maxVelocity.y);
+		player.currentVelocity.y = MathUtils.clamp(player.currentVelocity.y, -player.maxVelocity.y, player.maxVelocity.y);
 		
-		if (player.velocity.x != 0) 
+		if (player.currentVelocity.x != 0) 
 		{
-			player.viewDirection = player.velocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
+			player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
 		}
 		
 		if (player.timeLeftGreenHeartPowerup > 0) 
 		{
 			player.timeLeftGreenHeartPowerup -= deltaTime;
+			player.currentVelocity.y += player.maxVelocity.y*2;
 		}
 		if (player.timeLeftGreenHeartPowerup < 0) 
 		{

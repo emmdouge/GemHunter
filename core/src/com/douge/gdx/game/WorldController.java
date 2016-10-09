@@ -140,26 +140,9 @@ public class WorldController extends InputAdapter
 		}
 	}
 	
-	private void onCollisionBunnyHeadWithRock(Rock rock) 
+	private void onCollisionSurvivorWithRock(Rock rock) 
 	{
 		Survivor astronaut = level.survivor;
-		
-		float heightDifference = Math.abs(astronaut.position.y - ( rock.position.y + rock.bounds.height));
-		if (heightDifference > 0.25f) 
-		{
-			boolean hitRightEdge = astronaut.position.x > (rock.position.x + rock.bounds.width / 2.0f);
-		
-			if (hitRightEdge) 
-			{
-				astronaut.position.x = rock.position.x + rock.bounds.width;
-			} 
-			else 
-			{
-				astronaut.position.x = rock.position.x - astronaut.bounds.width;
-			}
-			return;
-		}
-		
 		astronaut.context.setStateBasedOnCollisionWithRock(rock);
 	};
 	
@@ -194,7 +177,7 @@ public class WorldController extends InputAdapter
 				continue;
 			}
 		
-			onCollisionBunnyHeadWithRock(rock);
+			onCollisionSurvivorWithRock(rock);
 			// IMPORTANT: must do all collisions for valid
 			// edge testing on rocks.
 		}
@@ -243,18 +226,18 @@ public class WorldController extends InputAdapter
 			// Player Movement
 			if (Gdx.input.isKeyPressed(Keys.LEFT)) 
 			{
-				level.survivor.velocity.x = -level.survivor.maxVelocity.x;
+				level.survivor.currentVelocity.x = -level.survivor.maxVelocity.x;
 			} 
 			else if (Gdx.input.isKeyPressed(Keys.RIGHT)) 
 			{
-				level.survivor.velocity.x = level.survivor.maxVelocity.x;
+				level.survivor.currentVelocity.x = level.survivor.maxVelocity.x;
 			} 
 			else 
 			{
 				// Execute auto-forward movement on non-desktop platform
 				if (Gdx.app.getType() != ApplicationType.Desktop) 
 				{
-					level.survivor.velocity.x = level.survivor.maxVelocity.x;
+					level.survivor.currentVelocity.x = level.survivor.maxVelocity.x;
 				}
 			}
 			

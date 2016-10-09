@@ -66,7 +66,7 @@ public class Clouds extends AbstractGameObject
 			Cloud cloud = spawnCloud();
 			cloud.position.x = i * distFac;
 			clouds.add(cloud);
-			cloud.velocity = new Vector2(1, 0);
+			cloud.currentVelocity = new Vector2(1, 0);
 			cloud.maxVelocity = new Vector2(3, 0);
 		}
 	}

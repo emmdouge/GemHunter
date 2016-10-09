@@ -16,31 +16,31 @@ public class GroundedState extends PlayerState
 	@Override
 	public void execute(float deltaTime) 
 	{
-		if (player.velocity.x != 0) 
+		if (player.currentVelocity.x != 0) 
 		{
 			// Apply friction
-			if (player.velocity.x > 0) 
+			if (player.currentVelocity.x > 0) 
 			{
-				player.velocity.x = Math.max(player.velocity.x - player.friction.x * deltaTime, 0);
+				player.currentVelocity.x = Math.max(player.currentVelocity.x - player.friction.x * deltaTime, 0);
 			} 
 			else 
 			{
-				player.velocity.x = Math.min(player.velocity.x + player.friction.x * deltaTime, 0);
+				player.currentVelocity.x = Math.min(player.currentVelocity.x + player.friction.x * deltaTime, 0);
 			}
 		}
 		
 		// Apply acceleration
-		player.velocity.x += player.gravity.x * deltaTime;
+		player.currentVelocity.x += player.gravity.x * deltaTime;
 		
 		// Make sure the object's velocity does not exceed the
 		// positive or negative terminal velocity
-		player.velocity.x = MathUtils.clamp(player.velocity.x, -player.maxVelocity.x, player.maxVelocity.x);
+		player.currentVelocity.x = MathUtils.clamp(player.currentVelocity.x, -player.maxVelocity.x, player.maxVelocity.x);
 		
 		context.setPlayerState(context.getFallingState());
 		
-		if (player.velocity.x != 0) 
+		if (player.currentVelocity.x != 0) 
 		{
-			player.viewDirection = player.velocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
+			player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
 		}
 		
 		if (player.timeLeftGreenHeartPowerup > 0) 
