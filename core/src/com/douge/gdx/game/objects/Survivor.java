@@ -16,29 +16,37 @@ public class Survivor extends AbstractGameObject
 	public final float JUMP_TIME_MAX = 0.3f;
 	public final float JUMP_TIME_MIN = 0.1f;
 	public final float JUMP_TIME_OFFSET_FLYING = JUMP_TIME_MAX - 0.018f;
+	public float timeJumping;
+	
+	public final float DASH_TIME_MAX = 0.25f;
+	public float timeDashing;
 	
 	public PlayerStateContext context;
 	
 	public enum VIEW_DIRECTION 
 	{ 
 		LEFT, 
-		RIGHT 
-	}
-	
-	public enum JUMP_STATE 
-	{
-		GROUNDED, 
-		FALLING, 
-		JUMP_RISING, 
-		JUMP_FALLING
+		RIGHT;
+		
+		public static int getInt(VIEW_DIRECTION direction)
+		{
+			if(direction == LEFT)
+			{
+				return -1;
+			}
+			else
+			{
+				return 1;
+			}
+		}
 	}
 	
 	private TextureRegion regSurvivor;
 	public VIEW_DIRECTION viewDirection;
-	public float timeJumping;
-	public JUMP_STATE jumpState;
+
 	public boolean hasGreenHeartPowerup;
 	public float timeLeftGreenHeartPowerup;
+
 	
 	public Survivor() 
 	{
@@ -62,9 +70,7 @@ public class Survivor extends AbstractGameObject
 		
 		// View direction
 		viewDirection = VIEW_DIRECTION.RIGHT;
-		
-		// Jump state
-		jumpState = JUMP_STATE.FALLING;
+
 		context = new PlayerStateContext(this);
 		timeJumping = 0;
 		

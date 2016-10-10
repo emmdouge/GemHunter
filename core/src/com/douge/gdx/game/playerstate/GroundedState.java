@@ -16,6 +16,7 @@ public class GroundedState extends PlayerState
 	@Override
 	public void execute(float deltaTime) 
 	{
+		player.timeDashing = 0;
 		if (player.currentVelocity.x != 0) 
 		{
 			// Apply friction
@@ -52,17 +53,6 @@ public class GroundedState extends PlayerState
 			// disable power-up
 			player.timeLeftGreenHeartPowerup = 0;
 			player.setGreenHeartPowerup(false);
-		}
-	}
-
-	@Override
-	public void setStateBasedOnInput(boolean jumpKeyPressed) 
-	{
-		if (jumpKeyPressed) 
-		{
-			// Start counting jump time from the beginning
-			player.timeJumping = 0;
-			context.setPlayerState(context.getJumpRisingState());
 		}
 	}
 

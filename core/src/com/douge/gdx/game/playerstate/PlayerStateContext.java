@@ -2,7 +2,6 @@ package com.douge.gdx.game.playerstate;
 
 import com.badlogic.gdx.Gdx;
 import com.douge.gdx.game.objects.Survivor;
-import com.douge.gdx.game.objects.Survivor.JUMP_STATE;
 import com.douge.gdx.game.objects.Rock;
 
 public class PlayerStateContext 
@@ -11,6 +10,7 @@ public class PlayerStateContext
 	private GroundedState groundedState;
 	private JumpFallingState jumpFallingState;
 	private JumpRisingState jumpRisingState;
+	private DashState dashState;
 	private PlayerState currentState;
 	private Survivor player;
 	
@@ -21,6 +21,7 @@ public class PlayerStateContext
 		groundedState = new GroundedState(astronaut, this);
 		jumpFallingState = new JumpFallingState(astronaut, this);
 		jumpRisingState = new JumpRisingState(astronaut, this);
+		dashState = new DashState(astronaut, this);
 		
 		currentState = fallingState;
 	}
@@ -50,6 +51,11 @@ public class PlayerStateContext
 		return jumpFallingState;
 	}
 	
+	public DashState getDashState()
+	{
+		return dashState;
+	}
+	
 	public JumpRisingState getJumpRisingState()
 	{
 		return jumpRisingState;
@@ -61,7 +67,7 @@ public class PlayerStateContext
 		currentState.execute(deltaTime);
 	}
 
-	public void setStateBasedOnInput(boolean jumpKeyPressed) 
+	public void jump(boolean jumpKeyPressed) 
 	{
 		if(jumpKeyPressed)
 		{
@@ -88,6 +94,18 @@ public class PlayerStateContext
 		}
 	}
 	
+	public void dash(boolean dashKeyPressed) 
+	{
+		if(dashKeyPressed)
+		{
+			if(currentState == jumpRisingState)
+			{
+				player.timeJumping = player.JUMP_TIME_MAX;
+			}
+			setPlayerState(dashState);
+		}
+	}
+	
 	public void setStateBasedOnCollisionWithRock(Rock rock)
 	{
 		if(currentState == fallingState || currentState == jumpFallingState)
@@ -99,5 +117,11 @@ public class PlayerStateContext
 		{
 			player.position.y = rock.position.y + player.bounds.height + player.origin.y;
 		}
+	}
+
+	public void setPlayerStateBasedOnInput(boolean jumpKeyPressed, boolean dashKeyPressed) 
+	{
+		jump(jumpKeyPressed);
+		dash(dashKeyPressed);
 	}
 }

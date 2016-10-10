@@ -90,15 +90,6 @@ public class JumpRisingState extends PlayerState
 	}
 
 	@Override
-	public void setStateBasedOnInput(boolean jumpKeyPressed) 
-	{
-		if (!jumpKeyPressed)
-		{
-			context.setPlayerState(context.getJumpFallingState());
-		}
-	}
-
-	@Override
 	public void onCollisionWith(Rock rock) 
 	{
 		player.position.y = rock.position.y + player.bounds.height + player.origin.y;

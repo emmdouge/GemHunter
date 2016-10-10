@@ -88,16 +88,6 @@ public class JumpFallingState extends PlayerState
 	}
 
 	@Override
-	public void setStateBasedOnInput(boolean jumpKeyPressed) 
-	{
-		if (jumpKeyPressed && player.hasGreenHeartPowerup) 
-		{
-			player.timeJumping = player.JUMP_TIME_OFFSET_FLYING;
-			context.setPlayerState(context.getJumpRisingState());
-		}
-	}
-
-	@Override
 	public void onCollisionWith(Rock rock) 
 	{
 		player.position.y = rock.position.y + player.bounds.height;

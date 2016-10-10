@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.objects.Survivor;
-import com.douge.gdx.game.objects.Survivor.JUMP_STATE;
 import com.douge.gdx.game.objects.GoldCoin;
 import com.douge.gdx.game.objects.JumpDiamond;
 import com.douge.gdx.game.objects.Rock;
@@ -248,8 +247,10 @@ public class WorldController extends InputAdapter
 			}
 			
 			// Bunny Jump
-			boolean jumpKeyPressed = Gdx.input.isTouched() || Gdx.input.isKeyPressed(Keys.SPACE);
-			level.survivor.context.setStateBasedOnInput(jumpKeyPressed);
+			boolean dashKeyPressed = Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT);
+			boolean jumpKeyPressed = Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.SPACE);
+			level.survivor.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed);
+
 		}
 	}
 	
