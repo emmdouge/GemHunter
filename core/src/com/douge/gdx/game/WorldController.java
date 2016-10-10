@@ -1,6 +1,7 @@
 package com.douge.gdx.game;
 
 import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
@@ -15,10 +16,14 @@ import com.douge.gdx.game.objects.Survivor.JUMP_STATE;
 import com.douge.gdx.game.objects.GoldCoin;
 import com.douge.gdx.game.objects.JumpDiamond;
 import com.douge.gdx.game.objects.Rock;
+import com.douge.gdx.game.screens.MenuScreen;
 
 public class WorldController extends InputAdapter
 {
 	private static final String TAG = WorldController.class.getName();
+	
+	private Game game;
+	
 	public Level level;
 	public int lives;
 	public int score;
@@ -29,8 +34,9 @@ public class WorldController extends InputAdapter
 	   
 	  private float timeLeftGameOverDelay; 
 	
-	public WorldController()
+	public WorldController(Game game)
 	{
+		this.game = game;
 		init();
 	}
 	
@@ -59,7 +65,7 @@ public class WorldController extends InputAdapter
 			timeLeftGameOverDelay -= deltaTime;
 			if (timeLeftGameOverDelay < 0) 
 			{
-				 init();
+				 backToMenu();
 			} 
 		}
 		else 
@@ -283,8 +289,18 @@ public class WorldController extends InputAdapter
 	      Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget()); 
 	    } 
 	
+		// Back to Menu
+		else if (keycode == Keys.ESCAPE || keycode == Keys.BACK)
+		{
+			backToMenu();
+		}
+		
 		return false;
 	}
 	
-
+	private void backToMenu () 
+	{
+		// switch to menu screen
+		game.setScreen(new MenuScreen(game));
+	}
 }

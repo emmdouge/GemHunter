@@ -5,7 +5,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.douge.gdx.game.Constants;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.playerstate.PlayerStateContext;
+import com.douge.gdx.game.utils.GamePreferences;
 import com.sun.xml.internal.bind.CycleRecoverable.Context;
+import com.douge.gdx.game.screens.CharacterSkin;
+
 
 public class Survivor extends AbstractGameObject
 {
@@ -78,6 +81,9 @@ public class Survivor extends AbstractGameObject
 	public void render(SpriteBatch batch)
 	{
 		TextureRegion reg = regSurvivor;
+		
+		// Apply Skin Color
+		batch.setColor(CharacterSkin.values()[GamePreferences.instance.charSkin].getColor());
 		
 		// Set special color when game object has a feather power-up
 		if (hasGreenHeartPowerup) 
