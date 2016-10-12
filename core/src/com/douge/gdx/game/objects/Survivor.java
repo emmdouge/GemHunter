@@ -1,5 +1,6 @@
 package com.douge.gdx.game.objects;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.douge.gdx.game.Constants;
@@ -8,6 +9,9 @@ import com.douge.gdx.game.playerstate.PlayerStateContext;
 import com.douge.gdx.game.utils.GamePreferences;
 import com.sun.xml.internal.bind.CycleRecoverable.Context;
 import com.douge.gdx.game.screens.CharacterSkin;
+
+import effects.AfterImage;
+import effects.AfterImage.Node;
 
 
 public class Survivor extends AbstractGameObject
@@ -21,7 +25,13 @@ public class Survivor extends AbstractGameObject
 	public final float DASH_TIME_MAX = 0.25f;
 	public float timeDashing;
 	
+	public final float SLIDE_TIME_MAX = 0.25f;
+	public float timeSliding;
+	
 	public PlayerStateContext context;
+	
+	public AfterImage afterImageDash;
+	public AfterImage afterImageJump;
 	
 	public enum VIEW_DIRECTION 
 	{ 
@@ -74,6 +84,9 @@ public class Survivor extends AbstractGameObject
 		context = new PlayerStateContext(this);
 		timeJumping = 0;
 		
+		afterImageDash = new AfterImage();
+		afterImageJump = new AfterImage();
+		
 		// Power-ups
 		hasGreenHeartPowerup = false;
 		timeLeftGreenHeartPowerup = 0;		
@@ -91,13 +104,51 @@ public class Survivor extends AbstractGameObject
 		// Apply Skin Color
 		batch.setColor(CharacterSkin.values()[GamePreferences.instance.charSkin].getColor());
 		
+
+		
+		// Draw image
+		batch.setColor(Color.BLUE);
+		Node currentNode = afterImageDash.head;
+		for(int i = 0; currentNode != null && context.getCurrentState() == context.getDashState() && i < afterImageDash.MAX_NUM_NODES-1; i++)
+		{
+			batch.draw(currentNode.reg.getTexture(), 
+					currentNode.position.x, currentNode.position.y, 
+					currentNode.origin.x, currentNode.origin.y, 
+					currentNode.dimension.x, currentNode.dimension.y, 
+					currentNode.scale.x, currentNode.scale.y, 
+					currentNode.rotation,
+					currentNode.reg.getRegionX(), currentNode.reg.getRegionY(), 
+					currentNode.reg.getRegionWidth(), currentNode.reg.getRegionHeight(), 
+					viewDirection == VIEW_DIRECTION.LEFT, false);
+			currentNode = currentNode.nextNode;
+		}
+		
 		// Set special color when game object has a feather power-up
 		if (hasGreenHeartPowerup) 
 		{
 			batch.setColor(1.0f, 0.8f, 0.0f, 1.0f);
+			currentNode = afterImageJump.head;
+			for(int i = 0; currentNode != null && (context.getCurrentState() == context.getJumpRisingState() || context.getCurrentState() == context.getJumpFallingState()) && i < afterImageDash.MAX_NUM_NODES-1; i++)
+			{
+				batch.draw(currentNode.reg.getTexture(), 
+						currentNode.position.x, currentNode.position.y, 
+						currentNode.origin.x, currentNode.origin.y, 
+						currentNode.dimension.x, currentNode.dimension.y, 
+						currentNode.scale.x, currentNode.scale.y, 
+						currentNode.rotation,
+						currentNode.reg.getRegionX(), currentNode.reg.getRegionY(), 
+						currentNode.reg.getRegionWidth(), currentNode.reg.getRegionHeight(), 
+						viewDirection == VIEW_DIRECTION.LEFT, false);
+				currentNode = currentNode.nextNode;
+			}
 		}
+		else
+		{
+			// Reset color to white
+			batch.setColor(1, 1, 1, 1);
+		}
+
 		
-		// Draw image
 		batch.draw(reg.getTexture(), 
 				position.x, position.y, 
 				origin.x, origin.y, 
@@ -108,8 +159,6 @@ public class Survivor extends AbstractGameObject
 				reg.getRegionWidth(), reg.getRegionHeight(), 
 				viewDirection == VIEW_DIRECTION.LEFT, false);
 		
-		// Reset color to white
-		batch.setColor(1, 1, 1, 1);
 	}
 	
 	public void setGreenHeartPowerup (boolean pickedUp) 
@@ -124,5 +173,9 @@ public class Survivor extends AbstractGameObject
 	public boolean hasGreenHeartPowerup () 
 	{
 		return hasGreenHeartPowerup && timeLeftGreenHeartPowerup > 0;
+	}
+	public TextureRegion getRegion() 
+	{
+		return regSurvivor;
 	};
 }

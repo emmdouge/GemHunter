@@ -1,29 +1,29 @@
 package com.douge.gdx.game.playerstate;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
 import com.douge.gdx.game.objects.Rock;
 import com.douge.gdx.game.objects.Survivor;
 import com.douge.gdx.game.objects.Survivor.VIEW_DIRECTION;
 
-public class DashState extends PlayerState
+public class SlideState extends PlayerState
 {
 
-	public DashState(Survivor astronaut, PlayerStateContext context) {
+	public SlideState(Survivor astronaut, PlayerStateContext context) 
+	{
 		super(astronaut, context);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void execute(float deltaTime) 
 	{
-		Gdx.app.log(tag, "" + player.timeDashing);
-		// Keep track of jump time
-		player.timeDashing += deltaTime;
+		Gdx.app.log(tag, "" + player.timeSliding);
 		
-		if(player.timeDashing <= player.DASH_TIME_MAX)
+		// Keep track of jump time
+		player.timeSliding += deltaTime;
+		
+		if(player.timeSliding <= player.SLIDE_TIME_MAX)
 		{
-			player.afterImageDash.addNode(player, player.getRegion());
-			
 			int direction = VIEW_DIRECTION.getInt(player.viewDirection);
 			
 			player.position.x += (10*direction) * deltaTime;
@@ -42,9 +42,6 @@ public class DashState extends PlayerState
 		}
 		else
 		{
-			player.afterImageDash.head = null;
-			player.afterImageDash.tail = null;
-			player.timeJumping = player.JUMP_TIME_MAX;
 			context.setPlayerState(context.getFallingState());
 		}
 	}

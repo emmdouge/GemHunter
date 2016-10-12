@@ -11,6 +11,7 @@ public class PlayerStateContext
 	private JumpFallingState jumpFallingState;
 	private JumpRisingState jumpRisingState;
 	private DashState dashState;
+	private SlideState slideState;
 	private PlayerState currentState;
 	private Survivor player;
 	
@@ -22,6 +23,7 @@ public class PlayerStateContext
 		jumpFallingState = new JumpFallingState(astronaut, this);
 		jumpRisingState = new JumpRisingState(astronaut, this);
 		dashState = new DashState(astronaut, this);
+		slideState = new SlideState(astronaut, this);
 		
 		currentState = fallingState;
 	}
@@ -115,13 +117,29 @@ public class PlayerStateContext
 		}
 		else if(currentState == jumpRisingState)
 		{
-			player.position.y = rock.position.y + player.bounds.height + player.origin.y;
+			if(player.position.y < rock.position.y)
+			{
+				setPlayerState(fallingState);
+			}
+			//player.position.y = rock.position.y + player.bounds.height + player.origin.y;
 		}
 	}
 
-	public void setPlayerStateBasedOnInput(boolean jumpKeyPressed, boolean dashKeyPressed) 
+	public void setPlayerStateBasedOnInput(boolean jumpKeyPressed, boolean dashKeyPressed, boolean slideKeyPressed) 
 	{
 		jump(jumpKeyPressed);
 		dash(dashKeyPressed);
+		slide(slideKeyPressed);
+	}
+
+	private void slide(boolean slideKeyPressed) 
+	{
+		if(slideKeyPressed)
+		{
+			if (currentState == groundedState)
+			{
+				setPlayerState(slideState);
+			}
+		}
 	}
 }

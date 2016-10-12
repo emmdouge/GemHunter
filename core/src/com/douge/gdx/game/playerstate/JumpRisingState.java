@@ -80,6 +80,7 @@ public class JumpRisingState extends PlayerState
 		{
 			player.timeLeftGreenHeartPowerup -= deltaTime;
 			player.currentVelocity.y += player.maxVelocity.y*2;
+			player.afterImageJump.addNode(player, player.getRegion());
 		}
 		if (player.timeLeftGreenHeartPowerup < 0) 
 		{

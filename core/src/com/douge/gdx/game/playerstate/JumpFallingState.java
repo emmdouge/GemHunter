@@ -78,6 +78,7 @@ public class JumpFallingState extends PlayerState
 		if (player.timeLeftGreenHeartPowerup > 0) 
 		{
 			player.timeLeftGreenHeartPowerup -= deltaTime;
+			player.afterImageJump.addNode(player, player.getRegion());
 		}
 		if (player.timeLeftGreenHeartPowerup < 0) 
 		{

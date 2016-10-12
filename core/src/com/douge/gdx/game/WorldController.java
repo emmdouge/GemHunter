@@ -249,7 +249,8 @@ public class WorldController extends InputAdapter
 			// Bunny Jump
 			boolean dashKeyPressed = Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT);
 			boolean jumpKeyPressed = Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.SPACE);
-			level.survivor.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed);
+			boolean slideKeyPressed = Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.DOWN);
+			level.survivor.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed, slideKeyPressed);
 
 		}
 	}
