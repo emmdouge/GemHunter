@@ -78,7 +78,7 @@ public class PlayerStateContext
 			}
 			else if(currentState == fallingState || currentState == jumpFallingState)
 			{
-				if(player.hasGreenHeartPowerup)
+				if(player.hasGreenHeartPowerup && player.timeJumping < player.JUMP_TIME_MAX)
 				{
 					setPlayerState(jumpRisingState);
 				}

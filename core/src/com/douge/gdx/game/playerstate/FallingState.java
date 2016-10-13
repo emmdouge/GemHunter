@@ -57,7 +57,7 @@ public class FallingState extends PlayerState
 			player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
 		}
 		
-		if (player.timeLeftGreenHeartPowerup > 0) 
+		if (player.timeLeftGreenHeartPowerup > 0 && player.timeJumping < player.JUMP_TIME_MAX) 
 		{
 			player.timeLeftGreenHeartPowerup -= deltaTime;
 		}
@@ -82,7 +82,9 @@ public class FallingState extends PlayerState
 		float diffBetweenLeftSideOfPlayerAndRightSideOfRock = rock.position.x + rock.bounds.x - player.position.x;
 		
 		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = player.position.x + player.bounds.width - rock.position.x;
-		
+
+		float diffBetweenTopOfPlayerAndBottomOfRock = player.position.y + player.bounds.height + .001f - rock.position.y;
+		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfRock <= 0.07f;
 		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.07f;
 		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.07f;
 		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfRock <= 0.07f;
@@ -90,12 +92,20 @@ public class FallingState extends PlayerState
 		if(landOnTop)
 		{
 			//Gdx.app.log(tag, "player: " + player.position.y + " " + player.currentVelocity.y);
-			Gdx.app.log(tag, "rock: " + rock.position.y + "+" + rock.bounds.height + "=" + (rock.position.y+rock.bounds.height) + ", player: " + player.position.y + " " + diffBetweenBottomOfPlayerAndTopOfRock);
+			//Gdx.app.log(tag, "rock: " + rock.position.y + "+" + rock.bounds.height + "=" + (rock.position.y+rock.bounds.height) + ", player: " + player.position.y + " " + diffBetweenBottomOfPlayerAndTopOfRock);
 			player.currentGravity = 0;
 			player.currentVelocity.y = 0;
 			player.position.y = rock.position.y + rock.bounds.height - 0.001f;
 			context.setPlayerState(context.getGroundState());
 			//Gdx.app.log(tag, "player: " + player.position.y + " " + player.currentVelocity.y);
+		}
+		else if(hitTop)
+		{
+			player.currentGravity = 0;
+			player.currentVelocity.y = 0;
+			player.timeJumping = player.JUMP_TIME_MAX;
+			player.position.y = rock.position.y - player.bounds.height;
+			context.setPlayerState(context.getFallingState());
 		}
 		else if(hitLeftEdge)
 		{
