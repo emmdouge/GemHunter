@@ -58,6 +58,8 @@ public class WorldController extends InputAdapter
 
 	public void update(float deltaTime)
 	{
+		//Gdx.app.log(TAG, "" + level.survivor.context.getCurrentState());
+		//Gdx.app.log(TAG, "player: " + level.survivor.position.y + " " + level.survivor.currentVelocity.y);
 		handleDebugInput(deltaTime);
 		if (isGameOver()) 
 		{
@@ -179,10 +181,13 @@ public class WorldController extends InputAdapter
 			
 			if (!r1.overlaps(r2)) 
 			{
+				//System.out.println("not overlapping rock");
+				level.survivor.context.getCurrentState().noRockCollision();
 				continue;
 			}
 		
 			onCollisionSurvivorWithRock(rock);
+			//System.out.println("im here");
 			// IMPORTANT: must do all collisions for valid
 			// edge testing on rocks.
 		}
@@ -249,8 +254,7 @@ public class WorldController extends InputAdapter
 			// Bunny Jump
 			boolean dashKeyPressed = Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT);
 			boolean jumpKeyPressed = Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.SPACE);
-			boolean slideKeyPressed = Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.DOWN);
-			level.survivor.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed, slideKeyPressed);
+			level.survivor.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed);
 
 		}
 	}
@@ -267,7 +271,7 @@ public class WorldController extends InputAdapter
 	
 	private void moveCamera (float x, float y) 
 	{
-		Gdx.app.log(TAG, "(" + cameraHelper.getPosition().x + ", " + cameraHelper.getPosition().y + ")");
+		//Gdx.app.log(TAG, "(" + cameraHelper.getPosition().x + ", " + cameraHelper.getPosition().y + ")");
 
 		x += cameraHelper.getPosition().x;
 		y += cameraHelper.getPosition().y;

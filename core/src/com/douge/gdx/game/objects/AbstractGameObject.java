@@ -15,8 +15,10 @@ public abstract class AbstractGameObject
 	
 	public Vector2 currentVelocity; 
 	public Vector2 maxVelocity; 
-	public Vector2 friction; 
-	public Vector2 gravity; 
+	public float friction; 
+	public float gravity;
+	public float currentGravity;
+	public float currentFriction;
 	public Rectangle bounds; 
 	
 	public AbstractGameObject () 
@@ -29,8 +31,6 @@ public abstract class AbstractGameObject
 		
 	    currentVelocity = new Vector2(); 
 	    maxVelocity = new Vector2(1, 1); 
-	    friction = new Vector2(); 
-	    gravity = new Vector2(); 
 	    bounds = new Rectangle(); 
 	}
 	
@@ -54,17 +54,14 @@ public abstract class AbstractGameObject
 			// Apply friction
 			if (currentVelocity.x > 0) 
 			{
-				currentVelocity.x = Math.max(currentVelocity.x - friction.x * deltaTime, 0);
+				currentVelocity.x = Math.max(currentVelocity.x - friction * deltaTime, 0);
 			} 
 			else 
 			{
-				currentVelocity.x = Math.min(currentVelocity.x + friction.x * deltaTime, 0);
+				currentVelocity.x = Math.min(currentVelocity.x + friction * deltaTime, 0);
 			}
 		}
-		
-		// Apply acceleration
-		currentVelocity.x += gravity.x * deltaTime;
-		
+
 		// Make sure the object's velocity does not exceed the
 		// positive or negative terminal velocity
 		currentVelocity.x = MathUtils.clamp(currentVelocity.x, -maxVelocity.x, maxVelocity.x);
@@ -77,16 +74,16 @@ public abstract class AbstractGameObject
 			// Apply friction
 			if (currentVelocity.y > 0) 
 			{
-				currentVelocity.y = Math.max(currentVelocity.y - friction.y * deltaTime, 0);
+				currentVelocity.y = Math.max(currentVelocity.y - gravity * deltaTime, 0);
 			} 
 			else 
 			{
-				currentVelocity.y = Math.min(currentVelocity.y + friction.y * deltaTime, 0);
+				currentVelocity.y = Math.min(currentVelocity.y + gravity * deltaTime, 0);
 			}
 		}
 		
 		// Apply acceleration
-		currentVelocity.y += gravity.y * deltaTime;
+		currentVelocity.y += gravity * deltaTime;
 		
 		// Make sure the object's velocity does not exceed the
 		// positive or negative terminal velocity

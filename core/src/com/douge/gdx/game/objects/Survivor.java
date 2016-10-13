@@ -32,6 +32,7 @@ public class Survivor extends AbstractGameObject
 	
 	public AfterImage afterImageDash;
 	public AfterImage afterImageJump;
+	public AfterImage afterImageNeutral;
 	
 	public enum VIEW_DIRECTION 
 	{ 
@@ -75,8 +76,10 @@ public class Survivor extends AbstractGameObject
 		
 		// Set physics values
 		maxVelocity.set(3.0f, 4.0f);
-		friction.set(12.0f, 0.0f);
-		gravity.set(0.0f, -25.0f);
+		friction = 12.0f;
+		gravity = -25.0f;
+		currentGravity = gravity;
+		currentFriction = friction;
 		
 		// View direction
 		viewDirection = VIEW_DIRECTION.RIGHT;
@@ -86,6 +89,7 @@ public class Survivor extends AbstractGameObject
 		
 		afterImageDash = new AfterImage();
 		afterImageJump = new AfterImage();
+		afterImageNeutral = new AfterImage();
 		
 		// Power-ups
 		hasGreenHeartPowerup = false;
@@ -95,6 +99,7 @@ public class Survivor extends AbstractGameObject
 	public void update(float deltaTime)
 	{
 		context.getCurrentState().execute(deltaTime);
+		afterImageNeutral.addNode(this, this.getRegion());
 	}
 	
 	public void render(SpriteBatch batch)
@@ -104,13 +109,28 @@ public class Survivor extends AbstractGameObject
 		// Apply Skin Color
 		batch.setColor(CharacterSkin.values()[GamePreferences.instance.charSkin].getColor());
 		
-
+		// Draw image
+		Node currentNode = afterImageNeutral.head;
+		for(int i = 0; currentNode != null && context.getCurrentState() != context.getDashState() && i < afterImageNeutral.MAX_NUM_NODES-1; i++)
+		{
+			batch.setColor(Color.GRAY);
+			batch.draw(currentNode.reg.getTexture(), 
+					currentNode.position.x, currentNode.position.y, 
+					currentNode.origin.x, currentNode.origin.y, 
+					currentNode.dimension.x, currentNode.dimension.y, 
+					currentNode.scale.x, currentNode.scale.y, 
+					currentNode.rotation,
+					currentNode.reg.getRegionX(), currentNode.reg.getRegionY(), 
+					currentNode.reg.getRegionWidth(), currentNode.reg.getRegionHeight(), 
+					viewDirection == VIEW_DIRECTION.LEFT, false);
+			currentNode = currentNode.nextNode;
+		}
 		
 		// Draw image
-		batch.setColor(Color.BLUE);
-		Node currentNode = afterImageDash.head;
+		currentNode = afterImageDash.head;
 		for(int i = 0; currentNode != null && context.getCurrentState() == context.getDashState() && i < afterImageDash.MAX_NUM_NODES-1; i++)
 		{
+			batch.setColor(Color.BLUE);
 			batch.draw(currentNode.reg.getTexture(), 
 					currentNode.position.x, currentNode.position.y, 
 					currentNode.origin.x, currentNode.origin.y, 
@@ -128,7 +148,7 @@ public class Survivor extends AbstractGameObject
 		{
 			batch.setColor(1.0f, 0.8f, 0.0f, 1.0f);
 			currentNode = afterImageJump.head;
-			for(int i = 0; currentNode != null && (context.getCurrentState() == context.getJumpRisingState() || context.getCurrentState() == context.getJumpFallingState()) && i < afterImageDash.MAX_NUM_NODES-1; i++)
+			for(int i = 0; currentNode != null && (context.getCurrentState() == context.getJumpRisingState() || context.getCurrentState() == context.getJumpFallingState()) && i < afterImageJump.MAX_NUM_NODES-1; i++)
 			{
 				batch.draw(currentNode.reg.getTexture(), 
 						currentNode.position.x, currentNode.position.y, 
@@ -142,12 +162,8 @@ public class Survivor extends AbstractGameObject
 				currentNode = currentNode.nextNode;
 			}
 		}
-		else
-		{
-			// Reset color to white
-			batch.setColor(1, 1, 1, 1);
-		}
-
+		// Reset color to white
+		batch.setColor(1, 1, 1, 1);
 		
 		batch.draw(reg.getTexture(), 
 				position.x, position.y, 

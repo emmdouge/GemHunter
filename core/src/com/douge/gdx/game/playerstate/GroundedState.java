@@ -20,28 +20,25 @@ public class GroundedState extends PlayerState
 		player.timeSliding = 0;
 		player.afterImageJump.head = null;
 		player.afterImageJump.tail = null;
+		player.afterImageDash.head = null;
+		player.afterImageDash.tail = null;
 		
 		if (player.currentVelocity.x != 0) 
 		{
 			// Apply friction
 			if (player.currentVelocity.x > 0) 
 			{
-				player.currentVelocity.x = Math.max(player.currentVelocity.x - player.friction.x * deltaTime, 0);
+				player.currentVelocity.x = Math.max(player.currentVelocity.x - player.friction * deltaTime, 0);
 			} 
 			else 
 			{
-				player.currentVelocity.x = Math.min(player.currentVelocity.x + player.friction.x * deltaTime, 0);
+				player.currentVelocity.x = Math.min(player.currentVelocity.x + player.friction * deltaTime, 0);
 			}
 		}
-		
-		// Apply acceleration
-		player.currentVelocity.x += player.gravity.x * deltaTime;
-		
+
 		// Make sure the object's velocity does not exceed the
 		// positive or negative terminal velocity
 		player.currentVelocity.x = MathUtils.clamp(player.currentVelocity.x, -player.maxVelocity.x, player.maxVelocity.x);
-		
-		context.setPlayerState(context.getFallingState());
 		
 		if (player.currentVelocity.x != 0) 
 		{
@@ -58,12 +55,23 @@ public class GroundedState extends PlayerState
 			player.timeLeftGreenHeartPowerup = 0;
 			player.setGreenHeartPowerup(false);
 		}
+		
+		// Move to new position
+		player.position.x += player.currentVelocity.x * deltaTime;
+		player.position.y += player.currentVelocity.y * deltaTime;
 	}
 
 	@Override
 	public void onCollisionWith(Rock rock) 
 	{
-		//do nothing
+
+	}
+
+	@Override
+	public void noRockCollision() 
+	{
+		context.noRockCollision();
+		context.setPlayerState(context.getFallingState());
 	}
 	
 }

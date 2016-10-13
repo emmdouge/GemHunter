@@ -40,7 +40,7 @@ public class AfterImage
 		Node node = new Node(object, region);
 		if(currentNumNodes != MAX_NUM_NODES)
 		{
-			if(head == null)
+			if(head == null || tail == null)
 			{
 				head = node;
 				tail = node;

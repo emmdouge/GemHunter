@@ -18,5 +18,6 @@ public abstract class PlayerState
 	public abstract void execute(float deltaTime);
 
 	public abstract void onCollisionWith(Rock rock);
+	public abstract void noRockCollision();
 
 }

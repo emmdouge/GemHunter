@@ -11,7 +11,6 @@ public class PlayerStateContext
 	private JumpFallingState jumpFallingState;
 	private JumpRisingState jumpRisingState;
 	private DashState dashState;
-	private SlideState slideState;
 	private PlayerState currentState;
 	private Survivor player;
 	
@@ -23,7 +22,6 @@ public class PlayerStateContext
 		jumpFallingState = new JumpFallingState(astronaut, this);
 		jumpRisingState = new JumpRisingState(astronaut, this);
 		dashState = new DashState(astronaut, this);
-		slideState = new SlideState(astronaut, this);
 		
 		currentState = fallingState;
 	}
@@ -110,36 +108,32 @@ public class PlayerStateContext
 	
 	public void setStateBasedOnCollisionWithRock(Rock rock)
 	{
-		if(currentState == fallingState || currentState == jumpFallingState)
-		{
-			player.position.y = rock.position.y + player.bounds.height;
-			setPlayerState(groundedState);
-		}
-		else if(currentState == jumpRisingState)
-		{
-			if(player.position.y < rock.position.y)
-			{
-				setPlayerState(fallingState);
-			}
-			//player.position.y = rock.position.y + player.bounds.height + player.origin.y;
-		}
+		currentState.onCollisionWith(rock);
+//		if(currentState == fallingState || currentState == jumpFallingState)
+//		{
+//			player.position.y = rock.position.y + player.bounds.height;
+//			setPlayerState(groundedState);
+//		}
+//		else if(currentState == jumpRisingState)
+//		{
+//			if(player.position.y >= rock.position.y)
+//			{
+//				player.position.y = rock.position.y + player.bounds.height + player.origin.y;
+//				setPlayerState(fallingState);
+//			}
+//			//player.position.y = rock.position.y + player.bounds.height + player.origin.y;
+//		}
 	}
 
-	public void setPlayerStateBasedOnInput(boolean jumpKeyPressed, boolean dashKeyPressed, boolean slideKeyPressed) 
+	public void setPlayerStateBasedOnInput(boolean jumpKeyPressed, boolean dashKeyPressed) 
 	{
 		jump(jumpKeyPressed);
 		dash(dashKeyPressed);
-		slide(slideKeyPressed);
 	}
-
-	private void slide(boolean slideKeyPressed) 
+	
+	public void noRockCollision()
 	{
-		if(slideKeyPressed)
-		{
-			if (currentState == groundedState)
-			{
-				setPlayerState(slideState);
-			}
-		}
+		player.currentGravity = player.gravity;
+		player.currentFriction = player.friction;
 	}
 }

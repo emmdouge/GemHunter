@@ -16,7 +16,7 @@ public class DashState extends PlayerState
 	@Override
 	public void execute(float deltaTime) 
 	{
-		Gdx.app.log(tag, "" + player.timeDashing);
+		//Gdx.app.log(tag, "" + player.timeDashing);
 		// Keep track of jump time
 		player.timeDashing += deltaTime;
 		
@@ -42,15 +42,40 @@ public class DashState extends PlayerState
 		}
 		else
 		{
-			player.afterImageDash.head = null;
-			player.afterImageDash.tail = null;
 			player.timeJumping = player.JUMP_TIME_MAX;
 			context.setPlayerState(context.getFallingState());
 		}
 	}
 
 	@Override
-	public void onCollisionWith(Rock rock) {
+	public void onCollisionWith(Rock rock) 
+	{
+		float diffBetweenLeftSideOfPlayerAndRightSideOfRock = rock.position.x + rock.bounds.x - player.position.x;
+		
+		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = player.position.x + player.bounds.width + .001f - rock.position.x;
+		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.07f;
+		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfRock <= 0.07f;
+		
+		if(hitLeftEdge)
+		{
+			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.height + "=" + (rock.position.y+rock.bounds.height) + ", player: " + player.position.y + " " +(4.5-player.position.y) );
+			player.currentFriction = 0;
+			player.currentVelocity.x = 0;
+			
+			//since the rocks are all linked together, rock's bound witdth is the entire platform
+			player.position.x = rock.position.x - 1;
+		}
+		else if(hitRightEdge)
+		{
+			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.width + "=" + (rock.position.x+rock.bounds.width) + ", player: " + player.position.y + " " +(4.5-player.position.y) );
+			player.currentFriction = 0;
+			player.currentVelocity.x = 0;
+			player.position.x = rock.position.x + rock.bounds.width;
+		}
+	}
+
+	@Override
+	public void noRockCollision() {
 		// TODO Auto-generated method stub
 		
 	}
