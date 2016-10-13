@@ -58,7 +58,7 @@ public class WorldController extends InputAdapter
 
 	public void update(float deltaTime)
 	{
-		//Gdx.app.log(TAG, "" + level.survivor.context.getCurrentState());
+		Gdx.app.log(TAG, "" + level.survivor.context.getCurrentState());
 		//Gdx.app.log(TAG, "player: " + level.survivor.position.y + " " + level.survivor.currentVelocity.y);
 		handleDebugInput(deltaTime);
 		if (isGameOver()) 
@@ -187,6 +187,7 @@ public class WorldController extends InputAdapter
 			}
 		
 			onCollisionSurvivorWithRock(rock);
+			break;
 			//System.out.println("im here");
 			// IMPORTANT: must do all collisions for valid
 			// edge testing on rocks.

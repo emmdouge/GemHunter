@@ -17,16 +17,12 @@ import effects.AfterImage.Node;
 public class Survivor extends AbstractGameObject
 {
 	public static final String TAG = Survivor.class.getName();
-	public final float JUMP_TIME_MAX = 0.3f;
+	public final float JUMP_TIME_MAX = 0.4f;
 	public final float JUMP_TIME_MIN = 0.1f;
-	public final float JUMP_TIME_OFFSET_FLYING = JUMP_TIME_MAX - 0.018f;
 	public float timeJumping;
 	
 	public final float DASH_TIME_MAX = 0.25f;
 	public float timeDashing;
-	
-	public final float SLIDE_TIME_MAX = 0.25f;
-	public float timeSliding;
 	
 	public PlayerStateContext context;
 	

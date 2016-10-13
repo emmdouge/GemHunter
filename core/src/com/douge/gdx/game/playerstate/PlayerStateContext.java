@@ -80,8 +80,14 @@ public class PlayerStateContext
 			{
 				if(player.hasGreenHeartPowerup)
 				{
-					player.timeJumping = player.JUMP_TIME_OFFSET_FLYING;
 					setPlayerState(jumpRisingState);
+				}
+			}
+			else if(currentState == jumpRisingState)
+			{
+				if(player.timeJumping > player.JUMP_TIME_MAX)
+				{
+					setPlayerState(fallingState);
 				}
 			}
 		}

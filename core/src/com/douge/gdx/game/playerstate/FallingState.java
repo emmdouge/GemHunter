@@ -39,7 +39,7 @@ public class FallingState extends PlayerState
 		player.timeJumping += deltaTime;
 
 		// Jump to minimal height if jump key was pressed too short
-		if (player.timeJumping > 0 && player.timeJumping <= player.JUMP_TIME_MIN) 
+		if (player.JUMP_TIME_MIN < player.timeJumping && player.timeJumping <= player.JUMP_TIME_MAX) 
 		{
 			// Still jumping
 			player.currentVelocity.y = player.maxVelocity.y;
@@ -81,7 +81,7 @@ public class FallingState extends PlayerState
 		float diffBetweenBottomOfPlayerAndTopOfRock = rock.position.y + rock.bounds.height - player.position.y;
 		float diffBetweenLeftSideOfPlayerAndRightSideOfRock = rock.position.x + rock.bounds.x - player.position.x;
 		
-		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = player.position.x + player.bounds.width + .001f - rock.position.x;
+		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = player.position.x + player.bounds.width - rock.position.x;
 		
 		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.07f;
 		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.07f;
@@ -90,6 +90,7 @@ public class FallingState extends PlayerState
 		if(landOnTop)
 		{
 			//Gdx.app.log(tag, "player: " + player.position.y + " " + player.currentVelocity.y);
+			Gdx.app.log(tag, "rock: " + rock.position.y + "+" + rock.bounds.height + "=" + (rock.position.y+rock.bounds.height) + ", player: " + player.position.y + " " + diffBetweenBottomOfPlayerAndTopOfRock);
 			player.currentGravity = 0;
 			player.currentVelocity.y = 0;
 			player.position.y = rock.position.y + rock.bounds.height - 0.001f;

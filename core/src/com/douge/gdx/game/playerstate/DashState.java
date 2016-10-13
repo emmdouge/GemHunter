@@ -51,11 +51,12 @@ public class DashState extends PlayerState
 	public void onCollisionWith(Rock rock) 
 	{
 		float diffBetweenLeftSideOfPlayerAndRightSideOfRock = rock.position.x + rock.bounds.x - player.position.x;
-		
+
+		float diffBetweenBottomOfPlayerAndTopOfRock = rock.position.y + rock.bounds.height - player.position.y;
 		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = player.position.x + player.bounds.width + .001f - rock.position.x;
 		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.07f;
 		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfRock <= 0.07f;
-		
+		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.07f;
 		if(hitLeftEdge)
 		{
 			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.height + "=" + (rock.position.y+rock.bounds.height) + ", player: " + player.position.y + " " +(4.5-player.position.y) );
@@ -64,6 +65,10 @@ public class DashState extends PlayerState
 			
 			//since the rocks are all linked together, rock's bound witdth is the entire platform
 			player.position.x = rock.position.x - 1;
+		}
+		else if(onTopOfRock)
+		{
+			player.position.y += .01f;
 		}
 		else if(hitRightEdge)
 		{
@@ -75,9 +80,9 @@ public class DashState extends PlayerState
 	}
 
 	@Override
-	public void noRockCollision() {
-		// TODO Auto-generated method stub
-		
+	public void noRockCollision() 
+	{
+		context.noRockCollision();
 	}
 
 }

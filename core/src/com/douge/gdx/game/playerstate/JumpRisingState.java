@@ -39,7 +39,7 @@ public class JumpRisingState extends PlayerState
 		player.timeJumping += deltaTime;
 
 		// Jump time left?
-		if (player.timeJumping <= player.JUMP_TIME_MAX) 
+		if (player.JUMP_TIME_MIN < player.timeJumping && player.timeJumping <= player.JUMP_TIME_MAX) 
 		{
 			// Still jumping
 			player.currentVelocity.y = player.maxVelocity.y;
@@ -57,10 +57,10 @@ public class JumpRisingState extends PlayerState
 			player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
 		}
 		
-		if (player.timeLeftGreenHeartPowerup > 0) 
+		if (player.timeLeftGreenHeartPowerup > 0 && player.timeJumping < player.JUMP_TIME_MAX*1.5) 
 		{
 			player.timeLeftGreenHeartPowerup -= deltaTime;
-			player.currentVelocity.y += player.maxVelocity.y*2;
+			player.currentVelocity.y = player.maxVelocity.y;
 			player.afterImageJump.addNode(player, player.getRegion());
 		}
 		if (player.timeLeftGreenHeartPowerup < 0) 
@@ -71,6 +71,7 @@ public class JumpRisingState extends PlayerState
 		}
 		
 		// Move to new position
+		Gdx.app.log(tag, "player: " + player.position.y + " " + player.currentVelocity.y);
 		player.position.x += player.currentVelocity.x * deltaTime;
 		player.position.y += player.currentVelocity.y * deltaTime;
 	}
@@ -81,12 +82,13 @@ public class JumpRisingState extends PlayerState
 		//drawn starting from bottom left
 		float diffBetweenTopOfPlayerAndBottomOfRock = player.position.y + player.bounds.height + .001f - rock.position.y;
 		float diffBetweenLeftSideOfPlayerAndRightSideOfRock = rock.position.x + rock.bounds.x - player.position.x;
-		
+		float diffBetweenBottomOfPlayerAndTopOfRock = rock.position.y + rock.bounds.height - player.position.y;
 		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = player.position.x + player.bounds.width + .001f - rock.position.x;
 		
 		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfRock <= 0.07f;
 		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.07f;
 		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfRock <= 0.07f;
+		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.07f;
 		
 		if(hitTop)
 		{
@@ -96,6 +98,10 @@ public class JumpRisingState extends PlayerState
 			player.position.y = rock.position.y - player.bounds.height;
 			context.setPlayerState(context.getJumpFallingState());
 			//Gdx.app.log(tag, "player: " + player.position.y + " " + player.currentVelocity.y);
+		}
+		else if(onTopOfRock)
+		{
+			player.currentVelocity.y = player.maxVelocity.y;
 		}
 		else if(hitLeftEdge)
 		{
@@ -116,9 +122,9 @@ public class JumpRisingState extends PlayerState
 	}
 
 	@Override
-	public void noRockCollision() {
-		// TODO Auto-generated method stub
-		
+	public void noRockCollision() 
+	{
+		context.noRockCollision();
 	}
 
 }
