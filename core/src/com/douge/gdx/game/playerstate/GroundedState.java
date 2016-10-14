@@ -1,6 +1,7 @@
 package com.douge.gdx.game.playerstate;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.objects.Survivor;
 import com.douge.gdx.game.objects.Survivor.VIEW_DIRECTION;
 import com.douge.gdx.game.objects.Rock;
@@ -21,6 +22,7 @@ public class GroundedState extends PlayerState
 		player.afterImageJump.tail = null;
 		player.afterImageDash.head = null;
 		player.afterImageDash.tail = null;
+		player.currentAnimation = Assets.instance.survivor.standingAnimation;
 		
 		if (player.currentVelocity.x != 0) 
 		{
@@ -42,6 +44,8 @@ public class GroundedState extends PlayerState
 		if (player.currentVelocity.x != 0) 
 		{
 			player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
+
+			player.currentAnimation = Assets.instance.survivor.runAnimation;
 		}
 		
 		if (player.timeLeftGreenHeartPowerup > 0) 

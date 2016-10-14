@@ -2,6 +2,7 @@ package com.douge.gdx.game.playerstate;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.objects.Rock;
 import com.douge.gdx.game.objects.Survivor;
 import com.douge.gdx.game.objects.Survivor.VIEW_DIRECTION;
@@ -19,11 +20,10 @@ public class DashState extends PlayerState
 		//Gdx.app.log(tag, "" + player.timeDashing);
 		// Keep track of jump time
 		player.timeDashing += deltaTime;
-		
+		player.currentAnimation = Assets.instance.survivor.dashingAnimation;
 		if(player.timeDashing <= player.DASH_TIME_MAX)
 		{
-			player.afterImageDash.addNode(player, player.getRegion());
-			
+			player.afterImageDash.addNode(player, player.currentAnimation.getKeyFrame(player.stateTime));
 			int direction = VIEW_DIRECTION.getInt(player.viewDirection);
 			
 			player.position.x += (10*direction) * deltaTime;

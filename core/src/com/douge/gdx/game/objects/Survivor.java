@@ -1,6 +1,7 @@
 package com.douge.gdx.game.objects;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.douge.gdx.game.Constants;
@@ -29,6 +30,9 @@ public class Survivor extends AbstractGameObject
 	public AfterImage afterImageDash;
 	public AfterImage afterImageJump;
 	public AfterImage afterImageNeutral;
+	
+	public Animation currentAnimation;
+	public float stateTime;
 	
 	public enum VIEW_DIRECTION 
 	{ 
@@ -90,18 +94,19 @@ public class Survivor extends AbstractGameObject
 		// Power-ups
 		hasGreenHeartPowerup = false;
 		timeLeftGreenHeartPowerup = 0;		
+		
+		currentAnimation = Assets.instance.survivor.fallingAnimation;
 	};
 	
 	public void update(float deltaTime)
 	{
 		context.getCurrentState().execute(deltaTime);
-		afterImageNeutral.addNode(this, this.getRegion());
+		stateTime += deltaTime;
+		afterImageNeutral.addNode(this, currentAnimation.getKeyFrame(stateTime));
 	}
 	
 	public void render(SpriteBatch batch)
-	{
-		TextureRegion reg = regSurvivor;
-		
+	{	
 		// Apply Skin Color
 		batch.setColor(CharacterSkin.values()[GamePreferences.instance.charSkin].getColor());
 		
@@ -160,7 +165,8 @@ public class Survivor extends AbstractGameObject
 		}
 		// Reset color to white
 		batch.setColor(1, 1, 1, 1);
-		
+		TextureRegion reg = regSurvivor;
+		reg = currentAnimation.getKeyFrame(stateTime, true);
 		batch.draw(reg.getTexture(), 
 				position.x, position.y, 
 				origin.x, origin.y, 

@@ -2,6 +2,7 @@ package com.douge.gdx.game.playerstate;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.objects.Survivor;
 import com.douge.gdx.game.objects.Survivor.VIEW_DIRECTION;
 import com.douge.gdx.game.objects.Rock;
@@ -18,6 +19,7 @@ public class JumpRisingState extends PlayerState
 	@Override
 	public void execute(float deltaTime) 
 	{
+		player.currentAnimation = Assets.instance.survivor.jumpingAnimation;
 		if (player.currentVelocity.x != 0) 
 		{
 			// Apply friction
@@ -61,7 +63,7 @@ public class JumpRisingState extends PlayerState
 		{
 			player.timeLeftGreenHeartPowerup -= deltaTime;
 			player.currentVelocity.y = player.maxVelocity.y;
-			player.afterImageJump.addNode(player, player.getRegion());
+			player.afterImageJump.addNode(player, player.currentAnimation.getKeyFrame(player.stateTime));
 		}
 		if (player.timeLeftGreenHeartPowerup < 0) 
 		{
