@@ -42,7 +42,8 @@ public class Level
 		{
 			color = r << 24 | g << 16 | b << 8 | 0xff;
 		}
-			public boolean sameColor (int color) 
+		
+		public boolean sameColor(int color) 
 		{
 			return this.color == color;
 		}
@@ -50,6 +51,17 @@ public class Level
 		public int getColor () 
 		{
 			return color;
+		}
+		public static boolean validColor(int currentPixel) 
+		{
+			for (BLOCK_TYPE blockType : BLOCK_TYPE.values())
+			{
+				if(currentPixel == blockType.color)
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 	};
 	
@@ -79,7 +91,7 @@ public class Level
 		
 		// load image file that represents the level data
 		Pixmap pixmap = new Pixmap(Gdx.files.internal("../core/assets/levels/level-01.png"));
-		
+		float yOffset = 1.5f;
 		// scan pixels from top-left to bottom-right
 		int lastPixel = -1;
 		for (int pixelY = 0; pixelY < pixmap.getHeight(); pixelY++) 
@@ -87,10 +99,12 @@ public class Level
 			for (int pixelX = 0; pixelX < pixmap.getWidth(); pixelX++) 
 			{
 				AbstractGameObject obj = null;
-				float offsetHeight = 0;
 				
-				// height grows from bottom to top
-				float baseHeight = pixmap.getHeight() - pixelY;
+				//I want to set positions the way batch draws them -> starting from the bottom left
+				//think of the pixels as starting from the top left in the level.png
+				//so, the x doesn't have to be changed, but the y has to be adjusted to make it 
+				//as if it starts at the bottom left
+				float baseHeight = pixmap.getHeight() - pixelY - yOffset;
 				
 				// get color of current pixel as 32-bit RGBA value
 				int currentPixel = pixmap.getPixel(pixelX, pixelY);
@@ -99,24 +113,20 @@ public class Level
 				// point and create the corresponding game object if there is a match
 		
 				// rock back
-				if (BLOCK_TYPE.ROCK_BACK.sameColor(currentPixel)) 
+				if (BLOCK_TYPE.ROCK_BACK.sameColor(currentPixel) || BLOCK_TYPE.validColor(currentPixel)) 
 				{
 						obj = new RockBackground();
-						float heightIncreaseFactor = 1f;
-						offsetHeight = -2.5f;
-						obj.position.set(pixelX, baseHeight * obj.dimension.y * heightIncreaseFactor + offsetHeight);
+						obj.position.set(pixelX, baseHeight);
 						rocksBackground.add((RockBackground)obj);
 				}
 		
 				// rock
-				else if (BLOCK_TYPE.ROCK.sameColor(currentPixel)) 
+				if (BLOCK_TYPE.ROCK.sameColor(currentPixel)) 
 				{
 					if (lastPixel != currentPixel) 
 					{
 						obj = new Rock();
-						float heightIncreaseFactor = 1f;
-						offsetHeight = -2.5f;
-						obj.position.set(pixelX, baseHeight * obj.dimension.y * heightIncreaseFactor + offsetHeight);
+						obj.position.set(pixelX, baseHeight);
 						rocks.add((Rock)obj);
 					} 
 					else 
@@ -129,8 +139,7 @@ public class Level
 				else if (BLOCK_TYPE.PLAYER_SPAWNPOINT.sameColor(currentPixel)) 
 				{
 			          obj = new Survivor(); 
-			          offsetHeight = -1.5f; 
-			          obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight); 
+			          obj.position.set(pixelX, baseHeight); 
 			          survivor = (Survivor)obj; 
 				}
 				
@@ -138,8 +147,7 @@ public class Level
 				else if (BLOCK_TYPE.ITEM_GREENHEART.sameColor(currentPixel)) 
 				{
 			          obj = new JumpDiamond(); 
-			          offsetHeight = -1.5f; 
-			          obj.position.set(pixelX, baseHeight * obj.dimension.y + offsetHeight); 
+			          obj.position.set(pixelX, baseHeight); 
 			          jumpDiamond.add((JumpDiamond)obj); 
 				}
 		
@@ -147,8 +155,7 @@ public class Level
 				else if (BLOCK_TYPE.ITEM_GOLD_COIN.sameColor(currentPixel)) 
 				{
 			          obj = new GoldCoin(); 
-			          offsetHeight = -1.5f; 
-			          obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight); 
+			          obj.position.set(pixelX,baseHeight); 
 			          goldcoins.add((GoldCoin)obj); 
 				}
 		
@@ -174,10 +181,16 @@ public class Level
 		// decoration
 		clouds = new Clouds(pixmap.getWidth());
 		clouds.position.set(0, 2);
+
+		int baseHeightOfBottomLeftPixelOfPixmap = 1;
+		
+		int lookGood = 1;
 		trees = new Trees(pixmap.getWidth());
-		trees.position.set(-1, -1);
+		trees.position.set(0, baseHeightOfBottomLeftPixelOfPixmap - yOffset + lookGood);
+		
+		lookGood = -2;
 		waterOverlay = new WaterOverlay(pixmap.getWidth());
-		waterOverlay.position.set(0, -3.75f);
+		waterOverlay.position.set(0, baseHeightOfBottomLeftPixelOfPixmap - yOffset + lookGood);
 		
 		// free memory
 		pixmap.dispose();

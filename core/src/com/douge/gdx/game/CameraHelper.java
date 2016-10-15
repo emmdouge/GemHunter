@@ -1,5 +1,6 @@
 package com.douge.gdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
@@ -91,7 +92,7 @@ public class CameraHelper {
 				position.y = Constants.CAMERA_Y_MAX;
 			}
 		}
-		
+		Gdx.app.log("", "" + position.x);
 		camera.position.x = position.x;
 		camera.position.y = position.y;
 		camera.zoom = zoom;
