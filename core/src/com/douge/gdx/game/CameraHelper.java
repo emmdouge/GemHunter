@@ -92,7 +92,6 @@ public class CameraHelper {
 				position.y = Constants.CAMERA_Y_MAX;
 			}
 		}
-		Gdx.app.log("", "" + position.x);
 		camera.position.x = position.x;
 		camera.position.y = position.y;
 		camera.zoom = zoom;
