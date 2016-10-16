@@ -33,14 +33,16 @@ public class Constants
 	public static final String SURVIVOR_ATLAS_PATH = "../core/assets/images/survivor.atlas";
 	public static final String COIN_ATLAS_PATH = "../core/assets/images/coin.atlas";
 	public static final String TILE_ATLAS_PATH = "../core/assets/images/tiles.atlas";
-	public static final String LEVEL_01_PATH = "../core/assets/levels/level_01.png";
-	public static final String TEXTURE_ATLAS_UI = "../core/assets/images/game-ui.atlas";
+	public static final String SLIME_ATLAS_PATH = "../core/assets/images/slime.atlas";
+	public static final String BAT_ATLAS_PATH = "../core/assets/images/bat.atlas";
+	public static final String SKELETON_ATLAS_PATH = "../core/assets/images/skeleton.atlas";
+	public static final String RANGER_ATLAS_PATH = "../core/assets/images/ranger.atlas";
 	
+	public static final String LEVEL_01_PATH = "../core/assets/levels/level_01.png";
+	
+	public static final String TEXTURE_ATLAS_UI = "../core/assets/images/game-ui.atlas";
 	public static final String TEXTURE_ATLAS_LIBGDX_UI = "../core/assets/images/uiskin.atlas";
-			
-	// Location of description file for skins
 	public static final String SKIN_LIBGDX_UI = "../core/assets/images/uiskin.json";
-			
 	public static final String SKIN_CANYONBUNNY_UI = "../core/assets/images/game-ui.json";
 	
 	public static final String PREFERENCES = "canyonbunny.prefs";

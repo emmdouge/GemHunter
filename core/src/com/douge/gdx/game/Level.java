@@ -5,6 +5,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import com.douge.gdx.game.assets.Assets;
+import com.douge.gdx.game.enemy.Enemy;
+import com.douge.gdx.game.enemy.Slime;
 import com.douge.gdx.game.objects.AbstractGameObject;
 import com.douge.gdx.game.objects.Survivor;
 import com.douge.gdx.game.objects.Clouds;
@@ -28,46 +31,10 @@ public class Level
 	public Array<GoldCoin> goldcoins; 
 	public Array<JumpDiamond> jumpDiamond; 
 	
-	public enum BLOCK_TYPE 
-	{
-		ROCK_BACK(0, 0, 0), // black
-		ROCK(0, 255, 0), // green
-		PLAYER_SPAWNPOINT(255, 255, 255), // white
-		ITEM_GREENHEART(255, 0, 255), // purple
-		ITEM_GOLD_COIN(255, 255, 0); // yellow
-		
-		private int color;
-		
-		private BLOCK_TYPE (int r, int g, int b) 
-		{
-			color = r << 24 | g << 16 | b << 8 | 0xff;
-		}
-		
-		public boolean sameColor(int color) 
-		{
-			return this.color == color;
-		}
-			
-		public int getColor () 
-		{
-			return color;
-		}
-		public static boolean validColor(int currentPixel) 
-		{
-			for (BLOCK_TYPE blockType : BLOCK_TYPE.values())
-			{
-				if(currentPixel == blockType.color)
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-	};
-	
 	// objects
 	public Array<Rock> rocks;
 	public Array<RockBackground> rocksBackground;
+	public Array<Enemy> enemies;
 	
 	// decoration
 	public Clouds clouds;
@@ -88,6 +55,7 @@ public class Level
 	    jumpDiamond = new Array<JumpDiamond>(); 
 		rocks = new Array<Rock>();
 		rocksBackground = new Array<RockBackground>();
+		enemies = new Array<Enemy>();
 		
 		// load image file that represents the level data
 		Pixmap pixmap = new Pixmap(Gdx.files.internal("../core/assets/levels/level-01.png"));
@@ -158,7 +126,14 @@ public class Level
 			          obj.position.set(pixelX,baseHeight); 
 			          goldcoins.add((GoldCoin)obj); 
 				}
-		
+				
+				// slime
+				else if(BLOCK_TYPE.ENEMY_SLIME.sameColor(currentPixel))
+				{
+			          obj = new Slime(Assets.instance.slime); 
+			          obj.position.set(pixelX,baseHeight); 
+			          enemies.add((Slime)obj); 	
+				}
 				// unknown object/pixel color
 				else 
 				{
@@ -210,6 +185,11 @@ public class Level
 		for(JumpDiamond greenHeart : jumpDiamond)
 		greenHeart.update(deltaTime);
 		
+		for(Enemy enemy : enemies)
+		{
+			enemy.update(deltaTime);
+		}
+		
 		clouds.update(deltaTime);
 	}
 	
@@ -244,6 +224,9 @@ public class Level
 		// Draw Rocks
 		for (Rock rock : rocks)
 		rock.render(batch);
+		
+		for(Enemy enemy : enemies)
+		enemy.render(batch);
 		
 		// Draw Clouds
 		clouds.render(batch);

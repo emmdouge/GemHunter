@@ -10,6 +10,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.douge.gdx.game.Constants;
+import com.douge.gdx.game.assets.enemy.AssetBat;
+import com.douge.gdx.game.assets.enemy.AssetRanger;
+import com.douge.gdx.game.assets.enemy.AssetSkeleton;
+import com.douge.gdx.game.assets.enemy.AssetSlime;
 
 public class Assets implements Disposable, AssetErrorListener 
 {
@@ -25,6 +29,10 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetSurvivor survivor;
 	public AssetTiles tiles;
 	public AssetGem gems;
+	public AssetBat bat;
+	public AssetSkeleton skeleton;
+	public AssetRanger ranger;
+	public AssetSlime slime;
 	
 	private Assets()
 	{
@@ -45,6 +53,10 @@ public class Assets implements Disposable, AssetErrorListener
 		assetManager.load(Constants.TILE_ATLAS_PATH, TextureAtlas.class);
 		assetManager.load(Constants.CANYONBUNNY_PATH, TextureAtlas.class);
 		assetManager.load(Constants.GEM_ATLAS_PATH, TextureAtlas.class);
+		assetManager.load(Constants.SLIME_ATLAS_PATH, TextureAtlas.class);
+		assetManager.load(Constants.RANGER_ATLAS_PATH, TextureAtlas.class);
+		assetManager.load(Constants.SKELETON_ATLAS_PATH, TextureAtlas.class);
+		assetManager.load(Constants.BAT_ATLAS_PATH, TextureAtlas.class);
 		//start loading assets in directory specified by atlas path
 		assetManager.finishLoading();
 		
@@ -61,6 +73,18 @@ public class Assets implements Disposable, AssetErrorListener
 		
 		atlas = assetManager.get(Constants.GEM_ATLAS_PATH);
 		gems = new AssetGem(atlas);
+		
+		atlas = assetManager.get(Constants.SLIME_ATLAS_PATH);
+		slime = new AssetSlime(atlas);
+		
+		atlas = assetManager.get(Constants.SKELETON_ATLAS_PATH);
+		skeleton = new AssetSkeleton(atlas);
+		
+		atlas = assetManager.get(Constants.RANGER_ATLAS_PATH);
+		ranger = new AssetRanger(atlas);
+		
+		atlas = assetManager.get(Constants.BAT_ATLAS_PATH);
+		bat = new AssetBat(atlas);
 		
 		atlas = assetManager.get(Constants.COIN_ATLAS_PATH);
 		goldCoin = new AssetGoldCoin(atlas);

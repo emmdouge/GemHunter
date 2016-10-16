@@ -73,7 +73,7 @@ public class CameraHelper {
 	
 	public void applyTo(OrthographicCamera camera)
 	{
-		if(clampCam == true)
+		if(clampCam == false)
 		{
 			if(position.x < Constants.CAMERA_X_MIN)
 			{

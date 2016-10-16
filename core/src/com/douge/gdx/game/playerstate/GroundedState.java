@@ -3,7 +3,7 @@ package com.douge.gdx.game.playerstate;
 import com.badlogic.gdx.math.MathUtils;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.objects.Survivor;
-import com.douge.gdx.game.objects.Survivor.VIEW_DIRECTION;
+import com.douge.gdx.game.VIEW_DIRECTION;
 import com.douge.gdx.game.objects.Rock;
 
 public class GroundedState extends PlayerState 

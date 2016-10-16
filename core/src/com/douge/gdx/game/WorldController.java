@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.assets.Assets;
+import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.objects.Survivor;
 import com.douge.gdx.game.objects.GoldCoin;
 import com.douge.gdx.game.objects.JumpDiamond;
@@ -58,7 +59,7 @@ public class WorldController extends InputAdapter
 
 	public void update(float deltaTime)
 	{
-		Gdx.app.log(TAG, "" + level.survivor.context.getCurrentState());
+		Gdx.app.log(TAG, "" + level.enemies.get(0).context.getCurrentState());
 		//Gdx.app.log(TAG, "player: " + level.survivor.position.y + " " + level.survivor.currentVelocity.y);
 		handleDebugInput(deltaTime);
 		if (isGameOver()) 
@@ -147,12 +148,6 @@ public class WorldController extends InputAdapter
 		}
 	}
 	
-	private void onCollisionSurvivorWithRock(Rock rock) 
-	{
-		Survivor astronaut = level.survivor;
-		astronaut.context.setStateBasedOnCollisionWithRock(rock);
-	};
-	
 	private void onCollisionAstronautWithGoldCoin(GoldCoin goldcoin) 
 	{
 		goldcoin.collected = true;
@@ -172,7 +167,6 @@ public class WorldController extends InputAdapter
 	{
 		r1.set(level.survivor.position.x, level.survivor.position.y,
 				level.survivor.bounds.width, level.survivor.bounds.height);
-		
 		// Test collision: Bunny Head <-> Rocks
 		for (Rock rock : level.rocks) 
 		{
@@ -186,12 +180,35 @@ public class WorldController extends InputAdapter
 				continue;
 			}
 		
-			onCollisionSurvivorWithRock(rock);
+			level.survivor.context.setStateBasedOnCollisionWithRock(rock);
 			break;
 			//System.out.println("im here");
 			// IMPORTANT: must do all collisions for valid
 			// edge testing on rocks.
 		}
+		
+		// Test collision: Bunny Head <-> Rocks
+		for(Enemy enemy: level.enemies)
+		{
+			r1.set(enemy.position.x, enemy.position.y, enemy.bounds.width, enemy.bounds.height);
+			boolean collided = false;
+			for(Rock rock: level.rocks)
+			{
+				r2.set(rock.position.x, rock.position.y, rock.bounds.width, rock.bounds.height);
+				if(r1.overlaps(r2))
+				{
+					enemy.context.getCurrentState().onCollisionWith(rock);
+					collided = true;
+				}
+			}
+			if(collided == false)
+			{
+				enemy.context.getCurrentState().noRockCollision();
+			}
+		}
+		
+		r1.set(level.survivor.position.x, level.survivor.position.y,
+				level.survivor.bounds.width, level.survivor.bounds.height);
 		
 		// Test collision: Bunny Head <-> Gold Coins
 		for (GoldCoin goldcoin : level.goldcoins) 
@@ -212,6 +229,7 @@ public class WorldController extends InputAdapter
 			onCollisionAstronautWithGoldCoin(goldcoin);
 			break;
 		}
+		
 		// Test collision: Bunny Head <-> Feathers
 		for (JumpDiamond greenHeart : level.jumpDiamond) 
 		{

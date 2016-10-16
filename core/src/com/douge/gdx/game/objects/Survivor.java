@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.douge.gdx.game.Constants;
+import com.douge.gdx.game.VIEW_DIRECTION;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.playerstate.PlayerStateContext;
 import com.douge.gdx.game.utils.GamePreferences;
@@ -33,24 +34,6 @@ public class Survivor extends AbstractGameObject
 	
 	public Animation currentAnimation;
 	public float stateTime;
-	
-	public enum VIEW_DIRECTION 
-	{ 
-		LEFT, 
-		RIGHT;
-		
-		public static int getInt(VIEW_DIRECTION direction)
-		{
-			if(direction == LEFT)
-			{
-				return -1;
-			}
-			else
-			{
-				return 1;
-			}
-		}
-	}
 	
 	private TextureRegion regSurvivor;
 	public VIEW_DIRECTION viewDirection;

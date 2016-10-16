@@ -115,20 +115,6 @@ public class PlayerStateContext
 	public void setStateBasedOnCollisionWithRock(Rock rock)
 	{
 		currentState.onCollisionWith(rock);
-//		if(currentState == fallingState || currentState == jumpFallingState)
-//		{
-//			player.position.y = rock.position.y + player.bounds.height;
-//			setPlayerState(groundedState);
-//		}
-//		else if(currentState == jumpRisingState)
-//		{
-//			if(player.position.y >= rock.position.y)
-//			{
-//				player.position.y = rock.position.y + player.bounds.height + player.origin.y;
-//				setPlayerState(fallingState);
-//			}
-//			//player.position.y = rock.position.y + player.bounds.height + player.origin.y;
-//		}
 	}
 
 	public void setPlayerStateBasedOnInput(boolean jumpKeyPressed, boolean dashKeyPressed) 
