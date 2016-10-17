@@ -26,6 +26,9 @@ public class Survivor extends AbstractGameObject
 	public final float DASH_TIME_MAX = 0.25f;
 	public float timeDashing;
 	
+	public final float STUN_TIME_MAX = 0.50f;
+	public float timeStunned;
+	
 	public PlayerStateContext context;
 	
 	public AfterImage afterImageDash;
@@ -40,6 +43,7 @@ public class Survivor extends AbstractGameObject
 
 	public boolean hasGreenHeartPowerup;
 	public float timeLeftGreenHeartPowerup;
+	public boolean isStunned = false;
 
 	
 	public Survivor() 

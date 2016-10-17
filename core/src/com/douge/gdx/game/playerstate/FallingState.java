@@ -18,7 +18,6 @@ public class FallingState extends PlayerState
 	@Override
 	public void execute(float deltaTime) 
 	{
-
 		player.currentAnimation = Assets.instance.survivor.fallingAnimation;
 		if (player.currentVelocity.x != 0) 
 		{

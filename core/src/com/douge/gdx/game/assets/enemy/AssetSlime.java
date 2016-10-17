@@ -32,28 +32,21 @@ public class AssetSlime extends AssetEnemy
 			regions.add(atlas.findRegion(""+i));
 		}
 		fallingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
-//		
-//		regions.add(reg);
-//		standingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
-//		
-//		regions = new Array<AtlasRegion>();
-//		
-//		regions.add(atlas.findRegion("6"));
-//		fallingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
-//		
-//		regions = new Array<AtlasRegion>();
-//		
-//		regions.add(atlas.findRegion("1"));
-//		jumpingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
-//		
-//		regions = new Array<AtlasRegion>();
-//		
-//		for(int i = 19; i <= 25; i++)
-//		{
-//			regions.add(atlas.findRegion(""+i));
-//		}
-//		moveAnimation = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP);
-//		
-//		regions = new Array<AtlasRegion>();
+		
+		regions = new Array<AtlasRegion>();
+		
+		for(int i = 31; i <= 40; i++)
+		{
+			regions.add(atlas.findRegion(""+i));
+		}
+		attackingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
+		
+		regions = new Array<AtlasRegion>();
+		
+		for(int i = 41; i <= 49; i++)
+		{
+			regions.add(atlas.findRegion(""+i));
+		}
+		deadAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.NORMAL);
 	}
 }

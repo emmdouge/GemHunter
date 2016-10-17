@@ -8,7 +8,8 @@ public enum BLOCK_TYPE
 	ITEM_GREENHEART(255, 0, 255), // purple
 	ITEM_GOLD_COIN(255, 255, 0), // yellow
 	
-	
+	ENEMY_SKELETON(195, 195, 195),
+	ENEMY_BAT(128, 64, 0),
 	ENEMY_SLIME(34, 177, 76);
 	
 	private int color;

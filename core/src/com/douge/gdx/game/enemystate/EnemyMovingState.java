@@ -47,7 +47,7 @@ public class EnemyMovingState extends EnemyState
 	@Override
 	public void onCollisionWith(Rock rock) 
 	{
-		System.out.println("collided");
+		//System.out.println("collided");
 		if(enemy.position.x < rock.position.x || enemy.position.x + enemy.bounds.width > rock.position.x + rock.bounds.width)
 		{
 			enemy.viewDirection = VIEW_DIRECTION.opposite(enemy.viewDirection);

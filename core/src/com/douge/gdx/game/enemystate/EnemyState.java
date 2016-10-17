@@ -2,6 +2,7 @@ package com.douge.gdx.game.enemystate;
 
 import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.objects.Rock;
+import com.douge.gdx.game.objects.Survivor;
 
 public abstract class EnemyState 
 {

@@ -14,8 +14,7 @@ public class EnemyDeadState extends EnemyState
 	@Override
 	public void execute(float deltaTime) 
 	{
-		// TODO Auto-generated method stub
-		
+		enemy.currentAnimation = enemy.assets.deadAnimation;
 	}
 
 	@Override
@@ -28,8 +27,8 @@ public class EnemyDeadState extends EnemyState
 	@Override
 	public void noRockCollision() 
 	{
-		// TODO Auto-generated method stub
-		
+		context.noRockCollision();
+		context.setEnemyState(context.getFallingState());
 	}
 
 }

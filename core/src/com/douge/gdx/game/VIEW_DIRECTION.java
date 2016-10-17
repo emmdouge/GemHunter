@@ -29,4 +29,16 @@ public enum VIEW_DIRECTION
 			return LEFT;
 		}
 	}
+	
+	public static int getOppositeInt(VIEW_DIRECTION direction) 
+	{
+		if(direction == LEFT)
+		{
+			return 1;
+		}
+		else
+		{
+			return -1;
+		}
+	}
 }

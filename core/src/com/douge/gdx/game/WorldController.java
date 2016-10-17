@@ -59,8 +59,9 @@ public class WorldController extends InputAdapter
 
 	public void update(float deltaTime)
 	{
-		Gdx.app.log(TAG, "" + level.enemies.get(0).context.getCurrentState());
+		//Gdx.app.log(TAG, "" + level.enemies.get(0).context.getCurrentState());
 		//Gdx.app.log(TAG, "player: " + level.survivor.position.y + " " + level.survivor.currentVelocity.y);
+		//Gdx.app.log(TAG, "player: " + level.survivor.context.getCurrentState());
 		handleDebugInput(deltaTime);
 		if (isGameOver()) 
 		{
@@ -182,16 +183,23 @@ public class WorldController extends InputAdapter
 		
 			level.survivor.context.setStateBasedOnCollisionWithRock(rock);
 			break;
-			//System.out.println("im here");
-			// IMPORTANT: must do all collisions for valid
-			// edge testing on rocks.
+		}
+		
+		for (Enemy enemy : level.enemies) 
+		{
+			r2.set(enemy.position.x, enemy.position.y, enemy.bounds.width, enemy.bounds.height);
+			if (r1.overlaps(r2)) 
+			{
+				level.survivor.context.onCollisionWith(enemy);
+			}
 		}
 		
 		// Test collision: Bunny Head <-> Rocks
+		boolean collided = false;
 		for(Enemy enemy: level.enemies)
 		{
 			r1.set(enemy.position.x, enemy.position.y, enemy.bounds.width, enemy.bounds.height);
-			boolean collided = false;
+			collided = false;
 			for(Rock rock: level.rocks)
 			{
 				r2.set(rock.position.x, rock.position.y, rock.bounds.width, rock.bounds.height);
@@ -250,7 +258,7 @@ public class WorldController extends InputAdapter
 	
 	private void handleInputGame (float deltaTime) 
 	{
-		if (cameraHelper.hasTarget(level.survivor)) 
+		if (cameraHelper.hasTarget(level.survivor) && !level.survivor.isStunned) 
 		{
 			// Player Movement
 			if (Gdx.input.isKeyPressed(Keys.LEFT)) 

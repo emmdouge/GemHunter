@@ -18,6 +18,8 @@ public class GroundedState extends PlayerState
 	public void execute(float deltaTime) 
 	{
 		player.timeDashing = 0;
+		player.timeStunned = 0;
+		player.timeJumping = 0;
 		player.afterImageJump.head = null;
 		player.afterImageJump.tail = null;
 		player.afterImageDash.head = null;
@@ -73,6 +75,7 @@ public class GroundedState extends PlayerState
 	@Override
 	public void noRockCollision() 
 	{
+		player.timeJumping = player.JUMP_TIME_MAX;
 		context.noRockCollision();
 		context.setPlayerState(context.getFallingState());
 	}

@@ -1,6 +1,8 @@
 package com.douge.gdx.game.playerstate;
 
 import com.badlogic.gdx.Gdx;
+import com.douge.gdx.game.VIEW_DIRECTION;
+import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.objects.Survivor;
 import com.douge.gdx.game.objects.Rock;
 
@@ -11,6 +13,7 @@ public class PlayerStateContext
 	private JumpFallingState jumpFallingState;
 	private JumpRisingState jumpRisingState;
 	private DashState dashState;
+	private HurtState hurtState;
 	private PlayerState currentState;
 	private Survivor player;
 	
@@ -22,6 +25,7 @@ public class PlayerStateContext
 		jumpFallingState = new JumpFallingState(astronaut, this);
 		jumpRisingState = new JumpRisingState(astronaut, this);
 		dashState = new DashState(astronaut, this);
+		hurtState = new HurtState(astronaut, this);
 		
 		currentState = fallingState;
 	}
@@ -44,6 +48,11 @@ public class PlayerStateContext
 	public GroundedState getGroundState()
 	{
 		return groundedState;
+	}
+	
+	public HurtState getHurtState()
+	{
+		return hurtState;
 	}
 	
 	public JumpFallingState getJumpFallingState()
@@ -127,5 +136,20 @@ public class PlayerStateContext
 	{
 		player.currentGravity = player.gravity;
 		player.currentFriction = player.friction;
+	}
+	
+	public void onCollisionWith(Enemy enemy)
+	{
+		float diffBetweenBottomOfPlayerAndTopOfEnemy = enemy.position.y + enemy.bounds.height - player.position.y;
+		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfEnemy <= 0.07f;
+		if(landOnTop)
+		{
+			enemy.context.setEnemyState(enemy.context.getDeadState());
+			player.context.setPlayerState(player.context.getJumpRisingState());
+		}
+		else
+		{
+			player.context.setPlayerState(player.context.getHurtState());			
+		}
 	}
 }
