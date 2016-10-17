@@ -1,5 +1,7 @@
 package com.douge.gdx.game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -40,6 +42,8 @@ public class Level
 	public Clouds clouds;
 	public Trees trees;
 	public WaterOverlay waterOverlay;
+
+	public ArrayList<Integer> enemiesToRemove;
 	
 	public Level (String filename) 
 	{
@@ -56,6 +60,7 @@ public class Level
 		rocks = new Array<Rock>();
 		rocksBackground = new Array<RockBackground>();
 		enemies = new Array<Enemy>();
+		enemiesToRemove = new ArrayList<Integer>();
 		
 		// load image file that represents the level data
 		Pixmap pixmap = new Pixmap(Gdx.files.internal("../core/assets/levels/level-01.png"));
@@ -130,7 +135,7 @@ public class Level
 				// slime
 				else if(BLOCK_TYPE.ENEMY_SLIME.sameColor(currentPixel))
 				{
-			          obj = new Slime(Assets.instance.slime); 
+			          obj = new Slime(Assets.instance.slime, enemies); 
 			          obj.position.set(pixelX,baseHeight); 
 			          enemies.add((Slime)obj); 	
 				}
@@ -185,10 +190,8 @@ public class Level
 		for(JumpDiamond greenHeart : jumpDiamond)
 		greenHeart.update(deltaTime);
 		
-		for(Enemy enemy : enemies)
-		{
-			enemy.update(deltaTime);
-		}
+		for(int i = 0; i < enemies.size; i++)
+		enemies.get(i).update(deltaTime);
 		
 		clouds.update(deltaTime);
 	}
@@ -225,9 +228,11 @@ public class Level
 		for (Rock rock : rocks)
 		rock.render(batch);
 		
-		for(Enemy enemy : enemies)
-		enemy.render(batch);
-		
+		for(int enemyIndex = 0; enemyIndex < enemies.size; enemyIndex++)
+		{
+			Enemy enemy = enemies.get(enemyIndex);
+			enemy.render(batch);
+		}
 		// Draw Clouds
 		clouds.render(batch);
 	}

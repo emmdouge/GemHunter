@@ -184,7 +184,7 @@ public class WorldController extends InputAdapter
 			level.survivor.context.setStateBasedOnCollisionWithRock(rock);
 			break;
 		}
-		
+	
 		for (Enemy enemy : level.enemies) 
 		{
 			r2.set(enemy.position.x, enemy.position.y, enemy.bounds.width, enemy.bounds.height);

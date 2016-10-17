@@ -15,6 +15,10 @@ public class EnemyDeadState extends EnemyState
 	public void execute(float deltaTime) 
 	{
 		enemy.currentAnimation = enemy.assets.deadAnimation;
+		if(enemy.currentAnimation.isAnimationFinished(enemy.stateTime+.05f))
+		{
+			enemy.removeFromGame();
+		}
 	}
 
 	@Override

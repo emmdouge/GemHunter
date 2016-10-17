@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.Constants;
 import com.douge.gdx.game.VIEW_DIRECTION;
 import com.douge.gdx.game.assets.Assets;
@@ -19,14 +20,17 @@ public abstract class Enemy extends AbstractGameObject
 	public EnemyStateContext context;
 	public AssetEnemy assets;
 	public Animation currentAnimation;
+	public Array<Enemy> enemies;
 	public TextureRegion reg;
 	public float stateTime;
 	
 	public VIEW_DIRECTION viewDirection;
+	public boolean isDead = false;
 	
-	public Enemy(AssetEnemy assetEnemy) 
+	public Enemy(AssetEnemy assetEnemy, Array<Enemy> enemies) 
 	{
 		this.assets = assetEnemy;
+		this.enemies = enemies;
 		init();
 	}
 	public void init() 
@@ -84,5 +88,19 @@ public abstract class Enemy extends AbstractGameObject
 	public TextureRegion getRegion() 
 	{
 		return reg;
+	}
+	
+	
+	public void removeFromGame() 
+	{
+		int enemyIndex = 0;
+		for(Enemy enemy: enemies)
+		{
+			if(enemy.equals(this))
+			{
+				enemies.removeIndex(enemyIndex);
+			}
+			enemyIndex++;
+		}
 	};
 }
