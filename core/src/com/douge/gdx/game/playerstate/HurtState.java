@@ -20,6 +20,8 @@ public class HurtState extends PlayerState
 	{
 		player.timeStunned += deltaTime;
 		player.currentAnimation = Assets.instance.survivor.hurtAnimation;
+		player.currentVelocity.y = 0;
+		
 		if(player.isStunned)
 		{
 			if(player.timeStunned < player.STUN_TIME_MAX)
@@ -29,7 +31,6 @@ public class HurtState extends PlayerState
 					// Apply friction
 					if (player.currentVelocity.x > 0) 
 					{
-						
 						player.currentVelocity.x = Math.max(player.currentVelocity.x + 1 * deltaTime, 0);
 					} 
 					else 
