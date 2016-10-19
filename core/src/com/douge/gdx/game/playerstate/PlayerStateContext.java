@@ -27,7 +27,7 @@ public class PlayerStateContext
 		dashState = new DashState(player, this);
 		hurtState = new HurtState(player, this);
 		
-		currentState = fallingState;
+		currentState = groundedState;
 	}
 	
 	public PlayerState getCurrentState()
