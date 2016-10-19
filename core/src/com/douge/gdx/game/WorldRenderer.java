@@ -38,9 +38,15 @@ public class WorldRenderer implements Disposable
 		cameraGUI.update();
 	}
 	
+	/**
+	 * resize window
+	 * @param width width of resized window in pixels
+	 * @param height height of resized window in pixels
+	 */
 	public void resize(int width, int height)
 	{
-		camera.viewportWidth = (Constants.VIEWPORT_HEIGHT/height)*width;
+		float metersPerPixel = Constants.VIEWPORT_HEIGHT/height;
+		camera.viewportWidth = metersPerPixel*width;
 		camera.update();
 		
 		cameraGUI.viewportHeight = Constants.VIEWPORT_GUI_HEIGHT;
@@ -49,11 +55,17 @@ public class WorldRenderer implements Disposable
 		cameraGUI.update();
 	}
 
+	/**
+	 * free memory
+	 */
 	@Override
 	public void dispose() {
 		batch.dispose();
 	}
 
+	/**
+	 * Render world and gui
+	 */
 	public void render() 
 	{
 		renderWorld();
@@ -184,7 +196,7 @@ public class WorldRenderer implements Disposable
 		renderGuiScore();
 		
 	    // draw collected feather icon (anchored to top left edge) 
-	    renderGuiFeatherPowerup(batch); 
+	    renderGuiJumpPowerup(batch); 
 		
 		// draw extra lives icon + text (anchored to top right edge)
 		renderGuiExtraLive();
@@ -215,25 +227,29 @@ public class WorldRenderer implements Disposable
 		}
 	}
 	
-	private void renderGuiFeatherPowerup (SpriteBatch batch) 
+	/**
+	 * renders 
+	 * @param batch
+	 */
+	private void renderGuiJumpPowerup (SpriteBatch batch) 
 	{
 		float x = -15;
 		float y = 30;
-		float timeLeftFeatherPowerup = worldController.level.player.timeLeftJumpPowerup;
-		if (timeLeftFeatherPowerup > 0) 
+		float timeLeftJumpPowerup = worldController.level.player.timeLeftJumpPowerup;
+		if (timeLeftJumpPowerup > 0) 
 		{
 			// Start icon fade in/out if the left power-up time
 			// is less than 4 seconds. The fade interval is set
 			// to 5 changes per second.
-			if (timeLeftFeatherPowerup < 4) 
+			if (timeLeftJumpPowerup < 4) 
 			{
-				if (((int)(timeLeftFeatherPowerup * 5) % 2) != 0) 
+				if (((int)(timeLeftJumpPowerup * 5) % 2) != 0) 
 				{
 					batch.setColor(1, 1, 1, 0.5f);
 				}
 			}
 			batch.setColor(Color.GREEN);
-			batch.draw(Assets.instance.heart.heart,
+			batch.draw(Assets.instance.gems.jumpGem,
 					x, y, 
 					50, 50, 
 					100, 100, 
@@ -241,7 +257,7 @@ public class WorldRenderer implements Disposable
 					0);
 		
 			batch.setColor(1, 1, 1, 1);
-			Assets.instance.fonts.defaultSmall.draw(batch, "" + (int)timeLeftFeatherPowerup, x + 60, y + 57);
+			Assets.instance.fonts.defaultSmall.draw(batch, "" + (int)timeLeftJumpPowerup, x + 60, y + 57);
 		}
 	}	
 }

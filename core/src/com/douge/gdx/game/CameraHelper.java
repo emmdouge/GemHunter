@@ -36,7 +36,6 @@ public class CameraHelper {
 		if(target != null)
 		{
 			position.x += .05f;
-			System.out.println(Math.abs(position.x - target.position.x));
 			//incrementally move from camera position to target position
 			position.lerp(target.position, FOLLOW_SPEED * deltaTime);
 		}

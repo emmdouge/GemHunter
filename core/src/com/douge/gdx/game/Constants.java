@@ -2,11 +2,11 @@ package com.douge.gdx.game;
 
 public class Constants 
 {
-	//Visible world in pixels
+	//Visible world in meters
 	public static final float VIEWPORT_WIDTH = 5.0f;
 	public static final float VIEWPORT_HEIGHT = 5.0f;
 	
-	// GUI in pixels
+	//GUI in pixels
 	public static final float VIEWPORT_GUI_WIDTH = 800.0f;
 	public static final float VIEWPORT_GUI_HEIGHT = 480.0f;
 	

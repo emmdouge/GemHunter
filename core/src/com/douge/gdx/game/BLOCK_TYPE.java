@@ -1,5 +1,10 @@
 package com.douge.gdx.game;
 
+/**
+ * types of blocks in level by color
+ * @author Emmanuel
+ *
+ */
 public enum BLOCK_TYPE 
 {
 	ROCK_BACK(0, 0, 0), // black

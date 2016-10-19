@@ -34,14 +34,21 @@ public class WorldController extends InputAdapter
 	private Rectangle r1 = new Rectangle(); 
 	private Rectangle r2 = new Rectangle(); 
 	   
-	 private float timeLeftGameOverDelay; 
+	private float timeLeftGameOverDelay; 
 	
+	/**
+	 * initializes game and level
+	 * @param game
+	 */
 	public WorldController(Game game)
 	{
 		this.game = game;
 		init();
 	}
 	
+	/**
+	 * initializes level and camera helper
+	 */
 	private void init()
 	{
 		Gdx.input.setInputProcessor(this);
@@ -51,6 +58,9 @@ public class WorldController extends InputAdapter
 		initLevel();
 	}
 	
+	/**
+	 * initializes level and sets cameraHelper's target to the player
+	 */
 	private void initLevel () 
 	{
 		score = 0;
@@ -60,11 +70,13 @@ public class WorldController extends InputAdapter
 	}
 	
 
+	/**
+	 * handles input, updates, and collisions
+	 * @param deltaTime time elapsed since libgdx's last render call
+	 */
 	public void update(float deltaTime)
 	{
-		//Gdx.app.log(TAG, "" + level.enemies.get(0).context.getCurrentState());
-		//Gdx.app.log(TAG, "player: " + level.survivor.position.y + " " + level.survivor.currentVelocity.y);
-		//Gdx.app.log(TAG, "player: " + level.survivor.context.getCurrentState());
+		Gdx.app.log(TAG, "player: " + level.player.context.getCurrentState());
 		handleDebugInput(deltaTime);
 		if (isGameOver()) 
 		{
@@ -106,6 +118,10 @@ public class WorldController extends InputAdapter
 		
 	}
 
+	/**
+	 * handles debug input
+	 * @param deltaTime
+	 */
 	private void handleDebugInput(float deltaTime) 
 	{
 		if (Gdx.app.getType() != ApplicationType.Desktop) return;
@@ -162,6 +178,11 @@ public class WorldController extends InputAdapter
 		}
 	}
 	
+	/**
+	 * When player collects goldcoin, 
+	 * stop rendering it and update score
+	 * @param goldcoin
+	 */
 	private void onCollisionPlayerWithGoldCoin(GoldCoin goldcoin) 
 	{
 		goldcoin.collected = true;
@@ -169,6 +190,10 @@ public class WorldController extends InputAdapter
 		Gdx.app.log(TAG, "Gold coin collected");
 	};
 	
+	/**
+	 * turns on players jump powerup
+	 * @param jumpPotion
+	 */
 	private void onCollisionPlayerWithJumpPotion(JumpPotion jumpPotion) 
 	{
 		jumpPotion.collected = true;
@@ -177,11 +202,15 @@ public class WorldController extends InputAdapter
 		Gdx.app.log(TAG, "Jump Potion collected");
 	};
 	
+	/**
+	 * handles collisions between objects
+	 */
 	private void testCollisions () 
 	{
 		r1.set(level.player.position.x, level.player.position.y,
 				level.player.bounds.width, level.player.bounds.height);
-		// Test collision: Bunny Head <-> Rocks
+		
+		// Test collision: Player <-> Rocks
 		for (Rock rock : level.rocks) 
 		{
 			r2.set(rock.position.x, rock.position.y, 
@@ -198,6 +227,7 @@ public class WorldController extends InputAdapter
 			break;
 		}
 	
+		// Test collision: player <-> enemies
 		for (Enemy enemy : level.enemies) 
 		{
 			r2.set(enemy.position.x, enemy.position.y, enemy.bounds.width, enemy.bounds.height);
@@ -207,7 +237,7 @@ public class WorldController extends InputAdapter
 			}
 		}
 		
-		// Test collision: Bunny Head <-> Rocks
+		// Test collision: enemies <-> rocks
 		boolean collided = false;
 		for(Enemy enemy: level.enemies)
 		{
@@ -231,7 +261,7 @@ public class WorldController extends InputAdapter
 		r1.set(level.player.position.x, level.player.position.y,
 				level.player.bounds.width, level.player.bounds.height);
 		
-		// Test collision: Bunny Head <-> Gold Coins
+		// Test collision: player <-> Gold Coins
 		for (GoldCoin goldcoin : level.goldCoins) 
 		{
 			if (goldcoin.collected) 
@@ -269,6 +299,10 @@ public class WorldController extends InputAdapter
 		}
 	}
 	
+	/**
+	 * handles input from the player
+	 * @param deltaTime
+	 */
 	private void handleInputGame (float deltaTime) 
 	{
 		if (cameraHelper.hasTarget(level.player) && !level.player.isStunned) 
@@ -299,16 +333,29 @@ public class WorldController extends InputAdapter
 		}
 	}
 	
+	/**
+	 * if player has no lives left
+	 * @return
+	 */
 	public boolean isGameOver () 
 	{
 		return level.player.lives <= 0;
 	}
 		
+	/**
+	 * If player fell to their doom
+	 * @return
+	 */
 	public boolean isPlayerInWater () 
 	{
 		return level.player.position.y < -5;
 	}
 	
+	/**
+	 * move camera
+	 * @param x horizontal movement
+	 * @param y veritcal movement
+	 */
 	private void moveCamera (float x, float y) 
 	{
 		//Gdx.app.log(TAG, "(" + cameraHelper.getPosition().x + ", " + cameraHelper.getPosition().y + ")");
@@ -319,6 +366,9 @@ public class WorldController extends InputAdapter
 		cameraHelper.setPosition(x, y);
 	}
 
+	/**
+	 * when key is released
+	 */
 	@Override
 	public boolean keyUp (int keycode) 
 	{
@@ -344,6 +394,9 @@ public class WorldController extends InputAdapter
 		return false;
 	}
 	
+	/**
+	 * set game's screen to menu
+	 */
 	private void backToMenu () 
 	{
 		// switch to menu screen

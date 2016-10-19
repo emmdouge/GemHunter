@@ -1,6 +1,11 @@
 package com.douge.gdx.game;
 
 
+/**
+ * Direction object is turned towards
+ * @author Emmanuel
+ *
+ */
 public enum VIEW_DIRECTION 
 {
 	LEFT, 
