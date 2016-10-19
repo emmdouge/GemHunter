@@ -7,40 +7,47 @@ import com.badlogic.gdx.utils.Array;
 
 public class AssetBat extends AssetEnemy
 {
-	public final AtlasRegion reg;
-	public final Animation moveAnimation;
-	public final Animation standingAnimation;
-	public final Animation fallingAnimation;
-	public final Animation jumpingAnimation;
-	
 	public AssetBat(TextureAtlas atlas) 
 	{
-		reg = atlas.findRegion("0");
-		
 		Array<AtlasRegion> regions = new Array<AtlasRegion>();
 		
-		regions.add(reg);
+		for(int i = 50; i <= 70; i++)
+		{
+			regions.add(atlas.findRegion(""+i));
+		}
 		standingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
 		regions = new Array<AtlasRegion>();
 		
-		regions.add(atlas.findRegion("6"));
+		for(int i = 71; i <= 79; i++)
+		{
+			regions.add(atlas.findRegion(""+i));
+		}
+		movingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
+		
+		regions = new Array<AtlasRegion>();
+		
+		for(int i = 61; i <= 70; i++)
+		{
+			regions.add(atlas.findRegion(""+i));
+		}
 		fallingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
 		regions = new Array<AtlasRegion>();
 		
-		regions.add(atlas.findRegion("1"));
-		jumpingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
-		
-		regions = new Array<AtlasRegion>();
-		
-		for(int i = 19; i <= 25; i++)
+		for(int i = 80; i <= 89; i++)
 		{
 			regions.add(atlas.findRegion(""+i));
 		}
-		moveAnimation = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP);
+		attackingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
 		regions = new Array<AtlasRegion>();
+		
+		for(int i = 91; i <= 99; i++)
+		{
+			regions.add(atlas.findRegion(""+i));
+		}
+		deadAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.NORMAL);
 	}
 
 }

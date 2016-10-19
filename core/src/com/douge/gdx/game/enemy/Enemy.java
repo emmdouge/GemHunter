@@ -29,7 +29,7 @@ public abstract class Enemy extends AbstractGameObject
 	//flag for level to clean up dead enemies
 	public boolean isDead = false;
 	
-	private VIEW_DIRECTION flip;
+	protected VIEW_DIRECTION flip;
 	
 	//disables player ability to kill enemy
 	public boolean hasBeenKilled = false;

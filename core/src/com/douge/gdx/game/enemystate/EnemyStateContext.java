@@ -1,6 +1,8 @@
 package com.douge.gdx.game.enemystate;
 
 import com.badlogic.gdx.Gdx;
+import com.douge.gdx.game.assets.enemy.AssetBat;
+import com.douge.gdx.game.enemy.Bat;
 import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.enemystate.EnemyFallingState;
 
@@ -60,7 +62,10 @@ public class EnemyStateContext
 
 	public void noRockCollision()
 	{
-		enemy.currentGravity = enemy.gravity;
-		enemy.currentFriction = enemy.friction;
+		if(!(enemy instanceof Bat))
+		{
+			enemy.currentGravity = enemy.gravity;
+			enemy.currentFriction = enemy.friction;
+		}
 	}
 }

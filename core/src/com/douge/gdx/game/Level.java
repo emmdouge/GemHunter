@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.assets.Assets;
+import com.douge.gdx.game.enemy.Bat;
 import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.enemy.Skeleton;
 import com.douge.gdx.game.enemy.Slime;
@@ -141,7 +142,7 @@ public class Level
 			          enemies.add((Slime)obj); 	
 				}
 				
-				// slime
+				// skeleton
 				else if(BLOCK_TYPE.ENEMY_SKELETON.sameColor(currentPixel))
 				{
 			          obj = new Skeleton(Assets.instance.skeleton); 
@@ -149,6 +150,13 @@ public class Level
 			          enemies.add((Skeleton)obj); 	
 				}
 				
+				// bat
+				else if(BLOCK_TYPE.ENEMY_BAT.sameColor(currentPixel))
+				{
+			          obj = new Bat(Assets.instance.bat); 
+			          obj.position.set(pixelX,baseHeight); 
+			          enemies.add((Bat)obj); 	
+				}
 				
 				// unknown object/pixel color
 				else 
