@@ -25,7 +25,6 @@ public class WorldController extends InputAdapter
 	private Game game;
 	
 	public Level level;
-	public int lives;
 	public int score;
 	public CameraHelper cameraHelper;
 	
@@ -44,7 +43,6 @@ public class WorldController extends InputAdapter
 	{
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
-		lives = Constants.LIVES_START;
 	    timeLeftGameOverDelay = 0; 
 		initLevel();
 	}
@@ -81,7 +79,7 @@ public class WorldController extends InputAdapter
 		cameraHelper.update(deltaTime);
 		if (!isGameOver() && isPlayerInWater()) 
 		{
-			lives--;
+			level.survivor.lives--;
 			if (isGameOver())
 			{
 				timeLeftGameOverDelay = Constants.TIME_DELAY_GAME_OVER;
@@ -288,7 +286,7 @@ public class WorldController extends InputAdapter
 	
 	public boolean isGameOver () 
 	{
-		return lives < 0;
+		return level.survivor.lives <= 0;
 	}
 		
 	public boolean isPlayerInWater () 

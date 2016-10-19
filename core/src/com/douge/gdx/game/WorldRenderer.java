@@ -100,7 +100,14 @@ public class WorldRenderer implements Disposable
 		
 		for (int i = 0; i < Constants.LIVES_START; i++) 
 		{
-			if (worldController.lives <= i)
+			boolean playerHasALife = i < worldController.level.survivor.lives;
+			boolean playerIsMissingALife = !playerHasALife;
+			if(playerHasALife)
+			{
+				//draw in full color
+				batch.setColor(1, 1, 1, 1);
+			}
+			else if(playerIsMissingALife)
 			{
 				batch.setColor(0.5f, 0.5f, 0.5f, 0.5f);
 			}
@@ -110,8 +117,6 @@ public class WorldRenderer implements Disposable
 					120, 100, 
 					0.35f, -0.35f,
 					0);
-		
-			batch.setColor(1, 1, 1, 1);
 		}
 	}
 	

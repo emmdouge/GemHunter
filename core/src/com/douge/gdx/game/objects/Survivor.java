@@ -44,6 +44,7 @@ public class Survivor extends AbstractGameObject
 	public boolean hasGreenHeartPowerup;
 	public float timeLeftGreenHeartPowerup;
 	public boolean isStunned = false;
+	public int lives;
 
 	
 	public Survivor() 
@@ -54,6 +55,8 @@ public class Survivor extends AbstractGameObject
 	{
 		dimension.set(1, 1);
 		regSurvivor = Assets.instance.survivor.survivor;
+		
+		lives = Constants.LIVES_START;
 		
 		// Center image on game object
 		origin.set(dimension.x / 2, dimension.y / 2);

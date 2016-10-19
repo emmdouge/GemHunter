@@ -60,6 +60,7 @@ public class HurtState extends PlayerState
 		}
 		else
 		{
+			player.lives--;
 			player.isStunned = true;
 			player.currentVelocity.x = player.maxVelocity.x*VIEW_DIRECTION.getOppositeInt(player.viewDirection);
 		}
