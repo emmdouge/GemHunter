@@ -5,20 +5,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.douge.gdx.game.assets.Assets;
 
-public class JumpDiamond extends AbstractGameObject
+public class JumpPotion extends AbstractGameObject
 {
-	private TextureRegion regJumpDiamond;
+	private TextureRegion regJumpPotion;
 	
 	public boolean collected;
 	
-	public JumpDiamond() 
+	public JumpPotion() 
 	{
 		init();
 	}
 	private void init () 
 	{
 		dimension.set(0.5f, 0.5f);
-		regJumpDiamond = Assets.instance.gems.jumpGem;
+		regJumpPotion = Assets.instance.gems.jumpGem;
 	
 		// Set bounding box for collision detection
 		bounds.set(0, 0, dimension.x, dimension.y);
@@ -33,7 +33,7 @@ public class JumpDiamond extends AbstractGameObject
 			return;
 		}
 		
-		TextureRegion reg = regJumpDiamond;
+		TextureRegion reg = regJumpPotion;
 		
 		batch.draw(reg.getTexture(), 
 				position.x, position.y,

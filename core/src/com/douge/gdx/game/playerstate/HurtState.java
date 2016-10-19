@@ -4,13 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.objects.Rock;
-import com.douge.gdx.game.objects.Survivor;
+import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.VIEW_DIRECTION;
 
 public class HurtState extends PlayerState
 {
 
-	public HurtState(Survivor astronaut, PlayerStateContext context) 
+	public HurtState(Player astronaut, PlayerStateContext context) 
 	{
 		super(astronaut, context);
 	}

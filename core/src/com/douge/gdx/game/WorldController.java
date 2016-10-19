@@ -12,9 +12,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.enemy.Enemy;
-import com.douge.gdx.game.objects.Survivor;
+import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.GoldCoin;
-import com.douge.gdx.game.objects.JumpDiamond;
+import com.douge.gdx.game.objects.JumpPotion;
 import com.douge.gdx.game.objects.Rock;
 import com.douge.gdx.game.screens.MenuScreen;
 
@@ -51,7 +51,7 @@ public class WorldController extends InputAdapter
 	{
 		score = 0;
 		level = new Level(Constants.LEVEL_01_PATH);
-		cameraHelper.setTarget(level.survivor); 
+		cameraHelper.setTarget(level.player); 
 	}
 	
 
@@ -79,7 +79,7 @@ public class WorldController extends InputAdapter
 		cameraHelper.update(deltaTime);
 		if (!isGameOver() && isPlayerInWater()) 
 		{
-			level.survivor.lives--;
+			level.player.lives--;
 			if (isGameOver())
 			{
 				timeLeftGameOverDelay = Constants.TIME_DELAY_GAME_OVER;
@@ -96,7 +96,7 @@ public class WorldController extends InputAdapter
 		if (Gdx.app.getType() != ApplicationType.Desktop) return;
 
 		// Camera Controls (move)
-		if (!cameraHelper.hasTarget(level.survivor));
+		if (!cameraHelper.hasTarget(level.player));
 		{
 			float camMoveSpeed = 5 * deltaTime;
 			float camMoveSpeedAccelerationFactor = 5;
@@ -147,25 +147,25 @@ public class WorldController extends InputAdapter
 		}
 	}
 	
-	private void onCollisionAstronautWithGoldCoin(GoldCoin goldcoin) 
+	private void onCollisionPlayerWithGoldCoin(GoldCoin goldcoin) 
 	{
 		goldcoin.collected = true;
 		score += goldcoin.getScore();
 		Gdx.app.log(TAG, "Gold coin collected");
 	};
 	
-	private void onCollisionAstronautWithGreenHeart(JumpDiamond greenHeart) 
+	private void onCollisionPlayerWithJumpPotion(JumpPotion jumpPotion) 
 	{
-		greenHeart.collected = true;
-		score += greenHeart.getScore();
-		level.survivor.setGreenHeartPowerup(true);
-		Gdx.app.log(TAG, "Feather collected");
+		jumpPotion.collected = true;
+		score += jumpPotion.getScore();
+		level.player.setJumpPowerup(true);
+		Gdx.app.log(TAG, "Jump Potion collected");
 	};
 	
 	private void testCollisions () 
 	{
-		r1.set(level.survivor.position.x, level.survivor.position.y,
-				level.survivor.bounds.width, level.survivor.bounds.height);
+		r1.set(level.player.position.x, level.player.position.y,
+				level.player.bounds.width, level.player.bounds.height);
 		// Test collision: Bunny Head <-> Rocks
 		for (Rock rock : level.rocks) 
 		{
@@ -175,11 +175,11 @@ public class WorldController extends InputAdapter
 			if (!r1.overlaps(r2)) 
 			{
 				//System.out.println("not overlapping rock");
-				level.survivor.context.getCurrentState().noRockCollision();
+				level.player.context.getCurrentState().noRockCollision();
 				continue;
 			}
 		
-			level.survivor.context.setStateBasedOnCollisionWithRock(rock);
+			level.player.context.setStateBasedOnCollisionWithRock(rock);
 			break;
 		}
 	
@@ -188,7 +188,7 @@ public class WorldController extends InputAdapter
 			r2.set(enemy.position.x, enemy.position.y, enemy.bounds.width, enemy.bounds.height);
 			if (r1.overlaps(r2)) 
 			{
-				level.survivor.context.onCollisionWith(enemy);
+				level.player.context.onCollisionWith(enemy);
 			}
 		}
 		
@@ -213,8 +213,8 @@ public class WorldController extends InputAdapter
 			}
 		}
 		
-		r1.set(level.survivor.position.x, level.survivor.position.y,
-				level.survivor.bounds.width, level.survivor.bounds.height);
+		r1.set(level.player.position.x, level.player.position.y,
+				level.player.bounds.width, level.player.bounds.height);
 		
 		// Test collision: Bunny Head <-> Gold Coins
 		for (GoldCoin goldcoin : level.goldcoins) 
@@ -232,12 +232,12 @@ public class WorldController extends InputAdapter
 				continue;
 			}
 			
-			onCollisionAstronautWithGoldCoin(goldcoin);
+			onCollisionPlayerWithGoldCoin(goldcoin);
 			break;
 		}
 		
 		// Test collision: Bunny Head <-> Feathers
-		for (JumpDiamond greenHeart : level.jumpDiamond) 
+		for (JumpPotion greenHeart : level.jumpPotion) 
 		{
 			if (greenHeart.collected) 
 			{
@@ -249,49 +249,49 @@ public class WorldController extends InputAdapter
 			{
 				continue;
 			}
-			onCollisionAstronautWithGreenHeart(greenHeart);
+			onCollisionPlayerWithJumpPotion(greenHeart);
 			break;
 		}
 	}
 	
 	private void handleInputGame (float deltaTime) 
 	{
-		if (cameraHelper.hasTarget(level.survivor) && !level.survivor.isStunned) 
+		if (cameraHelper.hasTarget(level.player) && !level.player.isStunned) 
 		{
 			// Player Movement
 			if (Gdx.input.isKeyPressed(Keys.LEFT)) 
 			{
-				level.survivor.currentVelocity.x = -level.survivor.maxVelocity.x;
+				level.player.currentVelocity.x = -level.player.maxVelocity.x;
 			} 
 			else if (Gdx.input.isKeyPressed(Keys.RIGHT)) 
 			{
-				level.survivor.currentVelocity.x = level.survivor.maxVelocity.x;
+				level.player.currentVelocity.x = level.player.maxVelocity.x;
 			} 
 			else 
 			{
 				// Execute auto-forward movement on non-desktop platform
 				if (Gdx.app.getType() != ApplicationType.Desktop) 
 				{
-					level.survivor.currentVelocity.x = level.survivor.maxVelocity.x;
+					level.player.currentVelocity.x = level.player.maxVelocity.x;
 				}
 			}
 			
 			// Bunny Jump
 			boolean dashKeyPressed = Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT);
 			boolean jumpKeyPressed = Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.SPACE);
-			level.survivor.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed);
+			level.player.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed);
 
 		}
 	}
 	
 	public boolean isGameOver () 
 	{
-		return level.survivor.lives <= 0;
+		return level.player.lives <= 0;
 	}
 		
 	public boolean isPlayerInWater () 
 	{
-		return level.survivor.position.y < -5;
+		return level.player.position.y < -5;
 	}
 	
 	private void moveCamera (float x, float y) 
@@ -316,7 +316,7 @@ public class WorldController extends InputAdapter
 	    // Toggle camera follow 
 	    else if (keycode == Keys.ENTER)  
 	    { 
-	      cameraHelper.setTarget(cameraHelper.hasTarget() ? null: level.survivor); 
+	      cameraHelper.setTarget(cameraHelper.hasTarget() ? null: level.player); 
 	      Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget()); 
 	    } 
 	

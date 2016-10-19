@@ -1,17 +1,17 @@
 package com.douge.gdx.game.playerstate;
 
-import com.douge.gdx.game.objects.Survivor;
+import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.Rock;
 
 public abstract class PlayerState 
 {
-	public Survivor player;
+	public Player player;
 	public PlayerStateContext context;
 	public String tag;
 	
-	public PlayerState(Survivor astronaut, PlayerStateContext context)
+	public PlayerState(Player player, PlayerStateContext context)
 	{
-		player = astronaut;
+		this.player = player;
 		this.context = context;
 	}
 

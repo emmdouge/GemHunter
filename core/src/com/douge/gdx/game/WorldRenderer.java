@@ -100,7 +100,7 @@ public class WorldRenderer implements Disposable
 		
 		for (int i = 0; i < Constants.LIVES_START; i++) 
 		{
-			boolean playerHasALife = i < worldController.level.survivor.lives;
+			boolean playerHasALife = i < worldController.level.player.lives;
 			boolean playerIsMissingALife = !playerHasALife;
 			if(playerHasALife)
 			{
@@ -197,7 +197,7 @@ public class WorldRenderer implements Disposable
 	{
 		float x = -15;
 		float y = 30;
-		float timeLeftFeatherPowerup = worldController.level.survivor.timeLeftGreenHeartPowerup;
+		float timeLeftFeatherPowerup = worldController.level.player.timeLeftJumpPowerup;
 		if (timeLeftFeatherPowerup > 0) 
 		{
 			// Start icon fade in/out if the left power-up time

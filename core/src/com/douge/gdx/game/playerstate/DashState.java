@@ -4,13 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.objects.Rock;
-import com.douge.gdx.game.objects.Survivor;
+import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.VIEW_DIRECTION;
 
 public class DashState extends PlayerState
 {
 
-	public DashState(Survivor astronaut, PlayerStateContext context) {
+	public DashState(Player astronaut, PlayerStateContext context) {
 		super(astronaut, context);
 	}
 
@@ -30,15 +30,15 @@ public class DashState extends PlayerState
 			player.currentVelocity.y = 0;
 			player.currentVelocity.x = 0;
 			
-			if (player.timeLeftGreenHeartPowerup > 0) 
+			if (player.timeLeftJumpPowerup > 0) 
 			{
-				player.timeLeftGreenHeartPowerup -= deltaTime;
+				player.timeLeftJumpPowerup -= deltaTime;
 			}
-			if (player.timeLeftGreenHeartPowerup < 0) 
+			if (player.timeLeftJumpPowerup < 0) 
 			{
 				// disable power-up
-				player.timeLeftGreenHeartPowerup = 0;
-				player.setGreenHeartPowerup(false);
+				player.timeLeftJumpPowerup = 0;
+				player.setJumpPowerup(false);
 			}
 		}
 		else

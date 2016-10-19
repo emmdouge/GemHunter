@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.douge.gdx.game.objects.AbstractGameObject;
-import com.douge.gdx.game.objects.Survivor;
+import com.douge.gdx.game.objects.Player;
 
 public class CameraHelper {
 	private static final String TAG = CameraHelper.class.getName();
@@ -73,7 +73,7 @@ public class CameraHelper {
 	
 	public void applyTo(OrthographicCamera camera)
 	{
-		if(clampCam == false)
+		if(clampCam == true)
 		{
 			if(position.x < Constants.CAMERA_X_MIN)
 			{

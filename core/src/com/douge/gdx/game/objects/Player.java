@@ -16,9 +16,9 @@ import effects.AfterImage;
 import effects.AfterImage.Node;
 
 
-public class Survivor extends AbstractGameObject
+public class Player extends AbstractGameObject
 {
-	public static final String TAG = Survivor.class.getName();
+	public static final String TAG = Player.class.getName();
 	public final float JUMP_TIME_MAX = 0.4f;
 	public final float JUMP_TIME_MIN = 0.1f;
 	public float timeJumping;
@@ -38,23 +38,21 @@ public class Survivor extends AbstractGameObject
 	public Animation currentAnimation;
 	public float stateTime;
 	
-	private TextureRegion regSurvivor;
 	public VIEW_DIRECTION viewDirection;
 
-	public boolean hasGreenHeartPowerup;
-	public float timeLeftGreenHeartPowerup;
+	public boolean hasJumpPowerup;
+	public float timeLeftJumpPowerup;
 	public boolean isStunned = false;
 	public int lives;
 
 	
-	public Survivor() 
+	public Player() 
 	{
 		init();
 	}
 	public void init() 
 	{
 		dimension.set(1, 1);
-		regSurvivor = Assets.instance.survivor.survivor;
 		
 		lives = Constants.LIVES_START;
 		
@@ -82,8 +80,8 @@ public class Survivor extends AbstractGameObject
 		afterImageNeutral = new AfterImage();
 		
 		// Power-ups
-		hasGreenHeartPowerup = false;
-		timeLeftGreenHeartPowerup = 0;		
+		hasJumpPowerup = false;
+		timeLeftJumpPowerup = 0;		
 		
 		currentAnimation = Assets.instance.survivor.fallingAnimation;
 	};
@@ -135,7 +133,7 @@ public class Survivor extends AbstractGameObject
 		}
 		
 		// Set special color when game object has a feather power-up
-		if (hasGreenHeartPowerup) 
+		if (hasJumpPowerup) 
 		{
 			batch.setColor(1.0f, 0.8f, 0.0f, 1.0f);
 			currentNode = afterImageJump.head;
@@ -155,8 +153,7 @@ public class Survivor extends AbstractGameObject
 		}
 		// Reset color to white
 		batch.setColor(1, 1, 1, 1);
-		TextureRegion reg = regSurvivor;
-		reg = currentAnimation.getKeyFrame(stateTime, true);
+		TextureRegion reg = currentAnimation.getKeyFrame(stateTime, true);
 		batch.draw(reg.getTexture(), 
 				position.x, position.y, 
 				origin.x, origin.y, 
@@ -169,21 +166,18 @@ public class Survivor extends AbstractGameObject
 		
 	}
 	
-	public void setGreenHeartPowerup (boolean pickedUp) 
+	public void setJumpPowerup(boolean pickedUp) 
 	{
-		hasGreenHeartPowerup = pickedUp;
-		if (pickedUp) 
+		hasJumpPowerup = pickedUp;
+		if(hasJumpPowerup) 
 		{
-			timeLeftGreenHeartPowerup = Constants.ITEM_GREENHEART_POWERUP_DURATION;
+			timeLeftJumpPowerup = Constants.ITEM_GREENHEART_POWERUP_DURATION;
 		}	
 	};
 	
-	public boolean hasGreenHeartPowerup () 
+	public boolean hasJumpPowerup() 
 	{
-		return hasGreenHeartPowerup && timeLeftGreenHeartPowerup > 0;
+		return hasJumpPowerup && timeLeftJumpPowerup > 0;
 	}
-	public TextureRegion getRegion() 
-	{
-		return regSurvivor;
-	};
+
 }

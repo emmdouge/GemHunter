@@ -3,13 +3,13 @@ package com.douge.gdx.game.playerstate;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.douge.gdx.game.assets.Assets;
-import com.douge.gdx.game.objects.Survivor;
+import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.VIEW_DIRECTION;
 import com.douge.gdx.game.objects.Rock;
 
 public class FallingState extends PlayerState
 {
-	public FallingState(Survivor astronaut, PlayerStateContext context)
+	public FallingState(Player astronaut, PlayerStateContext context)
 	{
 		super(astronaut, context);
 		tag = this.getClass().getName();
@@ -58,15 +58,15 @@ public class FallingState extends PlayerState
 			player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
 		}
 		
-		if (player.timeLeftGreenHeartPowerup > 0 && player.timeJumping < player.JUMP_TIME_MAX) 
+		if (player.timeLeftJumpPowerup > 0 && player.timeJumping < player.JUMP_TIME_MAX) 
 		{
-			player.timeLeftGreenHeartPowerup -= deltaTime;
+			player.timeLeftJumpPowerup -= deltaTime;
 		}
-		if (player.timeLeftGreenHeartPowerup < 0) 
+		if (player.timeLeftJumpPowerup < 0) 
 		{
 			// disable power-up
-			player.timeLeftGreenHeartPowerup = 0;
-			player.setGreenHeartPowerup(false);
+			player.timeLeftJumpPowerup = 0;
+			player.setJumpPowerup(false);
 		}
 		
 		// Move to new position

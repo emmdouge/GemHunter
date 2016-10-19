@@ -3,7 +3,7 @@ package com.douge.gdx.game.playerstate;
 import com.badlogic.gdx.Gdx;
 import com.douge.gdx.game.VIEW_DIRECTION;
 import com.douge.gdx.game.enemy.Enemy;
-import com.douge.gdx.game.objects.Survivor;
+import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.Rock;
 
 public class PlayerStateContext 
@@ -15,17 +15,17 @@ public class PlayerStateContext
 	private DashState dashState;
 	private HurtState hurtState;
 	private PlayerState currentState;
-	private Survivor player;
+	private Player player;
 	
-	public PlayerStateContext(Survivor astronaut)
+	public PlayerStateContext(Player player)
 	{
-		player = astronaut;
-		fallingState = new FallingState(astronaut, this);
-		groundedState = new GroundedState(astronaut, this);
-		jumpFallingState = new JumpFallingState(astronaut, this);
-		jumpRisingState = new JumpRisingState(astronaut, this);
-		dashState = new DashState(astronaut, this);
-		hurtState = new HurtState(astronaut, this);
+		this.player = player;
+		fallingState = new FallingState(player, this);
+		groundedState = new GroundedState(player, this);
+		jumpFallingState = new JumpFallingState(player, this);
+		jumpRisingState = new JumpRisingState(player, this);
+		dashState = new DashState(player, this);
+		hurtState = new HurtState(player, this);
 		
 		currentState = fallingState;
 	}
@@ -87,7 +87,7 @@ public class PlayerStateContext
 			}
 			else if(currentState == fallingState || currentState == jumpFallingState)
 			{
-				if(player.hasGreenHeartPowerup && player.timeJumping < player.JUMP_TIME_MAX)
+				if(player.hasJumpPowerup && player.timeJumping < player.JUMP_TIME_MAX)
 				{
 					setPlayerState(jumpRisingState);
 				}

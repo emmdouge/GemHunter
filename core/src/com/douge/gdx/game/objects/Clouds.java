@@ -27,7 +27,7 @@ public class Clouds extends AbstractGameObject
 		{
 			TextureRegion reg = regCloud;
 			batch.draw(reg.getTexture(), 
-					position.x + origin.x, position.y + origin.y, 
+					position.x, position.y, 
 					origin.x, origin.y, 
 					dimension.x, dimension.y,
 					scale.x, scale.y, 
@@ -66,7 +66,7 @@ public class Clouds extends AbstractGameObject
 			Cloud cloud = spawnCloud();
 			cloud.position.x = i * distFac;
 			clouds.add(cloud);
-			cloud.currentVelocity = new Vector2(1, 0);
+			cloud.currentVelocity.x = (float)(Math.random()*2+1);
 			cloud.maxVelocity = new Vector2(3, 0);
 		}
 	}
@@ -75,9 +75,9 @@ public class Clouds extends AbstractGameObject
 	{
 		for(int i = 0; i < clouds.size; i++)
 		{
-			if(clouds.get(i).position.x > Constants.CAMERA_X_MAX)
+			if(clouds.get(i).position.x > 128 + clouds.get(i).dimension.x)
 			{
-				clouds.get(i).position.x = 0;
+				clouds.get(i).position.x = 0 - clouds.get(i).dimension.x;
 			}
 			clouds.get(i).update(deltaTime);
 		}

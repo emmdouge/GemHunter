@@ -5,12 +5,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.douge.gdx.game.assets.Assets;
 
-public class RockBackground extends AbstractGameObject{
+public class BackgroundRock extends AbstractGameObject{
 	private TextureRegion regMiddle;
 	
 	private int length;
 	
-	public RockBackground () 
+	public BackgroundRock () 
 	{
 		init();
 	}

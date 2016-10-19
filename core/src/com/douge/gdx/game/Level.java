@@ -11,11 +11,11 @@ import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.enemy.Slime;
 import com.douge.gdx.game.objects.AbstractGameObject;
-import com.douge.gdx.game.objects.Survivor;
+import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.Clouds;
 import com.douge.gdx.game.objects.GoldCoin;
-import com.douge.gdx.game.objects.JumpDiamond;
-import com.douge.gdx.game.objects.RockBackground;
+import com.douge.gdx.game.objects.JumpPotion;
+import com.douge.gdx.game.objects.BackgroundRock;
 import com.douge.gdx.game.objects.Trees;
 import com.douge.gdx.game.objects.Rock;
 import com.douge.gdx.game.objects.WaterOverlay;
@@ -29,13 +29,13 @@ public class Level
 {
 	public static final String TAG = Level.class.getName();
 	
-	public Survivor survivor; 
+	public Player player; 
 	public Array<GoldCoin> goldcoins; 
-	public Array<JumpDiamond> jumpDiamond; 
+	public Array<JumpPotion> jumpPotion; 
 	
 	// objects
 	public Array<Rock> rocks;
-	public Array<RockBackground> rocksBackground;
+	public Array<BackgroundRock> backgroundRock;
 	public Array<Enemy> enemies;
 	
 	// decoration
@@ -52,13 +52,13 @@ public class Level
 	private void init (String filename) 
 	{
 	    // player character 
-	    survivor = null; 
+	    player = null; 
 	     
 	    // objects 
 	    goldcoins = new Array<GoldCoin>(); 
-	    jumpDiamond = new Array<JumpDiamond>(); 
+	    jumpPotion = new Array<JumpPotion>(); 
 		rocks = new Array<Rock>();
-		rocksBackground = new Array<RockBackground>();
+		backgroundRock = new Array<BackgroundRock>();
 		enemies = new Array<Enemy>();
 		enemiesToRemove = new ArrayList<Integer>();
 		
@@ -88,9 +88,9 @@ public class Level
 				// rock back
 				if (BLOCK_TYPE.ROCK_BACK.sameColor(currentPixel) || BLOCK_TYPE.validColor(currentPixel)) 
 				{
-						obj = new RockBackground();
+						obj = new BackgroundRock();
 						obj.position.set(pixelX, baseHeight);
-						rocksBackground.add((RockBackground)obj);
+						backgroundRock.add((BackgroundRock)obj);
 				}
 		
 				// rock
@@ -111,17 +111,17 @@ public class Level
 				// player spawn point
 				else if (BLOCK_TYPE.PLAYER_SPAWNPOINT.sameColor(currentPixel)) 
 				{
-			          obj = new Survivor(); 
+			          obj = new Player(); 
 			          obj.position.set(pixelX, baseHeight); 
-			          survivor = (Survivor)obj; 
+			          player = (Player)obj; 
 				}
 				
 				// feather
-				else if (BLOCK_TYPE.ITEM_GREENHEART.sameColor(currentPixel)) 
+				else if (BLOCK_TYPE.ITEM_JUMP_POTION.sameColor(currentPixel)) 
 				{
-			          obj = new JumpDiamond(); 
+			          obj = new JumpPotion(); 
 			          obj.position.set(pixelX, baseHeight); 
-			          jumpDiamond.add((JumpDiamond)obj); 
+			          jumpPotion.add((JumpPotion)obj); 
 				}
 		
 				// gold coin
@@ -179,7 +179,7 @@ public class Level
 	
 	public void update (float deltaTime) 
 	{
-		survivor.update(deltaTime);
+		player.update(deltaTime);
 		
 		for(Rock rock : rocks)
 		rock.update(deltaTime);
@@ -187,7 +187,7 @@ public class Level
 		for(GoldCoin goldCoin : goldcoins)
 		goldCoin.update(deltaTime);
 		
-		for(JumpDiamond greenHeart : jumpDiamond)
+		for(JumpPotion greenHeart : jumpPotion)
 		greenHeart.update(deltaTime);
 		
 		for(int i = 0; i < enemies.size; i++)
@@ -202,7 +202,7 @@ public class Level
 	 */
 	public void render (SpriteBatch batch) 
 	{
-		for(RockBackground rockBack: rocksBackground)
+		for(BackgroundRock rockBack: backgroundRock)
 		rockBack.render(batch);
 		
 		// Draw trees
@@ -213,13 +213,13 @@ public class Level
 	    goldCoin.render(batch); 
 	     
 	    // Draw Feathers 
-	    for (JumpDiamond greenHeart : jumpDiamond) 
+	    for (JumpPotion greenHeart : jumpPotion) 
 	    greenHeart.render(batch); 
 	     
 	    batch.setColor(Color.WHITE);
 	    
 	    // Draw Player Character 
-	    survivor.render(batch); 
+	    player.render(batch); 
 		
 		// Draw Water Overlay
 		waterOverlay.render(batch);
