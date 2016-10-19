@@ -142,11 +142,12 @@ public class PlayerStateContext
 	{
 		float diffBetweenBottomOfPlayerAndTopOfEnemy = enemy.position.y + enemy.bounds.height - player.position.y;
 		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfEnemy <= 0.07f;
-		if(!enemy.isDead)
+		if(!enemy.hasBeenKilled)
 		{
 			if(landOnTop)
 			{
 				enemy.stateTime = 0f;
+				enemy.hasBeenKilled = true;
 				enemy.context.setEnemyState(enemy.context.getDeadState());
 				player.timeJumping = 0;
 				player.context.jump(true);
