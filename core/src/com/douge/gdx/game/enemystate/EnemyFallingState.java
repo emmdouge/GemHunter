@@ -67,11 +67,11 @@ public class EnemyFallingState extends EnemyState
 		
 		if(landOnTop)
 		{
-			Gdx.app.log(tag, "enemy: " + enemy.position.y + " " + (rock.position.y + rock.bounds.height));
+			//Gdx.app.log(tag, "enemy: " + enemy.position.y + " " + (rock.position.y + rock.bounds.height));
 			enemy.currentGravity = 0;
 			enemy.currentVelocity.y = 0;
 			enemy.position.y = rock.position.y + rock.bounds.height - .001f;
-			Gdx.app.log(tag, "enemy: " + enemy.position.y + " ");
+			//Gdx.app.log(tag, "enemy: " + enemy.position.y + " ");
 			context.setEnemyState(context.getMovingState());
 			//Gdx.app.log(tag, "player: " + player.position.y + " " + player.currentVelocity.y);
 		}

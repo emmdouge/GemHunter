@@ -38,7 +38,7 @@ public class GoldCoin extends AbstractGameObject
 		
 		//TextureRegion reg = regGoldCoin;
 		stateTime += .05f;
-		Gdx.app.log("", "" + stateTime);
+		//Gdx.app.log("", "" + stateTime);
 		TextureRegion reg = spinning.getKeyFrame(stateTime);
 		batch.draw(reg.getTexture(), 
 				position.x, position.y,

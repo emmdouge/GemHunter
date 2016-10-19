@@ -60,7 +60,7 @@ public class DashState extends PlayerState
 		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfRock <= 1f;
 		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.07f;
 
-		Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.width + "=" + (rock.position.x+rock.bounds.width) + ", player: " + player.position.x + " " + diffBetweenLeftSideOfPlayerAndRightSideOfRock);
+		//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.width + "=" + (rock.position.x+rock.bounds.width) + ", player: " + player.position.x + " " + diffBetweenLeftSideOfPlayerAndRightSideOfRock);
 		if(onTopOfRock)
 		{
 			player.position.y += .01f;

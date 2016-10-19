@@ -34,17 +34,17 @@ public class HurtState extends PlayerState
 					} 
 					else 
 					{
-						Gdx.app.log("", ""+player.currentVelocity.x);
+						//Gdx.app.log("", ""+player.currentVelocity.x);
 						player.currentVelocity.x = Math.min(player.currentVelocity.x - 1 * deltaTime, 0);
 					}
 					player.currentVelocity.x = MathUtils.clamp(player.currentVelocity.x, -player.maxVelocity.x, player.maxVelocity.x);
 					player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
 				}
-				if (player.currentVelocity.y != 0) 
-				{
-					player.currentVelocity.y += player.gravity;
-					player.currentVelocity.y = MathUtils.clamp(player.currentVelocity.y, -player.maxVelocity.y, player.maxVelocity.y);
-				}
+				
+				player.currentGravity = -.5f;
+				player.currentVelocity.y += player.currentGravity;
+				player.currentVelocity.y = MathUtils.clamp(player.currentVelocity.y, -player.maxVelocity.y, player.maxVelocity.y*.75f);
+				
 				// Move to new position
 				player.position.x += player.currentVelocity.x * deltaTime;
 				player.position.y += player.currentVelocity.y * deltaTime;
@@ -62,7 +62,7 @@ public class HurtState extends PlayerState
 			player.lives--;
 			player.isStunned = true;
 			player.currentVelocity.x = player.maxVelocity.x*VIEW_DIRECTION.getOppositeInt(player.viewDirection);
-			player.currentVelocity.x = player.maxVelocity.y;
+			player.currentVelocity.y = player.maxVelocity.y*.75f;
 		}
 	}
 
@@ -113,7 +113,6 @@ public class HurtState extends PlayerState
 	@Override
 	public void noRockCollision() 
 	{
-		player.currentVelocity.y = player.gravity;
 		context.noRockCollision();
 	}
 
