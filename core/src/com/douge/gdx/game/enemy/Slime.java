@@ -7,9 +7,9 @@ import com.douge.gdx.game.assets.enemy.AssetSlime;
 public class Slime extends Enemy
 {
 
-	public Slime(AssetSlime assets, Array<Enemy> enemies) 
+	public Slime(AssetSlime assets) 
 	{
-		super(assets, enemies, 0.5f, VIEW_DIRECTION.RIGHT);
+		super(assets, 0.5f, VIEW_DIRECTION.RIGHT);
 	}
 	
 }

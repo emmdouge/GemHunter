@@ -146,7 +146,6 @@ public class PlayerStateContext
 		{
 			if(landOnTop)
 			{
-				enemy.isDead = true;
 				enemy.stateTime = 0f;
 				enemy.context.setEnemyState(enemy.context.getDeadState());
 				player.timeJumping = 0;

@@ -217,7 +217,7 @@ public class WorldController extends InputAdapter
 				level.player.bounds.width, level.player.bounds.height);
 		
 		// Test collision: Bunny Head <-> Gold Coins
-		for (GoldCoin goldcoin : level.goldcoins) 
+		for (GoldCoin goldcoin : level.goldCoins) 
 		{
 			if (goldcoin.collected) 
 			{

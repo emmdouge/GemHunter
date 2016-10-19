@@ -17,7 +17,7 @@ public class EnemyDeadState extends EnemyState
 		enemy.currentAnimation = enemy.assets.deadAnimation;
 		if(enemy.currentAnimation.isAnimationFinished(enemy.stateTime+.05f))
 		{
-			enemy.removeFromGame();
+			enemy.killed();
 		}
 	}
 

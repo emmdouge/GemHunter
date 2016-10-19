@@ -31,7 +31,7 @@ public class Level
 	public static final String TAG = Level.class.getName();
 	
 	public Player player; 
-	public Array<GoldCoin> goldcoins; 
+	public Array<GoldCoin> goldCoins; 
 	public Array<JumpPotion> jumpPotion; 
 	
 	// objects
@@ -56,7 +56,7 @@ public class Level
 	    player = null; 
 	     
 	    // objects 
-	    goldcoins = new Array<GoldCoin>(); 
+	    goldCoins = new Array<GoldCoin>(); 
 	    jumpPotion = new Array<JumpPotion>(); 
 		rocks = new Array<Rock>();
 		backgroundRock = new Array<BackgroundRock>();
@@ -130,13 +130,13 @@ public class Level
 				{
 			          obj = new GoldCoin(); 
 			          obj.position.set(pixelX,baseHeight); 
-			          goldcoins.add((GoldCoin)obj); 
+			          goldCoins.add((GoldCoin)obj); 
 				}
 				
 				// slime
 				else if(BLOCK_TYPE.ENEMY_SLIME.sameColor(currentPixel))
 				{
-			          obj = new Slime(Assets.instance.slime, enemies); 
+			          obj = new Slime(Assets.instance.slime); 
 			          obj.position.set(pixelX,baseHeight); 
 			          enemies.add((Slime)obj); 	
 				}
@@ -144,7 +144,7 @@ public class Level
 				// slime
 				else if(BLOCK_TYPE.ENEMY_SKELETON.sameColor(currentPixel))
 				{
-			          obj = new Skeleton(Assets.instance.skeleton, enemies); 
+			          obj = new Skeleton(Assets.instance.skeleton); 
 			          obj.position.set(pixelX,baseHeight); 
 			          enemies.add((Skeleton)obj); 	
 				}
@@ -195,7 +195,7 @@ public class Level
 		for(Rock rock : rocks)
 		rock.update(deltaTime);
 		
-		for(GoldCoin goldCoin : goldcoins)
+		for(GoldCoin goldCoin : goldCoins)
 		goldCoin.update(deltaTime);
 		
 		for(JumpPotion greenHeart : jumpPotion)
@@ -203,6 +203,28 @@ public class Level
 		
 		for(int i = 0; i < enemies.size; i++)
 		enemies.get(i).update(deltaTime);
+		
+		int enemyIndex = 0;
+		for(Enemy enemy: enemies)
+		{
+			if(enemy.isDead)
+			{
+				GoldCoin goldCoin = new GoldCoin();
+				goldCoin.position = enemy.position;
+				goldCoins.add(goldCoin);
+			}
+			enemyIndex++;
+		}
+		
+		enemyIndex = 0;
+		for(Enemy enemy: enemies)
+		{
+			if(enemy.isDead && enemy.currentAnimation.isAnimationFinished(enemy.stateTime))
+			{
+				enemies.removeIndex(enemyIndex);
+			}
+			enemyIndex++;
+		}
 		
 		clouds.update(deltaTime);
 	}
@@ -220,7 +242,7 @@ public class Level
 		trees.render(batch);
 		
 	    // Draw Gold Coins 
-	    for (GoldCoin goldCoin : goldcoins) 
+	    for (GoldCoin goldCoin : goldCoins) 
 	    goldCoin.render(batch); 
 	     
 	    // Draw Feathers 

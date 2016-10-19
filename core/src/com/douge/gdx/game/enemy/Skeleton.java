@@ -7,9 +7,9 @@ import com.douge.gdx.game.assets.enemy.AssetSkeleton;
 public class Skeleton extends Enemy
 {
 
-	public Skeleton(AssetSkeleton assets, Array<Enemy> enemies) 
+	public Skeleton(AssetSkeleton assets) 
 	{
-		super(assets, enemies, 1f, VIEW_DIRECTION.LEFT);
+		super(assets, 1f, VIEW_DIRECTION.LEFT);
 	}
 
 }

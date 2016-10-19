@@ -20,7 +20,6 @@ public abstract class Enemy extends AbstractGameObject
 	public EnemyStateContext context;
 	public AssetEnemy assets;
 	public Animation currentAnimation;
-	public Array<Enemy> enemies;
 	public TextureRegion reg;
 	public float stateTime;
 	public float moveSpeed;
@@ -29,10 +28,9 @@ public abstract class Enemy extends AbstractGameObject
 	public boolean isDead = false;
 	private VIEW_DIRECTION flip;
 	
-	public Enemy(AssetEnemy assetEnemy, Array<Enemy> enemies, float moveSpeed, VIEW_DIRECTION direction) 
+	public Enemy(AssetEnemy assetEnemy, float moveSpeed, VIEW_DIRECTION direction) 
 	{
 		this.assets = assetEnemy;
-		this.enemies = enemies;
 		this.moveSpeed = moveSpeed;
 		
 		// View direction
@@ -96,16 +94,8 @@ public abstract class Enemy extends AbstractGameObject
 	}
 	
 	
-	public void removeFromGame() 
+	public void killed() 
 	{
-		int enemyIndex = 0;
-		for(Enemy enemy: enemies)
-		{
-			if(enemy.equals(this))
-			{
-				enemies.removeIndex(enemyIndex);
-			}
-			enemyIndex++;
-		}
+		isDead = true;
 	};
 }
