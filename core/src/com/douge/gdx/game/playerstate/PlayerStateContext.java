@@ -136,6 +136,7 @@ public class PlayerStateContext
 	{
 		player.currentGravity = player.gravity;
 		player.currentFriction = player.friction;
+		player.currentParticleEffect.allowCompletion();
 	}
 	
 	public void onCollisionWith(Enemy enemy)

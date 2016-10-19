@@ -4,13 +4,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.douge.gdx.game.assets.Assets;
 
-public class WaterOverlay extends AbstractGameObject
+public class BlackOverlay extends AbstractGameObject
 {
 	private TextureRegion regWaterOverlay;
 	
 	private float length;
 	
-	public WaterOverlay (float length) 
+	public BlackOverlay (float length) 
 	{
 		this.length = length;
 		init();

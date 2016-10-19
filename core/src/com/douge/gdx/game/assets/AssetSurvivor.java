@@ -1,6 +1,8 @@
 package com.douge.gdx.game.assets;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.Array;
@@ -15,10 +17,15 @@ public class AssetSurvivor
 	public final Animation jumpingAnimation;
 	public final Animation dashingAnimation;
 	public final Animation hurtAnimation;
+	public final ParticleEffect dustParticles;
 	
 	protected AssetSurvivor(TextureAtlas atlas) 
 	{
 		survivor = atlas.findRegion("0");
+		
+		// Particles
+		dustParticles = new ParticleEffect();
+		dustParticles.load(Gdx.files.internal("../core/assets/particles/dust.pfx"), Gdx.files.internal("../core/assets/particles"));
 		
 		Array<AtlasRegion> regions = new Array<AtlasRegion>();
 		

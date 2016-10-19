@@ -25,6 +25,7 @@ public class GroundedState extends PlayerState
 		player.afterImageDash.head = null;
 		player.afterImageDash.tail = null;
 		player.currentAnimation = Assets.instance.survivor.standingAnimation;
+		player.currentParticleEffect = Assets.instance.survivor.dustParticles;
 		
 		if (player.currentVelocity.x != 0) 
 		{
@@ -32,11 +33,14 @@ public class GroundedState extends PlayerState
 			if (player.currentVelocity.x > 0) 
 			{
 				player.currentVelocity.x = Math.max(player.currentVelocity.x - player.friction * deltaTime, 0);
+				player.currentParticleEffect.setPosition(player.position.x, player.position.y);
 			} 
 			else 
 			{
 				player.currentVelocity.x = Math.min(player.currentVelocity.x + player.friction * deltaTime, 0);
+				player.currentParticleEffect.setPosition(player.position.x + player.bounds.width, player.position.y);
 			}
+			player.currentParticleEffect.start();
 		}
 
 		// Make sure the object's velocity does not exceed the

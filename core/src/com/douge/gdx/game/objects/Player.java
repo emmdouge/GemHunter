@@ -2,6 +2,8 @@ package com.douge.gdx.game.objects;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter.Particle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.douge.gdx.game.Constants;
@@ -22,12 +24,15 @@ public class Player extends AbstractGameObject
 	public final float JUMP_TIME_MAX = 0.4f;
 	public final float JUMP_TIME_MIN = 0.1f;
 	public float timeJumping;
+	public boolean hasJumpPowerup;
+	public float timeLeftJumpPowerup;
 	
 	public final float DASH_TIME_MAX = 0.25f;
 	public float timeDashing;
 	
 	public final float STUN_TIME_MAX = 0.50f;
 	public float timeStunned;
+	public boolean isStunned = false;
 	
 	public PlayerStateContext context;
 	
@@ -40,11 +45,9 @@ public class Player extends AbstractGameObject
 	
 	public VIEW_DIRECTION viewDirection;
 
-	public boolean hasJumpPowerup;
-	public float timeLeftJumpPowerup;
-	public boolean isStunned = false;
 	public int lives;
-
+	
+	public ParticleEffect currentParticleEffect;
 	
 	public Player() 
 	{
@@ -84,6 +87,7 @@ public class Player extends AbstractGameObject
 		timeLeftJumpPowerup = 0;		
 		
 		currentAnimation = Assets.instance.survivor.fallingAnimation;
+		currentParticleEffect = Assets.instance.survivor.dustParticles;
 	};
 	
 	public void update(float deltaTime)
@@ -91,6 +95,7 @@ public class Player extends AbstractGameObject
 		context.getCurrentState().execute(deltaTime);
 		stateTime += deltaTime;
 		afterImageNeutral.addNode(this, currentAnimation.getKeyFrame(stateTime));
+		currentParticleEffect.update(deltaTime);
 	}
 	
 	public void render(SpriteBatch batch)
@@ -153,6 +158,9 @@ public class Player extends AbstractGameObject
 		}
 		// Reset color to white
 		batch.setColor(1, 1, 1, 1);
+		
+		currentParticleEffect.draw(batch);
+		
 		TextureRegion reg = currentAnimation.getKeyFrame(stateTime, true);
 		batch.draw(reg.getTexture(), 
 				position.x, position.y, 

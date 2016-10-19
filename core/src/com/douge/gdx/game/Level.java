@@ -19,7 +19,7 @@ import com.douge.gdx.game.objects.JumpPotion;
 import com.douge.gdx.game.objects.BackgroundRock;
 import com.douge.gdx.game.objects.Trees;
 import com.douge.gdx.game.objects.Rock;
-import com.douge.gdx.game.objects.WaterOverlay;
+import com.douge.gdx.game.objects.BlackOverlay;
 
 /**
  * Level 1 of the game
@@ -42,7 +42,7 @@ public class Level
 	// decoration
 	public Clouds clouds;
 	public Trees trees;
-	public WaterOverlay waterOverlay;
+	public BlackOverlay waterOverlay;
 
 	public ArrayList<Integer> enemiesToRemove;
 	
@@ -180,7 +180,7 @@ public class Level
 		trees.position.set(0, baseHeightOfBottomLeftPixelOfPixmap - yOffset + lookGood);
 		
 		lookGood = -2;
-		waterOverlay = new WaterOverlay(pixmap.getWidth());
+		waterOverlay = new BlackOverlay(pixmap.getWidth());
 		waterOverlay.position.set(0, baseHeightOfBottomLeftPixelOfPixmap - yOffset + lookGood);
 		
 		// free memory

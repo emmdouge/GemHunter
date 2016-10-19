@@ -26,12 +26,15 @@ public class WorldController extends InputAdapter
 	
 	public Level level;
 	public int score;
+	public float scoreVisual;
+	public float livesVisual;
+	
 	public CameraHelper cameraHelper;
 	
 	private Rectangle r1 = new Rectangle(); 
 	private Rectangle r2 = new Rectangle(); 
 	   
-	  private float timeLeftGameOverDelay; 
+	 private float timeLeftGameOverDelay; 
 	
 	public WorldController(Game game)
 	{
@@ -44,12 +47,14 @@ public class WorldController extends InputAdapter
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
 	    timeLeftGameOverDelay = 0; 
+	    livesVisual = Constants.LIVES_START;
 		initLevel();
 	}
 	
 	private void initLevel () 
 	{
 		score = 0;
+		scoreVisual = 0;
 		level = new Level(Constants.LEVEL_01_PATH);
 		cameraHelper.setTarget(level.player); 
 	}
@@ -89,6 +94,16 @@ public class WorldController extends InputAdapter
 				initLevel();
 			}
 		}
+		level.trees.updateScrollPosition(cameraHelper.getPosition());
+		if (livesVisual> level.player.lives)
+		{
+			livesVisual = Math.max(level.player.lives, livesVisual - 1 * deltaTime);
+		}
+		if (scoreVisual< score)
+		{
+			scoreVisual = Math.min(score, scoreVisual + 250 * deltaTime);
+		}
+		
 	}
 
 	private void handleDebugInput(float deltaTime) 
