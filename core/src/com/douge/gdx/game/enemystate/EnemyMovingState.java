@@ -20,7 +20,7 @@ public class EnemyMovingState extends EnemyState
 
 		enemy.currentAnimation = Assets.instance.survivor.standingAnimation;
 		enemy.currentVelocity.y = 0;
-		enemy.currentVelocity.x = 1.5f*VIEW_DIRECTION.getInt(enemy.viewDirection);
+		enemy.currentVelocity.x = enemy.moveSpeed*VIEW_DIRECTION.getInt(enemy.viewDirection);
 		
 		if (enemy.currentVelocity.x != 0) 
 		{

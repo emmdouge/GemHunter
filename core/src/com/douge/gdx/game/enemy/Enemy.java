@@ -23,20 +23,28 @@ public abstract class Enemy extends AbstractGameObject
 	public Array<Enemy> enemies;
 	public TextureRegion reg;
 	public float stateTime;
+	public float moveSpeed;
 	
 	public VIEW_DIRECTION viewDirection;
 	public boolean isDead = false;
+	private VIEW_DIRECTION flip;
 	
-	public Enemy(AssetEnemy assetEnemy, Array<Enemy> enemies) 
+	public Enemy(AssetEnemy assetEnemy, Array<Enemy> enemies, float moveSpeed, VIEW_DIRECTION direction) 
 	{
 		this.assets = assetEnemy;
 		this.enemies = enemies;
+		this.moveSpeed = moveSpeed;
+		
+		// View direction
+		flip = direction;
 		init();
 	}
 	public void init() 
 	{
 		dimension.set(1, 1);
 		reg = assets.standingAnimation.getKeyFrame(0);
+		
+		viewDirection = VIEW_DIRECTION.LEFT;
 		
 		// Center image on game object
 		origin.set(dimension.x / 2, dimension.y / 2);
@@ -50,9 +58,6 @@ public abstract class Enemy extends AbstractGameObject
 		gravity = -25.0f;
 		currentGravity = gravity;
 		currentFriction = friction;
-		
-		// View direction
-		viewDirection = VIEW_DIRECTION.LEFT;
 
 		context = new EnemyStateContext(this);
 		
@@ -81,7 +86,7 @@ public abstract class Enemy extends AbstractGameObject
 				rotation,
 				reg.getRegionX(), reg.getRegionY(), 
 				reg.getRegionWidth(), reg.getRegionHeight(), 
-				viewDirection == VIEW_DIRECTION.RIGHT, false);
+				viewDirection == flip, false);
 		
 	}
 	

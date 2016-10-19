@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.Array;
 
-public class AssetRanger 
+public class AssetRanger extends AssetEnemy
 {
 	public final AtlasRegion reg;
 	public final Animation moveAnimation;
