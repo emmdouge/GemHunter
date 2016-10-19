@@ -128,8 +128,11 @@ public class PlayerStateContext
 
 	public void setPlayerStateBasedOnInput(boolean jumpKeyPressed, boolean dashKeyPressed) 
 	{
-		jump(jumpKeyPressed);
-		dash(dashKeyPressed);
+		if(currentState != hurtState)
+		{
+			jump(jumpKeyPressed);
+			dash(dashKeyPressed);
+		}
 	}
 	
 	public void noRockCollision()
