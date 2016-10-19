@@ -20,7 +20,6 @@ public class HurtState extends PlayerState
 	{
 		player.timeStunned += deltaTime;
 		player.currentAnimation = Assets.instance.survivor.hurtAnimation;
-		player.currentVelocity.y = 0;
 		
 		if(player.isStunned)
 		{
@@ -63,6 +62,7 @@ public class HurtState extends PlayerState
 			player.lives--;
 			player.isStunned = true;
 			player.currentVelocity.x = player.maxVelocity.x*VIEW_DIRECTION.getOppositeInt(player.viewDirection);
+			player.currentVelocity.x = player.maxVelocity.y;
 		}
 	}
 
