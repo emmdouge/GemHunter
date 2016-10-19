@@ -37,6 +37,12 @@ public class EnemyMovingState extends EnemyState
 			// Make sure the object's velocity does not exceed the
 			// positive or negative terminal velocity
 			enemy.currentVelocity.x = MathUtils.clamp(enemy.currentVelocity.x, -enemy.maxVelocity.x, enemy.maxVelocity.x);
+			
+			if((int)(Math.random()*100) == 1)
+			{
+				enemy.currentVelocity.x *= -1;
+			}
+			
 			enemy.viewDirection = enemy.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
 			enemy.currentAnimation = enemy.assets.movingAnimation;
 		}
