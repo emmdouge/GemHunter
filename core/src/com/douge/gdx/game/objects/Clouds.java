@@ -40,13 +40,13 @@ public class Clouds extends AbstractGameObject
 	
 	private Array<Cloud> clouds;
 	
-	private float length;
+	private float levelPixelWidth;
 	
 	private Array<TextureRegion> regClouds;
 	
 	public Clouds (float length) 
 	{
-		this.length = length;
+		this.levelPixelWidth = length;
 		init();
 	}
 	
@@ -57,16 +57,15 @@ public class Clouds extends AbstractGameObject
 		regClouds = new Array<TextureRegion>();
 		regClouds.add(Assets.instance.env.clouds);
 		
-
-		int distFac = 5;
-		int numClouds = (int)(length / distFac);
-		clouds = new Array<Cloud>(2 * numClouds);
+		int	distanceBetweenEachCloud = 5;
+		int numClouds = (int)(levelPixelWidth / distanceBetweenEachCloud);
+		clouds = new Array<Cloud>(numClouds);
 		for (int i = 0; i < numClouds; i++) 
 		{
 			Cloud cloud = spawnCloud();
-			cloud.position.x = i * distFac;
+			cloud.position.x = i * distanceBetweenEachCloud;
 			clouds.add(cloud);
-			cloud.currentVelocity.x = (float)(Math.random()*2+1);
+			cloud.currentVelocity.x = 2;
 			cloud.maxVelocity = new Vector2(3, 0);
 		}
 	}
@@ -91,13 +90,11 @@ public class Clouds extends AbstractGameObject
 		cloud.setRegion(regClouds.random());
 		
 		// position
-		Vector2 pos = new Vector2();
-		pos.x = length + 10; // position after end of level
-		pos.y += 1.75; // base position
-		pos.y += MathUtils.random(-4.0f, 16.0f); 
+		float yPos = 1.75f; // base position
+		yPos += MathUtils.random(0.0f, 16.0f); 
 		
 		// random additional position
-		cloud.position.set(pos);
+		cloud.position.y = yPos;
 		
 		return cloud;
 	}
