@@ -13,7 +13,7 @@ public class CameraHelper {
 	
 	private final float MAX_ZOOM_IN = 0.25f;
 	private final float MAX_ZOOM_OUT = 10.0f;
-	private final float FOLLOW_SPEED = 6.0f;
+	private final float FOLLOW_SPEED = 4.0f;
 	public boolean clampCam = true;
 	private float zoom; 
 	public OrthographicCamera camera;
@@ -36,12 +36,14 @@ public class CameraHelper {
 		if(target != null)
 		{
 			position.x += .05f;
+			System.out.println(Math.abs(position.x - target.position.x));
 			//incrementally move from camera position to target position
 			position.lerp(target.position, FOLLOW_SPEED * deltaTime);
 		}
 		
 	    // Prevent camera from moving down too far 
 	    position.y = Math.max(-1f, position.y); 
+	    position.x = MathUtils.clamp(position.x, target.position.x - 1, target.position.x + 2);
 	}
 	
 	public void setPosition(float x, float y)
