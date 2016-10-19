@@ -76,7 +76,7 @@ public class WorldController extends InputAdapter
 	 */
 	public void update(float deltaTime)
 	{
-		Gdx.app.log(TAG, "player: " + level.player.context.getCurrentState());
+		//Gdx.app.log(TAG, "player: " + level.player.context.getCurrentState());
 		handleDebugInput(deltaTime);
 		if (isGameOver()) 
 		{

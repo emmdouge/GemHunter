@@ -154,7 +154,8 @@ public class Level
 				else if(BLOCK_TYPE.ENEMY_BAT.sameColor(currentPixel))
 				{
 			          obj = new Bat(Assets.instance.bat); 
-			          obj.position.set(pixelX,baseHeight); 
+			          obj.position.x = pixelX;
+			          obj.position.y += baseHeight; 
 			          enemies.add((Bat)obj); 	
 				}
 				

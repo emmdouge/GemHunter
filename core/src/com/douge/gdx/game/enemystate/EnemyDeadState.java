@@ -1,5 +1,6 @@
 package com.douge.gdx.game.enemystate;
 
+import com.badlogic.gdx.Gdx;
 import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.objects.Rock;
 
@@ -31,8 +32,15 @@ public class EnemyDeadState extends EnemyState
 	@Override
 	public void noRockCollision() 
 	{
-		context.noRockCollision();
-		context.setEnemyState(context.getFallingState());
+		if(!enemy.canFly)
+		{
+			context.noRockCollision();
+			context.setEnemyState(context.getFallingState());
+		}
+		else
+		{
+			enemy.position.y -= .025f;
+		}
 	}
 
 }

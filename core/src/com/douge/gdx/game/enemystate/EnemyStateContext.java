@@ -62,10 +62,7 @@ public class EnemyStateContext
 
 	public void noRockCollision()
 	{
-		if(!(enemy instanceof Bat))
-		{
-			enemy.currentGravity = enemy.gravity;
-			enemy.currentFriction = enemy.friction;
-		}
+		enemy.currentGravity = enemy.gravity;
+		enemy.currentFriction = enemy.friction;
 	}
 }

@@ -3,6 +3,7 @@ package com.douge.gdx.game.enemystate;
 import com.badlogic.gdx.math.MathUtils;
 import com.douge.gdx.game.VIEW_DIRECTION;
 import com.douge.gdx.game.assets.Assets;
+import com.douge.gdx.game.enemy.Bat;
 import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.objects.Rock;
 
@@ -56,10 +57,12 @@ public class EnemyMovingState extends EnemyState
 
 	@Override
 	public void noRockCollision() 
-	{
-		System.out.println("?");
-		context.noRockCollision();
-		context.setEnemyState(context.getFallingState());
+	{	
+		if(!enemy.canFly)
+		{
+			context.noRockCollision();
+			context.setEnemyState(context.getFallingState());
+		}
 	}
 
 }
