@@ -20,6 +20,7 @@ public class HurtState extends PlayerState
 	{
 		player.timeStunned += deltaTime;
 		player.currentAnimation = Assets.instance.survivor.hurtAnimation;
+		player.timeJumping = player.JUMP_TIME_MAX;
 		
 		if(player.isStunned)
 		{
