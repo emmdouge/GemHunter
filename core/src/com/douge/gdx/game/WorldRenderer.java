@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.douge.gdx.game.assets.Assets;
@@ -59,7 +60,8 @@ public class WorldRenderer implements Disposable
 	 * free memory
 	 */
 	@Override
-	public void dispose() {
+	public void dispose() 
+	{
 		batch.dispose();
 	}
 
@@ -68,9 +70,18 @@ public class WorldRenderer implements Disposable
 	 */
 	public void render() 
 	{
+		batch.begin();
+		
 		renderWorld();
 		renderGui();
+	    
+		batch.end();
 	}	
+	
+	private void renderText()
+	{
+		worldController.testMessage.renderText(batch);
+	}
 	
 	/**
 	 * Renders the world
@@ -79,7 +90,6 @@ public class WorldRenderer implements Disposable
 	{
 		worldController.cameraHelper.applyTo(camera);
 		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
 		worldController.level.render(batch);	
 	}
 	
@@ -207,10 +217,10 @@ public class WorldRenderer implements Disposable
 			renderGuiFpsCounter();
 		}
 		
+		renderText();
+		
 	    // draw game over text 
 	    renderGuiGameOverMessage(batch); 
-	    
-		batch.end();
 	}
 	
 	private void renderGuiGameOverMessage (SpriteBatch batch) 

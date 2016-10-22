@@ -38,11 +38,12 @@ public class CameraHelper {
 			position.x += .05f;
 			//incrementally move from camera position to target position
 			position.lerp(target.position, FOLLOW_SPEED * deltaTime);
+			
+		    position.x = MathUtils.clamp(position.x, target.position.x - 1, target.position.x + 2);
 		}
 		
 	    // Prevent camera from moving down too far 
 	    position.y = Math.max(-1f, position.y); 
-	    position.x = MathUtils.clamp(position.x, target.position.x - 1, target.position.x + 2);
 	}
 	
 	public void setPosition(float x, float y)

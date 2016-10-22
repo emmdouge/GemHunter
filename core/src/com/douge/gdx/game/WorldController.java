@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.enemy.Enemy;
@@ -36,6 +37,9 @@ public class WorldController extends InputAdapter
 	   
 	private float timeLeftGameOverDelay; 
 	
+
+	public Message testMessage;
+	
 	/**
 	 * initializes game and level
 	 * @param game
@@ -55,6 +59,8 @@ public class WorldController extends InputAdapter
 		cameraHelper = new CameraHelper();
 	    timeLeftGameOverDelay = 0; 
 	    livesVisual = Constants.LIVES_START;
+
+		testMessage = new Message("Hello World!", new Vector2(0, 0), Assets.instance.survivor.survivor);
 		initLevel();
 	}
 	
@@ -92,6 +98,7 @@ public class WorldController extends InputAdapter
 		}
 		
 		level.update(deltaTime);
+		testMessage.updateText(deltaTime);
 		testCollisions();
 		cameraHelper.update(deltaTime);
 		if (!isGameOver() && isPlayerInWater()) 
