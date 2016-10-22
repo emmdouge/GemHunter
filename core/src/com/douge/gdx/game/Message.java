@@ -40,7 +40,8 @@ public class Message
 		maxHeight = Constants.VIEWPORT_GUI_HEIGHT - box.y;
 		icon = new Sprite(reg);
 		icon.setRegion(reg, 0, 0, reg.getRegionWidth(), reg.getRegionWidth()/2);
-		icon.setX(-20);
+		iconX = -50f;
+		icon.setX(iconX);
 		icon.setY(box.y - 20f);
 		icon.flip(false, true);
 	}
@@ -48,7 +49,7 @@ public class Message
 	public void updateText(float deltaTime)
 	{
 		timeBetweenCharacters += deltaTime;
-		if(timeBetweenCharacters >= .1f && boxIsRendered)
+		if(timeBetweenCharacters >= .08f && boxIsRendered && iconIsRendered)
 		{
 			textIndex++;
 			timeBetweenCharacters = 0;
@@ -83,10 +84,10 @@ public class Message
 				{
 					boxIsRendered = true;
 				}
-				iconX += .05f;
-				iconX = MathUtils.clamp(iconX, -20f, 0 + .2f);
+				iconX += .75f;
+				iconX = MathUtils.clamp(iconX, -50f, 0+1f);
 				icon.setX(iconX);
-				if(icon.getX() >= 0 + .2f)
+				if(iconX >= 1f)
 				{
 					iconIsRendered = true;
 				}
@@ -98,7 +99,7 @@ public class Message
 	private void renderIcon(SpriteBatch batch) 
 	{
 		batch.draw(icon, 
-				-5f, icon.getY(), 
+				iconX, icon.getY(), 
 				0, 0,
 				icon.getWidth(), icon.getHeight(), 
 				4, 2,

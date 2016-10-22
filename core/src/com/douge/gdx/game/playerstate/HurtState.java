@@ -55,7 +55,7 @@ public class HurtState extends PlayerState
 				player.isStunned = false;
 				player.timeJumping = player.JUMP_TIME_MAX;
 				player.timeStunned = 0;
-				player.context.setPlayerState(player.context.getFallingState());
+				player.context.setPlayerState(player.context.getJumpFallingState());
 			}
 		}
 		else
