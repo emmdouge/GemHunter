@@ -73,7 +73,7 @@ public class HurtState extends PlayerState
 		//drawn starting from bottom left
 		float diffBetweenTopOfPlayerAndBottomOfRock = player.position.y + player.bounds.height + .001f - rock.position.y;
 		float diffBetweenLeftSideOfPlayerAndRightSideOfRock = rock.position.x + rock.bounds.x - player.position.x;
-		float diffBetweenBottomOfPlayerAndTopOfRock = rock.position.y + rock.bounds.height - player.position.y;
+		float diffBetweenBottomOfPlayerAndTopOfRock = rock.position.y + rock.bounds.height - player.position.y + .001f;
 		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = player.position.x + player.bounds.width + .001f - rock.position.x;
 		
 		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfRock <= 0.07f;
@@ -91,6 +91,7 @@ public class HurtState extends PlayerState
 		}
 		else if(onTopOfRock)
 		{
+			player.currentVelocity.y = 0;
 			player.position.y = rock.position.y + rock.bounds.height + 0.001f;
 		}
 		else if(hitLeftEdge)
