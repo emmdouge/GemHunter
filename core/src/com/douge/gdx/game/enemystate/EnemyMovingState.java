@@ -42,6 +42,11 @@ public class EnemyMovingState extends EnemyState
 			{
 				enemy.currentVelocity.x *= -1;
 			}
+			if((int)(Math.random()*100) == 2)
+			{
+				enemy.stateTime = 0;
+				context.setEnemyState(context.getAttackingState());
+			}
 			
 			enemy.viewDirection = enemy.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
 			enemy.currentAnimation = enemy.assets.movingAnimation;

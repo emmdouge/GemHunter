@@ -14,8 +14,11 @@ public class EnemyAttackingState extends EnemyState
 	@Override
 	public void execute(float deltaTime) 
 	{
-		// TODO Auto-generated method stub
-		
+		enemy.currentAnimation = enemy.assets.attackingAnimation;
+		if(enemy.currentAnimation.isAnimationFinished(enemy.stateTime+.05f))
+		{
+			context.setEnemyState(context.getMovingState());
+		}
 	}
 
 	@Override
@@ -28,8 +31,11 @@ public class EnemyAttackingState extends EnemyState
 	@Override
 	public void noRockCollision() 
 	{
-		// TODO Auto-generated method stub
-		
+		if(!enemy.canFly)
+		{
+			context.noRockCollision();
+			context.setEnemyState(context.getFallingState());
+		}
 	}
 
 }

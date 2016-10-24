@@ -3,19 +3,16 @@ package com.douge.gdx.game.objects;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
-import com.badlogic.gdx.graphics.g2d.ParticleEmitter.Particle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.douge.gdx.game.Constants;
 import com.douge.gdx.game.VIEW_DIRECTION;
 import com.douge.gdx.game.assets.Assets;
+import com.douge.gdx.game.effects.AfterImage;
+import com.douge.gdx.game.effects.AfterImage.Node;
 import com.douge.gdx.game.playerstate.PlayerStateContext;
 import com.douge.gdx.game.utils.GamePreferences;
-import com.sun.xml.internal.bind.CycleRecoverable.Context;
 import com.douge.gdx.game.screens.CharacterSkin;
-
-import effects.AfterImage;
-import effects.AfterImage.Node;
 
 
 public class Player extends AbstractGameObject
