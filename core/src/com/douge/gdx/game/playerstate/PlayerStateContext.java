@@ -148,7 +148,7 @@ public class PlayerStateContext
 		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfEnemy <= 0.07f;
 		if(!enemy.hasBeenKilled)
 		{
-			if(landOnTop && enemy.isHurtable)
+			if(landOnTop && enemy.isHurtable && currentState != hurtState)
 			{
 				enemy.stateTime = 0f;
 				enemy.hasBeenKilled = true;
