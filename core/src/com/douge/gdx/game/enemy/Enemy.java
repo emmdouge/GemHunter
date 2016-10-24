@@ -31,6 +31,8 @@ public abstract class Enemy extends AbstractGameObject
 	
 	public boolean canFly = false;
 	
+	public boolean isHurtable = true;
+	
 	protected VIEW_DIRECTION flip;
 	
 	//disables player ability to kill enemy

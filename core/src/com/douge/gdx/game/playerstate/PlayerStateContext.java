@@ -148,7 +148,7 @@ public class PlayerStateContext
 		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfEnemy <= 0.07f;
 		if(!enemy.hasBeenKilled)
 		{
-			if(landOnTop)
+			if(landOnTop && enemy.isHurtable)
 			{
 				enemy.stateTime = 0f;
 				enemy.hasBeenKilled = true;
@@ -159,6 +159,7 @@ public class PlayerStateContext
 			}
 			else
 			{
+				player.timeJumping = player.JUMP_TIME_MAX;
 				player.context.setPlayerState(player.context.getHurtState());			
 			}
 		}

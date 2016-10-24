@@ -14,9 +14,11 @@ public class EnemyAttackingState extends EnemyState
 	@Override
 	public void execute(float deltaTime) 
 	{
+		enemy.isHurtable = false;
 		enemy.currentAnimation = enemy.assets.attackingAnimation;
 		if(enemy.currentAnimation.isAnimationFinished(enemy.stateTime+.05f))
 		{
+			enemy.isHurtable = true;
 			context.setEnemyState(context.getMovingState());
 		}
 	}
