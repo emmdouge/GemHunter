@@ -15,7 +15,8 @@ public enum BLOCK_TYPE
 	
 	ENEMY_SKELETON(195, 195, 195),
 	ENEMY_BAT(128, 64, 0),
-	ENEMY_SLIME(34, 177, 76);
+	ENEMY_SLIME(34, 177, 76),
+	ENEMY_GOBLIN(237, 28, 36);
 	
 	private int color;
 	

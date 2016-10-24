@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.douge.gdx.game.Constants;
 import com.douge.gdx.game.assets.enemy.AssetBat;
+import com.douge.gdx.game.assets.enemy.AssetGoblin;
 import com.douge.gdx.game.assets.enemy.AssetRanger;
 import com.douge.gdx.game.assets.enemy.AssetSkeleton;
 import com.douge.gdx.game.assets.enemy.AssetSlime;
@@ -33,6 +34,7 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetSkeleton skeleton;
 	public AssetRanger ranger;
 	public AssetSlime slime;
+	public AssetGoblin goblin;
 	
 	private Assets()
 	{
@@ -57,6 +59,7 @@ public class Assets implements Disposable, AssetErrorListener
 		assetManager.load(Constants.RANGER_ATLAS_PATH, TextureAtlas.class);
 		assetManager.load(Constants.SKELETON_ATLAS_PATH, TextureAtlas.class);
 		assetManager.load(Constants.BAT_ATLAS_PATH, TextureAtlas.class);
+		assetManager.load(Constants.GOBLIN_ATLAS_PATH, TextureAtlas.class);
 		//start loading assets in directory specified by atlas path
 		assetManager.finishLoading();
 		
@@ -91,6 +94,9 @@ public class Assets implements Disposable, AssetErrorListener
 		
 		atlas = assetManager.get(Constants.HEART_ATLAS_PATH);
 		heart = new AssetHeart(atlas);
+		
+		atlas = assetManager.get(Constants.GOBLIN_ATLAS_PATH);
+		goblin = new AssetGoblin(atlas);
 		
 		atlas = assetManager.get(Constants.ENVIRONMENT_ATLAS_PATH);
 		env = new AssetEnv(atlas);

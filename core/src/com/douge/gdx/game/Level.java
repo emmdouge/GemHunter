@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.enemy.Bat;
 import com.douge.gdx.game.enemy.Enemy;
+import com.douge.gdx.game.enemy.Goblin;
 import com.douge.gdx.game.enemy.Skeleton;
 import com.douge.gdx.game.enemy.Slime;
 import com.douge.gdx.game.objects.AbstractGameObject;
@@ -157,6 +158,15 @@ public class Level
 			          obj.position.x = pixelX;
 			          obj.position.y += baseHeight; 
 			          enemies.add((Bat)obj); 	
+				}
+				
+				// bat
+				else if(BLOCK_TYPE.ENEMY_GOBLIN.sameColor(currentPixel))
+				{
+			          obj = new Goblin(Assets.instance.goblin); 
+			          obj.position.x = pixelX;
+			          obj.position.y += baseHeight; 
+			          enemies.add((Goblin)obj); 	
 				}
 				
 				// unknown object/pixel color
