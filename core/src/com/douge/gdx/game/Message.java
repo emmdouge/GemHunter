@@ -58,7 +58,7 @@ public class Message
 	
 	public void renderText(SpriteBatch batch)
 	{
-		Gdx.app.log("", "" + icon.getX() + " " + textIndex);
+		//Gdx.app.log("", "" + icon.getX() + " " + textIndex);
 		if(playerSkipped == false)
 		{
 			renderBox(batch, currentHeight);
