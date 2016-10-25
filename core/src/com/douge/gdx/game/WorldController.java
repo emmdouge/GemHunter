@@ -237,7 +237,7 @@ public class WorldController extends InputAdapter
 		// Test collision: player <-> enemies
 		for (Enemy enemy : level.enemies) 
 		{
-			r2.set(enemy.position.x, enemy.position.y, enemy.bounds.width, enemy.bounds.height);
+			r2.set(enemy.position.x + enemy.bounds.x, enemy.position.y + enemy.bounds.y, enemy.bounds.width, enemy.bounds.height);
 			if (r1.overlaps(r2)) 
 			{
 				level.player.context.onCollisionWith(enemy);
@@ -248,7 +248,7 @@ public class WorldController extends InputAdapter
 		boolean collided = false;
 		for(Enemy enemy: level.enemies)
 		{
-			r1.set(enemy.position.x, enemy.position.y, enemy.bounds.width, enemy.bounds.height);
+			r1.set(enemy.position.x + enemy.bounds.x, enemy.position.y + enemy.bounds.y, enemy.bounds.width, enemy.bounds.height);
 			collided = false;
 			for(Rock rock: level.rocks)
 			{

@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.Constants;
 import com.douge.gdx.game.VIEW_DIRECTION;
@@ -34,6 +36,8 @@ public abstract class Enemy extends AbstractGameObject
 	public boolean isHurtable = true;
 	
 	protected VIEW_DIRECTION flip;
+	
+	public ShapeRenderer shapeRenderer = new ShapeRenderer();
 	
 	//disables player ability to kill enemy
 	public boolean hasBeenKilled = false;
@@ -95,6 +99,15 @@ public abstract class Enemy extends AbstractGameObject
 				reg.getRegionX(), reg.getRegionY(), 
 				reg.getRegionWidth(), reg.getRegionHeight(), 
 				viewDirection == flip, false);
+		
+		
+		batch.end();
+		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+		shapeRenderer.begin(ShapeType.Line);
+		shapeRenderer.setColor(Color.RED);
+		shapeRenderer.rect(position.x + bounds.x, position.y + bounds.y, bounds.width, bounds.height);
+		shapeRenderer.end();
+		batch.begin();
 		
 	}
 	
