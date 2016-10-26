@@ -2,6 +2,7 @@ package com.douge.gdx.game.playerstate;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.VIEW_DIRECTION;
@@ -113,15 +114,22 @@ public class FallingState extends PlayerState
 			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.height + "=" + (rock.position.y+rock.bounds.height) + ", player: " + player.position.y + " " +(4.5-player.position.y) );
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
-			
-			//since the rocks are all linked together, rock's bound witdth is the entire platform
-			player.position.x = rock.position.x - 1;
+			if(player.currentVelocity.y == 0)
+			{
+				context.setPlayerState(context.getGroundState());
+			}
+				//since the rocks are all linked together, rock's bound witdth is the entire platform
+				player.position.x = rock.position.x - 1 - .001f;
 		}
 		else if(hitRightEdge)
 		{
 			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.width + "=" + (rock.position.x+rock.bounds.width) + ", player: " + player.position.y + " " +(4.5-player.position.y) );
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
+			if(player.currentVelocity.y == 0)
+			{
+				context.setPlayerState(context.getGroundState());
+			}
 			player.position.x = rock.position.x + rock.bounds.width;
 		}
 	}
