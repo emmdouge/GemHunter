@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.objects.Player;
+import com.douge.gdx.game.Constants;
 import com.douge.gdx.game.VIEW_DIRECTION;
 import com.douge.gdx.game.objects.Rock;
 
@@ -83,10 +84,10 @@ public class JumpFallingState extends PlayerState
 		float diffBetweenBottomOfPlayerAndTopOfRock = rock.position.y + rock.bounds.height - player.position.y;
 		float diffBetweenLeftSideOfPlayerAndRightSideOfRock = rock.position.x + rock.bounds.x - player.position.x;
 		float diffBetweenTopOfPlayerAndBottomOfRock = player.position.y + player.bounds.height + .001f - rock.position.y;
-		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = player.position.x + player.bounds.width + .001f - rock.position.x;
+		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = player.position.x + player.bounds.width - rock.position.x;
 		
 		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfRock <= 0.07f;
-		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.07f;
+		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.2f;
 		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.07f;
 		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfRock <= 0.07f;
 		
@@ -111,19 +112,22 @@ public class JumpFallingState extends PlayerState
 		}
 		else if(hitLeftEdge)
 		{
-			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.height + "=" + (rock.position.y+rock.bounds.height) + ", player: " + player.position.y + " " +(4.5-player.position.y) );
+			//Gdx.app.log(tag, "rock: " + rock.position.y + "+" + rock.bounds.height + "=" + (rock.position.y) + ", player: " + player.position.y + " " +(5.5-player.position.y) );
+
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
 			
 			//since the rocks are all linked together, rock's bound witdth is the entire platform
-			player.position.x = rock.position.x - 1;
+			player.position.x = rock.position.x - 1 - .001f;
+			player.maxVelocity.x = 0f;
 		}
 		else if(hitRightEdge)
 		{
 			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.width + "=" + (rock.position.x+rock.bounds.width) + ", player: " + player.position.y + " " +(4.5-player.position.y) );
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
-			player.position.x = rock.position.x + rock.bounds.width;
+			player.position.x = rock.position.x + rock.bounds.width;			
+			player.maxVelocity.x = 0f;
 		}
 	}
 
@@ -131,6 +135,7 @@ public class JumpFallingState extends PlayerState
 	public void noRockCollision() 
 	{
 		context.noRockCollision();
+		player.maxVelocity.x = 3f;
 	}
 
 }

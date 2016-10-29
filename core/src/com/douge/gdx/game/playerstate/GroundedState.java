@@ -50,7 +50,6 @@ public class GroundedState extends PlayerState
 		if (player.currentVelocity.x != 0) 
 		{
 			player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
-
 			player.currentAnimation = Assets.instance.survivor.runAnimation;
 		}
 		

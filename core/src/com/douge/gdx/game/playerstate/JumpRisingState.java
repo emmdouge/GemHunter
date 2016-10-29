@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.objects.Player;
+import com.douge.gdx.game.Constants;
 import com.douge.gdx.game.VIEW_DIRECTION;
 import com.douge.gdx.game.objects.Rock;
 
@@ -85,7 +86,7 @@ public class JumpRisingState extends PlayerState
 		float diffBetweenTopOfPlayerAndBottomOfRock = player.position.y + player.bounds.height + .001f - rock.position.y;
 		float diffBetweenLeftSideOfPlayerAndRightSideOfRock = rock.position.x + rock.bounds.x - player.position.x;
 		float diffBetweenBottomOfPlayerAndTopOfRock = rock.position.y + rock.bounds.height - player.position.y;
-		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = player.position.x + player.bounds.width + .001f - rock.position.x;
+		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = player.position.x + player.bounds.width - rock.position.x;
 		
 		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfRock <= 0.07f;
 		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.07f;
@@ -113,7 +114,8 @@ public class JumpRisingState extends PlayerState
 			player.currentVelocity.x = 0;
 			
 			//since the rocks are all linked together, rock's bound witdth is the entire platform
-			player.position.x = rock.position.x - 1;
+			player.position.x = rock.position.x - 1 - .001f;
+			player.maxVelocity.x = 0f;
 		}
 		else if(hitRightEdge)
 		{
@@ -121,13 +123,16 @@ public class JumpRisingState extends PlayerState
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
 			player.position.x = rock.position.x + rock.bounds.width;
+			player.maxVelocity.x = 0f;
 		}
 	}
 
 	@Override
 	public void noRockCollision() 
 	{
+		//System.out.println("no rock collision in rising" + Math.random());
 		context.noRockCollision();
+		player.maxVelocity.x = 3f;
 	}
 
 }

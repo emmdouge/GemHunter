@@ -88,7 +88,7 @@ public class FallingState extends PlayerState
 		float diffBetweenTopOfPlayerAndBottomOfRock = player.position.y + player.bounds.height + .001f - rock.position.y;
 		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfRock <= 0.07f;
 		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.07f;
-		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.07f;
+		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.08f;
 		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfRock <= 0.07f;
 		
 		if(landOnTop)
@@ -114,23 +114,30 @@ public class FallingState extends PlayerState
 			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.height + "=" + (rock.position.y+rock.bounds.height) + ", player: " + player.position.y + " " +(4.5-player.position.y) );
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
+			
+			//since the rocks are all linked together, rock's bound witdth is the entire platform
+			player.position.x = rock.position.x - 1;
+			
+			player.maxVelocity.x = 0f;
 			if(player.currentVelocity.y == 0)
 			{
+				player.maxVelocity.x = 3f;
 				context.setPlayerState(context.getGroundState());
 			}
-				//since the rocks are all linked together, rock's bound witdth is the entire platform
-				player.position.x = rock.position.x - 1 - .001f;
 		}
 		else if(hitRightEdge)
 		{
 			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.width + "=" + (rock.position.x+rock.bounds.width) + ", player: " + player.position.y + " " +(4.5-player.position.y) );
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
+			player.position.x = rock.position.x + rock.bounds.width;
+			player.maxVelocity.x = 0f;
 			if(player.currentVelocity.y == 0)
 			{
+				player.maxVelocity.x = 3f;
 				context.setPlayerState(context.getGroundState());
 			}
-			player.position.x = rock.position.x + rock.bounds.width;
+
 		}
 	}
 
@@ -138,6 +145,7 @@ public class FallingState extends PlayerState
 	public void noRockCollision() 
 	{
 		context.noRockCollision();
+		player.maxVelocity.x = 3f;
 	}
 	
 }
