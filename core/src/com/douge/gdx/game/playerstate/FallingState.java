@@ -87,7 +87,7 @@ public class FallingState extends PlayerState
 
 		float diffBetweenTopOfPlayerAndBottomOfRock = player.position.y + player.bounds.height + .001f - rock.position.y;
 		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfRock <= 0.07f;
-		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.07f;
+		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.2f;
 		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.08f;
 		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfRock <= 0.07f;
 		
