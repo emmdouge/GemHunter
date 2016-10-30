@@ -8,7 +8,7 @@ public class Goblin extends Enemy
 	public Goblin(AssetGoblin assets) 
 	{
 		super(assets, 1f, VIEW_DIRECTION.LEFT);
-		int multiplier = 5;
+		int multiplier = 4;
 		dimension.x *= multiplier;
 		dimension.y *= multiplier;
 		bounds.height = dimension.y - 1;
