@@ -7,6 +7,6 @@ public class BackgroundRock extends BackgroundTile
 	public BackgroundRock()
 	{
 		super();
-		regMiddle = Assets.instance.tiles.tileBot;
+		regMiddle = Assets.instance.tiles.tileRockBottom;
 	}
 }

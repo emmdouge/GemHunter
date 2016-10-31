@@ -10,6 +10,7 @@ public enum BLOCK_TYPE
 	ROCK_BACK(0, 0, 0), // black
 	ROCK_PLATFORM(0, 255, 0), // green
 	
+	STAR_BACK(112, 146, 190),
 	
 	
 	PLAYER_SPAWNPOINT(255, 255, 255), // white

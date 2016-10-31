@@ -26,7 +26,7 @@ public class WorldController extends InputAdapter
 	
 	private Game game;
 	
-	public Level level;
+	public LevelLoader level;
 	public int score;
 	public float scoreVisual;
 	public float livesVisual;
@@ -72,7 +72,7 @@ public class WorldController extends InputAdapter
 	{
 		score = 0;
 		scoreVisual = 0;
-		level = new Level(Constants.LEVEL_01_PATH);
+		level = new LevelLoader();
 		cameraHelper.setTarget(level.player); 
 	}
 	

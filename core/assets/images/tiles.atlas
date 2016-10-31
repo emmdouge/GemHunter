@@ -11,37 +11,58 @@ repeat: none
   orig: 32, 32
   offset: 0, 0
   index: -1
-14
+13
   rotate: false
   xy: 36, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-24
+14
   rotate: false
   xy: 188, 165
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-25
+15
   rotate: false
   xy: 188, 131
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-26
+16
   rotate: false
   xy: 222, 199
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-27
+24
   rotate: false
   xy: 586, 355
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+25
+  rotate: false
+  xy: 652, 425
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+26
+  rotate: false
+  xy: 686, 459
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+27
+  rotate: false
+  xy: 70, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

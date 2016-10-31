@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import com.douge.gdx.game.Levels.Level;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.enemy.Bat;
 import com.douge.gdx.game.enemy.Enemy;
@@ -15,6 +16,7 @@ import com.douge.gdx.game.enemy.Skeleton;
 import com.douge.gdx.game.enemy.Slime;
 import com.douge.gdx.game.objects.AbstractGameObject;
 import com.douge.gdx.game.objects.BackgroundRock;
+import com.douge.gdx.game.objects.BackgroundStar;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.Clouds;
 import com.douge.gdx.game.objects.GoldCoin;
@@ -30,18 +32,20 @@ import com.douge.gdx.game.objects.BlackOverlay;
  * @author Emmanuel
  *
  */
-public class Level 
+public class LevelLoader 
 {
-	public static final String TAG = Level.class.getName();
+	public static final String TAG = LevelLoader.class.getName();
 	
+	//objects
 	public Player player; 
 	public Array<GoldCoin> goldCoins; 
 	public Array<JumpPotion> jumpPotion; 
-	
-	// objects
 	public Array<Platform> platforms;
 	public Array<BackgroundTile> backgroundTiles;
 	public Array<Enemy> enemies;
+	
+	public Levels levels;
+	public Level currentLevel;
 	
 	// decoration
 	public Clouds clouds;
@@ -50,15 +54,18 @@ public class Level
 
 	public ArrayList<Integer> enemiesToRemove;
 	
-	public Level (String filename) 
+	public LevelLoader () 
 	{
-		init(filename);
+		init();
 	}
-	private void init (String filename) 
+	private void init () 
 	{
 	    // player character 
 	    player = null; 
-	     
+	    
+	    levels = new Levels();
+	    currentLevel = levels.getLevel(0);
+	    
 	    // objects 
 	    goldCoins = new Array<GoldCoin>(); 
 	    jumpPotion = new Array<JumpPotion>(); 
@@ -68,7 +75,9 @@ public class Level
 		enemiesToRemove = new ArrayList<Integer>();
 		
 		// load image file that represents the level data
-		Pixmap pixmap = new Pixmap(Gdx.files.internal("../core/assets/levels/level-01.png"));
+		//**had to remove underscore in filename to get it to load
+		Pixmap pixmap = new Pixmap(Gdx.files.internal(currentLevel.filepath));
+		
 		float yOffset = 1.5f;
 		// scan pixels from top-left to bottom-right
 		int lastPixel = -1;
@@ -90,14 +99,20 @@ public class Level
 				// find matching color value to identify block type at (x,y)
 				// point and create the corresponding game object if there is a match
 		
-				// rock back
-				if (BLOCK_TYPE.ROCK_BACK.sameColor(currentPixel) || BLOCK_TYPE.validColor(currentPixel)) 
+				if(BLOCK_TYPE.validColor(currentPixel))
 				{
+					// rock back
+					if (BLOCK_TYPE.ROCK_BACK.sameColor(currentLevel.back)) 
+					{
 						obj = new BackgroundRock();
-						obj.position.set(pixelX, baseHeight);
-						backgroundTiles.add((BackgroundTile)obj);
+					}
+					else if(BLOCK_TYPE.STAR_BACK.sameColor(currentLevel.back))
+					{
+						obj = new BackgroundStar();					
+					}
+					obj.position.set(pixelX, baseHeight);
+					backgroundTiles.add((BackgroundTile)obj);
 				}
-		
 				// rock
 				if (BLOCK_TYPE.ROCK_PLATFORM.sameColor(currentPixel)) 
 				{
@@ -206,7 +221,7 @@ public class Level
 		
 		// free memory
 		pixmap.dispose();
-		Gdx.app.debug(TAG, "level '" + filename + "' loaded");
+		Gdx.app.debug(TAG, "level '" + currentLevel.filepath + "' loaded");
 	}
 	
 	public void update (float deltaTime) 

@@ -7,6 +7,6 @@ public class Rock extends Platform
 	public Rock()
 	{
 		super();
-		regMiddle = Assets.instance.tiles.tileTop;
+		regMiddle = Assets.instance.tiles.tileRockTop;
 	}
 }

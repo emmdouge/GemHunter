@@ -22,7 +22,7 @@ public class DesktopLauncher
 			settings.maxHeight = 1024;
 			settings.duplicatePadding = false;
 			settings.debug = drawDebugOutline;
-			TexturePacker.process(settings, "assets-raw/images/goblin", "../core/assets/images", "goblin");
+			TexturePacker.process(settings, "assets-raw/images/tiles", "../core/assets/images", "tiles");
 		}
 		new LwjglApplication(new DougeGdxGame(), config);
 	}
