@@ -55,7 +55,6 @@ public class PlayerStateContext
 	
 	public HurtState getHurtState()
 	{
-		AudioManager.instance.play(Assets.instance.sounds.liveLost);
 		return hurtState;
 	}
 	
@@ -167,6 +166,7 @@ public class PlayerStateContext
 			}
 			else
 			{
+				AudioManager.instance.play(Assets.instance.sounds.liveLost);
 				player.context.setPlayerState(player.context.getHurtState());			
 			}
 		}
