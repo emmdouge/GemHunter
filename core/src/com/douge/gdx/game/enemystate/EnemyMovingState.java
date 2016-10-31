@@ -5,7 +5,7 @@ import com.douge.gdx.game.VIEW_DIRECTION;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.enemy.Bat;
 import com.douge.gdx.game.enemy.Enemy;
-import com.douge.gdx.game.objects.Rock;
+import com.douge.gdx.game.objects.Platform;
 
 public class EnemyMovingState extends EnemyState
 {
@@ -57,7 +57,7 @@ public class EnemyMovingState extends EnemyState
 	}
 
 	@Override
-	public void onCollisionWith(Rock rock) 
+	public void onCollisionWith(Platform rock) 
 	{
 		//System.out.println("collided");
 		if(enemy.position.x < rock.position.x || enemy.position.x + enemy.bounds.width > rock.position.x + rock.bounds.width)

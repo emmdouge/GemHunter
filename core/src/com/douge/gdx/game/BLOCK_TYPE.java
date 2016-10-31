@@ -8,8 +8,12 @@ package com.douge.gdx.game;
 public enum BLOCK_TYPE 
 {
 	ROCK_BACK(0, 0, 0), // black
-	ROCK(0, 255, 0), // green
+	ROCK_PLATFORM(0, 255, 0), // green
+	
+	
+	
 	PLAYER_SPAWNPOINT(255, 255, 255), // white
+	
 	ITEM_JUMP_POTION(255, 0, 255), // purple
 	ITEM_GOLD_COIN(255, 255, 0), // yellow
 	

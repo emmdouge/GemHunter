@@ -16,7 +16,7 @@ import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.GoldCoin;
 import com.douge.gdx.game.objects.JumpPotion;
-import com.douge.gdx.game.objects.Rock;
+import com.douge.gdx.game.objects.Platform;
 import com.douge.gdx.game.screens.MenuScreen;
 import com.douge.gdx.game.utils.AudioManager;
 
@@ -222,7 +222,7 @@ public class WorldController extends InputAdapter
 				level.player.bounds.width, level.player.bounds.height);
 		
 		// Test collision: Player <-> Rocks
-		for (Rock rock : level.rocks) 
+		for (Platform rock : level.platforms) 
 		{
 			r2.set(rock.position.x, rock.position.y, 
 					rock.bounds.width, rock.bounds.height);
@@ -230,11 +230,11 @@ public class WorldController extends InputAdapter
 			if (!r1.overlaps(r2)) 
 			{
 				//System.out.println("not overlapping rock");
-				level.player.context.getCurrentState().noRockCollision();
+				level.player.context.getCurrentState().noPlatformCollision();
 				continue;
 			}
 		
-			level.player.context.setStateBasedOnCollisionWithRock(rock);
+			level.player.context.setStateBasedOnCollisionWithPlatform(rock);
 			break;
 		}
 	
@@ -254,7 +254,7 @@ public class WorldController extends InputAdapter
 		{
 			r1.set(enemy.position.x + enemy.bounds.x, enemy.position.y + enemy.bounds.y, enemy.bounds.width, enemy.bounds.height);
 			collided = false;
-			for(Rock rock: level.rocks)
+			for(Platform rock: level.platforms)
 			{
 				r2.set(rock.position.x, rock.position.y, rock.bounds.width, rock.bounds.height);
 				if(r1.overlaps(r2))

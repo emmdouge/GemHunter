@@ -2,7 +2,7 @@ package com.douge.gdx.game.enemystate;
 
 import com.badlogic.gdx.Gdx;
 import com.douge.gdx.game.enemy.Enemy;
-import com.douge.gdx.game.objects.Rock;
+import com.douge.gdx.game.objects.Platform;
 
 public class EnemyDeadState extends EnemyState
 {
@@ -23,7 +23,7 @@ public class EnemyDeadState extends EnemyState
 	}
 
 	@Override
-	public void onCollisionWith(Rock rock) 
+	public void onCollisionWith(Platform rock) 
 	{
 		// TODO Auto-generated method stub
 		

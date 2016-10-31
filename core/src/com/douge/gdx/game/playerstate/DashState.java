@@ -3,7 +3,7 @@ package com.douge.gdx.game.playerstate;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.douge.gdx.game.assets.Assets;
-import com.douge.gdx.game.objects.Rock;
+import com.douge.gdx.game.objects.Platform;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.VIEW_DIRECTION;
 
@@ -49,16 +49,16 @@ public class DashState extends PlayerState
 	}
 
 	@Override
-	public void onCollisionWith(Rock rock) 
+	public void onCollisionWith(Platform platform) 
 	{
 
-		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = rock.position.x - player.position.x - player.bounds.width;
-		float diffBetweenLeftSideOfPlayerAndRightSideOfRock = rock.position.x + rock.bounds.width - player.position.x;
-		float diffBetweenBottomOfPlayerAndTopOfRock = rock.position.y + rock.bounds.height - player.position.y;
+		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = platform.position.x - player.position.x - player.bounds.width;
+		float diffBetweenLeftSideOfPlayerAndRightSideOfPlatform = platform.position.x + platform.bounds.width - player.position.x;
+		float diffBetweenBottomOfPlayerAndTopOfPlatform = platform.position.y + platform.bounds.height - player.position.y;
 		
-		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.07f;
-		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfRock <= 1f;
-		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.07f;
+		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.07f;
+		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 1f;
+		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.07f;
 
 		//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.width + "=" + (rock.position.x+rock.bounds.width) + ", player: " + player.position.x + " " + diffBetweenLeftSideOfPlayerAndRightSideOfRock);
 		if(onTopOfRock)
@@ -72,21 +72,21 @@ public class DashState extends PlayerState
 			player.currentVelocity.x = 0;
 			
 			//since the rocks are all linked together, rock's bound witdth is the entire platform
-			player.position.x = rock.position.x - 1;
+			player.position.x = platform.position.x - 1;
 		}
 		if(hitRightEdge)
 		{
 			System.out.println("im here");
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
-			player.position.x = rock.position.x + rock.bounds.width;
+			player.position.x = platform.position.x + platform.bounds.width;
 		}
 	}
 
 	@Override
-	public void noRockCollision() 
+	public void noPlatformCollision() 
 	{
-		context.noRockCollision();
+		context.noPlatformCollision();
 	}
 
 }

@@ -14,13 +14,15 @@ import com.douge.gdx.game.enemy.Goblin;
 import com.douge.gdx.game.enemy.Skeleton;
 import com.douge.gdx.game.enemy.Slime;
 import com.douge.gdx.game.objects.AbstractGameObject;
+import com.douge.gdx.game.objects.BackgroundRock;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.Clouds;
 import com.douge.gdx.game.objects.GoldCoin;
 import com.douge.gdx.game.objects.JumpPotion;
-import com.douge.gdx.game.objects.BackgroundRock;
-import com.douge.gdx.game.objects.Trees;
+import com.douge.gdx.game.objects.BackgroundTile;
 import com.douge.gdx.game.objects.Rock;
+import com.douge.gdx.game.objects.Trees;
+import com.douge.gdx.game.objects.Platform;
 import com.douge.gdx.game.objects.BlackOverlay;
 
 /**
@@ -37,8 +39,8 @@ public class Level
 	public Array<JumpPotion> jumpPotion; 
 	
 	// objects
-	public Array<Rock> rocks;
-	public Array<BackgroundRock> backgroundRock;
+	public Array<Platform> platforms;
+	public Array<BackgroundTile> backgroundTiles;
 	public Array<Enemy> enemies;
 	
 	// decoration
@@ -60,8 +62,8 @@ public class Level
 	    // objects 
 	    goldCoins = new Array<GoldCoin>(); 
 	    jumpPotion = new Array<JumpPotion>(); 
-		rocks = new Array<Rock>();
-		backgroundRock = new Array<BackgroundRock>();
+		platforms = new Array<Platform>();
+		backgroundTiles = new Array<BackgroundTile>();
 		enemies = new Array<Enemy>();
 		enemiesToRemove = new ArrayList<Integer>();
 		
@@ -93,21 +95,21 @@ public class Level
 				{
 						obj = new BackgroundRock();
 						obj.position.set(pixelX, baseHeight);
-						backgroundRock.add((BackgroundRock)obj);
+						backgroundTiles.add((BackgroundTile)obj);
 				}
 		
 				// rock
-				if (BLOCK_TYPE.ROCK.sameColor(currentPixel)) 
+				if (BLOCK_TYPE.ROCK_PLATFORM.sameColor(currentPixel)) 
 				{
 					if (lastPixel != currentPixel) 
 					{
 						obj = new Rock();
 						obj.position.set(pixelX, baseHeight);
-						rocks.add((Rock)obj);
+						platforms.add((Platform)obj);
 					} 
 					else 
 					{
-						rocks.get(rocks.size - 1).increaseLength(1);
+						platforms.get(platforms.size - 1).increaseLength(1);
 					}
 				}
 				
@@ -211,7 +213,7 @@ public class Level
 	{
 		player.update(deltaTime);
 		
-		for(Rock rock : rocks)
+		for(Platform rock : platforms)
 		rock.update(deltaTime);
 		
 		for(GoldCoin goldCoin : goldCoins)
@@ -254,8 +256,8 @@ public class Level
 	 */
 	public void render (SpriteBatch batch) 
 	{
-		for(BackgroundRock rockBack: backgroundRock)
-		rockBack.render(batch);
+		for(BackgroundTile backTile: backgroundTiles)
+		backTile.render(batch);
 		
 		// Draw trees
 		trees.render(batch);
@@ -277,8 +279,8 @@ public class Level
 		waterOverlay.render(batch);
 		
 		// Draw Rocks
-		for (Rock rock : rocks)
-		rock.render(batch);
+		for (Platform platform : platforms)
+		platform.render(batch);
 		
 		for(int enemyIndex = 0; enemyIndex < enemies.size; enemyIndex++)
 		{

@@ -3,7 +3,7 @@ package com.douge.gdx.game.playerstate;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.douge.gdx.game.assets.Assets;
-import com.douge.gdx.game.objects.Rock;
+import com.douge.gdx.game.objects.Platform;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.VIEW_DIRECTION;
 
@@ -68,31 +68,31 @@ public class HurtState extends PlayerState
 	}
 
 	@Override
-	public void onCollisionWith(Rock rock) 
+	public void onCollisionWith(Platform platform) 
 	{
 		//drawn starting from bottom left
-		float diffBetweenTopOfPlayerAndBottomOfRock = player.position.y + player.bounds.height + .001f - rock.position.y;
-		float diffBetweenLeftSideOfPlayerAndRightSideOfRock = rock.position.x + rock.bounds.x - player.position.x;
-		float diffBetweenBottomOfPlayerAndTopOfRock = rock.position.y + rock.bounds.height - player.position.y + .001f;
-		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = player.position.x + player.bounds.width + .001f - rock.position.x;
+		float diffBetweenTopOfPlayerAndBottomOfPlatform = player.position.y + player.bounds.height + .001f - platform.position.y;
+		float diffBetweenLeftSideOfPlayerAndRightSideOfPlatform = platform.position.x + platform.bounds.x - player.position.x;
+		float diffBetweenBottomOfPlayerAndTopOfPlatform = platform.position.y + platform.bounds.height - player.position.y + .001f;
+		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = player.position.x + player.bounds.width + .001f - platform.position.x;
 		
-		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfRock <= 0.07f;
-		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.07f;
-		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfRock <= 0.07f;
-		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.07f;
+		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfPlatform <= 0.07f;
+		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.07f;
+		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 0.07f;
+		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.07f;
 		
 		if(hitTop)
 		{
 			//Gdx.app.log(tag, "player: " + player.position.y + " " + rock.position.y);
 			player.currentGravity = 0;
 			player.currentVelocity.y = 0;
-			player.position.y = rock.position.y - player.bounds.height - .001f;
+			player.position.y = platform.position.y - player.bounds.height - .001f;
 			//Gdx.app.log(tag, "player: " + player.position.y + " " + player.currentVelocity.y);
 		}
 		else if(onTopOfRock)
 		{
 			player.currentVelocity.y = 0;
-			player.position.y = rock.position.y + rock.bounds.height + 0.001f;
+			player.position.y = platform.position.y + platform.bounds.height + 0.001f;
 		}
 		else if(hitLeftEdge)
 		{
@@ -101,21 +101,21 @@ public class HurtState extends PlayerState
 			player.currentVelocity.x = 0;
 			
 			//since the rocks are all linked together, rock's bound witdth is the entire platform
-			player.position.x = rock.position.x - 1;
+			player.position.x = platform.position.x - 1;
 		}
 		else if(hitRightEdge)
 		{
 			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.width + "=" + (rock.position.x+rock.bounds.width) + ", player: " + player.position.y + " " +(4.5-player.position.y) );
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
-			player.position.x = rock.position.x + rock.bounds.width;
+			player.position.x = platform.position.x + platform.bounds.width;
 		}
 	}
 
 	@Override
-	public void noRockCollision() 
+	public void noPlatformCollision() 
 	{
-		context.noRockCollision();
+		context.noPlatformCollision();
 	}
 
 }

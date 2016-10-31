@@ -1,7 +1,7 @@
 package com.douge.gdx.game.playerstate;
 
 import com.douge.gdx.game.objects.Player;
-import com.douge.gdx.game.objects.Rock;
+import com.douge.gdx.game.objects.Platform;
 
 public abstract class PlayerState 
 {
@@ -17,7 +17,7 @@ public abstract class PlayerState
 
 	public abstract void execute(float deltaTime);
 
-	public abstract void onCollisionWith(Rock rock);
-	public abstract void noRockCollision();
+	public abstract void onCollisionWith(Platform platform);
+	public abstract void noPlatformCollision();
 
 }

@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.douge.gdx.game.VIEW_DIRECTION;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.enemy.Enemy;
-import com.douge.gdx.game.objects.Rock;
+import com.douge.gdx.game.objects.Platform;
 
 public class EnemyFallingState extends EnemyState
 {
@@ -52,7 +52,7 @@ public class EnemyFallingState extends EnemyState
 	}
 
 	@Override
-	public void onCollisionWith(Rock rock) 
+	public void onCollisionWith(Platform rock) 
 	{
 		//drawn starting from bottom left
 		float diffBetweenBottomOfPlayerAndTopOfRock = rock.position.y + rock.bounds.height - enemy.position.y;

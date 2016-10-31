@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.VIEW_DIRECTION;
-import com.douge.gdx.game.objects.Rock;
+import com.douge.gdx.game.objects.Platform;
 
 public class GroundedState extends PlayerState 
 {
@@ -70,16 +70,16 @@ public class GroundedState extends PlayerState
 	}
 
 	@Override
-	public void onCollisionWith(Rock rock) 
+	public void onCollisionWith(Platform platform) 
 	{
 
 	}
 
 	@Override
-	public void noRockCollision() 
+	public void noPlatformCollision() 
 	{
 		player.timeJumping = player.JUMP_TIME_MAX;
-		context.noRockCollision();
+		context.noPlatformCollision();
 		context.setPlayerState(context.getFallingState());
 	}
 	

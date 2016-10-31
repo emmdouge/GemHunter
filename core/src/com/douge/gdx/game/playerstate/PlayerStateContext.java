@@ -6,7 +6,7 @@ import com.douge.gdx.game.VIEW_DIRECTION;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.objects.Player;
-import com.douge.gdx.game.objects.Rock;
+import com.douge.gdx.game.objects.Platform;
 import com.douge.gdx.game.utils.AudioManager;
 
 public class PlayerStateContext 
@@ -131,9 +131,9 @@ public class PlayerStateContext
 		}
 	}
 	
-	public void setStateBasedOnCollisionWithRock(Rock rock)
+	public void setStateBasedOnCollisionWithPlatform(Platform platform)
 	{
-		currentState.onCollisionWith(rock);
+		currentState.onCollisionWith(platform);
 	}
 
 	public void setPlayerStateBasedOnInput(boolean jumpKeyPressed, boolean dashKeyPressed) 
@@ -145,7 +145,7 @@ public class PlayerStateContext
 		}
 	}
 	
-	public void noRockCollision()
+	public void noPlatformCollision()
 	{
 		player.currentGravity = player.gravity;
 		player.currentFriction = player.friction;

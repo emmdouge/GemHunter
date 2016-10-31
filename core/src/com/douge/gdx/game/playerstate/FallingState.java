@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.VIEW_DIRECTION;
-import com.douge.gdx.game.objects.Rock;
+import com.douge.gdx.game.objects.Platform;
 
 public class FallingState extends PlayerState
 {
@@ -77,19 +77,19 @@ public class FallingState extends PlayerState
 	}
 
 	@Override
-	public void onCollisionWith(Rock rock) 
+	public void onCollisionWith(Platform platform) 
 	{
 		//drawn starting from bottom left
-		float diffBetweenBottomOfPlayerAndTopOfRock = rock.position.y + rock.bounds.height - player.position.y;
-		float diffBetweenLeftSideOfPlayerAndRightSideOfRock = rock.position.x + rock.bounds.x - player.position.x;
+		float diffBetweenBottomOfPlayerAndTopOfPlatform = platform.position.y + platform.bounds.height - player.position.y;
+		float diffBetweenLeftSideOfPlayerAndRightSideOfPlatform = platform.position.x + platform.bounds.x - player.position.x;
 		
-		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = player.position.x + player.bounds.width - rock.position.x;
+		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = player.position.x + player.bounds.width - platform.position.x;
 
-		float diffBetweenTopOfPlayerAndBottomOfRock = player.position.y + player.bounds.height + .001f - rock.position.y;
-		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfRock <= 0.07f;
-		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.2f;
-		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.08f;
-		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfRock <= 0.07f;
+		float diffBetweenTopOfPlayerAndBottomOfPlatform = player.position.y + player.bounds.height + .001f - platform.position.y;
+		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfPlatform <= 0.07f;
+		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.2f;
+		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.08f;
+		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 0.07f;
 		
 		if(landOnTop)
 		{
@@ -97,7 +97,7 @@ public class FallingState extends PlayerState
 			//Gdx.app.log(tag, "rock: " + rock.position.y + "+" + rock.bounds.height + "=" + (rock.position.y+rock.bounds.height) + ", player: " + player.position.y + " " + diffBetweenBottomOfPlayerAndTopOfRock);
 			player.currentGravity = 0;
 			player.currentVelocity.y = 0;
-			player.position.y = rock.position.y + rock.bounds.height - 0.001f;
+			player.position.y = platform.position.y + platform.bounds.height - 0.001f;
 			context.setPlayerState(context.getGroundState());
 			//Gdx.app.log(tag, "player: " + player.position.y + " " + player.currentVelocity.y);
 		}
@@ -106,7 +106,7 @@ public class FallingState extends PlayerState
 			player.currentGravity = 0;
 			player.currentVelocity.y = 0;
 			player.timeJumping = player.JUMP_TIME_MAX;
-			player.position.y = rock.position.y - player.bounds.height;
+			player.position.y = platform.position.y - player.bounds.height;
 			context.setPlayerState(context.getFallingState());
 		}
 		else if(hitLeftEdge)
@@ -116,7 +116,7 @@ public class FallingState extends PlayerState
 			player.currentVelocity.x = 0;
 			
 			//since the rocks are all linked together, rock's bound witdth is the entire platform
-			player.position.x = rock.position.x - 1;
+			player.position.x = platform.position.x - 1;
 			
 			player.maxVelocity.x = 0f;
 			if(player.currentVelocity.y == 0)
@@ -130,7 +130,7 @@ public class FallingState extends PlayerState
 			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.width + "=" + (rock.position.x+rock.bounds.width) + ", player: " + player.position.y + " " +(4.5-player.position.y) );
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
-			player.position.x = rock.position.x + rock.bounds.width;
+			player.position.x = platform.position.x + platform.bounds.width;
 			player.maxVelocity.x = 0f;
 			if(player.currentVelocity.y == 0)
 			{
@@ -142,9 +142,9 @@ public class FallingState extends PlayerState
 	}
 
 	@Override
-	public void noRockCollision() 
+	public void noPlatformCollision() 
 	{
-		context.noRockCollision();
+		context.noPlatformCollision();
 		player.maxVelocity.x = 3f;
 	}
 	
