@@ -123,8 +123,11 @@ public class PlayerStateContext
 			{
 				player.timeJumping = player.JUMP_TIME_MAX;
 			}
-			AudioManager.instance.play(Assets.instance.sounds.dash);
-			setPlayerState(dashState);
+			if(player.timeDashing < player.DASH_TIME_MAX)
+			{
+				AudioManager.instance.play(Assets.instance.sounds.dash);
+				setPlayerState(dashState);
+			}
 		}
 	}
 	
