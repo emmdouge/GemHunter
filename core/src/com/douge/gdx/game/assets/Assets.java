@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -35,6 +37,8 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetRanger ranger;
 	public AssetSlime slime;
 	public AssetGoblin goblin;
+	public AssetSounds sounds; 
+	public AssetMusic music; 
 	
 	private Assets()
 	{
@@ -60,7 +64,18 @@ public class Assets implements Disposable, AssetErrorListener
 		assetManager.load(Constants.SKELETON_ATLAS_PATH, TextureAtlas.class);
 		assetManager.load(Constants.BAT_ATLAS_PATH, TextureAtlas.class);
 		assetManager.load(Constants.GOBLIN_ATLAS_PATH, TextureAtlas.class);
-		//start loading assets in directory specified by atlas path
+	     
+	    // load sounds 
+	    assetManager.load("../core/assets/sounds/jump.wav", Sound.class); 
+	    assetManager.load("../core/assets/sounds/jump_with_potion.wav", Sound.class); 
+	    assetManager.load("../core/assets/sounds/pickup_coin.wav", Sound.class); 
+	    assetManager.load("../core/assets/sounds/pickup_potion.wav", Sound.class); 
+	    assetManager.load("../core/assets/sounds/live_lost.wav", Sound.class); 
+	    assetManager.load("../core/assets/sounds/dash.wav", Sound.class);
+	    
+	    // load music 
+	    assetManager.load("../core/assets/music/latenights.mp3", Music.class); 
+	    
 		assetManager.finishLoading();
 		
 		Gdx.app.debug(TAG, "# of assets loaded: " + assetManager.getAssetNames().size);
@@ -108,6 +123,9 @@ public class Assets implements Disposable, AssetErrorListener
 		levelDecoration = new AssetLevelDecoration(atlas);
 		
 		fonts = new AssetFonts();
+		
+	    music = new AssetMusic(assetManager); 
+	    sounds = new AssetSounds(assetManager); 
 		
 		//enable texture smoothing for all textures in the atlas
 		for(Texture texture: atlas.getTextures())

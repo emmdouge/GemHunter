@@ -18,6 +18,7 @@ import com.douge.gdx.game.objects.GoldCoin;
 import com.douge.gdx.game.objects.JumpPotion;
 import com.douge.gdx.game.objects.Rock;
 import com.douge.gdx.game.screens.MenuScreen;
+import com.douge.gdx.game.utils.AudioManager;
 
 public class WorldController extends InputAdapter
 {
@@ -103,6 +104,7 @@ public class WorldController extends InputAdapter
 		cameraHelper.update(deltaTime);
 		if (!isGameOver() && isPlayerInWater()) 
 		{
+		    AudioManager.instance.play(Assets.instance.sounds.liveLost); 
 			level.player.lives--;
 			if (isGameOver())
 			{
@@ -192,6 +194,7 @@ public class WorldController extends InputAdapter
 	 */
 	private void onCollisionPlayerWithGoldCoin(GoldCoin goldcoin) 
 	{
+		AudioManager.instance.play(Assets.instance.sounds.pickupCoin); 
 		goldcoin.collected = true;
 		score += goldcoin.getScore();
 		Gdx.app.log(TAG, "Gold coin collected");
@@ -203,6 +206,7 @@ public class WorldController extends InputAdapter
 	 */
 	private void onCollisionPlayerWithJumpPotion(JumpPotion jumpPotion) 
 	{
+		AudioManager.instance.play(Assets.instance.sounds.pickupPotion);
 		jumpPotion.collected = true;
 		score += jumpPotion.getScore();
 		level.player.setJumpPowerup(true);

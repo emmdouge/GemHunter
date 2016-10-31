@@ -1,10 +1,13 @@
 package com.douge.gdx.game.playerstate;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.douge.gdx.game.VIEW_DIRECTION;
+import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.Rock;
+import com.douge.gdx.game.utils.AudioManager;
 
 public class PlayerStateContext 
 {
@@ -52,6 +55,7 @@ public class PlayerStateContext
 	
 	public HurtState getHurtState()
 	{
+		AudioManager.instance.play(Assets.instance.sounds.liveLost);
 		return hurtState;
 	}
 	
@@ -82,6 +86,7 @@ public class PlayerStateContext
 		{
 			if(currentState == groundedState)
 			{
+				AudioManager.instance.play(Assets.instance.sounds.jump); 
 				player.timeJumping = 0;
 				setPlayerState(jumpRisingState);
 			}
@@ -89,9 +94,11 @@ public class PlayerStateContext
 			{
 				if(player.hasJumpPowerup && player.timeJumping < player.JUMP_TIME_MAX)
 				{
+			        AudioManager.instance.play(Assets.instance.sounds.jumpWithPotion, 1, MathUtils.random(1.0f, 1.1f));
 					setPlayerState(jumpRisingState);
 				}
 			}
+			//holding jump
 			else if(currentState == jumpRisingState)
 			{
 				if(player.timeJumping > player.JUMP_TIME_MAX)
@@ -117,6 +124,7 @@ public class PlayerStateContext
 			{
 				player.timeJumping = player.JUMP_TIME_MAX;
 			}
+			AudioManager.instance.play(Assets.instance.sounds.dash);
 			setPlayerState(dashState);
 		}
 	}

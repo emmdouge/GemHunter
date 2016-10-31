@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.douge.gdx.game.Constants;
 import com.douge.gdx.game.assets.Assets;
+import com.douge.gdx.game.utils.AudioManager;
 import com.douge.gdx.game.utils.GamePreferences;
 
 public class MenuScreen extends AbstractGameScreen {
@@ -282,6 +283,7 @@ public class MenuScreen extends AbstractGameScreen {
 	{
 		saveSettings();
 		onCancelClicked();
+		AudioManager.instance.onSettingsUpdated(); 
 	}
 		
 	private void onCancelClicked() 
@@ -289,11 +291,13 @@ public class MenuScreen extends AbstractGameScreen {
 		btnMenuPlay.setVisible(true);
 		btnMenuOptions.setVisible(true);
 		winOptions.setVisible(false);
+		AudioManager.instance.onSettingsUpdated(); 
 	}
 	
 	private Table buildOptWinAudioSettings () 
 	{
 		Table tbl = new Table();
+		
 		// + Title: "Audio"
 		tbl.pad(10, 10, 0, 10);
 		tbl.add(new Label("Audio", skinLibgdx, "default-font",
@@ -301,6 +305,7 @@ public class MenuScreen extends AbstractGameScreen {
 		tbl.row();
 		tbl.columnDefaults(0).padRight(10);
 		tbl.columnDefaults(1).padRight(10);
+		
 		// + Checkbox, "Sound" label, sound volume slider
 		chkSound = new CheckBox("", skinLibgdx);
 		tbl.add(chkSound);
@@ -308,6 +313,7 @@ public class MenuScreen extends AbstractGameScreen {
 		sldSound = new Slider(0.0f, 1.0f, 0.1f, false, skinLibgdx);
 		tbl.add(sldSound);
 		tbl.row();
+		
 		// + Checkbox, "Music" label, music volume slider
 		chkMusic = new CheckBox("", skinLibgdx);
 		tbl.add(chkMusic);
@@ -349,6 +355,7 @@ public class MenuScreen extends AbstractGameScreen {
 	private Table buildOptWinDebug () 
 	{
 		Table tbl = new Table();
+		
 		// + Title: "Debug"
 		tbl.pad(10, 10, 0, 10);
 		tbl.add(new Label("Debug", skinLibgdx, "default-font",
@@ -356,6 +363,7 @@ public class MenuScreen extends AbstractGameScreen {
 		tbl.row();
 		tbl.columnDefaults(0).padRight(10);
 		tbl.columnDefaults(1).padRight(10);
+		
 		// + Checkbox, "Show FPS Counter" label
 		chkShowFpsCounter = new CheckBox("", skinLibgdx);
 		tbl.add(new Label("Show FPS Counter", skinLibgdx));
@@ -384,21 +392,29 @@ public class MenuScreen extends AbstractGameScreen {
 		// + Save Button with event handler
 		btnWinOptSave = new TextButton("Save", skinLibgdx);
 		tbl.add(btnWinOptSave).padRight(30);
-		btnWinOptSave.addListener(new ChangeListener() {
-		@Override
-		public void changed (ChangeEvent event, Actor actor) {
-		onSaveClicked();
-		}
+		
+		btnWinOptSave.addListener(new ChangeListener() 
+		{
+			@Override
+			public void changed (ChangeEvent event, Actor actor) 
+			{
+				onSaveClicked();
+			}
 		});
+		
 		// + Cancel Button with event handler
 		btnWinOptCancel = new TextButton("Cancel", skinLibgdx);
 		tbl.add(btnWinOptCancel);
-		btnWinOptCancel.addListener(new ChangeListener() {
-		@Override
-		public void changed (ChangeEvent event, Actor actor) {
-		onCancelClicked();
-		}
+		
+		btnWinOptCancel.addListener(new ChangeListener() 
+		{
+			@Override
+			public void changed (ChangeEvent event, Actor actor) 
+			{
+				onCancelClicked();
+			}
 		});
+		
 		return tbl;
 	}
 	
