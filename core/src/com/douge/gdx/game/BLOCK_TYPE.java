@@ -11,7 +11,7 @@ public enum BLOCK_TYPE
 	ROCK_PLATFORM(0, 255, 0), // green
 	
 	STAR_BACK(112, 146, 190),
-	
+	SNOW_PLATFORM(0, 255, 255),
 	
 	PLAYER_SPAWNPOINT(255, 255, 255), // white
 	

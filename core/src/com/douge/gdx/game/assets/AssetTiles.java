@@ -13,6 +13,8 @@ public class AssetTiles {
 	public final AtlasRegion tileStar1;
 	public final AtlasRegion tileStar2;
 	public final AtlasRegion tileStar3;
+	public final TextureRegion snow1;
+	public final TextureRegion snow2;
 	
 	protected AssetTiles(TextureAtlas atlas) {
 		chest = atlas.findRegion("Pixel Treasure Chest Closed");
@@ -24,6 +26,9 @@ public class AssetTiles {
 		tileStar1 = atlas.findRegion("13");
 		tileStar2 = atlas.findRegion("15");
 		tileStar3 = atlas.findRegion("16");
+		
+		snow1 = atlas.findRegion("snow1");
+		snow2 = atlas.findRegion("snow2");
 	}
 
 }

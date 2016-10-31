@@ -95,6 +95,27 @@ Pixel Treasure Chest Closed
   orig: 64, 68
   offset: 0, 0
   index: -1
+greybrick
+  rotate: false
+  xy: 188, 97
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+snow1
+  rotate: false
+  xy: 222, 165
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+snow2
+  rotate: false
+  xy: 222, 131
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 spike A
   rotate: false
   xy: 2, 233

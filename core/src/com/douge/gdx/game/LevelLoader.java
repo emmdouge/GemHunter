@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.douge.gdx.game.Levels.Level;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.enemy.Bat;
 import com.douge.gdx.game.enemy.Enemy;
@@ -17,12 +16,13 @@ import com.douge.gdx.game.enemy.Slime;
 import com.douge.gdx.game.objects.AbstractGameObject;
 import com.douge.gdx.game.objects.BackgroundRock;
 import com.douge.gdx.game.objects.BackgroundStar;
+import com.douge.gdx.game.objects.PlatformSnow;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.Clouds;
 import com.douge.gdx.game.objects.GoldCoin;
 import com.douge.gdx.game.objects.JumpPotion;
 import com.douge.gdx.game.objects.BackgroundTile;
-import com.douge.gdx.game.objects.Rock;
+import com.douge.gdx.game.objects.PlatformRock;
 import com.douge.gdx.game.objects.Trees;
 import com.douge.gdx.game.objects.Platform;
 import com.douge.gdx.game.objects.BlackOverlay;
@@ -43,28 +43,49 @@ public class LevelLoader
 	public Array<Platform> platforms;
 	public Array<BackgroundTile> backgroundTiles;
 	public Array<Enemy> enemies;
+	public ArrayList<Integer> enemiesToRemove;
 	
-	public Levels levels;
+	public ArrayList<Level> levels;
 	public Level currentLevel;
+	private int currentLevelIndex = 0;
 	
 	// decoration
 	public Clouds clouds;
 	public Trees trees;
 	public BlackOverlay waterOverlay;
 
-	public ArrayList<Integer> enemiesToRemove;
 	
 	public LevelLoader () 
 	{
-		init();
+		initLevels();
+		init(0);
 	}
-	private void init () 
+	
+	private void initLevels()
+	{	    
+	    levels = new ArrayList<Level>();
+	    
+		Level level1 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), "../core/assets/levels/level01.png");
+		Level level2 = new Level(BLOCK_TYPE.STAR_BACK.getColor(), "../core/assets/levels/level02.png");
+		
+		levels.add(level2);
+		levels.add(level1);
+	}
+	
+	public void nextLevel()
 	{
+		currentLevelIndex++;
+		init(currentLevelIndex);
+	}
+	
+	private void init(int currentLevelIndex) 
+	{
+		this.currentLevelIndex  = currentLevelIndex;
+		
 	    // player character 
 	    player = null; 
-	    
-	    levels = new Levels();
-	    currentLevel = levels.getLevel(0);
+
+	    currentLevel = levels.get(currentLevelIndex);
 	    
 	    // objects 
 	    goldCoins = new Array<GoldCoin>(); 
@@ -118,7 +139,21 @@ public class LevelLoader
 				{
 					if (lastPixel != currentPixel) 
 					{
-						obj = new Rock();
+						obj = new PlatformRock();
+						obj.position.set(pixelX, baseHeight);
+						platforms.add((Platform)obj);
+					} 
+					else 
+					{
+						platforms.get(platforms.size - 1).increaseLength(1);
+					}
+				}
+				
+				if (BLOCK_TYPE.SNOW_PLATFORM.sameColor(currentPixel)) 
+				{
+					if (lastPixel != currentPixel) 
+					{
+						obj = new PlatformSnow();
 						obj.position.set(pixelX, baseHeight);
 						platforms.add((Platform)obj);
 					} 
