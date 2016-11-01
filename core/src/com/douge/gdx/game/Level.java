@@ -8,9 +8,9 @@ public class Level
 {
 	public int back;
 	public String filepath;
-	public Messages messages;
+	public MessageQueue messages;
 	
-	public Level(int color, String filepath, Messages messages)
+	public Level(int color, String filepath, MessageQueue messages)
 	{
 		this.back = color;
 		this.filepath = filepath;
