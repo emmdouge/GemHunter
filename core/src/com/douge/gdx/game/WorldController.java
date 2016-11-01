@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.douge.gdx.game.Messages.Message;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.objects.Player;
@@ -247,12 +248,12 @@ public class WorldController extends InputAdapter
 			levelLoader.player.context.setStateBasedOnCollisionWithPlatform(rock);
 			break;
 		}
-	
+		
 		// Test collision: player <-> enemies
 		for (Enemy enemy : levelLoader.enemies) 
 		{
 			r2.set(enemy.position.x + enemy.bounds.x, enemy.position.y + enemy.bounds.y, enemy.bounds.width, enemy.bounds.height);
-			if (r1.overlaps(r2)) 
+			if (r1.overlaps(r2) && ((message != null && message.playerSkipped) || message == null)) 
 			{
 				levelLoader.player.context.onCollisionWith(enemy);
 			}
