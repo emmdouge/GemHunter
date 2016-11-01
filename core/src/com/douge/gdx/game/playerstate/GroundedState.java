@@ -32,12 +32,12 @@ public class GroundedState extends PlayerState
 			// Apply friction
 			if (player.currentVelocity.x > 0) 
 			{
-				player.currentVelocity.x = Math.max(player.currentVelocity.x - player.friction * deltaTime, 0);
+				player.currentVelocity.x = Math.max(player.currentVelocity.x - player.currentFriction * deltaTime, 0);
 				player.currentParticleEffect.setPosition(player.position.x, player.position.y);
 			} 
 			else 
 			{
-				player.currentVelocity.x = Math.min(player.currentVelocity.x + player.friction * deltaTime, 0);
+				player.currentVelocity.x = Math.min(player.currentVelocity.x + player.currentFriction * deltaTime, 0);
 				player.currentParticleEffect.setPosition(player.position.x + player.bounds.width, player.position.y);
 			}
 			player.currentParticleEffect.start();
@@ -72,7 +72,11 @@ public class GroundedState extends PlayerState
 	@Override
 	public void onCollisionWith(Platform platform) 
 	{
-
+		if(platform.currentVelocity.x != 0)
+		{
+			player.currentVelocity.x = platform.currentVelocity.x;
+			player.currentFriction = 0;
+		}
 	}
 
 	@Override

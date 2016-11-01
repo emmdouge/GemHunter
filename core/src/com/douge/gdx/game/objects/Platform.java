@@ -7,7 +7,7 @@ import com.douge.gdx.game.assets.Assets;
 
 public class Platform extends AbstractGameObject
 {
-	protected TextureRegion regMiddle;
+	public TextureRegion regMiddle;
 	
 	private int length;
 	

@@ -70,7 +70,10 @@ public class DashState extends PlayerState
 			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.width + "=" + (rock.position.x+rock.bounds.width) + ", player: " + player.position.x + " " + diffBetweenRightSideOfPlayerAndLeftSideOfRock);
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
-			
+			if(platform.currentVelocity.x != 0)
+			{
+				context.setPlayerState(context.getJumpFallingState());
+			}
 			//since the rocks are all linked together, rock's bound witdth is the entire platform
 			player.position.x = platform.position.x - 1;
 		}
@@ -79,6 +82,10 @@ public class DashState extends PlayerState
 			System.out.println("im here");
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
+			if(platform.currentVelocity.x != 0)
+			{
+				context.setPlayerState(context.getJumpFallingState());
+			}
 			player.position.x = platform.position.x + platform.bounds.width;
 		}
 	}

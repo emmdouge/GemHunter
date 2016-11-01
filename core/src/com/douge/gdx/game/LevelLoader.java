@@ -17,6 +17,7 @@ import com.douge.gdx.game.enemy.Slime;
 import com.douge.gdx.game.objects.AbstractGameObject;
 import com.douge.gdx.game.objects.BackgroundRock;
 import com.douge.gdx.game.objects.BackgroundStar;
+import com.douge.gdx.game.objects.NullGameObject;
 import com.douge.gdx.game.objects.PlatformSnow;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.Clouds;
@@ -40,9 +41,10 @@ public class LevelLoader
 	
 	//objects
 	public Player player; 
-	public Array<Coin> goldCoins; 
+	public Array<Coin> coins; 
 	public Array<JumpPotion> jumpPotion; 
 	public Array<Platform> platforms;
+	public Array<NullGameObject> reversingBoxes;	
 	public Array<BackgroundTile> backgroundTiles;
 	public Array<Enemy> enemies;
 	public ArrayList<Integer> enemiesToRemove;
@@ -68,14 +70,14 @@ public class LevelLoader
 		MessageQueue messages = new MessageQueue();
 	    levels = new ArrayList<Level>();
 	    
-		Level level1 = new Level(BLOCK_TYPE.STAR_BACK.getColor(), "../core/assets/levels/level01.png", messages);
-		messages.enqueue(new Message("I haven't been here in ages...", new Vector2(0, 0), Assets.instance.survivor.survivor));
-		messages.enqueue(new Message("Hmm. There are much more bats than I remember...", new Vector2(2, 0), Assets.instance.survivor.survivor));
+		Level level1 = new Level(BLOCK_TYPE.STAR_BACK.getColor(), new PlatformSnow(), "../core/assets/levels/level01.png", messages);
+		//messages.enqueue(new Message("I haven't been here in ages...", new Vector2(0, 0), Assets.instance.survivor.survivor));
+		messages.enqueue(new Message("Hmm. There are much more bats than I remember...", new Vector2(8, 0), Assets.instance.survivor.survivor));
 		messages.enqueue(new NullMessage());
 		levels.add(level1);
 		
 		messages = new MessageQueue();
-		Level level2 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), "../core/assets/levels/level02.png", messages);
+		Level level2 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), new PlatformRock(), "../core/assets/levels/level02.png", messages);
 		
 		levels.add(level1);
 		levels.add(level2);
@@ -97,9 +99,10 @@ public class LevelLoader
 	    currentLevel = levels.get(currentLevelIndex);
 	    
 	    // objects 
-	    goldCoins = new Array<Coin>(); 
+	    coins = new Array<Coin>(); 
 	    jumpPotion = new Array<JumpPotion>(); 
 		platforms = new Array<Platform>();
+		reversingBoxes = new Array<NullGameObject>();
 		backgroundTiles = new Array<BackgroundTile>();
 		enemies = new Array<Enemy>();
 		enemiesToRemove = new ArrayList<Integer>();
@@ -158,7 +161,7 @@ public class LevelLoader
 					}
 				}
 				
-				if (BLOCK_TYPE.SNOW_PLATFORM.sameColor(currentPixel)) 
+				else if (BLOCK_TYPE.SNOW_PLATFORM.sameColor(currentPixel)) 
 				{
 					if (lastPixel != currentPixel) 
 					{
@@ -170,6 +173,49 @@ public class LevelLoader
 					{
 						platforms.get(platforms.size - 1).increaseLength(1);
 					}
+				}
+				
+				else if(BLOCK_TYPE.X_MOVING_PLATFORM.sameColor(currentPixel)) 
+				{
+					if (lastPixel != currentPixel) 
+					{
+						obj = new Platform();
+						Platform platform = (Platform)obj;
+						platform.regMiddle = currentLevel.platform.regMiddle;
+						platform.position.set(pixelX, baseHeight);
+						platform.currentVelocity.x = 2f;
+						platforms.add(platform);
+					} 
+					else 
+					{
+						platforms.get(platforms.size - 1).increaseLength(1);
+					}
+				}
+				
+				else if(BLOCK_TYPE.Y_MOVING_PLATFORM.sameColor(currentPixel)) 
+				{
+					if (lastPixel != currentPixel) 
+					{
+						obj = new Platform();
+						Platform platform = (Platform)obj;
+						platform.regMiddle = currentLevel.platform.regMiddle;
+						platform.position.set(pixelX, baseHeight);
+						platform.maxVelocity.y = 10f;
+						platform.currentVelocity.y = -3.75f;
+						platforms.add(platform);
+					} 
+					else 
+					{
+						platforms.get(platforms.size - 1).increaseLength(1);
+					}
+				}
+				
+				// reversing box
+				else if (BLOCK_TYPE.REVERSE_PLATFORM_VELOCITY.sameColor(currentPixel)) 
+				{
+			          obj = new NullGameObject(); 
+			          obj.position.set(pixelX + obj.origin.x,baseHeight); 
+			          reversingBoxes.add((NullGameObject)obj); 
 				}
 				
 				// player spawn point
@@ -193,7 +239,7 @@ public class LevelLoader
 				{
 			          obj = new Coin(); 
 			          obj.position.set(pixelX + obj.origin.x,baseHeight); 
-			          goldCoins.add((Coin)obj); 
+			          coins.add((Coin)obj); 
 				}
 				
 				// slime
@@ -275,7 +321,7 @@ public class LevelLoader
 		for(Platform rock : platforms)
 		rock.update(deltaTime);
 		
-		for(Coin goldCoin : goldCoins)
+		for(Coin goldCoin : coins)
 		goldCoin.update(deltaTime);
 		
 		for(JumpPotion greenHeart : jumpPotion)
@@ -299,7 +345,7 @@ public class LevelLoader
 					coin = new Coin();
 				}
 				coin.position = enemy.position;
-				goldCoins.add(coin);
+				coins.add(coin);
 			}
 			enemyIndex++;
 		}
@@ -330,7 +376,7 @@ public class LevelLoader
 		trees.render(batch);
 		
 	    // Draw Gold Coins 
-	    for (Coin goldCoin : goldCoins) 
+	    for (Coin goldCoin : coins) 
 	    goldCoin.render(batch); 
 	     
 	    // Draw Feathers 

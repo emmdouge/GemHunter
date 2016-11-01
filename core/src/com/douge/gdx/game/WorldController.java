@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.enemy.Enemy;
+import com.douge.gdx.game.objects.NullGameObject;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.Coin;
 import com.douge.gdx.game.objects.JumpPotion;
@@ -227,6 +228,42 @@ public class WorldController extends InputAdapter
 	 */
 	private void testCollisions () 
 	{
+		// Test collision: enemies <-> rocks
+		boolean collided = false;
+		for(Enemy enemy: levelLoader.enemies)
+		{
+			r1.set(enemy.position.x + enemy.bounds.x, enemy.position.y + enemy.bounds.y, enemy.bounds.width, enemy.bounds.height);
+			collided = false;
+			for(Platform rock: levelLoader.platforms)
+			{
+				r2.set(rock.position.x, rock.position.y, rock.bounds.width, rock.bounds.height);
+				if(r1.overlaps(r2))
+				{
+					enemy.context.getCurrentState().onCollisionWith(rock);
+					collided = true;
+				}
+			}
+			if(collided == false)
+			{
+				enemy.context.getCurrentState().noRockCollision();
+			}
+		}
+		
+		// Test collision: platforms <-> reversingBoxes
+		for(Platform platform: levelLoader.platforms)
+		{
+			r1.set(platform.position.x + platform.bounds.x, platform.position.y + platform.bounds.y, platform.bounds.width, platform.bounds.height);
+			for(NullGameObject reversingBox: levelLoader.reversingBoxes)
+			{
+				r2.set(reversingBox.position.x, reversingBox.position.y, reversingBox.bounds.width, reversingBox.bounds.height);
+				if(r1.overlaps(r2))
+				{
+					platform.currentVelocity.x *= -1;
+					platform.currentVelocity.y *= -1;
+				}
+			}
+		}
+		
 		r1.set(levelLoader.player.position.x, levelLoader.player.position.y,
 				levelLoader.player.bounds.width, levelLoader.player.bounds.height);
 		
@@ -257,32 +294,8 @@ public class WorldController extends InputAdapter
 			}
 		}
 		
-		// Test collision: enemies <-> rocks
-		boolean collided = false;
-		for(Enemy enemy: levelLoader.enemies)
-		{
-			r1.set(enemy.position.x + enemy.bounds.x, enemy.position.y + enemy.bounds.y, enemy.bounds.width, enemy.bounds.height);
-			collided = false;
-			for(Platform rock: levelLoader.platforms)
-			{
-				r2.set(rock.position.x, rock.position.y, rock.bounds.width, rock.bounds.height);
-				if(r1.overlaps(r2))
-				{
-					enemy.context.getCurrentState().onCollisionWith(rock);
-					collided = true;
-				}
-			}
-			if(collided == false)
-			{
-				enemy.context.getCurrentState().noRockCollision();
-			}
-		}
-		
-		r1.set(levelLoader.player.position.x, levelLoader.player.position.y,
-				levelLoader.player.bounds.width, levelLoader.player.bounds.height);
-		
 		// Test collision: player <-> Gold Coins
-		for (Coin goldcoin : levelLoader.goldCoins) 
+		for (Coin goldcoin : levelLoader.coins) 
 		{
 			if (goldcoin.collected) 
 			{
