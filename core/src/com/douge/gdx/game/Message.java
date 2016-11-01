@@ -30,6 +30,7 @@ public class Message
 	private boolean iconIsRendered = false;
 	private Sprite icon;
 	private float iconX;
+	boolean textIsRendered = false;
 	
 	public Message(String text, Vector2 conditions, TextureRegion reg)
 	{
@@ -68,6 +69,7 @@ public class Message
 				if(textIndex >= text.length())
 				{
 					textIndex = text.length();
+					textIsRendered  = true;
 				}
 				for(int i = 0; i <= textIndex; i++)
 				{

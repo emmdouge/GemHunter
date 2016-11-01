@@ -325,29 +325,38 @@ public class WorldController extends InputAdapter
 	{
 		if (cameraHelper.hasTarget(levelLoader.player) && !levelLoader.player.isStunned) 
 		{
-			// Player Movement
-			if (Gdx.input.isKeyPressed(Keys.LEFT)) 
-			{
-				levelLoader.player.currentVelocity.x = -levelLoader.player.maxVelocity.x;
-			} 
-			else if (Gdx.input.isKeyPressed(Keys.RIGHT)) 
+			// Execute auto-forward movement on non-desktop platform
+			if (Gdx.app.getType() != ApplicationType.Desktop) 
 			{
 				levelLoader.player.currentVelocity.x = levelLoader.player.maxVelocity.x;
-			} 
-			else 
-			{
-				// Execute auto-forward movement on non-desktop platform
-				if (Gdx.app.getType() != ApplicationType.Desktop) 
-				{
-					levelLoader.player.currentVelocity.x = levelLoader.player.maxVelocity.x;
-				}
 			}
 			
 			// Bunny Jump
 			boolean dashKeyPressed = Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT);
 			boolean jumpKeyPressed = Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.SPACE);
-			levelLoader.player.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed);
-
+			if(testMessage.textIsRendered)
+			{
+				if(testMessage.playerSkipped)
+				{
+					// Player Movement
+					if (Gdx.input.isKeyPressed(Keys.LEFT)) 
+					{
+						levelLoader.player.currentVelocity.x = -levelLoader.player.maxVelocity.x;
+					} 
+					else if (Gdx.input.isKeyPressed(Keys.RIGHT)) 
+					{
+						levelLoader.player.currentVelocity.x = levelLoader.player.maxVelocity.x;
+					} 
+					levelLoader.player.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed);
+				}
+				else
+				{
+					if(jumpKeyPressed)
+					{
+						testMessage.playerSkipped = true;
+					}
+				}
+			}
 		}
 	}
 	

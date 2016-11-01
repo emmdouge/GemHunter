@@ -291,7 +291,6 @@ public class LevelLoader
 					coin = new Coin();
 				}
 				coin.position = enemy.position;
-				coin.position.x += enemy.origin.x;
 				goldCoins.add(coin);
 			}
 			enemyIndex++;
