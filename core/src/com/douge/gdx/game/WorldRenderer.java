@@ -80,7 +80,8 @@ public class WorldRenderer implements Disposable
 	
 	private void renderText()
 	{
-		worldController.testMessage.renderText(batch);
+		if(worldController.message != null)
+		worldController.message.renderText(batch);
 	}
 	
 	/**

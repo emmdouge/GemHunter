@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.enemy.Bat;
@@ -64,13 +65,18 @@ public class LevelLoader
 	
 	private void initLevels()
 	{	    
+		Messages messages = new Messages();
 	    levels = new ArrayList<Level>();
 	    
-		Level level1 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), "../core/assets/levels/level01.png");
-		Level level2 = new Level(BLOCK_TYPE.STAR_BACK.getColor(), "../core/assets/levels/level02.png");
+		Level level1 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), "../core/assets/levels/level01.png", messages);
+		messages.enqueue(new Message("Ugh... Who... am I?", new Vector2(0, 0), Assets.instance.survivor.survivor));
+		messages.enqueue(new Message("What a large monster!", new Vector2(5, 5), Assets.instance.survivor.survivor));
+		levels.add(level1);
+		
+		messages = new Messages();
+		Level level2 = new Level(BLOCK_TYPE.STAR_BACK.getColor(), "../core/assets/levels/level02.png", messages);
 		
 		levels.add(level2);
-		levels.add(level1);
 	}
 	
 	public void nextLevel()

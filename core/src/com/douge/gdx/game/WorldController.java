@@ -40,7 +40,7 @@ public class WorldController extends InputAdapter
 	private float timeLeftGameOverDelay; 
 	
 
-	public Message testMessage;
+	public Message message;
 	
 	/**
 	 * initializes game and level
@@ -62,8 +62,8 @@ public class WorldController extends InputAdapter
 	    timeLeftGameOverDelay = 0; 
 	    livesVisual = Constants.LIVES_START;
 
-		testMessage = new Message("Hello World!", new Vector2(0, 0), Assets.instance.survivor.survivor);
 		initLevel();
+		message = levelLoader.currentLevel.messages.head;
 	}
 	
 	/**
@@ -100,7 +100,10 @@ public class WorldController extends InputAdapter
 		}
 		
 		levelLoader.update(deltaTime);
-		testMessage.updateText(deltaTime);
+		
+		if(message != null)
+		message.updateText(deltaTime, levelLoader.player);
+		
 		testCollisions();
 		cameraHelper.update(deltaTime);
 		if (!isGameOver() && isPlayerInWater()) 
@@ -330,35 +333,33 @@ public class WorldController extends InputAdapter
 			{
 				levelLoader.player.currentVelocity.x = levelLoader.player.maxVelocity.x;
 			}
-			
+			message = levelLoader.currentLevel.messages.head;
 			// Bunny Jump
 			boolean dashKeyPressed = Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT);
 			boolean jumpKeyPressed = Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.SPACE);
-			if(testMessage.textIsRendered)
+			if(message != null && message.textIsRendered && message.shouldBeRendered)
 			{
-				if(testMessage.playerSkipped)
+				if(!message.playerSkipped && jumpKeyPressed)
 				{
-					// Player Movement
-					if (Gdx.input.isKeyPressed(Keys.LEFT)) 
-					{
-						levelLoader.player.currentVelocity.x = -levelLoader.player.maxVelocity.x;
-					} 
-					else if (Gdx.input.isKeyPressed(Keys.RIGHT)) 
-					{
-						levelLoader.player.currentVelocity.x = levelLoader.player.maxVelocity.x;
-					} 
-					levelLoader.player.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed);
-				}
-				else
-				{
-					if(jumpKeyPressed)
-					{
-						testMessage.playerSkipped = true;
-					}
+					message.playerSkipped = true;
+					levelLoader.currentLevel.messages.dequeue();
 				}
 			}
+			else if(message == null || (message != null && !message.shouldBeRendered))
+			{
+				// Player Movement
+				if (Gdx.input.isKeyPressed(Keys.LEFT)) 
+				{
+					levelLoader.player.currentVelocity.x = -levelLoader.player.maxVelocity.x;
+				} 
+				else if (Gdx.input.isKeyPressed(Keys.RIGHT)) 
+				{
+					levelLoader.player.currentVelocity.x = levelLoader.player.maxVelocity.x;
+				} 
+			}
+			levelLoader.player.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed);
 		}
-	}
+	}	
 	
 	/**
 	 * if player has no lives left
