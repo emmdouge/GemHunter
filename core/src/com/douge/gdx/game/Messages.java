@@ -19,6 +19,8 @@ import com.douge.gdx.game.objects.Player;
 
 public class Messages
 {
+	private static final ShapeRenderer shapeRenderer = new ShapeRenderer();
+	
 	public class Message {
 		public String text;
 		public String appendedText;
@@ -30,7 +32,6 @@ public class Messages
 		public Vector2 conditions;
 		private Rectangle box;
 		private boolean boxIsRendered = false;
-		private ShapeRenderer shapeRenderer = new ShapeRenderer();
 		private boolean iconIsRendered = false;
 		private Sprite icon;
 		private float iconX;
@@ -56,7 +57,7 @@ public class Messages
 		public void updateText(float deltaTime, Player player) 
 		{
 			timeBetweenCharacters += deltaTime;
-			if (timeBetweenCharacters >= .08f && boxIsRendered && iconIsRendered) 
+			if (timeBetweenCharacters >= .05f && boxIsRendered && iconIsRendered) 
 			{
 				textIndex++;
 				timeBetweenCharacters = 0;
