@@ -251,7 +251,7 @@ public class WorldController extends InputAdapter
 		for (Enemy enemy : levelLoader.enemies) 
 		{
 			r2.set(enemy.position.x + enemy.bounds.x, enemy.position.y + enemy.bounds.y, enemy.bounds.width, enemy.bounds.height);
-			if (r1.overlaps(r2) && message.playerSkipped) 
+			if (r1.overlaps(r2) && !message.shouldBeRendered) 
 			{
 				levelLoader.player.context.onCollisionWith(enemy);
 			}
