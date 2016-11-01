@@ -77,6 +77,7 @@ public class LevelLoader
 		messages = new MessageQueue();
 		Level level2 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), "../core/assets/levels/level02.png", messages);
 		
+		levels.add(level1);
 		levels.add(level2);
 	}
 	

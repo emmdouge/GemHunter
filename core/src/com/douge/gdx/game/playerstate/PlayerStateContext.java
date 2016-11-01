@@ -164,6 +164,7 @@ public class PlayerStateContext
 				enemy.hasBeenKilled = true;
 				enemy.context.setEnemyState(enemy.context.getDeadState());
 				player.timeJumping = 0;
+				player.timeDashing = 0;
 				player.context.jump(true);
 				player.context.setPlayerState(player.context.getJumpRisingState());
 			}
