@@ -101,7 +101,6 @@ public class WorldController extends InputAdapter
 		
 		levelLoader.update(deltaTime);
 		
-		if(message != null)
 		message.updateText(deltaTime, levelLoader.player);
 		
 		testCollisions();
@@ -252,7 +251,7 @@ public class WorldController extends InputAdapter
 		for (Enemy enemy : levelLoader.enemies) 
 		{
 			r2.set(enemy.position.x + enemy.bounds.x, enemy.position.y + enemy.bounds.y, enemy.bounds.width, enemy.bounds.height);
-			if (r1.overlaps(r2) && ((message != null && message.playerSkipped) || message == null)) 
+			if (r1.overlaps(r2) && message.playerSkipped) 
 			{
 				levelLoader.player.context.onCollisionWith(enemy);
 			}
@@ -337,7 +336,7 @@ public class WorldController extends InputAdapter
 			// Bunny Jump
 			boolean dashKeyPressed = Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT);
 			boolean jumpKeyPressed = Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.SPACE);
-			if(message != null && message.textIsRendered && message.shouldBeRendered)
+			if(message.textIsRendered && message.shouldBeRendered)
 			{
 				if(!message.playerSkipped && jumpKeyPressed)
 				{
@@ -345,7 +344,7 @@ public class WorldController extends InputAdapter
 					levelLoader.currentLevel.messages.dequeue();
 				}
 			}
-			else if(message == null || (message != null && !message.shouldBeRendered))
+			else if(!message.shouldBeRendered)
 			{
 				// Player Movement
 				if (Gdx.input.isKeyPressed(Keys.LEFT)) 
