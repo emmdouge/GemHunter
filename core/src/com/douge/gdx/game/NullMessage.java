@@ -4,6 +4,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.objects.Player;
 
+/**
+ * Uses null object pattern to remove null dependent code
+ * @author Emmanuel
+ *
+ */
 public class NullMessage extends Message
 {
 	public NullMessage()
