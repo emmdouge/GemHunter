@@ -35,6 +35,8 @@ public class Message
 	public boolean shouldBeRendered = false;
 	public Message nextNode;
 
+	public boolean isRendering = false;
+
 	public Message(String text, Vector2 conditions, TextureRegion reg) 
 	{
 		this.text = text;
@@ -82,6 +84,7 @@ public class Message
 				{
 					BitmapFont fontGameOver = Assets.instance.fonts.defaultBig;
 					fontGameOver.setColor(Color.BLACK);
+					fontGameOver.getData().setScale(1f, 1f);
 					fontGameOver.draw(batch, text.subSequence(0, i), box.x + 100, box.y + 25, 0, Align.left, true);
 				}
 			} 
