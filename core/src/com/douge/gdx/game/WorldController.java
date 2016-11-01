@@ -357,8 +357,8 @@ public class WorldController extends InputAdapter
 				{
 					levelLoader.player.currentVelocity.x = levelLoader.player.maxVelocity.x;
 				} 
+				levelLoader.player.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed);
 			}
-			levelLoader.player.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed);
 		}
 	}	
 	
