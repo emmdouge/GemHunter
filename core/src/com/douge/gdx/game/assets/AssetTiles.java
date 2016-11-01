@@ -1,12 +1,16 @@
 package com.douge.gdx.game.assets;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 
 public class AssetTiles {
 
 	public final AtlasRegion chest;
+	public final Animation buttonPress;
+	
 	//public final AtlasRegion spikes;
 	public final AtlasRegion tileRockTop;
 	public final AtlasRegion tileRockBottom;
@@ -29,6 +33,13 @@ public class AssetTiles {
 		
 		snow1 = atlas.findRegion("snow1");
 		snow2 = atlas.findRegion("snow2");
+		
+		Array<AtlasRegion> regions = new Array<AtlasRegion>();
+		for(int i = 0; i <= 2; i++)
+		{
+			regions.add(atlas.findRegion("press"+i));
+		}
+		buttonPress = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP);
 	}
 
 }

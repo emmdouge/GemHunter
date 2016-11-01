@@ -6,7 +6,7 @@ filter: Nearest,Nearest
 repeat: none
 12
   rotate: false
-  xy: 652, 459
+  xy: 955, 459
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -41,21 +41,21 @@ repeat: none
   index: -1
 24
   rotate: false
-  xy: 586, 355
+  xy: 889, 355
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 25
   rotate: false
-  xy: 652, 425
+  xy: 955, 425
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 26
   rotate: false
-  xy: 686, 459
+  xy: 989, 459
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -83,14 +83,14 @@ repeat: none
   index: -1
 6
   rotate: false
-  xy: 586, 389
+  xy: 889, 389
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 Pixel Treasure Chest Closed
   rotate: false
-  xy: 586, 423
+  xy: 889, 423
   size: 64, 68
   orig: 64, 68
   offset: 0, 0
@@ -100,6 +100,27 @@ greybrick
   xy: 188, 97
   size: 32, 32
   orig: 32, 32
+  offset: 0, 0
+  index: -1
+press0
+  rotate: false
+  xy: 586, 382
+  size: 301, 109
+  orig: 301, 109
+  offset: 0, 0
+  index: -1
+press1
+  rotate: false
+  xy: 586, 271
+  size: 301, 109
+  orig: 301, 109
+  offset: 0, 0
+  index: -1
+press2
+  rotate: false
+  xy: 586, 160
+  size: 301, 109
+  orig: 301, 109
   offset: 0, 0
   index: -1
 snow1

@@ -34,6 +34,7 @@ public class Message
 	boolean textIsRendered = false;
 	public boolean shouldBeRendered = false;
 	public Message nextNode;
+	public float stateTime = 0;
 
 	public boolean isRendering = false;
 
@@ -42,13 +43,14 @@ public class Message
 		this.text = text;
 		text += " ";
 		this.conditions = conditions;
-		box = new Rectangle(0, Constants.VIEWPORT_GUI_HEIGHT - 70, Constants.VIEWPORT_GUI_WIDTH, 0);
+		//drawn from top left to bottom right
+		box = new Rectangle(0, Constants.VIEWPORT_GUI_HEIGHT - 50, Constants.VIEWPORT_GUI_WIDTH, 0);
 		maxHeight = Constants.VIEWPORT_GUI_HEIGHT - box.y;
 		icon = new Sprite(reg);
 		icon.setRegion(reg, 0, 0, reg.getRegionWidth(), reg.getRegionWidth() / 2);
 		iconX = -50f;
 		icon.setX(iconX);
-		icon.setY(box.y - 20f);
+		icon.setY(box.y - 40f);
 		icon.flip(false, true);
 	}
 
@@ -64,6 +66,7 @@ public class Message
 		{
 			shouldBeRendered = true;
 		}
+		stateTime += deltaTime;
 	}
 
 	public void renderText(SpriteBatch batch) 
@@ -79,11 +82,13 @@ public class Message
 				{
 					textIndex = text.length();
 					textIsRendered = true;
+					renderButton(batch);
 				}
 				for (int i = 0; i <= textIndex; i++) 
 				{
 					BitmapFont fontGameOver = Assets.instance.fonts.defaultBig;
 					fontGameOver.setColor(Color.BLACK);
+					fontGameOver.getColor().set(Color.WHITE);
 					fontGameOver.getData().setScale(1f, 1f);
 					fontGameOver.draw(batch, text.subSequence(0, i), box.x + 100, box.y + 25, 0, Align.left, true);
 				}
@@ -108,16 +113,30 @@ public class Message
 
 	}
 
+	private void renderButton(SpriteBatch batch) 
+	{
+		System.out.println("im called" + stateTime);
+		TextureRegion reg = Assets.instance.tiles.buttonPress.getKeyFrame(stateTime, true);
+		batch.draw(reg.getTexture(), 
+				box.x + 525, box.y + 11, 
+				0, 0, 
+				100, 40, 
+				1, 1, 
+				0,
+				reg.getRegionX(), reg.getRegionY(), 
+				reg.getRegionWidth(), reg.getRegionHeight(), 
+				false, false);		
+	}
+
 	private void renderIcon(SpriteBatch batch) {
-		batch.draw(icon, iconX, icon.getY(), 0, 0, icon.getWidth(),
-				icon.getHeight(), 4, 2, 0f);
+		batch.draw(icon, iconX, icon.getY(), 0, 0, icon.getWidth(), icon.getHeight(), 4, 2, 0f);
 	}
 
 	private void renderBox(SpriteBatch batch, float currentHeight) {
 		batch.end();
 		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 		shapeRenderer.begin(ShapeType.Filled);
-		shapeRenderer.setColor(Color.BLUE);
+		shapeRenderer.setColor(Color.BLACK);
 		box.height = currentHeight;
 		shapeRenderer.rect(box.x, box.y, box.width, box.height);
 		shapeRenderer.end();

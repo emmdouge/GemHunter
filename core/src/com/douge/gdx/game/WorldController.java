@@ -338,7 +338,7 @@ public class WorldController extends InputAdapter
 			boolean jumpKeyPressed = Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.SPACE);
 			if(message.textIsRendered && message.shouldBeRendered)
 			{
-				if(!message.playerSkipped && jumpKeyPressed)
+				if(!message.playerSkipped && (jumpKeyPressed || dashKeyPressed))
 				{
 					message.playerSkipped = true;
 					levelLoader.currentLevel.messages.dequeue();
