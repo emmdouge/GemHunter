@@ -35,6 +35,8 @@ public abstract class Enemy extends AbstractGameObject
 	
 	public boolean isHurtable = true;
 	
+	public boolean isBoss = false;
+	
 	protected VIEW_DIRECTION flip;
 	
 	public ShapeRenderer shapeRenderer = new ShapeRenderer();

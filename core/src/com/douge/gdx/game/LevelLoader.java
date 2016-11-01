@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.enemy.Bat;
 import com.douge.gdx.game.enemy.Enemy;
-import com.douge.gdx.game.enemy.Goblin;
+import com.douge.gdx.game.enemy.BigGoblin;
 import com.douge.gdx.game.enemy.Skeleton;
 import com.douge.gdx.game.enemy.Slime;
 import com.douge.gdx.game.objects.AbstractGameObject;
@@ -19,10 +19,11 @@ import com.douge.gdx.game.objects.BackgroundStar;
 import com.douge.gdx.game.objects.PlatformSnow;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.Clouds;
-import com.douge.gdx.game.objects.GoldCoin;
+import com.douge.gdx.game.objects.Coin;
 import com.douge.gdx.game.objects.JumpPotion;
 import com.douge.gdx.game.objects.BackgroundTile;
 import com.douge.gdx.game.objects.PlatformRock;
+import com.douge.gdx.game.objects.RedCoin;
 import com.douge.gdx.game.objects.Trees;
 import com.douge.gdx.game.objects.Platform;
 import com.douge.gdx.game.objects.BlackOverlay;
@@ -38,7 +39,7 @@ public class LevelLoader
 	
 	//objects
 	public Player player; 
-	public Array<GoldCoin> goldCoins; 
+	public Array<Coin> goldCoins; 
 	public Array<JumpPotion> jumpPotion; 
 	public Array<Platform> platforms;
 	public Array<BackgroundTile> backgroundTiles;
@@ -88,7 +89,7 @@ public class LevelLoader
 	    currentLevel = levels.get(currentLevelIndex);
 	    
 	    // objects 
-	    goldCoins = new Array<GoldCoin>(); 
+	    goldCoins = new Array<Coin>(); 
 	    jumpPotion = new Array<JumpPotion>(); 
 		platforms = new Array<Platform>();
 		backgroundTiles = new Array<BackgroundTile>();
@@ -182,9 +183,9 @@ public class LevelLoader
 				// gold coin
 				else if (BLOCK_TYPE.ITEM_GOLD_COIN.sameColor(currentPixel)) 
 				{
-			          obj = new GoldCoin(); 
-			          obj.position.set(pixelX,baseHeight); 
-			          goldCoins.add((GoldCoin)obj); 
+			          obj = new Coin(); 
+			          obj.position.set(pixelX + obj.origin.x,baseHeight); 
+			          goldCoins.add((Coin)obj); 
 				}
 				
 				// slime
@@ -213,12 +214,12 @@ public class LevelLoader
 				}
 				
 				// bat
-				else if(BLOCK_TYPE.ENEMY_GOBLIN.sameColor(currentPixel))
+				else if(BLOCK_TYPE.ENEMY_BIGGOBLIN.sameColor(currentPixel))
 				{
-			          obj = new Goblin(Assets.instance.goblin); 
+			          obj = new BigGoblin(Assets.instance.goblin); 
 			          obj.position.x = pixelX;
 			          obj.position.y += baseHeight; 
-			          enemies.add((Goblin)obj); 	
+			          enemies.add((BigGoblin)obj); 	
 				}
 				
 				// unknown object/pixel color
@@ -266,7 +267,7 @@ public class LevelLoader
 		for(Platform rock : platforms)
 		rock.update(deltaTime);
 		
-		for(GoldCoin goldCoin : goldCoins)
+		for(Coin goldCoin : goldCoins)
 		goldCoin.update(deltaTime);
 		
 		for(JumpPotion greenHeart : jumpPotion)
@@ -280,9 +281,18 @@ public class LevelLoader
 		{
 			if(enemy.isDead)
 			{
-				GoldCoin goldCoin = new GoldCoin();
-				goldCoin.position = enemy.position;
-				goldCoins.add(goldCoin);
+				Coin coin;
+				if(enemy.isBoss)
+				{
+					coin = new RedCoin();
+				}
+				else
+				{
+					coin = new Coin();
+				}
+				coin.position = enemy.position;
+				coin.position.x += enemy.origin.x;
+				goldCoins.add(coin);
 			}
 			enemyIndex++;
 		}
@@ -313,7 +323,7 @@ public class LevelLoader
 		trees.render(batch);
 		
 	    // Draw Gold Coins 
-	    for (GoldCoin goldCoin : goldCoins) 
+	    for (Coin goldCoin : goldCoins) 
 	    goldCoin.render(batch); 
 	     
 	    // Draw Feathers 

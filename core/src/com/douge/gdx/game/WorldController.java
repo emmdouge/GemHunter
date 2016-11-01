@@ -14,9 +14,10 @@ import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.objects.Player;
-import com.douge.gdx.game.objects.GoldCoin;
+import com.douge.gdx.game.objects.Coin;
 import com.douge.gdx.game.objects.JumpPotion;
 import com.douge.gdx.game.objects.Platform;
+import com.douge.gdx.game.objects.RedCoin;
 import com.douge.gdx.game.screens.MenuScreen;
 import com.douge.gdx.game.utils.AudioManager;
 
@@ -26,7 +27,7 @@ public class WorldController extends InputAdapter
 	
 	private Game game;
 	
-	public LevelLoader level;
+	public LevelLoader levelLoader;
 	public int score;
 	public float scoreVisual;
 	public float livesVisual;
@@ -72,8 +73,8 @@ public class WorldController extends InputAdapter
 	{
 		score = 0;
 		scoreVisual = 0;
-		level = new LevelLoader();
-		cameraHelper.setTarget(level.player); 
+		levelLoader = new LevelLoader();
+		cameraHelper.setTarget(levelLoader.player); 
 	}
 	
 
@@ -98,14 +99,14 @@ public class WorldController extends InputAdapter
 			handleInputGame(deltaTime);
 		}
 		
-		level.update(deltaTime);
+		levelLoader.update(deltaTime);
 		testMessage.updateText(deltaTime);
 		testCollisions();
 		cameraHelper.update(deltaTime);
 		if (!isGameOver() && isPlayerInWater()) 
 		{
 		    AudioManager.instance.play(Assets.instance.sounds.liveLost); 
-			level.player.lives--;
+			levelLoader.player.lives--;
 			if (isGameOver())
 			{
 				timeLeftGameOverDelay = Constants.TIME_DELAY_GAME_OVER;
@@ -115,10 +116,10 @@ public class WorldController extends InputAdapter
 				initLevel();
 			}
 		}
-		level.trees.updateScrollPosition(cameraHelper.getPosition());
-		if (livesVisual> level.player.lives)
+		levelLoader.trees.updateScrollPosition(cameraHelper.getPosition());
+		if (livesVisual> levelLoader.player.lives)
 		{
-			livesVisual = Math.max(level.player.lives, livesVisual - 1 * deltaTime);
+			livesVisual = Math.max(levelLoader.player.lives, livesVisual - 1 * deltaTime);
 		}
 		if (scoreVisual< score)
 		{
@@ -136,7 +137,7 @@ public class WorldController extends InputAdapter
 		if (Gdx.app.getType() != ApplicationType.Desktop) return;
 
 		// Camera Controls (move)
-		if (!cameraHelper.hasTarget(level.player));
+		if (!cameraHelper.hasTarget(levelLoader.player));
 		{
 			float camMoveSpeed = 5 * deltaTime;
 			float camMoveSpeedAccelerationFactor = 5;
@@ -190,13 +191,19 @@ public class WorldController extends InputAdapter
 	/**
 	 * When player collects goldcoin, 
 	 * stop rendering it and update score
-	 * @param goldcoin
+	 * @param coin
 	 */
-	private void onCollisionPlayerWithGoldCoin(GoldCoin goldcoin) 
+	private void onCollisionPlayerWithCoin(Coin coin) 
 	{
 		AudioManager.instance.play(Assets.instance.sounds.pickupCoin); 
-		goldcoin.collected = true;
-		score += goldcoin.getScore();
+		coin.collected = true;
+		score += coin.getScore();
+		if(coin instanceof RedCoin)
+		{
+			levelLoader.nextLevel();
+			cameraHelper.setTarget(levelLoader.player);
+			
+		}
 		Gdx.app.log(TAG, "Gold coin collected");
 	};
 	
@@ -209,7 +216,7 @@ public class WorldController extends InputAdapter
 		AudioManager.instance.play(Assets.instance.sounds.pickupPotion);
 		jumpPotion.collected = true;
 		score += jumpPotion.getScore();
-		level.player.setJumpPowerup(true);
+		levelLoader.player.setJumpPowerup(true);
 		Gdx.app.log(TAG, "Jump Potion collected");
 	};
 	
@@ -218,11 +225,11 @@ public class WorldController extends InputAdapter
 	 */
 	private void testCollisions () 
 	{
-		r1.set(level.player.position.x, level.player.position.y,
-				level.player.bounds.width, level.player.bounds.height);
+		r1.set(levelLoader.player.position.x, levelLoader.player.position.y,
+				levelLoader.player.bounds.width, levelLoader.player.bounds.height);
 		
 		// Test collision: Player <-> Rocks
-		for (Platform rock : level.platforms) 
+		for (Platform rock : levelLoader.platforms) 
 		{
 			r2.set(rock.position.x, rock.position.y, 
 					rock.bounds.width, rock.bounds.height);
@@ -230,31 +237,31 @@ public class WorldController extends InputAdapter
 			if (!r1.overlaps(r2)) 
 			{
 				//System.out.println("not overlapping rock");
-				level.player.context.getCurrentState().noPlatformCollision();
+				levelLoader.player.context.getCurrentState().noPlatformCollision();
 				continue;
 			}
 		
-			level.player.context.setStateBasedOnCollisionWithPlatform(rock);
+			levelLoader.player.context.setStateBasedOnCollisionWithPlatform(rock);
 			break;
 		}
 	
 		// Test collision: player <-> enemies
-		for (Enemy enemy : level.enemies) 
+		for (Enemy enemy : levelLoader.enemies) 
 		{
 			r2.set(enemy.position.x + enemy.bounds.x, enemy.position.y + enemy.bounds.y, enemy.bounds.width, enemy.bounds.height);
 			if (r1.overlaps(r2)) 
 			{
-				level.player.context.onCollisionWith(enemy);
+				levelLoader.player.context.onCollisionWith(enemy);
 			}
 		}
 		
 		// Test collision: enemies <-> rocks
 		boolean collided = false;
-		for(Enemy enemy: level.enemies)
+		for(Enemy enemy: levelLoader.enemies)
 		{
 			r1.set(enemy.position.x + enemy.bounds.x, enemy.position.y + enemy.bounds.y, enemy.bounds.width, enemy.bounds.height);
 			collided = false;
-			for(Platform rock: level.platforms)
+			for(Platform rock: levelLoader.platforms)
 			{
 				r2.set(rock.position.x, rock.position.y, rock.bounds.width, rock.bounds.height);
 				if(r1.overlaps(r2))
@@ -269,11 +276,11 @@ public class WorldController extends InputAdapter
 			}
 		}
 		
-		r1.set(level.player.position.x, level.player.position.y,
-				level.player.bounds.width, level.player.bounds.height);
+		r1.set(levelLoader.player.position.x, levelLoader.player.position.y,
+				levelLoader.player.bounds.width, levelLoader.player.bounds.height);
 		
 		// Test collision: player <-> Gold Coins
-		for (GoldCoin goldcoin : level.goldCoins) 
+		for (Coin goldcoin : levelLoader.goldCoins) 
 		{
 			if (goldcoin.collected) 
 			{
@@ -288,12 +295,12 @@ public class WorldController extends InputAdapter
 				continue;
 			}
 			
-			onCollisionPlayerWithGoldCoin(goldcoin);
+			onCollisionPlayerWithCoin(goldcoin);
 			break;
 		}
 		
 		// Test collision: Bunny Head <-> Feathers
-		for (JumpPotion greenHeart : level.jumpPotion) 
+		for (JumpPotion greenHeart : levelLoader.jumpPotion) 
 		{
 			if (greenHeart.collected) 
 			{
@@ -316,30 +323,30 @@ public class WorldController extends InputAdapter
 	 */
 	private void handleInputGame (float deltaTime) 
 	{
-		if (cameraHelper.hasTarget(level.player) && !level.player.isStunned) 
+		if (cameraHelper.hasTarget(levelLoader.player) && !levelLoader.player.isStunned) 
 		{
 			// Player Movement
 			if (Gdx.input.isKeyPressed(Keys.LEFT)) 
 			{
-				level.player.currentVelocity.x = -level.player.maxVelocity.x;
+				levelLoader.player.currentVelocity.x = -levelLoader.player.maxVelocity.x;
 			} 
 			else if (Gdx.input.isKeyPressed(Keys.RIGHT)) 
 			{
-				level.player.currentVelocity.x = level.player.maxVelocity.x;
+				levelLoader.player.currentVelocity.x = levelLoader.player.maxVelocity.x;
 			} 
 			else 
 			{
 				// Execute auto-forward movement on non-desktop platform
 				if (Gdx.app.getType() != ApplicationType.Desktop) 
 				{
-					level.player.currentVelocity.x = level.player.maxVelocity.x;
+					levelLoader.player.currentVelocity.x = levelLoader.player.maxVelocity.x;
 				}
 			}
 			
 			// Bunny Jump
 			boolean dashKeyPressed = Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT);
 			boolean jumpKeyPressed = Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.SPACE);
-			level.player.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed);
+			levelLoader.player.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed);
 
 		}
 	}
@@ -350,7 +357,7 @@ public class WorldController extends InputAdapter
 	 */
 	public boolean isGameOver () 
 	{
-		return level.player.lives <= 0;
+		return levelLoader.player.lives <= 0;
 	}
 		
 	/**
@@ -359,7 +366,7 @@ public class WorldController extends InputAdapter
 	 */
 	public boolean isPlayerInWater () 
 	{
-		return level.player.position.y < -5;
+		return levelLoader.player.position.y < -5;
 	}
 	
 	/**
@@ -392,7 +399,7 @@ public class WorldController extends InputAdapter
 	    // Toggle camera follow 
 	    else if (keycode == Keys.ENTER)  
 	    { 
-	      cameraHelper.setTarget(cameraHelper.hasTarget() ? null: level.player); 
+	      cameraHelper.setTarget(cameraHelper.hasTarget() ? null: levelLoader.player); 
 	      Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget()); 
 	    } 
 	

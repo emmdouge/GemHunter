@@ -3,12 +3,13 @@ package com.douge.gdx.game.enemy;
 import com.douge.gdx.game.VIEW_DIRECTION;
 import com.douge.gdx.game.assets.enemy.AssetGoblin;
 
-public class Goblin extends Enemy
+public class BigGoblin extends Enemy
 {
-	public Goblin(AssetGoblin assets) 
+	public BigGoblin(AssetGoblin assets) 
 	{
 		super(assets, 1f, VIEW_DIRECTION.LEFT);
 		int multiplier = 4;
+		isBoss = true;
 		dimension.x *= multiplier;
 		dimension.y *= multiplier;
 		bounds.height = dimension.y - 1;

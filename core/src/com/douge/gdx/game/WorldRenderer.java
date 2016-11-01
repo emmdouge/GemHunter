@@ -90,7 +90,7 @@ public class WorldRenderer implements Disposable
 	{
 		worldController.cameraHelper.applyTo(camera);
 		batch.setProjectionMatrix(camera.combined);
-		worldController.level.render(batch);	
+		worldController.levelLoader.render(batch);	
 	}
 	
 	/**
@@ -129,7 +129,7 @@ public class WorldRenderer implements Disposable
 		
 		for (int i = 0; i < Constants.LIVES_START; i++) 
 		{
-			boolean playerHasALife = i < worldController.level.player.lives;
+			boolean playerHasALife = i < worldController.levelLoader.player.lives;
 			boolean playerIsMissingALife = !playerHasALife;
 			if(playerHasALife)
 			{
@@ -148,11 +148,11 @@ public class WorldRenderer implements Disposable
 					0);
 		}
 		
-		if (worldController.level.player.lives >= 0 && worldController.livesVisual > worldController.level.player.lives) 
+		if (worldController.levelLoader.player.lives >= 0 && worldController.livesVisual > worldController.levelLoader.player.lives) 
 		{
-				int i = worldController.level.player.lives;
-				float alphaColor = Math.max(0, worldController.livesVisual - worldController.level.player.lives - 0.5f);
-				float alphaScale = 0.35f * (2 + worldController.level.player.lives - worldController.livesVisual) * 2;
+				int i = worldController.levelLoader.player.lives;
+				float alphaColor = Math.max(0, worldController.livesVisual - worldController.levelLoader.player.lives - 0.5f);
+				float alphaScale = 0.35f * (2 + worldController.levelLoader.player.lives - worldController.livesVisual) * 2;
 				float alphaRotate = -45 * alphaColor;
 				batch.setColor(1.0f, 0.7f, 0.7f, alphaColor);
 				batch.draw(Assets.instance.heart.heart,
@@ -245,7 +245,7 @@ public class WorldRenderer implements Disposable
 	{
 		float x = -15;
 		float y = 30;
-		float timeLeftJumpPowerup = worldController.level.player.timeLeftJumpPowerup;
+		float timeLeftJumpPowerup = worldController.levelLoader.player.timeLeftJumpPowerup;
 		if (timeLeftJumpPowerup > 0) 
 		{
 			// Start icon fade in/out if the left power-up time
