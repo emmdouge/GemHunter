@@ -69,13 +69,13 @@ public class LevelLoader
 		Messages messages = new Messages();
 	    levels = new ArrayList<Level>();
 	    
-		Level level1 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), "../core/assets/levels/level01.png", messages);
+		Level level1 = new Level(BLOCK_TYPE.STAR_BACK.getColor(), "../core/assets/levels/level01.png", messages);
 		messages.enqueue(messages.new Message("I haven't been here in ages...", new Vector2(0, 0), Assets.instance.survivor.survivor));
 		messages.enqueue(messages.new Message("Hmm. The goblins have grown much larger than I remembered", new Vector2(5, 5), Assets.instance.survivor.survivor));
 		levels.add(level1);
 		
 		messages = new Messages();
-		Level level2 = new Level(BLOCK_TYPE.STAR_BACK.getColor(), "../core/assets/levels/level02.png", messages);
+		Level level2 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), "../core/assets/levels/level02.png", messages);
 		
 		levels.add(level2);
 	}

@@ -359,6 +359,10 @@ public class WorldController extends InputAdapter
 				} 
 				levelLoader.player.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed);
 			}
+			else
+			{
+				levelLoader.player.context.setPlayerStateBasedOnInput(false, false);
+			}
 		}
 	}	
 	
