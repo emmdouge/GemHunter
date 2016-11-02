@@ -15,5 +15,7 @@ public class BigGoblin extends Enemy
 		bounds.height = dimension.y - 1;
 		bounds.width += (.25f * dimension.x);
 		bounds.x += (.25f * dimension.x);
+		origin.x = dimension.x/2;
+		origin.y = dimension.y/2;
 	}
 }

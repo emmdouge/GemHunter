@@ -57,7 +57,7 @@ public class Message
 	public void updateText(float deltaTime, Player player) 
 	{
 		timeBetweenCharacters += deltaTime;
-		if (timeBetweenCharacters >= .05f && boxIsRendered && iconIsRendered) 
+		if (timeBetweenCharacters >= .04f && boxIsRendered && iconIsRendered) 
 		{
 			textIndex++;
 			timeBetweenCharacters = 0;

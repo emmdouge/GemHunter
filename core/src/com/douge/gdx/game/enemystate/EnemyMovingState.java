@@ -38,7 +38,7 @@ public class EnemyMovingState extends EnemyState
 			// positive or negative terminal velocity
 			enemy.currentVelocity.x = MathUtils.clamp(enemy.currentVelocity.x, -enemy.maxVelocity.x, enemy.maxVelocity.x);
 			
-			if((int)(Math.random()*100) == 1)
+			if((int)(Math.random()*200) == 1)
 			{
 				enemy.currentVelocity.x *= -1;
 			}

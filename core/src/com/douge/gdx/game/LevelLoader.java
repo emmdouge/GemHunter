@@ -71,16 +71,19 @@ public class LevelLoader
 	    levels = new ArrayList<Level>();
 	    
 		Level level1 = new Level(BLOCK_TYPE.STAR_BACK.getColor(), new PlatformSnow(), "../core/assets/levels/level01.png", messages);
-		//messages.enqueue(new Message("I haven't been here in ages...", new Vector2(0, 0), Assets.instance.survivor.survivor));
-		messages.enqueue(new Message("Hmm. There are much more bats than I remember...", new Vector2(8, 0), Assets.instance.survivor.survivor));
+		messages.enqueue(new Message("How did I get here? Its so cold...", new Vector2(0, 0), Assets.instance.survivor.survivor));
+		messages.enqueue(new Message("So many bats... I better be careful...", new Vector2(15, 0), Assets.instance.survivor.survivor));
 		messages.enqueue(new NullMessage());
-		levels.add(level1);
 		
 		messages = new MessageQueue();
 		Level level2 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), new PlatformRock(), "../core/assets/levels/level02.png", messages);
+		messages.enqueue(new Message("The dog that stole my shirt should be somewhere around here...", new Vector2(0, 0), Assets.instance.survivor.survivor));
+		messages.enqueue(new Message("That's my lore. Now move me human and pick dem coins up.", new Vector2(0, 0), Assets.instance.survivor.survivor));
+		messages.enqueue(new Message("Yeah, just like that. Mmmm.", new Vector2(7, 0), Assets.instance.survivor.survivor));
+		messages.enqueue(new NullMessage());
 		
-		levels.add(level1);
 		levels.add(level2);
+		levels.add(level1);
 	}
 	
 	public void nextLevel()
@@ -183,7 +186,7 @@ public class LevelLoader
 						Platform platform = (Platform)obj;
 						platform.regMiddle = currentLevel.platform.regMiddle;
 						platform.position.set(pixelX, baseHeight);
-						platform.currentVelocity.x = 2f;
+						platform.currentVelocity.x = 1.75f;
 						platforms.add(platform);
 					} 
 					else 
@@ -201,7 +204,7 @@ public class LevelLoader
 						platform.regMiddle = currentLevel.platform.regMiddle;
 						platform.position.set(pixelX, baseHeight);
 						platform.maxVelocity.y = 10f;
-						platform.currentVelocity.y = -2f;
+						platform.currentVelocity.y = -1.75f;
 						platforms.add(platform);
 					} 
 					else 
@@ -344,7 +347,8 @@ public class LevelLoader
 				{
 					coin = new Coin();
 				}
-				coin.position = enemy.position;
+				coin.position.x = enemy.position.x + enemy.origin.x;
+				coin.position.y = enemy.position.y;
 				coins.add(coin);
 			}
 			enemyIndex++;
