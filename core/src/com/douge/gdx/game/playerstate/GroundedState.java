@@ -40,7 +40,6 @@ public class GroundedState extends PlayerState
 				player.currentVelocity.x = Math.min(player.currentVelocity.x + player.currentFriction * deltaTime, 0);
 				player.currentParticleEffect.setPosition(player.position.x + player.bounds.width, player.position.y);
 			}
-			player.currentParticleEffect.start();
 		}
 
 		// Make sure the object's velocity does not exceed the
@@ -53,6 +52,7 @@ public class GroundedState extends PlayerState
 			if(player.activeMovement)
 			{
 				player.currentAnimation = Assets.instance.survivor.runAnimation;
+				player.currentParticleEffect.start();
 			}
 		}
 		
@@ -79,6 +79,7 @@ public class GroundedState extends PlayerState
 		{
 			player.currentVelocity.x = platform.currentVelocity.x;
 			player.currentFriction = 0;
+			player.currentParticleEffect.allowCompletion();
 			player.activeMovement = false;
 		}
 	}
