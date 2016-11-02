@@ -201,7 +201,7 @@ public class LevelLoader
 						platform.regMiddle = currentLevel.platform.regMiddle;
 						platform.position.set(pixelX, baseHeight);
 						platform.maxVelocity.y = 10f;
-						platform.currentVelocity.y = -3.75f;
+						platform.currentVelocity.y = -2f;
 						platforms.add(platform);
 					} 
 					else 

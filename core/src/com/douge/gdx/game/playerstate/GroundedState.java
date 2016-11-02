@@ -50,7 +50,10 @@ public class GroundedState extends PlayerState
 		if (player.currentVelocity.x != 0) 
 		{
 			player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
-			player.currentAnimation = Assets.instance.survivor.runAnimation;
+			if(player.activeMovement)
+			{
+				player.currentAnimation = Assets.instance.survivor.runAnimation;
+			}
 		}
 		
 		if (player.timeLeftJumpPowerup > 0) 
@@ -76,6 +79,7 @@ public class GroundedState extends PlayerState
 		{
 			player.currentVelocity.x = platform.currentVelocity.x;
 			player.currentFriction = 0;
+			player.activeMovement = false;
 		}
 	}
 

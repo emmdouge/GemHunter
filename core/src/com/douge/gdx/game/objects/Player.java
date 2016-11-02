@@ -42,6 +42,8 @@ public class Player extends AbstractGameObject
 	
 	public VIEW_DIRECTION viewDirection;
 
+	public boolean activeMovement = false;
+	
 	public int lives;
 	
 	public ParticleEffect currentParticleEffect;

@@ -363,10 +363,12 @@ public class WorldController extends InputAdapter
 				if (Gdx.input.isKeyPressed(Keys.LEFT)) 
 				{
 					levelLoader.player.currentVelocity.x = -levelLoader.player.maxVelocity.x;
+					levelLoader.player.activeMovement = true;
 				} 
 				else if (Gdx.input.isKeyPressed(Keys.RIGHT)) 
 				{
 					levelLoader.player.currentVelocity.x = levelLoader.player.maxVelocity.x;
+					levelLoader.player.activeMovement = true;
 				} 
 				levelLoader.player.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed);
 			}
