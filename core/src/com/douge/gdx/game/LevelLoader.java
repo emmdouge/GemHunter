@@ -29,6 +29,8 @@ import com.douge.gdx.game.objects.RedCoin;
 import com.douge.gdx.game.objects.Trees;
 import com.douge.gdx.game.objects.Platform;
 import com.douge.gdx.game.objects.BlackOverlay;
+import com.douge.gdx.game.screen.GameScreen;
+import com.douge.gdx.game.screen.transition.DirectedGame;
 
 /**
  * Level 1 of the game
@@ -38,10 +40,13 @@ import com.douge.gdx.game.objects.BlackOverlay;
 public class LevelLoader 
 {
 	public static final String TAG = LevelLoader.class.getName();
+
+	public static LevelLoader instance = new LevelLoader();
 	
 	//objects
 	public Player player; 
 	public Array<Coin> coins; 
+	public RedCoin redCoin;
 	public Array<JumpPotion> jumpPotion; 
 	public Array<Platform> platforms;
 	public Array<NullGameObject> reversingBoxes;	
@@ -58,11 +63,19 @@ public class LevelLoader
 	public Trees trees;
 	public BlackOverlay waterOverlay;
 
+	public DirectedGame game;
 	
-	public LevelLoader () 
+	private LevelLoader () 
 	{
-		initLevels();
-		init(0);
+
+	}
+	
+	public LevelLoader init(DirectedGame game)
+	{
+		instance.game = game;
+		instance.initLevels();
+		instance.initCurrentLevel(instance.currentLevelIndex);	
+		return instance;
 	}
 	
 	private void initLevels()
@@ -89,10 +102,11 @@ public class LevelLoader
 	public void nextLevel()
 	{
 		currentLevelIndex++;
-		init(currentLevelIndex);
+		initCurrentLevel(currentLevelIndex);
+		game.setScreen(new GameScreen(game));
 	}
 	
-	private void init(int currentLevelIndex) 
+	private void initCurrentLevel(int currentLevelIndex) 
 	{
 		this.currentLevelIndex  = currentLevelIndex;
 		
@@ -243,6 +257,15 @@ public class LevelLoader
 			          obj = new Coin(); 
 			          obj.position.set(pixelX + obj.origin.x,baseHeight); 
 			          coins.add((Coin)obj); 
+				}
+				
+				// gold coin
+				else if (BLOCK_TYPE.ITEM_RED_COIN.sameColor(currentPixel)) 
+				{
+			          obj = new RedCoin(); 
+			          obj.position.set(pixelX + obj.origin.x,baseHeight); 
+			          coins.add((RedCoin)obj);
+			          redCoin = (RedCoin)obj;
 				}
 				
 				// slime

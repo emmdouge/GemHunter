@@ -1,23 +1,33 @@
-package com.douge.gdx.game.screens;
+package com.douge.gdx.game.screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.douge.gdx.game.WorldController;
 import com.douge.gdx.game.WorldRenderer;
+import com.douge.gdx.game.screen.transition.DirectedGame;
 import com.douge.gdx.game.utils.GamePreferences;
 
-public class GameScreen extends AbstractGameScreen {
+public class GameScreen extends AbstractGameScreen 
+{
 	private static final String TAG = GameScreen.class.getName();
 	private WorldController worldController;
 	private WorldRenderer worldRenderer;
 	private boolean paused;
 
-	public GameScreen(Game game) 
+	public GameScreen(DirectedGame game) 
 	{
 		super(game);
 	}
-
+	
+	@Override
+	public InputProcessor getInputProcessor () 
+	{
+		return worldController;
+	}
+	
+	
 	@Override
 	public void render(float deltaTime) 
 	{

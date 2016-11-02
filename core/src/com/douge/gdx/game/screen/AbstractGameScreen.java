@@ -1,14 +1,18 @@
-package com.douge.gdx.game.screens;
+package com.douge.gdx.game.screen;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.douge.gdx.game.assets.Assets;
+import com.douge.gdx.game.screen.transition.DirectedGame;
 
-public abstract class AbstractGameScreen implements Screen {
-	protected Game game;
+public abstract class AbstractGameScreen implements Screen 
+{
+	protected DirectedGame game;
 
-	public AbstractGameScreen(Game game) {
+	public AbstractGameScreen(DirectedGame game) 
+	{
 		this.game = game;
 	}
 
@@ -22,11 +26,15 @@ public abstract class AbstractGameScreen implements Screen {
 
 	public abstract void pause();
 
-	public void resume() {
+	public void resume() 
+	{
 		Assets.instance.init(new AssetManager());
 	}
 
-	public void dispose() {
+	public void dispose() 
+	{
 		Assets.instance.dispose();
 	}
+	
+	public abstract InputProcessor getInputProcessor ();
 }

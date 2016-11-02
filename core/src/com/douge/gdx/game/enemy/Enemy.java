@@ -13,7 +13,7 @@ import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.assets.enemy.AssetEnemy;
 import com.douge.gdx.game.enemystate.EnemyStateContext;
 import com.douge.gdx.game.objects.AbstractGameObject;
-import com.douge.gdx.game.screens.CharacterSkin;
+import com.douge.gdx.game.screen.CharacterSkin;
 import com.douge.gdx.game.utils.GamePreferences;
 
 public abstract class Enemy extends AbstractGameObject

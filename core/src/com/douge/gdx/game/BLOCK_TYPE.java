@@ -21,6 +21,7 @@ public enum BLOCK_TYPE
 	
 	ITEM_JUMP_POTION(255, 0, 255), // purple
 	ITEM_GOLD_COIN(255, 255, 0), // yellow
+	ITEM_RED_COIN(255, 127, 39),
 	
 	ENEMY_SKELETON(195, 195, 195),
 	ENEMY_BAT(128, 64, 0),

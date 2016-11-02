@@ -8,11 +8,15 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.douge.gdx.game.assets.Assets;
-import com.douge.gdx.game.screens.MenuScreen;
+import com.douge.gdx.game.screen.GameScreen;
+import com.douge.gdx.game.screen.MenuScreen;
+import com.douge.gdx.game.screen.transition.DirectedGame;
+import com.douge.gdx.game.screen.transition.Fade;
+import com.douge.gdx.game.screen.transition.ScreenTransition;
 import com.douge.gdx.game.utils.AudioManager;
 import com.douge.gdx.game.utils.GamePreferences;
 
-public class DougeGdxGame extends Game
+public class DougeGdxGame extends DirectedGame
 {
 
 	private WorldController worldController;
@@ -33,6 +37,7 @@ public class DougeGdxGame extends Game
 	    AudioManager.instance.play(Assets.instance.music.song01); 
 	    
 		// Start game at menu screen
-		setScreen(new MenuScreen(this));
+		ScreenTransition fade = Fade.init(0.75f);
+		setScreen(new MenuScreen(this), fade);
 	}
 }

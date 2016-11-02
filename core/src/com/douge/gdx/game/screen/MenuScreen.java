@@ -1,7 +1,8 @@
-package com.douge.gdx.game.screens;
+package com.douge.gdx.game.screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -23,6 +24,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.douge.gdx.game.Constants;
 import com.douge.gdx.game.assets.Assets;
+import com.douge.gdx.game.screen.transition.DirectedGame;
+import com.douge.gdx.game.screen.transition.Fade;
+import com.douge.gdx.game.screen.transition.ScreenTransition;
 import com.douge.gdx.game.utils.AudioManager;
 import com.douge.gdx.game.utils.GamePreferences;
 
@@ -59,8 +63,15 @@ public class MenuScreen extends AbstractGameScreen {
 	private boolean debugEnabled = false;
 	private float debugRebuildStage;
 
-	public MenuScreen(Game game) {
+	public MenuScreen(DirectedGame game) 
+	{
 		super(game);
+	}
+	
+	@Override
+	public InputProcessor getInputProcessor () 
+	{
+		return stage;
 	}
 
 	@Override
@@ -91,7 +102,6 @@ public class MenuScreen extends AbstractGameScreen {
 	public void show() 
 	{
 		stage = new Stage(new StretchViewport(Constants.VIEWPORT_GUI_WIDTH, Constants.VIEWPORT_GUI_HEIGHT));
-		Gdx.input.setInputProcessor(stage);
 		rebuildStage();
 	}
 
@@ -237,7 +247,8 @@ public class MenuScreen extends AbstractGameScreen {
 	
 	private void onPlayClicked () 
 	{
-		game.setScreen(new GameScreen(game));
+		ScreenTransition fade = Fade.init(0.75f);
+		game.setScreen(new GameScreen(game), fade);
 	}
 	
 	private void onOptionsClicked () 

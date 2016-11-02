@@ -19,14 +19,18 @@ import com.douge.gdx.game.objects.Coin;
 import com.douge.gdx.game.objects.JumpPotion;
 import com.douge.gdx.game.objects.Platform;
 import com.douge.gdx.game.objects.RedCoin;
-import com.douge.gdx.game.screens.MenuScreen;
+import com.douge.gdx.game.screen.GameScreen;
+import com.douge.gdx.game.screen.MenuScreen;
+import com.douge.gdx.game.screen.transition.DirectedGame;
+import com.douge.gdx.game.screen.transition.Fade;
+import com.douge.gdx.game.screen.transition.ScreenTransition;
 import com.douge.gdx.game.utils.AudioManager;
 
 public class WorldController extends InputAdapter
 {
 	private static final String TAG = WorldController.class.getName();
 	
-	private Game game;
+	private DirectedGame game;
 	
 	public LevelLoader levelLoader;
 	public int score;
@@ -47,7 +51,7 @@ public class WorldController extends InputAdapter
 	 * initializes game and level
 	 * @param game
 	 */
-	public WorldController(Game game)
+	public WorldController(DirectedGame game)
 	{
 		this.game = game;
 		init();
@@ -62,20 +66,19 @@ public class WorldController extends InputAdapter
 		cameraHelper = new CameraHelper();
 	    timeLeftGameOverDelay = 0; 
 	    livesVisual = Constants.LIVES_START;
-
-		initLevel();
+		score = 0;
+		scoreVisual = 0;
+		initLevelLoader();
 		message = levelLoader.currentLevel.messages.head;
 	}
 	
 	/**
 	 * initializes level and sets cameraHelper's target to the player
 	 */
-	private void initLevel () 
+	private void initLevelLoader () 
 	{
-		score = 0;
-		scoreVisual = 0;
-		levelLoader = new LevelLoader();
-		cameraHelper.setTarget(levelLoader.player); 
+		levelLoader = LevelLoader.instance.init(game);
+		cameraHelper.setTarget(levelLoader.player);
 	}
 	
 
@@ -116,7 +119,7 @@ public class WorldController extends InputAdapter
 			}
 			else
 			{
-				initLevel();
+				game.setScreen(new GameScreen(game));
 			}
 		}
 		levelLoader.trees.updateScrollPosition(cameraHelper.getPosition());
@@ -205,7 +208,6 @@ public class WorldController extends InputAdapter
 		{
 			levelLoader.nextLevel();
 			cameraHelper.setTarget(levelLoader.player);
-			
 		}
 		Gdx.app.log(TAG, "Gold coin collected");
 	};
@@ -446,6 +448,7 @@ public class WorldController extends InputAdapter
 	private void backToMenu () 
 	{
 		// switch to menu screen
-		game.setScreen(new MenuScreen(game));
+		ScreenTransition fade = Fade.init(0.75f);
+		game.setScreen(new GameScreen(game), fade);
 	}
 }

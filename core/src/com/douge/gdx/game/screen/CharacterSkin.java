@@ -1,4 +1,4 @@
-package com.douge.gdx.game.screens;
+package com.douge.gdx.game.screen;
 
 import com.badlogic.gdx.graphics.Color;
 

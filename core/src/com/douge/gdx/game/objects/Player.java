@@ -12,7 +12,7 @@ import com.douge.gdx.game.effects.AfterImage;
 import com.douge.gdx.game.effects.AfterImage.Node;
 import com.douge.gdx.game.playerstate.PlayerStateContext;
 import com.douge.gdx.game.utils.GamePreferences;
-import com.douge.gdx.game.screens.CharacterSkin;
+import com.douge.gdx.game.screen.CharacterSkin;
 
 
 public class Player extends AbstractGameObject
