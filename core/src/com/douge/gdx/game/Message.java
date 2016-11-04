@@ -115,7 +115,6 @@ public class Message
 
 	private void renderButton(SpriteBatch batch) 
 	{
-		System.out.println("im called" + stateTime);
 		TextureRegion reg = Assets.instance.tiles.buttonPress.getKeyFrame(stateTime, true);
 		batch.draw(reg.getTexture(), 
 				box.x + 525, box.y + 11, 

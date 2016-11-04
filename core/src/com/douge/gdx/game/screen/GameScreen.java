@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
+import com.douge.gdx.game.LevelLoader;
 import com.douge.gdx.game.WorldController;
 import com.douge.gdx.game.WorldRenderer;
 import com.douge.gdx.game.screen.transition.DirectedGame;

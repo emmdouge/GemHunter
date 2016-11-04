@@ -103,16 +103,11 @@ public class LevelLoader
 	{
 		currentLevelIndex++;
 		initCurrentLevel(currentLevelIndex);
-		game.setScreen(new GameScreen(game));
 	}
 	
 	private void initCurrentLevel(int currentLevelIndex) 
 	{
 		this.currentLevelIndex  = currentLevelIndex;
-		
-	    // player character 
-	    player = null; 
-
 	    currentLevel = levels.get(currentLevelIndex);
 	    
 	    // objects 

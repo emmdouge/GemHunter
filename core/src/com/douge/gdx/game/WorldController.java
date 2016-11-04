@@ -62,13 +62,15 @@ public class WorldController extends InputAdapter
 	 */
 	private void init()
 	{
+		initLevelLoader();
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
+		cameraHelper.setTarget(levelLoader.player);
+		cameraHelper.setPosition(levelLoader.redCoin.position.x, levelLoader.redCoin.position.y);
 	    timeLeftGameOverDelay = 0; 
 	    livesVisual = Constants.LIVES_START;
 		score = 0;
 		scoreVisual = 0;
-		initLevelLoader();
 		message = levelLoader.currentLevel.messages.head;
 	}
 	
@@ -78,7 +80,6 @@ public class WorldController extends InputAdapter
 	private void initLevelLoader () 
 	{
 		levelLoader = LevelLoader.instance.init(game);
-		cameraHelper.setTarget(levelLoader.player);
 	}
 	
 
@@ -147,10 +148,10 @@ public class WorldController extends InputAdapter
 		{
 			float camMoveSpeed = 5 * deltaTime;
 			float camMoveSpeedAccelerationFactor = 5;
-			if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
-			{
-				camMoveSpeed *=camMoveSpeedAccelerationFactor;
-			}
+//			if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
+//			{
+//				camMoveSpeed *=camMoveSpeedAccelerationFactor;
+//			}
 			if (Gdx.input.isKeyPressed(Keys.LEFT)) 
 			{
 				moveCamera(-camMoveSpeed,0);
@@ -208,6 +209,8 @@ public class WorldController extends InputAdapter
 		{
 			levelLoader.nextLevel();
 			cameraHelper.setTarget(levelLoader.player);
+			cameraHelper.setPosition(levelLoader.player.position.x, levelLoader.player.position.y);
+			game.setScreen(new GameScreen(game));
 		}
 		Gdx.app.log(TAG, "Gold coin collected");
 	};

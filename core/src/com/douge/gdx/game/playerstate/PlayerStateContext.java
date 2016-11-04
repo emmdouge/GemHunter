@@ -75,7 +75,6 @@ public class PlayerStateContext
 	
 	public void execute(float deltaTime)
 	{
-		Gdx.app.log(currentState.tag, "executed");
 		currentState.execute(deltaTime);
 	}
 
