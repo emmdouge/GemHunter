@@ -86,15 +86,14 @@ public class LevelLoader
 	    levels = new ArrayList<Level>();
 	    
 		Level level1 = new Level(BLOCK_TYPE.STAR_BACK.getColor(), new PlatformSnow(), "../core/assets/levels/level01.png", messages);
-		messages.enqueue(new Message("How did I get here? Its so cold...", new Vector2(0, 0), Assets.instance.survivor.survivor));
-		messages.enqueue(new Message("So many bats... I better be careful...", new Vector2(15, 0), Assets.instance.survivor.survivor));
+		messages.enqueue(new Message("Press F to Attack!", new Vector2(0, 0), Assets.instance.survivor.survivor));
+		messages.enqueue(new Message("Press Left Shift to Dash!", new Vector2(15, 0), Assets.instance.survivor.survivor));
 		messages.enqueue(new NullMessage());
 		
 		messages = new MessageQueue();
 		Level level2 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), new PlatformRock(), "../core/assets/levels/level02.png", messages);
-		messages.enqueue(new Message("The dog that stole my shirt should be somewhere around here...", new Vector2(0, 0), Assets.instance.survivor.survivor));
-		messages.enqueue(new Message("That's my lore. Now move me human and pick dem coins up.", new Vector2(0, 0), Assets.instance.survivor.survivor));
-		messages.enqueue(new Message("Yeah, just like that. Mmmm.", new Vector2(7, 0), Assets.instance.survivor.survivor));
+		messages.enqueue(new Message("Press F to Attack!", new Vector2(0, 0), Assets.instance.survivor.survivor));
+		messages.enqueue(new Message("Press Left Shift to Dash!", new Vector2(0, 0), Assets.instance.survivor.survivor));
 		messages.enqueue(new NullMessage());
 		
 		levels.add(level2);
