@@ -45,6 +45,7 @@ public class Player extends AbstractGameObject
 	public boolean activeMovement = false;
 	
 	public int lives;
+	public int fireballs;
 	
 	public ParticleEffect currentParticleEffect;
 	
@@ -57,6 +58,7 @@ public class Player extends AbstractGameObject
 		dimension.set(1, 1);
 		
 		lives = Constants.LIVES_START;
+		fireballs = Constants.FIREBALLS_START;
 		
 		// Center image on game object
 		origin.set(dimension.x / 2, dimension.y / 2);

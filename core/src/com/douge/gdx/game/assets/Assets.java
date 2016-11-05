@@ -39,6 +39,7 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetGoblin goblin;
 	public AssetSounds sounds; 
 	public AssetMusic music; 
+	public AssetUI ui;
 	
 	private Assets()
 	{
@@ -118,6 +119,7 @@ public class Assets implements Disposable, AssetErrorListener
 		
 		atlas = assetManager.get(Constants.TILE_ATLAS_PATH);
 		tiles = new AssetTiles(atlas);
+		ui = new AssetUI(atlas);
 		
 		atlas = assetManager.get(Constants.CANYONBUNNY_PATH);
 		levelDecoration = new AssetLevelDecoration(atlas);

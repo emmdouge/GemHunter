@@ -22,7 +22,7 @@ public class Constants
 	public static final float ITEM_GREENHEART_POWERUP_DURATION = 9; 
 	
 	// Amount of extra lives at level start
-	public static final int LIVES_START = 3;
+	public static final int LIVES_START = 10;
 	
 	public static final String ATLAS_PATH = "../core/assets/images/mygame.atlas";
 	public static final String CANYONBUNNY_PATH = "../core/assets/images/canyonbunny.atlas";
@@ -45,4 +45,5 @@ public class Constants
 	public static final String SKIN_CANYONBUNNY_UI = "../core/assets/images/game-ui.json";
 	
 	public static final String PREFERENCES = "canyonbunny.prefs";
+	public static final int FIREBALLS_START = 10;
 }

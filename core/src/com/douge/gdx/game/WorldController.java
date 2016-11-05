@@ -36,6 +36,7 @@ public class WorldController extends InputAdapter
 	public int score;
 	public float scoreVisual;
 	public float livesVisual;
+	public int fireballsVisual;
 	
 	public CameraHelper cameraHelper;
 	
@@ -46,6 +47,7 @@ public class WorldController extends InputAdapter
 	
 
 	public Message message;
+
 	
 	/**
 	 * initializes game and level
@@ -69,8 +71,9 @@ public class WorldController extends InputAdapter
 		cameraHelper.setPosition(levelLoader.redCoin.position.x, levelLoader.redCoin.position.y);
 	    timeLeftGameOverDelay = 0; 
 	    livesVisual = Constants.LIVES_START;
-		score = 0;
+	    fireballsVisual = Constants.FIREBALLS_START;
 		scoreVisual = 0;
+		score = 0;
 		message = levelLoader.currentLevel.messages.head;
 	}
 	
@@ -126,7 +129,7 @@ public class WorldController extends InputAdapter
 		levelLoader.trees.updateScrollPosition(cameraHelper.getPosition());
 		if (livesVisual> levelLoader.player.lives)
 		{
-			livesVisual = Math.max(levelLoader.player.lives, livesVisual - 1 * deltaTime);
+			livesVisual = Math.max(levelLoader.player.lives, livesVisual-deltaTime);
 		}
 		if (scoreVisual< score)
 		{

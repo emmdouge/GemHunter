@@ -27,7 +27,7 @@ public class JumpPotion extends AbstractGameObject
 	
 	public void render (SpriteBatch batch) 
 	{
-		//batch.setColor(Color.YELLOW);
+		batch.setColor(Color.YELLOW);
 		if (collected) 
 		{
 			return;

@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
@@ -78,12 +80,6 @@ public class WorldRenderer implements Disposable
 		batch.end();
 	}	
 	
-	private void renderText()
-	{
-		if(worldController.message != null)
-		worldController.message.renderText(batch);
-	}
-	
 	/**
 	 * Renders the world
 	 */
@@ -95,12 +91,64 @@ public class WorldRenderer implements Disposable
 	}
 	
 	/**
+	 * Draws the GUI
+	 */
+	private void renderGui () 
+	{
+		batch.setProjectionMatrix(cameraGUI.combined);
+		
+		// draw collected gold coins icon + text
+		// (anchored to top left edge)
+		renderGuiScore();
+		
+	    // draw collected feather icon (anchored to top left edge) 
+	    renderGuiJumpPowerup(batch); 
+		
+	    //render the 3 connected left bars
+	    renderLeftBar();
+	    
+		// draw extra lives icon + text (anchored to top right edge)
+		renderGuiHealth();
+		
+		// draw FPS text (anchored to bottom right edge)
+		if (GamePreferences.instance.showFpsCounter)
+		{
+			renderGuiFpsCounter();
+		}
+		
+		renderText();
+		
+	    // draw game over text 
+	    renderGuiGameOverMessage(batch); 
+	}
+	
+	private void renderLeftBar()
+	{
+		TextureRegion reg = Assets.instance.ui.leftEdgeOfBars;
+		batch.draw(reg.getTexture(), 
+				-10, 0, 
+				0, 0, 
+				70f, 70f,
+				1f, 1f, 
+				0, 
+				reg.getRegionX(), reg.getRegionY(),
+				reg.getRegionWidth(), reg.getRegionHeight(), 
+				false, true);
+	}
+	
+	private void renderText()
+	{
+		worldController.message.renderText(batch);
+	}
+
+	
+	/**
 	 * draw collected gold coins icon + text
 	* anchored to top left edge
 	 */
 	private void renderGuiScore () 
 	{
-		float x = -15;
+		float x = 500;
 		float y = -15;
 		float offsetX = 50;
 		float offsetY = 50;
@@ -123,10 +171,11 @@ public class WorldRenderer implements Disposable
 	/**
 	 * draw extra lives icon + text (anchored to top right edge)
 	 */
-	private void renderGuiExtraLive () 
+	private void renderGuiHealth () 
 	{
-		float x = cameraGUI.viewportWidth - 50 - Constants.LIVES_START * 50;
-		float y = -15;
+		float x = 20;
+		System.out.println(x);
+		float y = -37;
 		
 		for (int i = 0; i < Constants.LIVES_START; i++) 
 		{
@@ -135,34 +184,84 @@ public class WorldRenderer implements Disposable
 			if(playerHasALife)
 			{
 				//draw in full color
-				batch.setColor(1, 1, 1, 1);
+				batch.setColor(Color.RED);
 			}
 			else if(playerIsMissingALife)
 			{
 				batch.setColor(0.5f, 0.5f, 0.5f, 0.5f);
 			}
-			batch.draw(Assets.instance.heart.heart,
-					x + i * 50, y, 
+			batch.draw(Assets.instance.ui.block,
+					x + i * 30, y, 
 					50, 50, 
 					120, 100, 
-					0.35f, -0.35f,
+					0.2f, -0.2f,
 					0);
 		}
 		
-		if (worldController.levelLoader.player.lives >= 0 && worldController.livesVisual > worldController.levelLoader.player.lives) 
+		//animation that plays when i lose a life
+		boolean playerStillAlive = worldController.levelLoader.player.lives > 0;
+		boolean timeLeftAfterLosingLife = worldController.livesVisual > worldController.levelLoader.player.lives;
+		if (playerStillAlive && timeLeftAfterLosingLife) 
 		{
-				int i = worldController.levelLoader.player.lives;
-				float alphaColor = Math.max(0, worldController.livesVisual - worldController.levelLoader.player.lives - 0.5f);
-				float alphaScale = 0.35f * (2 + worldController.levelLoader.player.lives - worldController.livesVisual) * 2;
+				int currentLifeIndex = worldController.levelLoader.player.lives;
+				float difference = worldController.livesVisual - worldController.levelLoader.player.lives;
+				float alphaColor = Math.max(0, difference - 0.5f);
+				float alphaScale = 0.35f * (2 + difference) * 2;
 				float alphaRotate = -45 * alphaColor;
 				batch.setColor(1.0f, 0.7f, 0.7f, alphaColor);
-				batch.draw(Assets.instance.heart.heart,
-						x + i * 50, y, 
+				batch.draw(Assets.instance.ui.block,
+						x + currentLifeIndex * 25, y, 
 						50, 50, 
-						120, 100, alphaScale, -alphaScale,
+						120, 100, 
+						alphaScale, -alphaScale,
 						alphaRotate);
 				batch.setColor(1, 1, 1, 1);
 		}
+		
+		batch.setColor(1, 1, 1, 1);
+
+		y = -15;
+		for (int currentFireball = 0; currentFireball < Constants.FIREBALLS_START; currentFireball++) 
+		{
+			boolean playerHasAFireball = currentFireball < worldController.levelLoader.player.fireballs;
+			boolean playerIsMissingAFireBall = !playerHasAFireball;
+			if(playerHasAFireball)
+			{
+				//draw in full color
+				batch.setColor(Color.PURPLE);
+			}
+			else if(playerIsMissingAFireBall)
+			{
+				batch.setColor(0.5f, 0.5f, 0.5f, 0.5f);
+			}
+			batch.draw(Assets.instance.ui.block,
+					x + currentFireball * 30, y, 
+					50, 50, 
+					120, 100, 
+					0.2f, -0.2f,
+					0);
+		}
+		
+		//animation that plays when i lose a life
+		boolean playerHasFireballs = worldController.levelLoader.player.lives > 0;
+		boolean timeLeftAfterLosingAFireball = worldController.livesVisual > worldController.levelLoader.player.lives;
+		if (playerHasFireballs && timeLeftAfterLosingAFireball) 
+		{
+				int currentFireballIndex = worldController.levelLoader.player.fireballs;
+				float difference = worldController.fireballsVisual - worldController.levelLoader.player.fireballs;
+				float alphaColor = Math.max(0, difference - 0.5f);
+				float alphaScale = 0.35f * (2 + difference) * 2;
+				float alphaRotate = -45 * alphaColor;
+				batch.setColor(1.0f, 0.7f, 0.7f, alphaColor);
+				batch.draw(Assets.instance.ui.block,
+						x + currentFireballIndex * 25, y, 
+						50, 50, 
+						120, 100, 
+						alphaScale, -alphaScale,
+						alphaRotate);
+				batch.setColor(1, 1, 1, 1);
+		}
+		batch.setColor(1, 1, 1, 1);
 	}
 	
 	/**
@@ -194,35 +293,7 @@ public class WorldRenderer implements Disposable
 		fpsFont.draw(batch, "FPS: " + fps, x, y);
 		fpsFont.setColor(1, 1, 1, 1); // white
 	}
-	
-	/**
-	 * Draws the GUI
-	 */
-	private void renderGui () 
-	{
-		batch.setProjectionMatrix(cameraGUI.combined);
-		
-		// draw collected gold coins icon + text
-		// (anchored to top left edge)
-		renderGuiScore();
-		
-	    // draw collected feather icon (anchored to top left edge) 
-	    renderGuiJumpPowerup(batch); 
-		
-		// draw extra lives icon + text (anchored to top right edge)
-		renderGuiExtraLive();
-		
-		// draw FPS text (anchored to bottom right edge)
-		if (GamePreferences.instance.showFpsCounter)
-		{
-			renderGuiFpsCounter();
-		}
-		
-		renderText();
-		
-	    // draw game over text 
-	    renderGuiGameOverMessage(batch); 
-	}
+
 	
 	private void renderGuiGameOverMessage (SpriteBatch batch) 
 	{
@@ -259,7 +330,7 @@ public class WorldRenderer implements Disposable
 					batch.setColor(1, 1, 1, 0.5f);
 				}
 			}
-			batch.setColor(Color.GREEN);
+			batch.setColor(Color.YELLOW);
 			batch.draw(Assets.instance.gems.jumpGem,
 					x, y, 
 					50, 50, 

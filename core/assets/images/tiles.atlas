@@ -6,7 +6,7 @@ filter: Nearest,Nearest
 repeat: none
 12
   rotate: false
-  xy: 955, 459
+  xy: 213, 199
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -20,49 +20,49 @@ repeat: none
   index: -1
 14
   rotate: false
-  xy: 188, 165
+  xy: 889, 355
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 15
   rotate: false
-  xy: 188, 131
+  xy: 955, 425
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 16
   rotate: false
-  xy: 222, 199
+  xy: 989, 437
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 24
   rotate: false
-  xy: 889, 355
+  xy: 70, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 25
   rotate: false
-  xy: 955, 425
+  xy: 889, 321
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 26
   rotate: false
-  xy: 989, 459
+  xy: 104, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 27
   rotate: false
-  xy: 70, 2
+  xy: 889, 287
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -76,14 +76,14 @@ repeat: none
   index: -1
 5
   rotate: false
-  xy: 188, 199
+  xy: 889, 389
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 6
   rotate: false
-  xy: 889, 389
+  xy: 955, 459
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -97,7 +97,7 @@ Pixel Treasure Chest Closed
   index: -1
 greybrick
   rotate: false
-  xy: 188, 97
+  xy: 138, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -125,14 +125,14 @@ press2
   index: -1
 snow1
   rotate: false
-  xy: 222, 165
+  xy: 889, 253
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 snow2
   rotate: false
-  xy: 222, 131
+  xy: 889, 219
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -163,5 +163,26 @@ spike D
   xy: 274, 165
   size: 159, 326
   orig: 159, 326
+  offset: 0, 0
+  index: -1
+uiBlock
+  rotate: false
+  xy: 435, 174
+  size: 8, 16
+  orig: 8, 16
+  offset: 0, 0
+  index: -1
+uiLeftbars
+  rotate: false
+  xy: 188, 167
+  size: 23, 64
+  orig: 23, 64
+  offset: 0, 0
+  index: -1
+uiRightEnd
+  rotate: false
+  xy: 989, 471
+  size: 33, 20
+  orig: 33, 20
   offset: 0, 0
   index: -1
