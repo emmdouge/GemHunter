@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.assets.Assets;
+import com.douge.gdx.game.effect.HealthBoostEffect;
+import com.douge.gdx.game.effect.JumpBoostEffect;
 import com.douge.gdx.game.enemy.Bat;
 import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.enemy.BigGoblin;
@@ -22,7 +24,7 @@ import com.douge.gdx.game.objects.PlatformSnow;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.Clouds;
 import com.douge.gdx.game.objects.Coin;
-import com.douge.gdx.game.objects.JumpPotion;
+import com.douge.gdx.game.objects.Gem;
 import com.douge.gdx.game.objects.BackgroundTile;
 import com.douge.gdx.game.objects.PlatformRock;
 import com.douge.gdx.game.objects.RedCoin;
@@ -45,9 +47,9 @@ public class LevelLoader
 	
 	//objects
 	public Player player; 
-	public Array<Coin> coins; 
+	public Array<Coin> coins;
 	public RedCoin redCoin;
-	public Array<JumpPotion> jumpPotion; 
+	public Array<Gem> gems; 
 	public Array<Platform> platforms;
 	public Array<NullGameObject> reversingBoxes;	
 	public Array<BackgroundTile> backgroundTiles;
@@ -112,7 +114,7 @@ public class LevelLoader
 	    
 	    // objects 
 	    coins = new Array<Coin>(); 
-	    jumpPotion = new Array<JumpPotion>(); 
+	    gems = new Array<Gem>(); 
 		platforms = new Array<Platform>();
 		reversingBoxes = new Array<NullGameObject>();
 		backgroundTiles = new Array<BackgroundTile>();
@@ -238,12 +240,12 @@ public class LevelLoader
 			          player = (Player)obj; 
 				}
 				
-				// feather
-				else if (BLOCK_TYPE.ITEM_JUMP_POTION.sameColor(currentPixel)) 
+				// jump gem
+				else if (BLOCK_TYPE.ITEM_JUMP_GEM.sameColor(currentPixel)) 
 				{
-			          obj = new JumpPotion(); 
+			          obj = new Gem(Assets.instance.gems.jumpGem, new JumpBoostEffect()); 
 			          obj.position.set(pixelX, baseHeight); 
-			          jumpPotion.add((JumpPotion)obj); 
+			          gems.add((Gem)obj); 
 				}
 		
 				// gold coin
@@ -345,7 +347,7 @@ public class LevelLoader
 		for(Coin goldCoin : coins)
 		goldCoin.update(deltaTime);
 		
-		for(JumpPotion greenHeart : jumpPotion)
+		for(Gem greenHeart : gems)
 		greenHeart.update(deltaTime);
 		
 		for(int i = 0; i < enemies.size; i++)
@@ -365,9 +367,20 @@ public class LevelLoader
 				{
 					coin = new Coin();
 				}
-				coin.position.x = enemy.position.x + enemy.origin.x;
+				coin.position.x = enemy.position.x + (enemy.origin.x/2);
 				coin.position.y = enemy.position.y;
-				coins.add(coin);
+				coins.add(coin);				
+				
+				if(enemy.dropsHealth && !enemy.droppedHealth)	
+				{
+					Gem healthGem = new Gem(Assets.instance.gems.heartGem, new HealthBoostEffect());
+					healthGem.position.x = enemy.position.x + (enemy.origin.x/2);
+					healthGem.position.y = enemy.position.y;
+					gems.add(healthGem);
+					enemy.droppedHealth = true;
+				}
+
+
 			}
 			enemyIndex++;
 		}
@@ -402,7 +415,7 @@ public class LevelLoader
 	    goldCoin.render(batch); 
 	     
 	    // Draw Feathers 
-	    for (JumpPotion greenHeart : jumpPotion) 
+	    for (Gem greenHeart : gems) 
 	    greenHeart.render(batch); 
 	     
 	    batch.setColor(Color.WHITE);

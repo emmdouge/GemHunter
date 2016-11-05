@@ -22,7 +22,7 @@ public class Constants
 	public static final float ITEM_GREENHEART_POWERUP_DURATION = 9; 
 	
 	// Amount of extra lives at level start
-	public static final int LIVES_START = 10;
+	public static final int MAX_LIVES = 10;
 	
 	public static final String ATLAS_PATH = "../core/assets/images/mygame.atlas";
 	public static final String CANYONBUNNY_PATH = "../core/assets/images/canyonbunny.atlas";

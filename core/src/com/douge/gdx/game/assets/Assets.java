@@ -27,7 +27,6 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetFonts fonts;
 	public AssetEnv env;
 	public AssetGoldCoin goldCoin;
-	public AssetHeart heart;
 	public AssetLevelDecoration levelDecoration;
 	public AssetSurvivor survivor;
 	public AssetTiles tiles;
@@ -107,9 +106,6 @@ public class Assets implements Disposable, AssetErrorListener
 		
 		atlas = assetManager.get(Constants.COIN_ATLAS_PATH);
 		goldCoin = new AssetGoldCoin(atlas);
-		
-		atlas = assetManager.get(Constants.HEART_ATLAS_PATH);
-		heart = new AssetHeart(atlas);
 		
 		atlas = assetManager.get(Constants.GOBLIN_ATLAS_PATH);
 		goblin = new AssetGoblin(atlas);

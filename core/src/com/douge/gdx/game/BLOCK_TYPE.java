@@ -19,7 +19,7 @@ public enum BLOCK_TYPE
 	
 	PLAYER_SPAWNPOINT(255, 255, 255), // white
 	
-	ITEM_JUMP_POTION(255, 0, 255), // purple
+	ITEM_JUMP_GEM(255, 0, 255), // purple
 	ITEM_GOLD_COIN(255, 255, 0), // yellow
 	ITEM_RED_COIN(255, 127, 39),
 	

@@ -4,21 +4,24 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.douge.gdx.game.assets.Assets;
+import com.douge.gdx.game.effect.Effect;
 
-public class JumpPotion extends AbstractGameObject
+public class Gem extends AbstractGameObject
 {
-	private TextureRegion regJumpPotion;
+	private TextureRegion regGem;
 	
 	public boolean collected;
+	public Effect effect; 
 	
-	public JumpPotion() 
+	public Gem(TextureRegion gem, Effect effect) 
 	{
+		regGem = gem;
+		this.effect = effect;
 		init();
 	}
 	private void init () 
 	{
 		dimension.set(0.5f, 0.5f);
-		regJumpPotion = Assets.instance.gems.jumpGem;
 	
 		// Set bounding box for collision detection
 		bounds.set(0, 0, dimension.x, dimension.y);
@@ -33,16 +36,14 @@ public class JumpPotion extends AbstractGameObject
 			return;
 		}
 		
-		TextureRegion reg = regJumpPotion;
-		
-		batch.draw(reg.getTexture(), 
+		batch.draw(regGem.getTexture(), 
 				position.x, position.y,
 				origin.x, origin.y, 
 				dimension.x, dimension.y, 
 				scale.x, scale.y,
 				rotation, 
-				reg.getRegionX(), reg.getRegionY(),
-				reg.getRegionWidth(), reg.getRegionHeight(),
+				regGem.getRegionX(), regGem.getRegionY(),
+				regGem.getRegionWidth(), regGem.getRegionHeight(),
 				false, false);
 	}
 	

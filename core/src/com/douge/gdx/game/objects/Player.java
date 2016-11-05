@@ -57,7 +57,7 @@ public class Player extends AbstractGameObject
 	{
 		dimension.set(1, 1);
 		
-		lives = Constants.LIVES_START;
+		lives = Constants.MAX_LIVES;
 		fireballs = Constants.FIREBALLS_START;
 		
 		// Center image on game object

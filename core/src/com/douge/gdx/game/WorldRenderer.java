@@ -174,10 +174,14 @@ public class WorldRenderer implements Disposable
 	private void renderGuiHealth () 
 	{
 		float x = 20;
-		System.out.println(x);
 		float y = -37;
 		
-		for (int i = 0; i < Constants.LIVES_START; i++) 
+		int maxLives = Constants.MAX_LIVES;
+		if(worldController.levelLoader.player.lives > maxLives)
+		{
+			maxLives = worldController.levelLoader.player.lives;
+		}
+		for (int i = 0; i < maxLives; i++) 
 		{
 			boolean playerHasALife = i < worldController.levelLoader.player.lives;
 			boolean playerIsMissingALife = !playerHasALife;

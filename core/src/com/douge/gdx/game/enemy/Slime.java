@@ -10,6 +10,7 @@ public class Slime extends Enemy
 	public Slime(AssetSlime assets) 
 	{
 		super(assets, 0.5f, VIEW_DIRECTION.RIGHT);
+		dropsHealth = true;
 	}
 	
 }

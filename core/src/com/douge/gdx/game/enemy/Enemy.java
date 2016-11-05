@@ -37,12 +37,16 @@ public abstract class Enemy extends AbstractGameObject
 	
 	public boolean isBoss = false;
 	
+	public boolean dropsHealth = false;
+	
 	protected VIEW_DIRECTION flip;
 	
 	public ShapeRenderer shapeRenderer = new ShapeRenderer();
 	
 	//disables player ability to kill enemy
 	public boolean hasBeenKilled = false;
+	
+	public boolean droppedHealth = false;
 	
 	public Enemy(AssetEnemy assetEnemy, float moveSpeed, VIEW_DIRECTION direction) 
 	{

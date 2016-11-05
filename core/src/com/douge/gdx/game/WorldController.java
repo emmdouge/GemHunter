@@ -16,7 +16,7 @@ import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.objects.NullGameObject;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.Coin;
-import com.douge.gdx.game.objects.JumpPotion;
+import com.douge.gdx.game.objects.Gem;
 import com.douge.gdx.game.objects.Platform;
 import com.douge.gdx.game.objects.RedCoin;
 import com.douge.gdx.game.screen.GameScreen;
@@ -70,7 +70,7 @@ public class WorldController extends InputAdapter
 		cameraHelper.setTarget(levelLoader.player);
 		cameraHelper.setPosition(levelLoader.redCoin.position.x, levelLoader.redCoin.position.y);
 	    timeLeftGameOverDelay = 0; 
-	    livesVisual = Constants.LIVES_START;
+	    livesVisual = Constants.MAX_LIVES;
 	    fireballsVisual = Constants.FIREBALLS_START;
 		scoreVisual = 0;
 		score = 0;
@@ -222,13 +222,13 @@ public class WorldController extends InputAdapter
 	 * turns on players jump powerup
 	 * @param jumpPotion
 	 */
-	private void onCollisionPlayerWithJumpPotion(JumpPotion jumpPotion) 
+	private void onCollisionPlayerWithGem(Gem gem) 
 	{
 		AudioManager.instance.play(Assets.instance.sounds.pickupPotion);
-		jumpPotion.collected = true;
-		score += jumpPotion.getScore();
-		levelLoader.player.setJumpPowerup(true);
-		Gdx.app.log(TAG, "Jump Potion collected");
+		gem.collected = true;
+		score += gem.getScore();
+		gem.effect.activate(LevelLoader.instance.player);
+		Gdx.app.log(TAG, "gem collected");
 	};
 	
 	/**
@@ -323,19 +323,19 @@ public class WorldController extends InputAdapter
 		}
 		
 		// Test collision: Bunny Head <-> Feathers
-		for (JumpPotion greenHeart : levelLoader.jumpPotion) 
+		for (Gem gem : levelLoader.gems) 
 		{
-			if (greenHeart.collected) 
+			if (gem.collected) 
 			{
 				continue;
 			}
-			r2.set(greenHeart.position.x, greenHeart.position.y,
-					greenHeart.bounds.width, greenHeart.bounds.height);
+			r2.set(gem.position.x, gem.position.y,
+					gem.bounds.width, gem.bounds.height);
 			if (!r1.overlaps(r2)) 
 			{
 				continue;
 			}
-			onCollisionPlayerWithJumpPotion(greenHeart);
+			onCollisionPlayerWithGem(gem);
 			break;
 		}
 	}
