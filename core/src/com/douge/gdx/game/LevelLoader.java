@@ -57,7 +57,7 @@ public class LevelLoader
 	public Array<Enemy> enemies;
 	public ArrayList<Level> levels;
 	public Level currentLevel;
-	private int currentLevelIndex = 0;
+	public int currentLevelIndex = 0;
 	
 	// decoration
 	public Clouds clouds;
@@ -101,7 +101,7 @@ public class LevelLoader
 	public void nextLevel()
 	{
 		currentLevelIndex++;
-		initCurrentLevel(currentLevelIndex);
+		initCurrentLevel(currentLevelIndex);	
 	}
 	
 	private void initCurrentLevel(int currentLevelIndex) 

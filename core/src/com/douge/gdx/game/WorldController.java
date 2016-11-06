@@ -211,10 +211,17 @@ public class WorldController extends InputAdapter
 		score += coin.getScore();
 		if(coin instanceof RedCoin)
 		{
-			levelLoader.nextLevel();
-			cameraHelper.setTarget(levelLoader.player);
-			cameraHelper.setPosition(levelLoader.player.position.x, levelLoader.player.position.y);
-			game.setScreen(new GameScreen(game));
+			if(levelLoader.currentLevelIndex+1 < levelLoader.levels.size())
+			{
+				levelLoader.nextLevel();
+				cameraHelper.setTarget(levelLoader.player);
+				cameraHelper.setPosition(levelLoader.player.position.x, levelLoader.player.position.y);
+				game.setScreen(new GameScreen(game));
+			}
+			else
+			{
+				game.setScreen(new MenuScreen(game));			
+			}
 		}
 		Gdx.app.log(TAG, "Gold coin collected");
 	};
