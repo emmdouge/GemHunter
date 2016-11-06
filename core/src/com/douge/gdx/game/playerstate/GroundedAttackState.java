@@ -19,8 +19,10 @@ public class GroundedAttackState extends PlayerState
 	{
 		// Keep track of 
 		player.timeAttacking += deltaTime;
+		
 		// Keep track of jump time
 		player.timeJumping += deltaTime;
+		
 		player.currentAnimation = Assets.instance.survivor.groundedAttackAnimation;
 	
 		if(player.timeAttacking > player.TIME_BETWEEN_ATTACKS)

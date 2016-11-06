@@ -6,7 +6,7 @@ import com.douge.gdx.game.assets.Assets;
 
 public class BlackOverlay extends AbstractGameObject
 {
-	private TextureRegion regWaterOverlay;
+	private TextureRegion regBlackOverlay;
 	
 	private float length;
 	
@@ -19,7 +19,7 @@ public class BlackOverlay extends AbstractGameObject
 	private void init () 
 	{
 		dimension.set(length * 10, 3);
-		regWaterOverlay = Assets.instance.levelDecoration.waterOverlay;
+		regBlackOverlay = Assets.instance.levelDecoration.waterOverlay;
 		origin.x = -dimension.x / 2;
 	}
 	
@@ -29,7 +29,7 @@ public class BlackOverlay extends AbstractGameObject
 		batch.setColor(Color.BLACK);
 		
 		TextureRegion reg = null;
-		reg = regWaterOverlay;
+		reg = regBlackOverlay;
 		batch.draw(reg.getTexture(), 
 				position.x + origin.x, position.y + origin.y, 
 				origin.x, origin.y, 

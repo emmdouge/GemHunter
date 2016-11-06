@@ -202,26 +202,6 @@ public class WorldRenderer implements Disposable
 					0);
 		}
 		
-		//animation that plays when i lose a life
-		boolean playerStillAlive = worldController.levelLoader.player.numLives > 0;
-		boolean timeLeftAfterLosingLife = worldController.livesVisual > worldController.levelLoader.player.numLives;
-		if (playerStillAlive && timeLeftAfterLosingLife) 
-		{
-				int currentLifeIndex = worldController.levelLoader.player.numLives;
-				float difference = worldController.livesVisual - worldController.levelLoader.player.numLives;
-				float alphaColor = Math.max(0, difference - 0.5f);
-				float alphaScale = 0.35f * (2 + difference) * 2;
-				float alphaRotate = -45 * alphaColor;
-				batch.setColor(1.0f, 0.7f, 0.7f, alphaColor);
-				batch.draw(Assets.instance.ui.block,
-						x + currentLifeIndex * 25, y, 
-						50, 50, 
-						120, 100, 
-						alphaScale, -alphaScale,
-						alphaRotate);
-				batch.setColor(1, 1, 1, 1);
-		}
-		
 		batch.setColor(1, 1, 1, 1);
 
 		y = -15;
@@ -246,25 +226,6 @@ public class WorldRenderer implements Disposable
 					0);
 		}
 		
-		//animation that plays when i lose a life
-		boolean playerHasFireballs = worldController.levelLoader.player.numLives > 0;
-		boolean timeLeftAfterLosingAFireball = worldController.livesVisual > worldController.levelLoader.player.numLives;
-		if (playerHasFireballs && timeLeftAfterLosingAFireball) 
-		{
-				int currentFireballIndex = worldController.levelLoader.player.numFireballs;
-				float difference = worldController.fireballsVisual - worldController.levelLoader.player.numFireballs;
-				float alphaColor = Math.max(0, difference - 0.5f);
-				float alphaScale = 0.35f * (2 + difference) * 2;
-				float alphaRotate = -45 * alphaColor;
-				batch.setColor(1.0f, 0.7f, 0.7f, alphaColor);
-				batch.draw(Assets.instance.ui.block,
-						x + currentFireballIndex * 25, y, 
-						50, 50, 
-						120, 100, 
-						alphaScale, -alphaScale,
-						alphaRotate);
-				batch.setColor(1, 1, 1, 1);
-		}
 		batch.setColor(1, 1, 1, 1);
 	}
 	
@@ -344,6 +305,7 @@ public class WorldRenderer implements Disposable
 		
 			batch.setColor(1, 1, 1, 1);
 			Assets.instance.fonts.defaultSmall.draw(batch, "" + (int)timeLeftJumpPowerup, x + 60, y + 57);
+
 		}
 	}	
 }

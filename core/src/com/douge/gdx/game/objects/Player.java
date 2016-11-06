@@ -54,10 +54,7 @@ public class Player extends AbstractGameObject
 	public int numLives;
 	public int numFireballs;
 	public Array<Fireball> fireballs;
-	
 	public ParticleEffect currentParticleEffect;
-
-
 	
 	public Player() 
 	{

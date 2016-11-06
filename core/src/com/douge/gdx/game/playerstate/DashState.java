@@ -60,26 +60,24 @@ public class DashState extends PlayerState
 		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 1f;
 		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.07f;
 
-		//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.width + "=" + (rock.position.x+rock.bounds.width) + ", player: " + player.position.x + " " + diffBetweenLeftSideOfPlayerAndRightSideOfRock);
 		if(onTopOfRock)
 		{
 			player.position.y += .01f;
 		}
 		else if(hitLeftEdge)
 		{
-			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.width + "=" + (rock.position.x+rock.bounds.width) + ", player: " + player.position.x + " " + diffBetweenRightSideOfPlayerAndLeftSideOfRock);
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
 			if(platform.currentVelocity.x != 0)
 			{
 				context.setPlayerState(context.getJumpFallingState());
 			}
+			
 			//since the rocks are all linked together, rock's bound witdth is the entire platform
 			player.position.x = platform.position.x - 1;
 		}
 		if(hitRightEdge)
 		{
-			System.out.println("im here");
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
 			if(platform.currentVelocity.x != 0)

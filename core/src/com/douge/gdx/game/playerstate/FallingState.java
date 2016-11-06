@@ -82,10 +82,9 @@ public class FallingState extends PlayerState
 		//drawn starting from bottom left
 		float diffBetweenBottomOfPlayerAndTopOfPlatform = platform.position.y + platform.bounds.height - player.position.y;
 		float diffBetweenLeftSideOfPlayerAndRightSideOfPlatform = platform.position.x + platform.bounds.x - player.position.x;
-		
 		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = player.position.x + player.bounds.width - platform.position.x;
-
 		float diffBetweenTopOfPlayerAndBottomOfPlatform = player.position.y + player.bounds.height + .001f - platform.position.y;
+		
 		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfPlatform <= 0.07f;
 		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.2f;
 		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.08f;
@@ -93,8 +92,6 @@ public class FallingState extends PlayerState
 		
 		if(landOnTop)
 		{
-			//Gdx.app.log(tag, "player: " + player.position.y + " " + player.currentVelocity.y);
-			//Gdx.app.log(tag, "rock: " + rock.position.y + "+" + rock.bounds.height + "=" + (rock.position.y+rock.bounds.height) + ", player: " + player.position.y + " " + diffBetweenBottomOfPlayerAndTopOfRock);
 			player.currentGravity = 0;
 			player.currentVelocity.y = 0;
 			player.position.y = platform.position.y + platform.bounds.height - 0.001f;
@@ -104,7 +101,6 @@ public class FallingState extends PlayerState
 				context.setPlayerState(context.getJumpFallingState());
 			}
 			context.setPlayerState(context.getGroundState());
-			//Gdx.app.log(tag, "player: " + player.position.y + " " + player.currentVelocity.y);
 		}
 		else if(hitTop)
 		{
@@ -116,7 +112,6 @@ public class FallingState extends PlayerState
 		}
 		else if(hitLeftEdge)
 		{
-			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.height + "=" + (rock.position.y+rock.bounds.height) + ", player: " + player.position.y + " " +(4.5-player.position.y) );
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
 			
@@ -132,7 +127,6 @@ public class FallingState extends PlayerState
 		}
 		else if(hitRightEdge)
 		{
-			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.width + "=" + (rock.position.x+rock.bounds.width) + ", player: " + player.position.y + " " +(4.5-player.position.y) );
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
 			player.position.x = platform.position.x + platform.bounds.width;

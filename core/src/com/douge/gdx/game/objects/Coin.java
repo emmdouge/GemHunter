@@ -9,7 +9,6 @@ import com.douge.gdx.game.assets.Assets;
 
 public class Coin extends AbstractGameObject
 {
-	private TextureRegion regGoldCoin;
 	public boolean collected;
 	private Animation spinning;
 	protected Color color;
@@ -22,7 +21,6 @@ public class Coin extends AbstractGameObject
 	private void init () 
 	{
 		dimension.set(0.5f, 0.5f);
-		regGoldCoin = Assets.instance.goldCoin.goldCoin;
 		spinning = Assets.instance.goldCoin.spinning;
 		stateTime = 0f;
 		origin.x = dimension.x/2;

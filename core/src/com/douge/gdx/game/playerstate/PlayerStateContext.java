@@ -148,7 +148,7 @@ public class PlayerStateContext
 	
 	public void attack(boolean attackKeyPressed)
 	{
-		if(attackKeyPressed)
+		if(attackKeyPressed && player.numFireballs > 0)
 		{
 			if(player.timeAttacking < player.TIME_BETWEEN_ATTACKS)
 			{
@@ -163,6 +163,7 @@ public class PlayerStateContext
 					fireball.position.x = player.position.x + xOffset;
 					fireball.position.y = player.position.y + yOffset; 
 					player.fireballs.add(fireball);
+					player.numFireballs--;
 					setPlayerState(jumpAttackState);
 				}
 				else if(currentState == groundedState)
@@ -172,6 +173,7 @@ public class PlayerStateContext
 					fireball.position.x = player.position.x + xOffset;
 					fireball.position.y = player.position.y + yOffset; 
 					player.fireballs.add(fireball);
+					player.numFireballs--;
 					setPlayerState(groundedAttackState);
 				}
 				else if(currentState == groundedAttackState || currentState == jumpAttackState)
