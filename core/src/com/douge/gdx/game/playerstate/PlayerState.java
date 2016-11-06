@@ -6,13 +6,14 @@ import com.douge.gdx.game.objects.Platform;
 public abstract class PlayerState 
 {
 	public Player player;
+	public float stateTime = 0f;
 	public PlayerStateContext context;
 	public String tag;
 	
-	public PlayerState(Player player, PlayerStateContext context)
+	public PlayerState(PlayerStateContext context)
 	{
-		this.player = player;
 		this.context = context;
+		this.player = context.getPlayer();
 	}
 
 	public abstract void execute(float deltaTime);

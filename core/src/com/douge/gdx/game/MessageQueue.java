@@ -13,7 +13,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.douge.gdx.game.assets.Assets;
-import com.douge.gdx.game.effects.AfterImage.Node;
+import com.douge.gdx.game.fx.AfterImage.Node;
 import com.douge.gdx.game.objects.AbstractGameObject;
 import com.douge.gdx.game.objects.Player;
 

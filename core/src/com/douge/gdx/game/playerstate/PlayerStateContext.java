@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.douge.gdx.game.VIEW_DIRECTION;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.enemy.Enemy;
+import com.douge.gdx.game.objects.Fireball;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.Platform;
 import com.douge.gdx.game.utils.AudioManager;
@@ -17,18 +18,22 @@ public class PlayerStateContext
 	private JumpRisingState jumpRisingState;
 	private DashState dashState;
 	private HurtState hurtState;
+	private JumpAttackState jumpAttackState;
+	private GroundedAttackState groundedAttackState;
 	private PlayerState currentState;
 	private Player player;
 	
 	public PlayerStateContext(Player player)
 	{
 		this.player = player;
-		fallingState = new FallingState(player, this);
-		groundedState = new GroundedState(player, this);
-		jumpFallingState = new JumpFallingState(player, this);
-		jumpRisingState = new JumpRisingState(player, this);
-		dashState = new DashState(player, this);
-		hurtState = new HurtState(player, this);
+		fallingState = new FallingState(this);
+		groundedState = new GroundedState(this);
+		jumpFallingState = new JumpFallingState(this);
+		jumpRisingState = new JumpRisingState(this);
+		dashState = new DashState(this);
+		hurtState = new HurtState(this);
+		jumpAttackState = new JumpAttackState(this);
+		groundedAttackState = new GroundedAttackState(this);
 		
 		currentState = groundedState;
 	}
@@ -73,9 +78,19 @@ public class PlayerStateContext
 		return jumpRisingState;
 	}
 	
+	public JumpAttackState getJumpAttackState()
+	{
+		return jumpAttackState;
+	}
+	
 	public void execute(float deltaTime)
 	{
 		currentState.execute(deltaTime);
+	}
+	
+	public Player getPlayer()
+	{
+		return player;
 	}
 
 	public void jump(boolean jumpKeyPressed) 
@@ -105,7 +120,7 @@ public class PlayerStateContext
 				}
 			}
 		}
-		else
+		else //if button is not being held anymore
 		{
 			if(currentState == jumpRisingState)
 			{
@@ -120,6 +135,7 @@ public class PlayerStateContext
 		{
 			if(currentState == jumpRisingState)
 			{
+				//makes sure you cant jump after dashing
 				player.timeJumping = player.JUMP_TIME_MAX;
 			}
 			if(player.timeDashing < player.DASH_TIME_MAX)
@@ -130,17 +146,54 @@ public class PlayerStateContext
 		}
 	}
 	
+	public void attack(boolean attackKeyPressed)
+	{
+		if(attackKeyPressed)
+		{
+			if(player.timeAttacking < player.TIME_BETWEEN_ATTACKS)
+			{
+				AudioManager.instance.playUntilDone(Assets.instance.music.throwingSound);
+				float xOffset = player.viewDirection == VIEW_DIRECTION.LEFT? -1 : 1;
+				float yOffset = .2f;
+				if(currentState == jumpRisingState || currentState == jumpFallingState || currentState == fallingState)
+				{
+					//only get called the before we enter the attack states
+					jumpAttackState.stateTime = 0f;
+					Fireball fireball = new Fireball(player.viewDirection);
+					fireball.position.x = player.position.x + xOffset;
+					fireball.position.y = player.position.y + yOffset; 
+					player.fireballs.add(fireball);
+					setPlayerState(jumpAttackState);
+				}
+				else if(currentState == groundedState)
+				{
+					groundedAttackState.stateTime = 0f;
+					Fireball fireball = new Fireball(player.viewDirection);
+					fireball.position.x = player.position.x + xOffset;
+					fireball.position.y = player.position.y + yOffset; 
+					player.fireballs.add(fireball);
+					setPlayerState(groundedAttackState);
+				}
+				else if(currentState == groundedAttackState || currentState == jumpAttackState)
+				{
+					
+				}
+			}
+		}
+	}
+	
 	public void setStateBasedOnCollisionWithPlatform(Platform platform)
 	{
 		currentState.onCollisionWith(platform);
 	}
 
-	public void setPlayerStateBasedOnInput(boolean jumpKeyPressed, boolean dashKeyPressed) 
+	public void setPlayerStateBasedOnInput(boolean jumpKeyPressed, boolean dashKeyPressed, boolean attackKeyPressed) 
 	{
-		if(currentState != hurtState)
+		if(currentState != hurtState && currentState != dashState)
 		{
 			jump(jumpKeyPressed);
 			dash(dashKeyPressed);
+			attack(attackKeyPressed);
 		}
 	}
 	

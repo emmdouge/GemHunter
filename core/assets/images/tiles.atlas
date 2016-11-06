@@ -34,7 +34,7 @@ repeat: none
   index: -1
 16
   rotate: false
-  xy: 989, 437
+  xy: 989, 459
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -55,14 +55,14 @@ repeat: none
   index: -1
 26
   rotate: false
-  xy: 104, 2
+  xy: 989, 425
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 27
   rotate: false
-  xy: 889, 287
+  xy: 104, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -97,7 +97,7 @@ Pixel Treasure Chest Closed
   index: -1
 greybrick
   rotate: false
-  xy: 138, 2
+  xy: 889, 287
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -125,14 +125,14 @@ press2
   index: -1
 snow1
   rotate: false
-  xy: 889, 253
+  xy: 138, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 snow2
   rotate: false
-  xy: 889, 219
+  xy: 889, 253
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -177,12 +177,5 @@ uiLeftbars
   xy: 188, 167
   size: 23, 64
   orig: 23, 64
-  offset: 0, 0
-  index: -1
-uiRightEnd
-  rotate: false
-  xy: 989, 471
-  size: 33, 20
-  orig: 33, 20
   offset: 0, 0
   index: -1

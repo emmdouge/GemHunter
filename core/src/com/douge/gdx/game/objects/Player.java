@@ -1,15 +1,18 @@
 package com.douge.gdx.game.objects;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.Constants;
 import com.douge.gdx.game.VIEW_DIRECTION;
 import com.douge.gdx.game.assets.Assets;
-import com.douge.gdx.game.effects.AfterImage;
-import com.douge.gdx.game.effects.AfterImage.Node;
+import com.douge.gdx.game.fx.AfterImage;
+import com.douge.gdx.game.fx.AfterImage.Node;
 import com.douge.gdx.game.playerstate.PlayerStateContext;
 import com.douge.gdx.game.utils.GamePreferences;
 import com.douge.gdx.game.screen.CharacterSkin;
@@ -18,6 +21,7 @@ import com.douge.gdx.game.screen.CharacterSkin;
 public class Player extends AbstractGameObject
 {
 	public static final String TAG = Player.class.getName();
+	
 	public final float JUMP_TIME_MAX = 0.4f;
 	public final float JUMP_TIME_MIN = 0.1f;
 	public float timeJumping;
@@ -31,6 +35,10 @@ public class Player extends AbstractGameObject
 	public float timeStunned;
 	public boolean isStunned = false;
 	
+
+	public final float TIME_BETWEEN_ATTACKS = .25f;
+	public float timeAttacking;
+	
 	public PlayerStateContext context;
 	
 	public AfterImage afterImageDash;
@@ -38,16 +46,18 @@ public class Player extends AbstractGameObject
 	public AfterImage afterImageNeutral;
 	
 	public Animation currentAnimation;
-	public float stateTime;
 	
 	public VIEW_DIRECTION viewDirection;
 
 	public boolean activeMovement = false;
 	
-	public int lives;
-	public int fireballs;
+	public int numLives;
+	public int numFireballs;
+	public Array<Fireball> fireballs;
 	
 	public ParticleEffect currentParticleEffect;
+
+
 	
 	public Player() 
 	{
@@ -57,8 +67,9 @@ public class Player extends AbstractGameObject
 	{
 		dimension.set(1, 1);
 		
-		lives = Constants.MAX_LIVES;
-		fireballs = Constants.FIREBALLS_START;
+		numLives = Constants.MAX_LIVES;
+		numFireballs = Constants.FIREBALLS_START;
+		fireballs = new Array<Fireball>();
 		
 		// Center image on game object
 		origin.set(dimension.x / 2, dimension.y / 2);
@@ -94,8 +105,8 @@ public class Player extends AbstractGameObject
 	public void update(float deltaTime)
 	{
 		context.getCurrentState().execute(deltaTime);
-		stateTime += deltaTime;
-		afterImageNeutral.addNode(this, currentAnimation.getKeyFrame(stateTime));
+		context.getCurrentState().stateTime += deltaTime;
+		afterImageNeutral.addNode(this, currentAnimation.getKeyFrame(context.getCurrentState().stateTime));
 		currentParticleEffect.update(deltaTime);
 	}
 	
@@ -162,7 +173,7 @@ public class Player extends AbstractGameObject
 		
 		currentParticleEffect.draw(batch);
 		
-		TextureRegion reg = currentAnimation.getKeyFrame(stateTime, true);
+		TextureRegion reg = currentAnimation.getKeyFrame(context.getCurrentState().stateTime, true);
 		batch.draw(reg.getTexture(), 
 				position.x, position.y, 
 				origin.x, origin.y, 

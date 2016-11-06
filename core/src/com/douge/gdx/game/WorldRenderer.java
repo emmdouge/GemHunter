@@ -177,13 +177,13 @@ public class WorldRenderer implements Disposable
 		float y = -37;
 		
 		int maxLives = Constants.MAX_LIVES;
-		if(worldController.levelLoader.player.lives > maxLives)
+		if(worldController.levelLoader.player.numLives > maxLives)
 		{
-			maxLives = worldController.levelLoader.player.lives;
+			maxLives = worldController.levelLoader.player.numLives;
 		}
 		for (int i = 0; i < maxLives; i++) 
 		{
-			boolean playerHasALife = i < worldController.levelLoader.player.lives;
+			boolean playerHasALife = i < worldController.levelLoader.player.numLives;
 			boolean playerIsMissingALife = !playerHasALife;
 			if(playerHasALife)
 			{
@@ -203,12 +203,12 @@ public class WorldRenderer implements Disposable
 		}
 		
 		//animation that plays when i lose a life
-		boolean playerStillAlive = worldController.levelLoader.player.lives > 0;
-		boolean timeLeftAfterLosingLife = worldController.livesVisual > worldController.levelLoader.player.lives;
+		boolean playerStillAlive = worldController.levelLoader.player.numLives > 0;
+		boolean timeLeftAfterLosingLife = worldController.livesVisual > worldController.levelLoader.player.numLives;
 		if (playerStillAlive && timeLeftAfterLosingLife) 
 		{
-				int currentLifeIndex = worldController.levelLoader.player.lives;
-				float difference = worldController.livesVisual - worldController.levelLoader.player.lives;
+				int currentLifeIndex = worldController.levelLoader.player.numLives;
+				float difference = worldController.livesVisual - worldController.levelLoader.player.numLives;
 				float alphaColor = Math.max(0, difference - 0.5f);
 				float alphaScale = 0.35f * (2 + difference) * 2;
 				float alphaRotate = -45 * alphaColor;
@@ -227,7 +227,7 @@ public class WorldRenderer implements Disposable
 		y = -15;
 		for (int currentFireball = 0; currentFireball < Constants.FIREBALLS_START; currentFireball++) 
 		{
-			boolean playerHasAFireball = currentFireball < worldController.levelLoader.player.fireballs;
+			boolean playerHasAFireball = currentFireball < worldController.levelLoader.player.numFireballs;
 			boolean playerIsMissingAFireBall = !playerHasAFireball;
 			if(playerHasAFireball)
 			{
@@ -247,12 +247,12 @@ public class WorldRenderer implements Disposable
 		}
 		
 		//animation that plays when i lose a life
-		boolean playerHasFireballs = worldController.levelLoader.player.lives > 0;
-		boolean timeLeftAfterLosingAFireball = worldController.livesVisual > worldController.levelLoader.player.lives;
+		boolean playerHasFireballs = worldController.levelLoader.player.numLives > 0;
+		boolean timeLeftAfterLosingAFireball = worldController.livesVisual > worldController.levelLoader.player.numLives;
 		if (playerHasFireballs && timeLeftAfterLosingAFireball) 
 		{
-				int currentFireballIndex = worldController.levelLoader.player.fireballs;
-				float difference = worldController.fireballsVisual - worldController.levelLoader.player.fireballs;
+				int currentFireballIndex = worldController.levelLoader.player.numFireballs;
+				float difference = worldController.fireballsVisual - worldController.levelLoader.player.numFireballs;
 				float alphaColor = Math.max(0, difference - 0.5f);
 				float alphaScale = 0.35f * (2 + difference) * 2;
 				float alphaRotate = -45 * alphaColor;

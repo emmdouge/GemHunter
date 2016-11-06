@@ -10,8 +10,8 @@ import com.douge.gdx.game.VIEW_DIRECTION;
 public class DashState extends PlayerState
 {
 
-	public DashState(Player astronaut, PlayerStateContext context) {
-		super(astronaut, context);
+	public DashState(PlayerStateContext context) {
+		super(context);
 	}
 
 	@Override

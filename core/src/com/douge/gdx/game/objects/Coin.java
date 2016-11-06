@@ -12,7 +12,6 @@ public class Coin extends AbstractGameObject
 	private TextureRegion regGoldCoin;
 	public boolean collected;
 	private Animation spinning;
-	private float stateTime;
 	protected Color color;
 	
 	public Coin() 
@@ -39,9 +38,6 @@ public class Coin extends AbstractGameObject
 		{
 			return;
 		}
-		
-		//TextureRegion reg = regGoldCoin;
-		stateTime += .05f;
 		//Gdx.app.log("", "" + stateTime);
 		TextureRegion reg = spinning.getKeyFrame(stateTime);
 		batch.setColor(color);

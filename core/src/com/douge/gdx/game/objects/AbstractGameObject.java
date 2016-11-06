@@ -20,6 +20,7 @@ public abstract class AbstractGameObject
 	public float currentGravity;
 	public float currentFriction;
 	public Rectangle bounds; 
+	public float stateTime;
 	
 	public AbstractGameObject () 
 	{
@@ -38,6 +39,7 @@ public abstract class AbstractGameObject
 	//objects that don't override this method won't update
 	public void update (float deltaTime) 
 	{
+		stateTime += deltaTime;
 		updateMotionX(deltaTime);
 		updateMotionY(deltaTime);
 		

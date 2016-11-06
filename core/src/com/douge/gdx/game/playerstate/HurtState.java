@@ -10,9 +10,9 @@ import com.douge.gdx.game.VIEW_DIRECTION;
 public class HurtState extends PlayerState
 {
 
-	public HurtState(Player astronaut, PlayerStateContext context) 
+	public HurtState(PlayerStateContext context) 
 	{
-		super(astronaut, context);
+		super(context);
 	}
 
 	@Override
@@ -52,6 +52,7 @@ public class HurtState extends PlayerState
 			}
 			else
 			{
+				//after stun
 				player.isStunned = false;
 				player.timeJumping = player.JUMP_TIME_MAX;
 				player.timeStunned = 0;
@@ -60,7 +61,8 @@ public class HurtState extends PlayerState
 		}
 		else
 		{
-			player.lives--;
+			//before stun
+			player.numLives--;
 			player.isStunned = true;
 			player.currentVelocity.x = player.maxVelocity.x*VIEW_DIRECTION.getOppositeInt(player.viewDirection);
 			player.currentVelocity.y = player.maxVelocity.y*.75f;
@@ -83,11 +85,9 @@ public class HurtState extends PlayerState
 		
 		if(hitTop)
 		{
-			//Gdx.app.log(tag, "player: " + player.position.y + " " + rock.position.y);
 			player.currentGravity = 0;
 			player.currentVelocity.y = 0;
 			player.position.y = platform.position.y - player.bounds.height - .001f;
-			//Gdx.app.log(tag, "player: " + player.position.y + " " + player.currentVelocity.y);
 		}
 		else if(onTopOfRock)
 		{
@@ -96,7 +96,6 @@ public class HurtState extends PlayerState
 		}
 		else if(hitLeftEdge)
 		{
-			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.height + "=" + (rock.position.y+rock.bounds.height) + ", player: " + player.position.y + " " +(4.5-player.position.y) );
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
 			
@@ -105,7 +104,6 @@ public class HurtState extends PlayerState
 		}
 		else if(hitRightEdge)
 		{
-			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.width + "=" + (rock.position.x+rock.bounds.width) + ", player: " + player.position.y + " " +(4.5-player.position.y) );
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
 			player.position.x = platform.position.x + platform.bounds.width;

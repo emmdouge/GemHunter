@@ -10,9 +10,9 @@ import com.douge.gdx.game.objects.Platform;
 
 public class JumpFallingState extends PlayerState
 {
-	public JumpFallingState(Player astronaut, PlayerStateContext context)
+	public JumpFallingState(PlayerStateContext context)
 	{
-		super(astronaut, context);
+		super(context);
 		tag = this.getClass().getName();
 	}
 	
@@ -93,12 +93,10 @@ public class JumpFallingState extends PlayerState
 		
 		if(landOnTop)
 		{
-			//Gdx.app.log(tag, "player: " + player.position.y + " " + player.currentVelocity.y);
 			player.currentGravity = 0;
 			player.currentVelocity.y = 0;
 			player.position.y = platform.position.y + platform.bounds.height - 0.001f;
 			context.setPlayerState(context.getGroundState());
-			//Gdx.app.log(tag, "player: " + player.position.y + " " + player.currentVelocity.y);
 		}
 		else if(hitTop)
 		{
@@ -108,22 +106,16 @@ public class JumpFallingState extends PlayerState
 			player.timeJumping = player.JUMP_TIME_MAX;
 			player.position.y = platform.position.y - player.bounds.height - .001f;
 			context.setPlayerState(context.getJumpFallingState());
-			//Gdx.app.log(tag, "player: " + player.position.y + " " + player.currentVelocity.y);
 		}
 		else if(hitLeftEdge)
 		{
-			//Gdx.app.log(tag, "rock: " + rock.position.y + "+" + rock.bounds.height + "=" + (rock.position.y) + ", player: " + player.position.y + " " +(5.5-player.position.y) );
-
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
-			
-			//since the rocks are all linked together, rock's bound witdth is the entire platform
 			player.position.x = platform.position.x - 1 - .001f;
 			player.maxVelocity.x = 0f;
 		}
 		else if(hitRightEdge)
 		{
-			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.width + "=" + (rock.position.x+rock.bounds.width) + ", player: " + player.position.y + " " +(4.5-player.position.y) );
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
 			player.position.x = platform.position.x + platform.bounds.width;			

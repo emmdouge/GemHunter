@@ -1,4 +1,4 @@
-package com.douge.gdx.game.effects;
+package com.douge.gdx.game.fx;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;

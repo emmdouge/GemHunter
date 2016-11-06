@@ -38,6 +38,7 @@ public class Constants
 	public static final String SKELETON_ATLAS_PATH = "../core/assets/images/skeleton.atlas";
 	public static final String RANGER_ATLAS_PATH = "../core/assets/images/ranger.atlas";
 	public static final String GOBLIN_ATLAS_PATH = "../core/assets/images/goblin.atlas";
+	public static final String FIREBALL_ATLAS_PATH = "../core/assets/images/fireball.atlas";
 	
 	public static final String TEXTURE_ATLAS_UI = "../core/assets/images/game-ui.atlas";
 	public static final String TEXTURE_ATLAS_LIBGDX_UI = "../core/assets/images/uiskin.atlas";

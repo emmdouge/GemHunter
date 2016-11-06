@@ -8,7 +8,7 @@ public class HealthBoostEffect implements Effect
 	@Override
 	public void activate(Player player) 
 	{
-		player.lives++;
+		player.numLives++;
 	}
 
 }

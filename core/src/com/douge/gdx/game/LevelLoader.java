@@ -19,6 +19,7 @@ import com.douge.gdx.game.enemy.Slime;
 import com.douge.gdx.game.objects.AbstractGameObject;
 import com.douge.gdx.game.objects.BackgroundRock;
 import com.douge.gdx.game.objects.BackgroundStar;
+import com.douge.gdx.game.objects.Fireball;
 import com.douge.gdx.game.objects.NullGameObject;
 import com.douge.gdx.game.objects.PlatformSnow;
 import com.douge.gdx.game.objects.Player;
@@ -54,8 +55,6 @@ public class LevelLoader
 	public Array<NullGameObject> reversingBoxes;	
 	public Array<BackgroundTile> backgroundTiles;
 	public Array<Enemy> enemies;
-	public ArrayList<Integer> enemiesToRemove;
-	
 	public ArrayList<Level> levels;
 	public Level currentLevel;
 	private int currentLevelIndex = 0;
@@ -86,8 +85,7 @@ public class LevelLoader
 	    levels = new ArrayList<Level>();
 	    
 		Level level1 = new Level(BLOCK_TYPE.STAR_BACK.getColor(), new PlatformSnow(), "../core/assets/levels/level01.png", messages);
-		messages.enqueue(new Message("Press F to Attack!", new Vector2(0, 0), Assets.instance.survivor.survivor));
-		messages.enqueue(new Message("Press Left Shift to Dash!", new Vector2(15, 0), Assets.instance.survivor.survivor));
+
 		messages.enqueue(new NullMessage());
 		
 		messages = new MessageQueue();
@@ -118,7 +116,6 @@ public class LevelLoader
 		reversingBoxes = new Array<NullGameObject>();
 		backgroundTiles = new Array<BackgroundTile>();
 		enemies = new Array<Enemy>();
-		enemiesToRemove = new ArrayList<Integer>();
 		
 		// load image file that represents the level data
 		//**had to remove underscore in filename to get it to load
@@ -352,6 +349,9 @@ public class LevelLoader
 		for(int i = 0; i < enemies.size; i++)
 		enemies.get(i).update(deltaTime);
 		
+		for(int i = 0; i < player.fireballs.size; i++)
+		player.fireballs.get(i).update(deltaTime);
+		
 		int enemyIndex = 0;
 		for(Enemy enemy: enemies)
 		{
@@ -394,6 +394,18 @@ public class LevelLoader
 			enemyIndex++;
 		}
 		
+
+		int fireballIndex = 0;
+		for(Fireball fireball: player.fireballs)
+		{  
+			boolean farAway = Math.abs(player.position.x - fireball.position.x) >= 10f;
+			if((fireball.hitEnemy && fireball.currentAnimation.isAnimationFinished(fireball.stateTime)) || farAway)
+			{
+				player.fireballs.removeIndex(fireballIndex);
+			}
+			fireballIndex++;
+		}
+		
 		clouds.update(deltaTime);
 	}
 	
@@ -414,8 +426,8 @@ public class LevelLoader
 	    goldCoin.render(batch); 
 	     
 	    // Draw Feathers 
-	    for (Gem greenHeart : gems) 
-	    greenHeart.render(batch); 
+	    for (Gem gem : gems) 
+	    gem.render(batch); 
 	     
 	    batch.setColor(Color.WHITE);
 	    
@@ -428,6 +440,12 @@ public class LevelLoader
 		// Draw Rocks
 		for (Platform platform : platforms)
 		platform.render(batch);
+		
+		for(int fireballIndex = 0; fireballIndex < player.fireballs.size; fireballIndex++)
+		{
+			Fireball fireball = player.fireballs.get(fireballIndex);
+			fireball.render(batch);
+		}
 		
 		for(int enemyIndex = 0; enemyIndex < enemies.size; enemyIndex++)
 		{

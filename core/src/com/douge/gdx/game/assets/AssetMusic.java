@@ -6,9 +6,11 @@ import com.badlogic.gdx.audio.Music;
 public class AssetMusic 
 {
 	public final Music song01;
+	public final Music throwingSound;
 	
 	public AssetMusic (AssetManager assetManager) 
 	{
 		song01 = assetManager.get("../core/assets/music/latenights.mp3", Music.class);
+		throwingSound = assetManager.get("../core/assets/music/throwingSound.mp3", Music.class);
 	}
 }

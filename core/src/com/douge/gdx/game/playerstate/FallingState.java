@@ -10,9 +10,9 @@ import com.douge.gdx.game.objects.Platform;
 
 public class FallingState extends PlayerState
 {
-	public FallingState(Player astronaut, PlayerStateContext context)
+	public FallingState(PlayerStateContext context)
 	{
-		super(astronaut, context);
+		super(context);
 		tag = this.getClass().getName();
 	}
 	

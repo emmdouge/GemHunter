@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.enemy.Enemy;
+import com.douge.gdx.game.objects.Fireball;
 import com.douge.gdx.game.objects.NullGameObject;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.Coin;
@@ -111,12 +112,12 @@ public class WorldController extends InputAdapter
 		
 		message.updateText(deltaTime, levelLoader.player);
 		
-		testCollisions();
+		handleCollisions();
 		cameraHelper.update(deltaTime);
 		if (!isGameOver() && isPlayerInWater()) 
 		{
 		    AudioManager.instance.play(Assets.instance.sounds.liveLost); 
-			levelLoader.player.lives--;
+			levelLoader.player.numLives--;
 			if (isGameOver())
 			{
 				timeLeftGameOverDelay = Constants.TIME_DELAY_GAME_OVER;
@@ -127,9 +128,9 @@ public class WorldController extends InputAdapter
 			}
 		}
 		levelLoader.trees.updateScrollPosition(cameraHelper.getPosition());
-		if (livesVisual> levelLoader.player.lives)
+		if (livesVisual> levelLoader.player.numLives)
 		{
-			livesVisual = Math.max(levelLoader.player.lives, livesVisual-deltaTime);
+			livesVisual = Math.max(levelLoader.player.numLives, livesVisual-deltaTime);
 		}
 		if (scoreVisual< score)
 		{
@@ -234,7 +235,7 @@ public class WorldController extends InputAdapter
 	/**
 	 * handles collisions between objects
 	 */
-	private void testCollisions () 
+	private void handleCollisions () 
 	{
 		// Test collision: enemies <-> rocks
 		boolean collided = false;
@@ -254,6 +255,24 @@ public class WorldController extends InputAdapter
 			if(collided == false)
 			{
 				enemy.context.getCurrentState().noRockCollision();
+			}
+		}
+		
+		for(Enemy enemy: levelLoader.enemies)
+		{
+			r1.set(enemy.position.x + enemy.bounds.x, enemy.position.y + enemy.bounds.y, enemy.bounds.width, enemy.bounds.height);
+			for(Fireball fireball: levelLoader.player.fireballs)
+			{
+				r2.set(fireball.position.x, fireball.position.y, fireball.bounds.width, fireball.bounds.height);
+				if(r1.overlaps(r2) && !enemy.hasBeenKilled && !fireball.hitEnemy)
+				{
+					fireball.hitEnemy = true;
+					fireball.stateTime = 0f;
+					fireball.hit();
+					enemy.stateTime = 0f;
+					enemy.hasBeenKilled = true;
+					enemy.context.setEnemyState(enemy.context.getDeadState());
+				}
 			}
 		}
 		
@@ -355,8 +374,9 @@ public class WorldController extends InputAdapter
 			}
 			message = levelLoader.currentLevel.messages.head;
 			// Bunny Jump
-			boolean dashKeyPressed = Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT);
-			boolean jumpKeyPressed = Gdx.input.justTouched() || Gdx.input.isKeyPressed(Keys.SPACE);
+			boolean dashKeyPressed = Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT) || Gdx.input.justTouched();
+			boolean attackKeyPressed = Gdx.input.isKeyJustPressed(Keys.F);
+			boolean jumpKeyPressed = Gdx.input.isKeyPressed(Keys.SPACE);
 			if(message.textIsRendered && message.shouldBeRendered)
 			{
 				if(!message.playerSkipped && (jumpKeyPressed || dashKeyPressed))
@@ -378,11 +398,11 @@ public class WorldController extends InputAdapter
 					levelLoader.player.currentVelocity.x = levelLoader.player.maxVelocity.x;
 					levelLoader.player.activeMovement = true;
 				} 
-				levelLoader.player.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed);
+				levelLoader.player.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed, attackKeyPressed);
 			}
 			else
 			{
-				levelLoader.player.context.setPlayerStateBasedOnInput(false, false);
+				levelLoader.player.context.setPlayerStateBasedOnInput(false, false, false);
 			}
 		}
 	}	
@@ -393,7 +413,7 @@ public class WorldController extends InputAdapter
 	 */
 	public boolean isGameOver () 
 	{
-		return levelLoader.player.lives <= 0;
+		return levelLoader.player.numLives <= 0;
 	}
 		
 	/**

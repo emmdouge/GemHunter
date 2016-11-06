@@ -18,6 +18,6 @@ public class AssetGoldCoin {
 		regions.add(atlas.findRegion("goldCoin3"));
 		regions.add(atlas.findRegion("goldCoin5"));
 		
-		spinning = new Animation(1/4.5f, regions, Animation.PlayMode.LOOP);
+		spinning = new Animation(1/15f, regions, Animation.PlayMode.LOOP);
 	}
 }

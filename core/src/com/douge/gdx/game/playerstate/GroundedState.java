@@ -8,9 +8,9 @@ import com.douge.gdx.game.objects.Platform;
 
 public class GroundedState extends PlayerState 
 {
-	public GroundedState(Player astronaut, PlayerStateContext context)
+	public GroundedState(PlayerStateContext context)
 	{
-		super(astronaut, context);
+		super(context);
 		tag = this.getClass().getName();
 	}
 	
@@ -20,10 +20,12 @@ public class GroundedState extends PlayerState
 		player.timeDashing = 0;
 		player.timeStunned = 0;
 		player.timeJumping = 0;
+		player.timeAttacking = 0;
 		player.afterImageJump.head = null;
 		player.afterImageJump.tail = null;
 		player.afterImageDash.head = null;
 		player.afterImageDash.tail = null;
+		
 		player.currentAnimation = Assets.instance.survivor.standingAnimation;
 		player.currentParticleEffect = Assets.instance.survivor.dustParticles;
 		

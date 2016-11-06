@@ -13,6 +13,9 @@ public class AudioManager
 		public static final AudioManager instance = new AudioManager();
 		private Music playingMusic;
 		
+		//so that it can be played once and not over itself
+		private Music sound;
+		
 		// singleton: prevent instantiation from other classes
 		private AudioManager () { }
 		
@@ -75,6 +78,16 @@ public class AudioManager
 				music.setLooping(true);
 				music.setVolume(GamePreferences.instance.volMusic);
 				music.play();
+			}
+		}
+		
+		public void playUntilDone(Music music)
+		{
+			sound = music;
+			sound.setLooping(false);
+			if(!sound.isPlaying())
+			{
+				sound.play();
 			}
 		}
 			

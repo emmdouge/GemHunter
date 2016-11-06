@@ -35,6 +35,7 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetSkeleton skeleton;
 	public AssetRanger ranger;
 	public AssetSlime slime;
+	public AssetFireball fireball;
 	public AssetGoblin goblin;
 	public AssetSounds sounds; 
 	public AssetMusic music; 
@@ -62,6 +63,7 @@ public class Assets implements Disposable, AssetErrorListener
 		assetManager.load(Constants.SLIME_ATLAS_PATH, TextureAtlas.class);
 		assetManager.load(Constants.RANGER_ATLAS_PATH, TextureAtlas.class);
 		assetManager.load(Constants.SKELETON_ATLAS_PATH, TextureAtlas.class);
+		assetManager.load(Constants.FIREBALL_ATLAS_PATH, TextureAtlas.class);
 		assetManager.load(Constants.BAT_ATLAS_PATH, TextureAtlas.class);
 		assetManager.load(Constants.GOBLIN_ATLAS_PATH, TextureAtlas.class);
 	     
@@ -75,6 +77,7 @@ public class Assets implements Disposable, AssetErrorListener
 	    
 	    // load music 
 	    assetManager.load("../core/assets/music/latenights.mp3", Music.class); 
+	    assetManager.load("../core/assets/music/throwingSound.mp3", Music.class);
 	    
 		assetManager.finishLoading();
 		
@@ -103,6 +106,9 @@ public class Assets implements Disposable, AssetErrorListener
 		
 		atlas = assetManager.get(Constants.BAT_ATLAS_PATH);
 		bat = new AssetBat(atlas);
+		
+		atlas = assetManager.get(Constants.FIREBALL_ATLAS_PATH);
+		fireball = new AssetFireball(atlas);
 		
 		atlas = assetManager.get(Constants.COIN_ATLAS_PATH);
 		goldCoin = new AssetGoldCoin(atlas);

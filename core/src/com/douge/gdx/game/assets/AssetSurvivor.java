@@ -18,6 +18,8 @@ public class AssetSurvivor
 	public final Animation dashingAnimation;
 	public final Animation hurtAnimation;
 	public final ParticleEffect dustParticles;
+	public final Animation jumpAttackAnimation;
+	public final Animation groundedAttackAnimation;
 	
 	protected AssetSurvivor(TextureAtlas atlas) 
 	{
@@ -59,6 +61,21 @@ public class AssetSurvivor
 		
 		regions.add(atlas.findRegion("11"));
 		hurtAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
+		
+		regions = new Array<AtlasRegion>();
+		
+		for(int i = 2; i <= 5; i++)
+		{
+			regions.add(atlas.findRegion(""+i));
+		}
+		groundedAttackAnimation = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.NORMAL);
+		
+		regions = new Array<AtlasRegion>();
+		for(int i = 8; i <= 10; i++)
+		{
+			regions.add(atlas.findRegion(""+i));
+		}
+		jumpAttackAnimation = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.NORMAL);
 	}
 
 }
