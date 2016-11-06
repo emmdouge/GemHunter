@@ -6,9 +6,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
-public class AssetTiles {
-
-	public final AtlasRegion chest;
+public class AssetTiles 
+{
 	public final Animation buttonPress;
 	
 	//public final AtlasRegion spikes;
@@ -20,16 +19,16 @@ public class AssetTiles {
 	public final TextureRegion snow1;
 	public final TextureRegion snow2;
 	
-	protected AssetTiles(TextureAtlas atlas) {
-		chest = atlas.findRegion("Pixel Treasure Chest Closed");
-		tileRockTop = atlas.findRegion("3");
-		tileRockBottom = atlas.findRegion("14");
+	protected AssetTiles(TextureAtlas atlas) 
+	{
+		tileRockTop = atlas.findRegion("rockPlat");
+		tileRockBottom = atlas.findRegion("rockBack");
 		//you can use set region clip texture if it is a sprite sheet
 		//coordinates can be found within the atlas file
 		//tile.setRegion(2, 72, 270, 258);
-		tileStar1 = atlas.findRegion("13");
-		tileStar2 = atlas.findRegion("15");
-		tileStar3 = atlas.findRegion("16");
+		tileStar1 = atlas.findRegion("star0");
+		tileStar2 = atlas.findRegion("star1");
+		tileStar3 = atlas.findRegion("star2");
 		
 		snow1 = atlas.findRegion("snow1");
 		snow2 = atlas.findRegion("snow2");

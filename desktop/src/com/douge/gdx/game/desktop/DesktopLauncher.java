@@ -18,11 +18,11 @@ public class DesktopLauncher
 		if (rebuildAtlas) 
 		{
 			Settings settings = new Settings();
-			settings.maxWidth = 1024;
-			settings.maxHeight = 1024;
+			settings.maxWidth = 2048;
+			settings.maxHeight = 2048;
 			settings.duplicatePadding = false;
 			settings.debug = drawDebugOutline;
-			TexturePacker.process(settings, "assets-raw/images/fireball", "../core/assets/images", "fireball");
+			TexturePacker.process(settings, "assets-raw/images/all", "../core/assets/images", "gemhunter");
 		}
 		new LwjglApplication(new DougeGdxGame(), config);
 	}

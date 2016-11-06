@@ -62,7 +62,7 @@ public class LevelLoader
 	// decoration
 	public Clouds clouds;
 	public Trees trees;
-	public BlackOverlay waterOverlay;
+	public BlackOverlay blackOverlay;
 
 	public DirectedGame game;
 	
@@ -325,8 +325,8 @@ public class LevelLoader
 		trees.position.set(0, baseHeightOfBottomLeftPixelOfPixmap - yOffset + lookGood);
 		
 		lookGood = -2;
-		waterOverlay = new BlackOverlay(pixmap.getWidth());
-		waterOverlay.position.set(0, baseHeightOfBottomLeftPixelOfPixmap - yOffset + lookGood);
+		blackOverlay = new BlackOverlay(pixmap.getWidth());
+		blackOverlay.position.set(0, baseHeightOfBottomLeftPixelOfPixmap - yOffset + lookGood);
 		
 		// free memory
 		pixmap.dispose();
@@ -435,7 +435,7 @@ public class LevelLoader
 	    player.render(batch); 
 		
 		// Draw Water Overlay
-		waterOverlay.render(batch);
+		blackOverlay.render(batch);
 		
 		// Draw Rocks
 		for (Platform platform : platforms)

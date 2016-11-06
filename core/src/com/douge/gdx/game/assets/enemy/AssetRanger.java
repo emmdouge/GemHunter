@@ -6,40 +6,47 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.Array;
 
 public class AssetRanger extends AssetEnemy
-{
-	public final AtlasRegion reg;
-	public final Animation moveAnimation;
-	public final Animation standingAnimation;
-	public final Animation fallingAnimation;
-	public final Animation jumpingAnimation;
-	
+{	
 	public AssetRanger(TextureAtlas atlas) 
 	{
-		reg = atlas.findRegion("0");
-		
 		Array<AtlasRegion> regions = new Array<AtlasRegion>();
 		
-		regions.add(reg);
+		for(int i = 0; i <= 20; i++)
+		{
+			regions.add(atlas.findRegion("ranger"+i));
+		}
 		standingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
 		regions = new Array<AtlasRegion>();
 		
-		regions.add(atlas.findRegion("6"));
+		for(int i = 21; i <= 30; i++)
+		{
+			regions.add(atlas.findRegion("ranger"+i));
+		}
+		movingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
+		
+		regions = new Array<AtlasRegion>();
+		
+		for(int i = 11; i <= 20; i++)
+		{
+			regions.add(atlas.findRegion("ranger"+i));
+		}
 		fallingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
 		regions = new Array<AtlasRegion>();
 		
-		regions.add(atlas.findRegion("1"));
-		jumpingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
-		
-		regions = new Array<AtlasRegion>();
-		
-		for(int i = 19; i <= 25; i++)
+		for(int i = 31; i <= 40; i++)
 		{
-			regions.add(atlas.findRegion(""+i));
+			regions.add(atlas.findRegion("ranger"+i));
 		}
-		moveAnimation = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP);
+		attackingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
 		regions = new Array<AtlasRegion>();
+		
+		for(int i = 41; i <= 49; i++)
+		{
+			regions.add(atlas.findRegion("ranger"+i));
+		}
+		deadAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.NORMAL);
 	}
 }

@@ -10,8 +10,8 @@ public class AssetGem
 	
 	public AssetGem(TextureAtlas atlas) 
 	{
-		jumpGem = atlas.findRegion("84");
-		heartGem = atlas.findRegion("145");
+		jumpGem = atlas.findRegion("gem84");
+		heartGem = atlas.findRegion("gem145");
 	}
 
 }

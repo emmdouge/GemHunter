@@ -23,7 +23,7 @@ public class AssetSurvivor
 	
 	protected AssetSurvivor(TextureAtlas atlas) 
 	{
-		survivor = atlas.findRegion("0");
+		survivor = atlas.findRegion("survivor0");
 		
 		// Particles
 		dustParticles = new ParticleEffect();
@@ -36,44 +36,44 @@ public class AssetSurvivor
 		
 		regions = new Array<AtlasRegion>();
 		
-		regions.add(atlas.findRegion("6"));
+		regions.add(atlas.findRegion("survivor6"));
 		fallingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
 		regions = new Array<AtlasRegion>();
 		
-		regions.add(atlas.findRegion("1"));
+		regions.add(atlas.findRegion("survivor1"));
 		jumpingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
 		regions = new Array<AtlasRegion>();
 		
 		for(int i = 19; i <= 25; i++)
 		{
-			regions.add(atlas.findRegion(""+i));
+			regions.add(atlas.findRegion("survivor"+i));
 		}
 		runAnimation = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP);
 		
 		regions = new Array<AtlasRegion>();
 		
-		regions.add(atlas.findRegion("19"));
+		regions.add(atlas.findRegion("survivor19"));
 		dashingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
 		regions = new Array<AtlasRegion>();
 		
-		regions.add(atlas.findRegion("11"));
+		regions.add(atlas.findRegion("survivor11"));
 		hurtAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
 		regions = new Array<AtlasRegion>();
 		
 		for(int i = 2; i <= 5; i++)
 		{
-			regions.add(atlas.findRegion(""+i));
+			regions.add(atlas.findRegion("survivor"+i));
 		}
 		groundedAttackAnimation = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.NORMAL);
 		
 		regions = new Array<AtlasRegion>();
 		for(int i = 8; i <= 10; i++)
 		{
-			regions.add(atlas.findRegion(""+i));
+			regions.add(atlas.findRegion("survivor"+i));
 		}
 		jumpAttackAnimation = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.NORMAL);
 	}

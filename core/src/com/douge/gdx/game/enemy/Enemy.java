@@ -90,9 +90,6 @@ public abstract class Enemy extends AbstractGameObject
 	
 	public void render(SpriteBatch batch)
 	{	
-		// Apply Skin Color
-		batch.setColor(CharacterSkin.values()[GamePreferences.instance.charSkin].getColor());
-		
 		// Reset color to white
 		batch.setColor(1, 1, 1, 1);
 		reg = currentAnimation.getKeyFrame(stateTime, true);

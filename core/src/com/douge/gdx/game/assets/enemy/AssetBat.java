@@ -13,7 +13,7 @@ public class AssetBat extends AssetEnemy
 		
 		for(int i = 50; i <= 70; i++)
 		{
-			regions.add(atlas.findRegion(""+i));
+			regions.add(atlas.findRegion("bat"+i));
 		}
 		standingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
@@ -21,7 +21,7 @@ public class AssetBat extends AssetEnemy
 		
 		for(int i = 71; i <= 79; i++)
 		{
-			regions.add(atlas.findRegion(""+i));
+			regions.add(atlas.findRegion("bat"+i));
 		}
 		movingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
@@ -29,7 +29,7 @@ public class AssetBat extends AssetEnemy
 		
 		for(int i = 61; i <= 70; i++)
 		{
-			regions.add(atlas.findRegion(""+i));
+			regions.add(atlas.findRegion("bat"+i));
 		}
 		fallingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
@@ -37,7 +37,7 @@ public class AssetBat extends AssetEnemy
 		
 		for(int i = 80; i <= 89; i++)
 		{
-			regions.add(atlas.findRegion(""+i));
+			regions.add(atlas.findRegion("bat"+i));
 		}
 		attackingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
@@ -45,7 +45,7 @@ public class AssetBat extends AssetEnemy
 		
 		for(int i = 91; i <= 99; i++)
 		{
-			regions.add(atlas.findRegion(""+i));
+			regions.add(atlas.findRegion("bat"+i));
 		}
 		deadAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.NORMAL);
 	}

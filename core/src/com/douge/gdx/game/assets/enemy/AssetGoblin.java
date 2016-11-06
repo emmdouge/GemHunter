@@ -13,7 +13,7 @@ public class AssetGoblin extends AssetEnemy
 		
 		for(int i = 0; i <= 20; i++)
 		{
-			regions.add(atlas.findRegion(""+i));
+			regions.add(atlas.findRegion("goblin"+i));
 		}
 		standingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
@@ -21,7 +21,7 @@ public class AssetGoblin extends AssetEnemy
 		
 		for(int i = 21; i <= 30; i++)
 		{
-			regions.add(atlas.findRegion(""+i));
+			regions.add(atlas.findRegion("goblin"+i));
 		}
 		movingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
@@ -29,7 +29,7 @@ public class AssetGoblin extends AssetEnemy
 		
 		for(int i = 11; i <= 20; i++)
 		{
-			regions.add(atlas.findRegion(""+i));
+			regions.add(atlas.findRegion("goblin"+i));
 		}
 		fallingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
@@ -37,7 +37,7 @@ public class AssetGoblin extends AssetEnemy
 		
 		for(int i = 31; i <= 40; i++)
 		{
-			regions.add(atlas.findRegion(""+i));
+			regions.add(atlas.findRegion("goblin"+i));
 		}
 		attackingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
@@ -45,7 +45,7 @@ public class AssetGoblin extends AssetEnemy
 		
 		for(int i = 41; i <= 49; i++)
 		{
-			regions.add(atlas.findRegion(""+i));
+			regions.add(atlas.findRegion("goblin"+i));
 		}
 		deadAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.NORMAL);
 	}

@@ -19,7 +19,7 @@ public class BlackOverlay extends AbstractGameObject
 	private void init () 
 	{
 		dimension.set(length * 10, 3);
-		regBlackOverlay = Assets.instance.levelDecoration.waterOverlay;
+		regBlackOverlay = Assets.instance.env.blackOverlay;
 		origin.x = -dimension.x / 2;
 	}
 	

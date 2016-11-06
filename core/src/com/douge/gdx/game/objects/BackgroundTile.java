@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.douge.gdx.game.assets.Assets;
 
-public class BackgroundTile extends AbstractGameObject{
+public abstract class BackgroundTile extends AbstractGameObject{
 	protected TextureRegion regMiddle;
 	
 	private int length;
@@ -35,14 +35,10 @@ public class BackgroundTile extends AbstractGameObject{
 	public void render(SpriteBatch batch) 
 	{
 		batch.setColor(Color.DARK_GRAY);
-		
-		TextureRegion reg = null;
 		float relX = 0;
 		float relY = 0;
-		
-		// Draw middle
-		relX = 0;
-		reg = regMiddle;
+
+		TextureRegion reg = regMiddle;
 		for (int i = 0; i < length; i++) 
 		{
 			batch.draw(reg.getTexture(), 
