@@ -268,6 +268,7 @@ public class WorldController extends InputAdapter
 				{
 					fireball.hitEnemy = true;
 					fireball.stateTime = 0f;
+					fireball.currentVelocity.x = 1f;
 					fireball.hit();
 					enemy.stateTime = 0f;
 					enemy.hasBeenKilled = true;

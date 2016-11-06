@@ -32,7 +32,9 @@ public abstract class AbstractGameObject
 		
 	    currentVelocity = new Vector2(); 
 	    maxVelocity = new Vector2(1, 1); 
-	    bounds = new Rectangle(); 
+	    bounds = new Rectangle();
+	    bounds.width = dimension.x;
+	    bounds.height = dimension.y;
 	}
 	
 	//objects that don't override this method won't update
