@@ -67,7 +67,6 @@ public class GroundedAttackState extends PlayerState
 		
 		// Move to new position
 		player.position.x += player.currentVelocity.x * deltaTime;
-		player.position.y += player.currentVelocity.y * deltaTime;
 		
 		if (player.timeLeftJumpPowerup > 0) 
 		{
@@ -84,7 +83,47 @@ public class GroundedAttackState extends PlayerState
 	@Override
 	public void onCollisionWith(Platform platform) 
 	{
+		if(platform.currentVelocity.x != 0)
+		{
+			player.currentVelocity.x = platform.currentVelocity.x;
+			player.currentFriction = 0;
+			player.currentParticleEffect.allowCompletion();
+			player.activeMovement = false;
+		}
+		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = platform.position.x - player.position.x - player.bounds.width;
+		float diffBetweenLeftSideOfPlayerAndRightSideOfPlatform = platform.position.x + platform.bounds.width - player.position.x;
+		float diffBetweenBottomOfPlayerAndTopOfPlatform = platform.position.y + platform.bounds.height - player.position.y;
+		
+		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.07f;
+		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 1f;
+		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.07f;
 
+		if(onTopOfRock)
+		{
+			player.position.y += .01f;
+		}
+		else if(hitLeftEdge)
+		{
+			player.currentFriction = 0;
+			player.currentVelocity.x = 0;
+			if(platform.currentVelocity.x != 0)
+			{
+				context.setPlayerState(context.getJumpFallingState());
+			}
+			
+			//since the rocks are all linked together, rock's bound witdth is the entire platform
+			player.position.x = platform.position.x - 1;
+		}
+		if(hitRightEdge)
+		{
+			player.currentFriction = 0;
+			player.currentVelocity.x = 0;
+			if(platform.currentVelocity.x != 0)
+			{
+				context.setPlayerState(context.getJumpFallingState());
+			}
+			player.position.x = platform.position.x + platform.bounds.width;
+		}
 	}
 
 	@Override
