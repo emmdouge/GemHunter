@@ -16,6 +16,7 @@ public class JumpAttackState extends PlayerState
 	@Override
 	public void execute(float deltaTime) 
 	{
+		player.decreaseInvincibleTimeLeft(deltaTime);
 		// Keep track of 
 		player.timeAttacking += deltaTime;
 		// Keep track of jump time

@@ -210,7 +210,7 @@ public class PlayerStateContext
 	{
 		float diffBetweenBottomOfPlayerAndTopOfEnemy = enemy.position.y + enemy.bounds.height - player.position.y;
 		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfEnemy <= 0.07f;
-		if(!enemy.hasBeenKilled && currentState != hurtState)
+		if(!enemy.hasBeenKilled && currentState != hurtState && !player.isInvincible)
 		{
 			if(landOnTop && enemy.isHurtable)
 			{
@@ -219,13 +219,13 @@ public class PlayerStateContext
 				enemy.context.setEnemyState(enemy.context.getDeadState());
 				player.timeJumping = 0;
 				player.timeDashing = 0;
-				player.context.jump(true);
-				player.context.setPlayerState(player.context.getJumpRisingState());
+				jump(true);
+				setPlayerState(jumpRisingState);
 			}
 			else
 			{
 				AudioManager.instance.play(Assets.instance.sounds.liveLost);
-				player.context.setPlayerState(player.context.getHurtState());			
+				setPlayerState(hurtState);			
 			}
 		}
 	}

@@ -17,6 +17,7 @@ public class DashState extends PlayerState
 	@Override
 	public void execute(float deltaTime) 
 	{
+		player.decreaseInvincibleTimeLeft(deltaTime);
 		//Gdx.app.log(tag, "" + player.timeDashing);
 		// Keep track of jump time
 		player.timeDashing += deltaTime;

@@ -21,6 +21,8 @@ import com.douge.gdx.game.screen.CharacterSkin;
 public class Player extends AbstractGameObject
 {
 	public static final String TAG = Player.class.getName();
+
+	public final float INVINCIBLE_TIME_MAX = 1f;
 	
 	public final float JUMP_TIME_MAX = 0.4f;
 	public final float JUMP_TIME_MIN = 0.1f;
@@ -55,6 +57,10 @@ public class Player extends AbstractGameObject
 	public int numFireballs;
 	public Array<Fireball> fireballs;
 	public ParticleEffect currentParticleEffect;
+
+	public boolean isInvincible = false;
+
+	public float timeInvincibleLeft = 0;
 	
 	public Player() 
 	{
@@ -195,6 +201,19 @@ public class Player extends AbstractGameObject
 	public boolean hasJumpPowerup() 
 	{
 		return hasJumpPowerup && timeLeftJumpPowerup > 0;
+	}
+	public void decreaseInvincibleTimeLeft(float deltaTime) 
+	{
+		timeInvincibleLeft -= deltaTime;
+		if(timeInvincibleLeft <= 0)
+		{
+			timeInvincibleLeft = 0;
+			isInvincible = false;
+		}
+		else
+		{
+			isInvincible = true;
+		}
 	}
 
 }
