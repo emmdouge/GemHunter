@@ -1,5 +1,7 @@
 package com.douge.gdx.game.desktop;
 
+import java.io.File;
+
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
@@ -8,14 +10,14 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 
 public class DesktopLauncher 
 {
-	private static final boolean rebuildAtlas = false;
 	private static final boolean drawDebugOutline = true;
 	
 	public static void main (String[] arg) 
 	{
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		
-		if (rebuildAtlas) 
+		File file = new File("../core/assets/images/gemhunter.atlas");
+		if (!file.exists()) 
 		{
 			Settings settings = new Settings();
 			settings.maxWidth = 2048;

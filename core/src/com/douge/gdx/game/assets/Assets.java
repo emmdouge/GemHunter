@@ -39,6 +39,7 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetSounds sounds; 
 	public AssetMusic music; 
 	public AssetUI ui;
+	public AssetCrow crow;
 	
 	private Assets()
 	{
@@ -88,9 +89,9 @@ public class Assets implements Disposable, AssetErrorListener
 		goblin = new AssetGoblin(atlas);
 		env = new AssetEnvironment(atlas);
 		tiles = new AssetTiles(atlas);
+		crow = new AssetCrow(atlas);
 		ui = new AssetUI(atlas);
 		fonts = new AssetFonts();
-		
 	    music = new AssetMusic(assetManager); 
 	    sounds = new AssetSounds(assetManager); 
 		

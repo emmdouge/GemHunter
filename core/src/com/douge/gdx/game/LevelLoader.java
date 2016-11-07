@@ -19,6 +19,7 @@ import com.douge.gdx.game.enemy.Slime;
 import com.douge.gdx.game.objects.AbstractGameObject;
 import com.douge.gdx.game.objects.BackgroundRock;
 import com.douge.gdx.game.objects.BackgroundStar;
+import com.douge.gdx.game.objects.Crow;
 import com.douge.gdx.game.objects.Fireball;
 import com.douge.gdx.game.objects.NullGameObject;
 import com.douge.gdx.game.objects.PlatformSnow;
@@ -48,6 +49,7 @@ public class LevelLoader
 	
 	//objects
 	public Player player; 
+	public Crow crow;
 	public Array<Coin> coins;
 	public RedCoin redCoin;
 	public Array<Gem> gems; 
@@ -94,8 +96,8 @@ public class LevelLoader
 		messages.enqueue(new Message("Press Left Shift to Dash!", new Vector2(0, 0), Assets.instance.survivor.survivor));
 		messages.enqueue(new NullMessage());
 		
-		levels.add(level2);
 		levels.add(level1);
+		levels.add(level2);
 	}
 	
 	public void nextLevel()
@@ -122,6 +124,7 @@ public class LevelLoader
 		Pixmap pixmap = new Pixmap(Gdx.files.internal(currentLevel.filepath));
 		
 		float yOffset = 1.5f;
+		
 		// scan pixels from top-left to bottom-right
 		int lastPixel = -1;
 		for (int pixelY = 0; pixelY < pixmap.getHeight(); pixelY++) 
@@ -135,6 +138,9 @@ public class LevelLoader
 				//so, the x doesn't have to be changed, but the y has to be adjusted to make it 
 				//as if it starts at the bottom left
 				float baseHeight = pixmap.getHeight() - pixelY - yOffset;
+				
+				//exponential offset
+				float expOffset = -((pixelY+3f))*.025f;
 				
 				// get color of current pixel as 32-bit RGBA value
 				int currentPixel = pixmap.getPixel(pixelX, pixelY);
@@ -156,13 +162,14 @@ public class LevelLoader
 					obj.position.set(pixelX, baseHeight);
 					backgroundTiles.add((BackgroundTile)obj);
 				}
+				
 				// rock
 				if (BLOCK_TYPE.ROCK_PLATFORM.sameColor(currentPixel)) 
 				{
 					if (lastPixel != currentPixel) 
 					{
 						obj = new PlatformRock();
-						obj.position.set(pixelX, baseHeight);
+						obj.position.set(pixelX, baseHeight + expOffset);
 						platforms.add((Platform)obj);
 					} 
 					else 
@@ -176,7 +183,7 @@ public class LevelLoader
 					if (lastPixel != currentPixel) 
 					{
 						obj = new PlatformSnow();
-						obj.position.set(pixelX, baseHeight);
+						obj.position.set(pixelX, baseHeight + expOffset);
 						platforms.add((Platform)obj);
 					} 
 					else 
@@ -192,7 +199,7 @@ public class LevelLoader
 						obj = new Platform();
 						Platform platform = (Platform)obj;
 						platform.regMiddle = currentLevel.platform.regMiddle;
-						platform.position.set(pixelX, baseHeight);
+						platform.position.set(pixelX, baseHeight + expOffset);
 						platform.currentVelocity.x = 1.75f;
 						platforms.add(platform);
 					} 
@@ -209,7 +216,7 @@ public class LevelLoader
 						obj = new Platform();
 						Platform platform = (Platform)obj;
 						platform.regMiddle = currentLevel.platform.regMiddle;
-						platform.position.set(pixelX, baseHeight);
+						platform.position.set(pixelX, baseHeight + expOffset);
 						platform.maxVelocity.y = 10f;
 						platform.currentVelocity.y = -1.75f;
 						platforms.add(platform);
@@ -224,7 +231,7 @@ public class LevelLoader
 				else if (BLOCK_TYPE.REVERSE_PLATFORM_VELOCITY.sameColor(currentPixel)) 
 				{
 			          obj = new NullGameObject(); 
-			          obj.position.set(pixelX + obj.origin.x,baseHeight); 
+			          obj.position.set(pixelX + obj.origin.x, baseHeight + expOffset); 
 			          reversingBoxes.add((NullGameObject)obj); 
 				}
 				
@@ -232,15 +239,16 @@ public class LevelLoader
 				else if (BLOCK_TYPE.PLAYER_SPAWNPOINT.sameColor(currentPixel)) 
 				{
 			          obj = new Player(); 
-			          obj.position.set(pixelX, baseHeight); 
+			          obj.position.set(pixelX, baseHeight + expOffset); 
 			          player = (Player)obj; 
+			          crow = new Crow(player);
 				}
 				
 				// jump gem
 				else if (BLOCK_TYPE.ITEM_JUMP_GEM.sameColor(currentPixel)) 
 				{
 			          obj = new Gem(Assets.instance.gems.jumpGem, new JumpBoostEffect()); 
-			          obj.position.set(pixelX, baseHeight); 
+			          obj.position.set(pixelX, baseHeight + expOffset); 
 			          gems.add((Gem)obj); 
 				}
 		
@@ -248,7 +256,7 @@ public class LevelLoader
 				else if (BLOCK_TYPE.ITEM_GOLD_COIN.sameColor(currentPixel)) 
 				{
 			          obj = new Coin(); 
-			          obj.position.set(pixelX + obj.origin.x,baseHeight); 
+			          obj.position.set(pixelX + obj.origin.x,baseHeight + expOffset); 
 			          coins.add((Coin)obj); 
 				}
 				
@@ -256,7 +264,7 @@ public class LevelLoader
 				else if (BLOCK_TYPE.ITEM_RED_COIN.sameColor(currentPixel)) 
 				{
 			          obj = new RedCoin(); 
-			          obj.position.set(pixelX + obj.origin.x,baseHeight); 
+			          obj.position.set(pixelX + obj.origin.x,baseHeight + expOffset); 
 			          coins.add((RedCoin)obj);
 			          redCoin = (RedCoin)obj;
 				}
@@ -265,7 +273,7 @@ public class LevelLoader
 				else if(BLOCK_TYPE.ENEMY_SLIME.sameColor(currentPixel))
 				{
 			          obj = new Slime(Assets.instance.slime); 
-			          obj.position.set(pixelX,baseHeight); 
+			          obj.position.set(pixelX,baseHeight + expOffset); 
 			          enemies.add((Slime)obj); 	
 				}
 				
@@ -273,7 +281,7 @@ public class LevelLoader
 				else if(BLOCK_TYPE.ENEMY_SKELETON.sameColor(currentPixel))
 				{
 			          obj = new Skeleton(Assets.instance.skeleton); 
-			          obj.position.set(pixelX,baseHeight); 
+			          obj.position.set(pixelX, baseHeight + expOffset); 
 			          enemies.add((Skeleton)obj); 	
 				}
 				
@@ -281,8 +289,7 @@ public class LevelLoader
 				else if(BLOCK_TYPE.ENEMY_BAT.sameColor(currentPixel))
 				{
 			          obj = new Bat(Assets.instance.bat); 
-			          obj.position.x = pixelX;
-			          obj.position.y += baseHeight; 
+			          obj.position.set(pixelX, baseHeight + expOffset);
 			          enemies.add((Bat)obj); 	
 				}
 				
@@ -290,8 +297,7 @@ public class LevelLoader
 				else if(BLOCK_TYPE.ENEMY_BIGGOBLIN.sameColor(currentPixel))
 				{
 			          obj = new BigGoblin(Assets.instance.goblin); 
-			          obj.position.x = pixelX;
-			          obj.position.y += baseHeight; 
+			          obj.position.set(pixelX, baseHeight + expOffset);
 			          enemies.add((BigGoblin)obj); 	
 				}
 				
@@ -407,6 +413,7 @@ public class LevelLoader
 		}
 		
 		clouds.update(deltaTime);
+		crow.update(deltaTime);
 	}
 	
 	/**
@@ -452,6 +459,9 @@ public class LevelLoader
 			Enemy enemy = enemies.get(enemyIndex);
 			enemy.render(batch);
 		}
+		
+		crow.render(batch);
+		
 		// Draw Clouds
 		clouds.render(batch);
 	}

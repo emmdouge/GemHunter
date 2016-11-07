@@ -83,19 +83,12 @@ public class GroundedAttackState extends PlayerState
 	@Override
 	public void onCollisionWith(Platform platform) 
 	{
-		if(platform.currentVelocity.x != 0)
-		{
-			player.currentVelocity.x = platform.currentVelocity.x;
-			player.currentFriction = 0;
-			player.currentParticleEffect.allowCompletion();
-			player.activeMovement = false;
-		}
 		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = platform.position.x - player.position.x - player.bounds.width;
 		float diffBetweenLeftSideOfPlayerAndRightSideOfPlatform = platform.position.x + platform.bounds.width - player.position.x;
 		float diffBetweenBottomOfPlayerAndTopOfPlatform = platform.position.y + platform.bounds.height - player.position.y;
 		
 		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.07f;
-		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 1f;
+		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 0.07f;
 		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.07f;
 
 		if(onTopOfRock)
