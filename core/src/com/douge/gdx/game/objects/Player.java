@@ -59,7 +59,9 @@ public class Player extends AbstractGameObject
 	public ParticleEffect currentParticleEffect;
 
 	public boolean isInvincible = false;
-
+	public boolean drawRed = false;
+	public int invincibleSwitch = 0;
+	
 	public float timeInvincibleLeft = 0;
 	
 	public Player() 
@@ -171,10 +173,30 @@ public class Player extends AbstractGameObject
 				currentNode = currentNode.nextNode;
 			}
 		}
-		// Reset color to white
-		batch.setColor(1, 1, 1, 1);
+
 		
 		currentParticleEffect.draw(batch);
+		
+		if(isInvincible)
+		{
+			boolean switchColor = invincibleSwitch%4 == 0;
+			if(switchColor)
+			drawRed = !drawRed;
+			if(drawRed)
+			{
+				batch.setColor(Color.RED);
+			}
+			else
+			{
+				batch.setColor(Color.WHITE);
+			}
+			invincibleSwitch++;
+		}
+		else
+		{
+			// Reset color to white
+			batch.setColor(1, 1, 1, 1);		
+		}
 		
 		TextureRegion reg = currentAnimation.getKeyFrame(context.getCurrentState().stateTime, true);
 		batch.draw(reg.getTexture(), 
