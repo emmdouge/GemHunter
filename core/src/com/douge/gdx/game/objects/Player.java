@@ -196,6 +196,7 @@ public class Player extends AbstractGameObject
 		{
 			// Reset color to white
 			batch.setColor(1, 1, 1, 1);		
+			invincibleSwitch = 0;
 		}
 		
 		TextureRegion reg = currentAnimation.getKeyFrame(context.getCurrentState().stateTime, true);
