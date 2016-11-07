@@ -67,6 +67,7 @@ public class GroundedAttackState extends PlayerState
 		
 		// Move to new position
 		player.position.x += player.currentVelocity.x * deltaTime;
+		player.position.y += player.currentVelocity.y * deltaTime;
 		
 		if (player.timeLeftJumpPowerup > 0) 
 		{
@@ -90,10 +91,17 @@ public class GroundedAttackState extends PlayerState
 		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.07f;
 		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 0.07f;
 		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.07f;
-
+		
 		if(onTopOfRock)
 		{
-			player.position.y += .01f;
+			if(platform.currentVelocity.y != 0)
+			{
+				player.currentVelocity.y = platform.currentVelocity.y;
+			}
+			else if(platform.currentVelocity.x != 0)
+			{
+				player.currentVelocity.x = platform.currentVelocity.x;
+			}
 		}
 		else if(hitLeftEdge)
 		{
