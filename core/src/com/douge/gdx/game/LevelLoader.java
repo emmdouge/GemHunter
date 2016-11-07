@@ -91,7 +91,7 @@ public class LevelLoader
 		messages.enqueue(new NullMessage());
 		
 		messages = new MessageQueue();
-		Level level2 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), new PlatformRock(), "../core/assets/levels/level02.png", messages, null);
+		Level level2 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), new PlatformRock(), "../core/assets/levels/level02.png", messages, new NullParticleEffect());
 		messages.enqueue(new Message("Press F to Attack!", new Vector2(0, 0), Assets.instance.survivor.survivor));
 		messages.enqueue(new Message("Press Left Shift to Dash!", new Vector2(0, 0), Assets.instance.survivor.survivor));
 		messages.enqueue(new NullMessage());
@@ -417,7 +417,6 @@ public class LevelLoader
 		clouds.update(deltaTime);
 		crow.update(deltaTime);
 		
-		if(currentLevel.particleEffect != null)
 		currentLevel.particleEffect.update(deltaTime);
 	}
 	
@@ -470,11 +469,9 @@ public class LevelLoader
 		// Draw Clouds
 		clouds.render(batch);
 		
-		if(currentLevel.particleEffect != null)
-		{
-			currentLevel.particleEffect.start();
-			currentLevel.particleEffect.draw(batch);
-		}
+		currentLevel.particleEffect.start();
+		currentLevel.particleEffect.draw(batch);
+
 		batch.setColor(Color.WHITE);
 	}
 }

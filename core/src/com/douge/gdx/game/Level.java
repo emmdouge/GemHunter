@@ -23,7 +23,6 @@ public class Level
 		this.filepath = filepath;
 		this.messages = messages;
 		this.particleEffect = particleEffect;
-		if(particleEffect != null)
 		this.particleEffect.setPosition(0f, 32f);
 	}
 }
