@@ -319,6 +319,8 @@ public class LevelLoader
 			lastPixel = currentPixel;
 			}
 		}
+		//exponential offset
+		float expOffsetEnv = -((pixmap.getHeight()+3f))*.025f;
 		
 		// decoration
 		clouds = new Clouds(pixmap.getWidth());
@@ -328,11 +330,11 @@ public class LevelLoader
 		
 		int lookGood = 1;
 		trees = new Trees(pixmap.getWidth());
-		trees.position.set(0, baseHeightOfBottomLeftPixelOfPixmap - yOffset + lookGood);
+		trees.position.set(0, baseHeightOfBottomLeftPixelOfPixmap - yOffset + expOffsetEnv + lookGood);
 		
 		lookGood = -2;
 		blackOverlay = new BlackOverlay(pixmap.getWidth());
-		blackOverlay.position.set(0, baseHeightOfBottomLeftPixelOfPixmap - yOffset + lookGood);
+		blackOverlay.position.set(0, baseHeightOfBottomLeftPixelOfPixmap - yOffset + expOffsetEnv + lookGood);
 		
 		// free memory
 		pixmap.dispose();
