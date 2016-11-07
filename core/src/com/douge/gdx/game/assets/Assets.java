@@ -8,6 +8,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
@@ -40,6 +41,7 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetMusic music; 
 	public AssetUI ui;
 	public AssetCrow crow;
+	public ParticleEffect snow;
 	
 	private Assets()
 	{
@@ -94,6 +96,8 @@ public class Assets implements Disposable, AssetErrorListener
 		fonts = new AssetFonts();
 	    music = new AssetMusic(assetManager); 
 	    sounds = new AssetSounds(assetManager); 
+		snow = new ParticleEffect();
+		snow.load(Gdx.files.internal("../core/assets/particles/snow.pfx"), Gdx.files.internal("../core/assets/particles"));
 		
 		//enable texture smoothing for all textures in the atlas
 		for(Texture texture: atlas.getTextures())

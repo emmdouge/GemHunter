@@ -86,18 +86,18 @@ public class LevelLoader
 		MessageQueue messages = new MessageQueue();
 	    levels = new ArrayList<Level>();
 	    
-		Level level1 = new Level(BLOCK_TYPE.STAR_BACK.getColor(), new PlatformSnow(), "../core/assets/levels/level01.png", messages);
+		Level level1 = new Level(BLOCK_TYPE.STAR_BACK.getColor(), new PlatformSnow(), "../core/assets/levels/level01.png", messages, Assets.instance.snow);
 
 		messages.enqueue(new NullMessage());
 		
 		messages = new MessageQueue();
-		Level level2 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), new PlatformRock(), "../core/assets/levels/level02.png", messages);
+		Level level2 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), new PlatformRock(), "../core/assets/levels/level02.png", messages, null);
 		messages.enqueue(new Message("Press F to Attack!", new Vector2(0, 0), Assets.instance.survivor.survivor));
 		messages.enqueue(new Message("Press Left Shift to Dash!", new Vector2(0, 0), Assets.instance.survivor.survivor));
 		messages.enqueue(new NullMessage());
 		
-		levels.add(level2);
 		levels.add(level1);
+		levels.add(level2);
 	}
 	
 	public void nextLevel()
@@ -416,6 +416,9 @@ public class LevelLoader
 		
 		clouds.update(deltaTime);
 		crow.update(deltaTime);
+		
+		if(currentLevel.particleEffect != null)
+		currentLevel.particleEffect.update(deltaTime);
 	}
 	
 	/**
@@ -467,6 +470,11 @@ public class LevelLoader
 		// Draw Clouds
 		clouds.render(batch);
 		
+		if(currentLevel.particleEffect != null)
+		{
+			currentLevel.particleEffect.start();
+			currentLevel.particleEffect.draw(batch);
+		}
 		batch.setColor(Color.WHITE);
 	}
 }
