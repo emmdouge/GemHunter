@@ -96,8 +96,8 @@ public class LevelLoader
 		messages.enqueue(new Message("Press Left Shift to Dash!", new Vector2(0, 0), Assets.instance.survivor.survivor));
 		messages.enqueue(new NullMessage());
 		
-		levels.add(level1);
 		levels.add(level2);
+		levels.add(level1);
 	}
 	
 	public void nextLevel()
@@ -464,5 +464,7 @@ public class LevelLoader
 		
 		// Draw Clouds
 		clouds.render(batch);
+		
+		batch.setColor(Color.WHITE);
 	}
 }
