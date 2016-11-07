@@ -111,6 +111,7 @@ public class Player extends AbstractGameObject
 	{
 		context.getCurrentState().execute(deltaTime);
 		context.getCurrentState().stateTime += deltaTime;
+		decreaseInvincibleTimeLeft(deltaTime);
 		afterImageNeutral.addNode(this, currentAnimation.getKeyFrame(context.getCurrentState().stateTime));
 		currentParticleEffect.update(deltaTime);
 	}

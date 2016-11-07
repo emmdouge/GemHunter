@@ -19,8 +19,6 @@ public class JumpFallingState extends PlayerState
 	@Override
 	public void execute(float deltaTime) 
 	{
-
-		player.decreaseInvincibleTimeLeft(deltaTime);
 		player.currentAnimation = Assets.instance.survivor.jumpingAnimation;
 		if (player.currentVelocity.x != 0) 
 		{

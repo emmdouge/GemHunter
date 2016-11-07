@@ -18,7 +18,6 @@ public class HurtState extends PlayerState
 	@Override
 	public void execute(float deltaTime) 
 	{			
-		player.decreaseInvincibleTimeLeft(deltaTime);
 		player.timeStunned += deltaTime;
 		player.currentAnimation = Assets.instance.survivor.hurtAnimation;
 		player.timeJumping = player.JUMP_TIME_MAX;

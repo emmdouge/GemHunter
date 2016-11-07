@@ -17,7 +17,6 @@ public class GroundedState extends PlayerState
 	@Override
 	public void execute(float deltaTime) 
 	{
-		player.decreaseInvincibleTimeLeft(deltaTime);
 		player.timeDashing = 0;
 		player.timeStunned = 0;
 		player.timeJumping = 0;
