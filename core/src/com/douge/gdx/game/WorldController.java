@@ -64,7 +64,9 @@ public class WorldController extends InputAdapter implements Disposable
 	public WorldController(DirectedGame game)
 	{
 		this.game = game;
+		levelLoader = LevelLoader.getInstance();
 		init();
+		initPhysics();
 	}
 	
 	/**
@@ -72,8 +74,7 @@ public class WorldController extends InputAdapter implements Disposable
 	 */
 	private void init()
 	{
-		initLevelLoader();
-		initPhysics();
+		levelLoader.initCurrentLevel(levelLoader.currentLevelIndex);	
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
 		cameraHelper.setTarget(levelLoader.player);
@@ -84,14 +85,6 @@ public class WorldController extends InputAdapter implements Disposable
 		scoreVisual = 0;
 		score = 0;
 		message = levelLoader.currentLevel.messages.head;
-	}
-	
-	/**
-	 * initializes level and sets cameraHelper's target to the player
-	 */
-	private void initLevelLoader () 
-	{
-		levelLoader = LevelLoader.instance.init(game);
 	}
 	
 
@@ -163,11 +156,6 @@ public class WorldController extends InputAdapter implements Disposable
 		if (!cameraHelper.hasTarget(levelLoader.player));
 		{
 			float camMoveSpeed = 5 * deltaTime;
-			float camMoveSpeedAccelerationFactor = 5;
-//			if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
-//			{
-//				camMoveSpeed *=camMoveSpeedAccelerationFactor;
-//			}
 			if (Gdx.input.isKeyPressed(Keys.LEFT)) 
 			{
 				moveCamera(-camMoveSpeed,0);
@@ -226,9 +214,8 @@ public class WorldController extends InputAdapter implements Disposable
 			if(levelLoader.currentLevelIndex+1 < levelLoader.levels.size())
 			{
 				levelLoader.nextLevel();
-				cameraHelper.setTarget(levelLoader.player);
-				cameraHelper.setPosition(levelLoader.player.position.x, levelLoader.player.position.y);
-				game.setScreen(new GameScreen(game));
+				GameScreen gameScreen = new GameScreen(game);
+				game.setScreen(gameScreen);
 			}
 			else
 			{
@@ -247,7 +234,7 @@ public class WorldController extends InputAdapter implements Disposable
 		AudioManager.instance.play(Assets.instance.sounds.pickupPotion);
 		gem.collected = true;
 		score += gem.getScore();
-		gem.effect.activate(LevelLoader.instance.player);
+		gem.effect.activate(LevelLoader.getInstance().player);
 		Gdx.app.log(TAG, "gem collected");
 	};
 	
@@ -470,6 +457,7 @@ public class WorldController extends InputAdapter implements Disposable
 		if (keycode == Keys.R) 
 		{
 			init();
+			initPhysics();
 			Gdx.app.debug(TAG, "Game world resetted");
 		}
 	    // Toggle camera follow 
@@ -500,13 +488,7 @@ public class WorldController extends InputAdapter implements Disposable
 	
 	private void initPhysics () 
 	{
-		if (box2DWorld != null) 
-		{
-			box2DWorld.dispose();
-		}
-
-		box2DWorld = new World(new Vector2(0, -9.81f), true);
-		
+		initBox2D();
 
 		// Rocks
 		for (Platform platform : levelLoader.platforms) 
@@ -528,6 +510,19 @@ public class WorldController extends InputAdapter implements Disposable
 
 	@Override
 	public void dispose() {
-		if (box2DWorld != null) box2DWorld.dispose();
+		if (box2DWorld != null) 
+		{
+			box2DWorld.dispose();
+		}
+	}
+
+	public static void initBox2D() 
+	{
+		if (box2DWorld != null) 
+		{
+			box2DWorld.dispose();
+		}
+
+		box2DWorld = new World(new Vector2(0, -9.81f), true);
 	}
 }

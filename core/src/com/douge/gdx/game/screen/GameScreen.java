@@ -56,7 +56,7 @@ public class GameScreen extends AbstractGameScreen
 
 	@Override
 	public void show() 
-	{
+	{	
 		GamePreferences.instance.load();
 		worldController = new WorldController(game);
 		worldRenderer = new WorldRenderer(worldController);
@@ -64,8 +64,9 @@ public class GameScreen extends AbstractGameScreen
 	}
 
 	@Override
-	public void hide() {
-		worldController.dispose();
+	public void hide() 
+	{
+		//worldController.dispose();	
 		worldRenderer.dispose();
 		Gdx.input.setCatchBackKey(false);
 	}

@@ -52,7 +52,7 @@ public class LevelLoader
 {
 	public static final String TAG = LevelLoader.class.getName();
 
-	public static LevelLoader instance = new LevelLoader();
+	private static LevelLoader instance;
 	
 	//objects
 	public Player player; 
@@ -72,26 +72,15 @@ public class LevelLoader
 	public Clouds clouds;
 	public Trees trees;
 	public BlackOverlay blackOverlay;
-
-	public DirectedGame game;
 	
 	private LevelLoader () 
 	{
 
 	}
 	
-	public LevelLoader init(DirectedGame game)
-	{
-		instance.game = game;
-		instance.initLevels();
-		instance.initCurrentLevel(instance.currentLevelIndex);	
-		return instance;
-	}
-	
 	private void initLevels()
 	{	    
 		MessageQueue messages = new MessageQueue();
-	    levels = new ArrayList<Level>();
 	    
 		Level level1 = new Level(BLOCK_TYPE.STAR_BACK.getColor(), new PlatformSnow(), "../core/assets/levels/level01.png", messages, Assets.instance.snow);
 
@@ -103,28 +92,53 @@ public class LevelLoader
 		messages.enqueue(new Message("Press Left Shift to Dash!", new Vector2(0, 0), Assets.instance.survivor.survivor));
 		messages.enqueue(new NullMessage());
 		
-		levels.add(level1);
 		levels.add(level2);
+		levels.add(level1);
+	}
+	
+	public static LevelLoader getInstance() 
+	{
+		if(instance == null)
+		{
+			instance = new LevelLoader();
+			instance.coins = new Array<Coin>(); 
+			instance.gems = new Array<Gem>(); 
+			instance.platforms = new Array<Platform>();
+			instance.reversingBoxes = new Array<NullGameObject>();
+			instance.backgroundTiles = new Array<BackgroundTile>();
+			instance.enemies = new Array<Enemy>();
+			instance.levels = new ArrayList<Level>();
+			instance.initLevels();
+			instance.currentLevelIndex = 0;
+			instance.currentLevel = instance.levels.get(instance.currentLevelIndex);
+		}
+
+		return instance;
 	}
 	
 	public void nextLevel()
 	{
-		currentLevelIndex++;
-		initCurrentLevel(currentLevelIndex);	
+		clearLevel();
+		currentLevelIndex++;	
 	}
 	
-	private void initCurrentLevel(int currentLevelIndex) 
+	private void clearLevel() 
+	{
+		coins.clear();
+		gems.clear();
+		platforms.clear();
+		reversingBoxes.clear();
+		backgroundTiles.clear();
+		enemies.clear();
+	}
+
+	public void initCurrentLevel(int currentLevelIndex) 
 	{
 		this.currentLevelIndex  = currentLevelIndex;
 	    currentLevel = levels.get(currentLevelIndex);
 	    
 	    // objects 
-	    coins = new Array<Coin>(); 
-	    gems = new Array<Gem>(); 
-		platforms = new Array<Platform>();
-		reversingBoxes = new Array<NullGameObject>();
-		backgroundTiles = new Array<BackgroundTile>();
-		enemies = new Array<Enemy>();
+
 		
 		// load image file that represents the level data
 		//**had to remove underscore in filename to get it to load
@@ -384,21 +398,21 @@ public class LevelLoader
 				
 				BodyEditorLoader loader = new BodyEditorLoader(Gdx.files.internal("../core/assets/physics/coin.json"));
 				
-				FixtureDef fixtureDef = new FixtureDef();
-				fixtureDef.density = 25;
-				fixtureDef.restitution = 0.75f;
-				fixtureDef.friction = 0.5f;
+				FixtureDef coinFixtureDef = new FixtureDef();
+				coinFixtureDef.density = 25;
+				coinFixtureDef.restitution = 0.75f;
+				coinFixtureDef.friction = 0.5f;
 
-				BodyDef bodyDef = new BodyDef();	
-				bodyDef.type = BodyType.DynamicBody;
-				bodyDef.linearVelocity.x = MathUtils.random(-2, 2);
-				bodyDef.linearVelocity.y = MathUtils.random(4, 7);
-				bodyDef.position.set(enemy.position);
+				BodyDef coinBodyDef = new BodyDef();	
+				coinBodyDef.type = BodyType.DynamicBody;
+				coinBodyDef.linearVelocity.x = MathUtils.random(-2, 2);
+				coinBodyDef.linearVelocity.y = MathUtils.random(4, 7);
+				coinBodyDef.position.set(enemy.position);
 
-				coin.body = WorldController.box2DWorld.createBody(bodyDef);
+				coin.body = WorldController.box2DWorld.createBody(coinBodyDef);
 				//must manually define the name in the json file 
 				coin.origin = loader.getOrigin("coinBody", coin.dimension.x);
-				loader.attachFixture(coin.body, "coinBody", fixtureDef, coin.origin.x);
+				loader.attachFixture(coin.body, "coinBody", coinFixtureDef, coin.origin.x);
 				coins.add(coin);
 				
 				if(enemy.dropsHealth && !enemy.droppedHealth)	
@@ -406,6 +420,23 @@ public class LevelLoader
 					Gem healthGem = new Gem(Assets.instance.gems.heartGem, new HealthBoostEffect());
 					healthGem.position.x = enemy.position.x + (enemy.origin.x/2);
 					healthGem.position.y = enemy.position.y;
+					loader = new BodyEditorLoader(Gdx.files.internal("../core/assets/physics/heart.json"));
+					
+					FixtureDef heartFixtureDef = new FixtureDef();
+					heartFixtureDef.density = 25;
+					heartFixtureDef.restitution = 0.75f;
+					heartFixtureDef.friction = 0.5f;
+
+					BodyDef heartBodyDef = new BodyDef();	
+					heartBodyDef.type = BodyType.DynamicBody;
+					heartBodyDef.linearVelocity.x = MathUtils.random(-2, 2);
+					heartBodyDef.linearVelocity.y = MathUtils.random(4, 7);
+					heartBodyDef.position.set(healthGem.position);
+
+					healthGem.body = WorldController.box2DWorld.createBody(heartBodyDef);
+					//must manually define the name in the json file 
+					healthGem.origin = loader.getOrigin("heartBody", healthGem.dimension.x);
+					loader.attachFixture(healthGem.body, "heartBody", heartFixtureDef, healthGem.origin.x);
 					gems.add(healthGem);
 					enemy.droppedHealth = true;
 				}
@@ -497,4 +528,6 @@ public class LevelLoader
 
 		batch.setColor(Color.WHITE);
 	}
+
+
 }
