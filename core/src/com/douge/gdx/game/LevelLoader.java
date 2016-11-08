@@ -385,14 +385,14 @@ public class LevelLoader
 				BodyEditorLoader loader = new BodyEditorLoader(Gdx.files.internal("../core/assets/physics/coin.json"));
 				
 				FixtureDef fixtureDef = new FixtureDef();
-				fixtureDef.density = 100;
-				fixtureDef.restitution = 0.3f;
+				fixtureDef.density = 25;
+				fixtureDef.restitution = 0.75f;
 				fixtureDef.friction = 0.5f;
 
 				BodyDef bodyDef = new BodyDef();	
 				bodyDef.type = BodyType.DynamicBody;
-				bodyDef.linearVelocity.x = MathUtils.random(-3, 3);
-				bodyDef.linearVelocity.y = MathUtils.random(1, 4);
+				bodyDef.linearVelocity.x = MathUtils.random(-2, 2);
+				bodyDef.linearVelocity.y = MathUtils.random(4, 7);
 				bodyDef.position.set(enemy.position);
 
 				coin.body = WorldController.box2DWorld.createBody(bodyDef);
