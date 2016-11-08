@@ -2,6 +2,7 @@ package com.douge.gdx.game;
 
 import java.util.ArrayList;
 
+import com.aurelienribon.bodyeditor.BodyEditorLoader;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -380,25 +381,24 @@ public class LevelLoader
 				{
 					coin = new Coin();
 				}
-				PolygonShape polygonShape = new PolygonShape();
-				Vector2 center = new Vector2(enemy.position.x+enemy.origin.x, enemy.position.y+enemy.origin.y);
-				polygonShape.setAsBox(coin.origin.x, coin.origin.y, new Vector2(.25f, .25f), 0);
+				
+				BodyEditorLoader loader = new BodyEditorLoader(Gdx.files.internal("../core/assets/physics/coin.json"));
 				
 				FixtureDef fixtureDef = new FixtureDef();
-				fixtureDef.shape = polygonShape;
-				fixtureDef.density = 25;
-				fixtureDef.restitution = 0.75f;
+				fixtureDef.density = 100;
+				fixtureDef.restitution = 0.3f;
 				fixtureDef.friction = 0.5f;
 
-				
 				BodyDef bodyDef = new BodyDef();	
 				bodyDef.type = BodyType.DynamicBody;
 				bodyDef.linearVelocity.x = MathUtils.random(-3, 3);
-				bodyDef.linearVelocity.y = MathUtils.random(0, 3);
+				bodyDef.linearVelocity.y = MathUtils.random(1, 4);
 				bodyDef.position.set(enemy.position);
 
 				coin.body = WorldController.box2DWorld.createBody(bodyDef);
-				coin.body.createFixture(fixtureDef);
+				//must manually define the name in the json file 
+				coin.origin = loader.getOrigin("coinBody", coin.dimension.x);
+				loader.attachFixture(coin.body, "coinBody", fixtureDef, coin.origin.x);
 				coins.add(coin);
 				
 				if(enemy.dropsHealth && !enemy.droppedHealth)	

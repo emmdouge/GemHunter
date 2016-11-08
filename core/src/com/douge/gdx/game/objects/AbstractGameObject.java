@@ -58,6 +58,7 @@ public abstract class AbstractGameObject
 		{
 			position.set(body.getPosition());
 			rotation = body.getAngle() * MathUtils.radiansToDegrees;
+			body.setTransform(body.getPosition(), body.getAngle());
 		}
 	}
 	
