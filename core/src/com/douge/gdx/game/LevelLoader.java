@@ -410,7 +410,7 @@ public class LevelLoader
 				coinBodyDef.position.set(enemy.position);
 
 				coin.body = WorldController.box2DWorld.createBody(coinBodyDef);
-				//must manually define the name in the json file 
+				//must name it in body editor or in json(manually)
 				coin.origin = loader.getOrigin("coinBody", coin.dimension.x);
 				loader.attachFixture(coin.body, "coinBody", coinFixtureDef, coin.origin.x);
 				coins.add(coin);
