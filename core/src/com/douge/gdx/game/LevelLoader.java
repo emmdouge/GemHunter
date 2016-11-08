@@ -6,7 +6,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.effect.HealthBoostEffect;
@@ -91,7 +97,7 @@ public class LevelLoader
 		messages.enqueue(new NullMessage());
 		
 		messages = new MessageQueue();
-		Level level2 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), new PlatformRock(), "../core/assets/levels/level02.png", messages, new NullParticleEffect());
+		Level level2 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), new PlatformRock(), "../core/assets/levels/level02.png", messages, Assets.instance.forest);
 		messages.enqueue(new Message("Press F to Attack!", new Vector2(0, 0), Assets.instance.survivor.survivor));
 		messages.enqueue(new Message("Press Left Shift to Dash!", new Vector2(0, 0), Assets.instance.survivor.survivor));
 		messages.enqueue(new NullMessage());
@@ -374,9 +380,26 @@ public class LevelLoader
 				{
 					coin = new Coin();
 				}
-				coin.position.x = enemy.position.x + (enemy.origin.x/2);
-				coin.position.y = enemy.position.y;
-				coins.add(coin);				
+				PolygonShape polygonShape = new PolygonShape();
+				Vector2 center = new Vector2(enemy.position.x+enemy.origin.x, enemy.position.y+enemy.origin.y);
+				polygonShape.setAsBox(coin.origin.x, coin.origin.y, new Vector2(.25f, .25f), 0);
+				
+				FixtureDef fixtureDef = new FixtureDef();
+				fixtureDef.shape = polygonShape;
+				fixtureDef.density = 25;
+				fixtureDef.restitution = 0.75f;
+				fixtureDef.friction = 0.5f;
+
+				
+				BodyDef bodyDef = new BodyDef();	
+				bodyDef.type = BodyType.DynamicBody;
+				bodyDef.linearVelocity.x = MathUtils.random(-3, 3);
+				bodyDef.linearVelocity.y = MathUtils.random(0, 3);
+				bodyDef.position.set(enemy.position);
+
+				coin.body = WorldController.box2DWorld.createBody(bodyDef);
+				coin.body.createFixture(fixtureDef);
+				coins.add(coin);
 				
 				if(enemy.dropsHealth && !enemy.droppedHealth)	
 				{

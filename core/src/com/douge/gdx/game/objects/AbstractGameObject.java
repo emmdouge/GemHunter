@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 
 public abstract class AbstractGameObject 
 {
@@ -19,8 +20,10 @@ public abstract class AbstractGameObject
 	public float gravity;
 	public float currentGravity;
 	public float currentFriction;
-	public Rectangle bounds; 
 	public float stateTime;
+	
+	public Rectangle bounds; 
+	public Body body;
 	
 	public AbstractGameObject () 
 	{
@@ -40,14 +43,22 @@ public abstract class AbstractGameObject
 	//objects that don't override this method won't update
 	//objects that don't override this method won't update
 	public void update (float deltaTime) 
-	{
+	{		
 		stateTime += deltaTime;
-		updateMotionX(deltaTime);
-		updateMotionY(deltaTime);
-		
-		// Move to new position
-		position.x += currentVelocity.x * deltaTime;
-		position.y += currentVelocity.y * deltaTime;
+		if(body == null)
+		{
+			updateMotionX(deltaTime);
+			updateMotionY(deltaTime);
+			
+			// Move to new position
+			position.x += currentVelocity.x * deltaTime;
+			position.y += currentVelocity.y * deltaTime;
+		}
+		else
+		{
+			position.set(body.getPosition());
+			rotation = body.getAngle() * MathUtils.radiansToDegrees;
+		}
 	}
 	
 

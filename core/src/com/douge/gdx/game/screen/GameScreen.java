@@ -4,6 +4,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.douge.gdx.game.LevelLoader;
 import com.douge.gdx.game.WorldController;
 import com.douge.gdx.game.WorldRenderer;
@@ -63,6 +65,7 @@ public class GameScreen extends AbstractGameScreen
 
 	@Override
 	public void hide() {
+		worldController.dispose();
 		worldRenderer.dispose();
 		Gdx.input.setCatchBackKey(false);
 	}

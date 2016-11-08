@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.douge.gdx.game.assets.Assets;
@@ -21,6 +22,8 @@ public class WorldRenderer implements Disposable
 	
 	private SpriteBatch batch;
 	private WorldController worldController;
+	private static final boolean DEBUG_DRAW_BOX2D_WORLD = false; 
+	public Box2DDebugRenderer box2DdebugRenderer;
 	
 	public WorldRenderer(WorldController worldController)
 	{
@@ -39,6 +42,8 @@ public class WorldRenderer implements Disposable
 		cameraGUI.position.set(0, 0, 0);
 		cameraGUI.setToOrtho(true); // flip y-axis
 		cameraGUI.update();
+		
+		box2DdebugRenderer = new Box2DDebugRenderer();
 	}
 	
 	/**
@@ -88,6 +93,10 @@ public class WorldRenderer implements Disposable
 		worldController.cameraHelper.applyTo(camera);
 		batch.setProjectionMatrix(camera.combined);
 		worldController.levelLoader.render(batch);	
+		if (DEBUG_DRAW_BOX2D_WORLD) 
+		{
+			box2DdebugRenderer.render(worldController.box2DWorld, camera.combined);
+		}
 	}
 	
 	/**

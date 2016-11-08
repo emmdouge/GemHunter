@@ -7,6 +7,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.screen.GameScreen;
 import com.douge.gdx.game.screen.MenuScreen;
@@ -25,7 +27,7 @@ public class DougeGdxGame extends DirectedGame
 
 	@Override
 	public void create () 
-	{
+	{	
 		// Set Libgdx log level
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		

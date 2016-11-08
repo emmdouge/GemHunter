@@ -10,7 +10,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.objects.Fireball;
@@ -27,7 +34,7 @@ import com.douge.gdx.game.screen.transition.Fade;
 import com.douge.gdx.game.screen.transition.ScreenTransition;
 import com.douge.gdx.game.utils.AudioManager;
 
-public class WorldController extends InputAdapter
+public class WorldController extends InputAdapter implements Disposable
 {
 	private static final String TAG = WorldController.class.getName();
 	
@@ -46,9 +53,9 @@ public class WorldController extends InputAdapter
 	   
 	private float timeLeftGameOverDelay; 
 	
-
 	public Message message;
 
+	public static World box2DWorld = null;
 	
 	/**
 	 * initializes game and level
@@ -66,6 +73,7 @@ public class WorldController extends InputAdapter
 	private void init()
 	{
 		initLevelLoader();
+		initPhysics();
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
 		cameraHelper.setTarget(levelLoader.player);
@@ -113,6 +121,10 @@ public class WorldController extends InputAdapter
 		message.updateText(deltaTime, levelLoader.player);
 		
 		handleCollisions();
+		
+		if(box2DWorld != null)
+		box2DWorld.step(deltaTime, 8, 3);
+			
 		cameraHelper.update(deltaTime);
 		if (!isGameOver() && isPlayerInWater()) 
 		{
@@ -484,5 +496,38 @@ public class WorldController extends InputAdapter
 		// switch to menu screen
 		ScreenTransition fade = Fade.init(0.75f);
 		game.setScreen(new GameScreen(game), fade);
+	}
+	
+	private void initPhysics () 
+	{
+		if (box2DWorld != null) 
+		{
+			box2DWorld.dispose();
+		}
+
+		box2DWorld = new World(new Vector2(0, -9.81f), true);
+		
+
+		// Rocks
+		for (Platform platform : levelLoader.platforms) 
+		{
+			PolygonShape polygonShape = new PolygonShape();
+			polygonShape.setAsBox(platform.origin.x, platform.origin.y, platform.origin, 0);
+			
+			FixtureDef fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			
+			BodyDef bodyDef = new BodyDef();	
+			bodyDef.type = BodyType.KinematicBody;
+			bodyDef.position.set(platform.position);
+			
+			platform.body = box2DWorld.createBody(bodyDef);
+			platform.body.createFixture(fixtureDef);
+		}
+	}
+
+	@Override
+	public void dispose() {
+		if (box2DWorld != null) box2DWorld.dispose();
 	}
 }

@@ -42,6 +42,7 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetUI ui;
 	public AssetCrow crow;
 	public ParticleEffect snow;
+	public ParticleEffect forest;
 	
 	private Assets()
 	{
@@ -98,6 +99,8 @@ public class Assets implements Disposable, AssetErrorListener
 	    sounds = new AssetSounds(assetManager); 
 		snow = new ParticleEffect();
 		snow.load(Gdx.files.internal("../core/assets/particles/snow.pfx"), Gdx.files.internal("../core/assets/particles"));
+		forest = new ParticleEffect();
+		forest.load(Gdx.files.internal("../core/assets/particles/forest.pfx"), Gdx.files.internal("../core/assets/particles"));
 		
 		//enable texture smoothing for all textures in the atlas
 		for(Texture texture: atlas.getTextures())

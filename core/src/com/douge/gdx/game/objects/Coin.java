@@ -23,7 +23,8 @@ public class Coin extends AbstractGameObject
 		dimension.set(0.5f, 0.5f);
 		spinning = Assets.instance.goldCoin.spinning;
 		stateTime = 0f;
-		origin.x = dimension.x/2;
+		origin.x = dimension.x/2f;
+		origin.y = dimension.x/2f;
 		// Set bounding box for collision detection
 		bounds.set(0, 0, dimension.x, dimension.y);
 		color = Color.WHITE;
