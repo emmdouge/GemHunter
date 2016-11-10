@@ -90,7 +90,7 @@ public class GroundedAttackState extends PlayerState
 		
 		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.07f;
 		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 0.07f;
-		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.07f;
+		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.2f;
 		
 		if(onTopOfRock)
 		{
@@ -100,7 +100,7 @@ public class GroundedAttackState extends PlayerState
 			}
 			else
 			{
-				player.position.y = platform.body.getPosition().y+platform.dimension.y-.03f;
+				player.position.y = platform.body.getPosition().y + platform.dimension.y - .001f;
 			}
 		}
 		else if(hitLeftEdge)
