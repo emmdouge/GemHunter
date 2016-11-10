@@ -38,11 +38,11 @@ public class EnemyMovingState extends EnemyState
 			// positive or negative terminal velocity
 			enemy.currentVelocity.x = MathUtils.clamp(enemy.currentVelocity.x, -enemy.maxVelocity.x, enemy.maxVelocity.x);
 			
-			if((int)(Math.random()*200) == 1)
+			if((int)(Math.random()*500) == 1)
 			{
 				enemy.currentVelocity.x *= -1;
 			}
-			if((int)(Math.random()*100) == 2)
+			if((int)(Math.random()*5000) == 2)
 			{
 				enemy.stateTime = 0;
 				context.setEnemyState(context.getAttackingState());
@@ -52,17 +52,28 @@ public class EnemyMovingState extends EnemyState
 			enemy.currentAnimation = enemy.assets.movingAnimation;
 		}
 		
+		enemy.currentVelocity.y += enemy.currentGravity * deltaTime;
+		
+		// Make sure the object's velocity does not exceed the
+		// positive or negative terminal velocity
+		enemy.currentVelocity.y = MathUtils.clamp(enemy.currentVelocity.y, -enemy.maxVelocity.y, enemy.maxVelocity.y);
+		
 		// Move to new position
 		enemy.position.x += enemy.currentVelocity.x * deltaTime;
+		enemy.position.y += enemy.currentVelocity.y * deltaTime;
+		
+
+		
 	}
 
 	@Override
 	public void onCollisionWith(Platform rock) 
 	{
-		//System.out.println("collided");
-		if(enemy.position.x+enemy.bounds.x < rock.position.x || enemy.position.x + enemy.bounds.width > rock.position.x + rock.bounds.width)
+		if(enemy.position.x+enemy.bounds.x < rock.position.x || (enemy.position.x + enemy.bounds.x + enemy.bounds.width) > (rock.position.x + rock.bounds.width))
 		{
 			enemy.viewDirection = VIEW_DIRECTION.opposite(enemy.viewDirection);
+			float offset = enemy.viewDirection == VIEW_DIRECTION.LEFT? -.1f : .1f;
+			enemy.position.x += offset;
 		}
 	}
 

@@ -295,7 +295,7 @@ public class WorldController extends InputAdapter implements Disposable
 				if(r1.overlaps(r2))
 				{
 					platform.body.setLinearVelocity(platform.body.getLinearVelocity().x*-1, platform.body.getLinearVelocity().y*-1);
-					float offset = platform.body.getLinearVelocity().x < 0 || platform.body.getLinearVelocity().y < 0? -.1f : 1f;
+					float offset = platform.body.getLinearVelocity().x < 0 || platform.body.getLinearVelocity().y < 0? -.1f : .1f;
 					platform.body.getPosition().x += offset;
 					platform.body.getPosition().y += offset;
 				}

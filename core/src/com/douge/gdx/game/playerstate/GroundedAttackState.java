@@ -36,6 +36,7 @@ public class GroundedAttackState extends PlayerState
 		
 		if (player.currentVelocity.x != 0) 
 		{
+			player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
 			// Apply friction
 			if (player.currentVelocity.x > 0) 
 			{
@@ -45,7 +46,6 @@ public class GroundedAttackState extends PlayerState
 			{
 				player.currentVelocity.x = Math.min(player.currentVelocity.x + player.friction * deltaTime, 0);
 			}
-			player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
 		}
 	
 		// Make sure the object's velocity does not exceed the

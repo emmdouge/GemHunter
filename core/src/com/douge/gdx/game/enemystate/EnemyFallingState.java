@@ -52,13 +52,13 @@ public class EnemyFallingState extends EnemyState
 	}
 
 	@Override
-	public void onCollisionWith(Platform rock) 
+	public void onCollisionWith(Platform platform) 
 	{
 		//drawn starting from bottom left
-		float diffBetweenBottomOfPlayerAndTopOfRock = rock.position.y + rock.bounds.height - enemy.position.y;
-		float diffBetweenLeftSideOfPlayerAndRightSideOfRock = rock.position.x + rock.bounds.x - enemy.position.x;
-		float diffBetweenTopOfPlayerAndBottomOfRock = enemy.position.y + enemy.bounds.height + .001f - rock.position.y;
-		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = enemy.position.x + enemy.bounds.width + .001f - rock.position.x;
+		float diffBetweenBottomOfPlayerAndTopOfRock = platform.position.y + platform.bounds.height - enemy.position.y;
+		float diffBetweenLeftSideOfPlayerAndRightSideOfRock = platform.position.x + platform.bounds.x - enemy.position.x;
+		float diffBetweenTopOfPlayerAndBottomOfRock = enemy.position.y + enemy.bounds.height + .001f - platform.position.y;
+		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = enemy.position.x + enemy.bounds.width + .001f - platform.position.x;
 		
 		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfRock <= 0.07f;
 		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.07f;
@@ -70,19 +70,8 @@ public class EnemyFallingState extends EnemyState
 			//Gdx.app.log(tag, "enemy: " + enemy.position.y + " " + (rock.position.y + rock.bounds.height));
 			enemy.currentGravity = 0;
 			enemy.currentVelocity.y = 0;
-			enemy.position.y = rock.position.y + rock.bounds.height - .001f;
-			//Gdx.app.log(tag, "enemy: " + enemy.position.y + " ");
+			enemy.position.y = platform.position.y + platform.bounds.height - .001f;
 			context.setEnemyState(context.getMovingState());
-			//Gdx.app.log(tag, "player: " + player.position.y + " " + player.currentVelocity.y);
-		}
-		else if(hitTop)
-		{
-			//Gdx.app.log(tag, "player: " + player.position.y + " " + rock.position.y);
-			enemy.currentGravity = 0;
-			enemy.currentVelocity.y = 0;
-			enemy.position.y = rock.position.y - enemy.bounds.height - .001f;
-			context.setEnemyState(context.getFallingState());
-			//Gdx.app.log(tag, "player: " + player.position.y + " " + player.currentVelocity.y);
 		}
 		else if(hitLeftEdge)
 		{
@@ -91,14 +80,14 @@ public class EnemyFallingState extends EnemyState
 			enemy.currentVelocity.x = 0;
 			
 			//since the rocks are all linked together, rock's bound witdth is the entire platform
-			enemy.position.x = rock.position.x - 1;
+			enemy.position.x = platform.position.x - 1;
 		}
 		else if(hitRightEdge)
 		{
 			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.width + "=" + (rock.position.x+rock.bounds.width) + ", player: " + player.position.y + " " +(4.5-player.position.y) );
 			enemy.currentFriction = 0;
 			enemy.currentVelocity.x = 0;
-			enemy.position.x = rock.position.x + rock.bounds.width;
+			enemy.position.x = platform.position.x + platform.bounds.width;
 		}
 	}
 
