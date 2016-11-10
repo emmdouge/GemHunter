@@ -27,6 +27,8 @@ import com.douge.gdx.game.objects.Coin;
 import com.douge.gdx.game.objects.Gem;
 import com.douge.gdx.game.objects.Platform;
 import com.douge.gdx.game.objects.RedCoin;
+import com.douge.gdx.game.objects.XMovingPlatform;
+import com.douge.gdx.game.objects.YMovingPlatform;
 import com.douge.gdx.game.screen.GameScreen;
 import com.douge.gdx.game.screen.MenuScreen;
 import com.douge.gdx.game.screen.transition.DirectedGame;
@@ -116,7 +118,7 @@ public class WorldController extends InputAdapter implements Disposable
 		handleCollisions();
 		
 		if(box2DWorld != null)
-		box2DWorld.step(deltaTime, 8, 3);
+		box2DWorld.step(deltaTime, 24, 3);
 			
 		cameraHelper.update(deltaTime);
 		if (!isGameOver() && isPlayerInWater()) 
@@ -292,8 +294,7 @@ public class WorldController extends InputAdapter implements Disposable
 				r2.set(reversingBox.position.x, reversingBox.position.y, reversingBox.bounds.width, reversingBox.bounds.height);
 				if(r1.overlaps(r2))
 				{
-					platform.currentVelocity.x *= -1;
-					platform.currentVelocity.y *= -1;
+					platform.body.setLinearVelocity(platform.body.getLinearVelocity().x*-1, platform.body.getLinearVelocity().y*-1);
 				}
 			}
 		}
@@ -384,6 +385,7 @@ public class WorldController extends InputAdapter implements Disposable
 			boolean dashKeyPressed = Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT) || Gdx.input.justTouched();
 			boolean attackKeyPressed = Gdx.input.isKeyJustPressed(Keys.F);
 			boolean jumpKeyPressed = Gdx.input.isKeyPressed(Keys.SPACE);
+			boolean crowAttackKeyPressed = Gdx.input.isKeyJustPressed(Keys.Q);
 			if(message.textIsRendered && message.shouldBeRendered)
 			{
 				if(!message.playerSkipped && (jumpKeyPressed || dashKeyPressed))
@@ -493,16 +495,26 @@ public class WorldController extends InputAdapter implements Disposable
 		// Rocks
 		for (Platform platform : levelLoader.platforms) 
 		{
+			BodyDef bodyDef = new BodyDef();
+			bodyDef.position.set(platform.position);
+			
+			if(platform instanceof XMovingPlatform || platform instanceof YMovingPlatform)
+			{
+				bodyDef.type = BodyType.KinematicBody;
+				bodyDef.position.set(platform.position);
+				bodyDef.linearVelocity.set(platform.currentVelocity);
+			}
+			else
+			{	
+				bodyDef.type = BodyType.StaticBody;
+			}	
+
+			
 			PolygonShape polygonShape = new PolygonShape();
 			polygonShape.setAsBox(platform.origin.x, platform.origin.y, platform.origin, 0);
 			
 			FixtureDef fixtureDef = new FixtureDef();
 			fixtureDef.shape = polygonShape;
-			
-			BodyDef bodyDef = new BodyDef();	
-			bodyDef.type = BodyType.KinematicBody;
-			bodyDef.position.set(platform.position);
-			
 			platform.body = box2DWorld.createBody(bodyDef);
 			platform.body.createFixture(fixtureDef);
 		}

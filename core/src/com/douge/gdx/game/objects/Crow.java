@@ -48,6 +48,7 @@ public class Crow extends AbstractGameObject
 	public void render(SpriteBatch batch) 
 	{
 		TextureRegion reg = flying.getKeyFrame(stateTime);
+		batch.setColor(Color.WHITE);
 		batch.draw(reg.getTexture(), 
 				position.x, position.y+.5f,
 				origin.x, origin.y, 
@@ -58,6 +59,8 @@ public class Crow extends AbstractGameObject
 				reg.getRegionWidth(), reg.getRegionHeight(), 
 				position.x + origin.x > player.position.x + player.origin.x, false);
 		
+		//Color color = Color.RED;
+		//featherEffect.getEmitters().first().getTint().setColors(new float[]{color.r, color.g, color.b});
 		featherEffect.draw(batch);
 	}
 

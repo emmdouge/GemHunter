@@ -95,10 +95,13 @@ public class FallingState extends PlayerState
 			player.currentGravity = 0;
 			player.currentVelocity.y = 0;
 			player.position.y = platform.position.y + platform.bounds.height - 0.001f;
-			if(platform.currentVelocity.y != 0)
+			if(platform.currentVelocity.y >= 0)
 			{
 				player.currentVelocity.y = platform.currentVelocity.y;
-				context.setPlayerState(context.getJumpFallingState());
+			}
+			else
+			{
+				player.position.y = platform.body.getPosition().y+platform.dimension.y-.03f;
 			}
 			context.setPlayerState(context.getGroundState());
 		}

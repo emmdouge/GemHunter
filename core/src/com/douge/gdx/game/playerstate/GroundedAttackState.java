@@ -94,13 +94,13 @@ public class GroundedAttackState extends PlayerState
 		
 		if(onTopOfRock)
 		{
-			if(platform.currentVelocity.y != 0)
+			if(platform.currentVelocity.y >= 0)
 			{
-				player.currentVelocity.y = platform.currentVelocity.y;
+				player.currentVelocity.y = platform.body.getLinearVelocity().y;
 			}
-			else if(platform.currentVelocity.x != 0)
+			else
 			{
-				player.currentVelocity.x = platform.currentVelocity.x;
+				player.position.y = platform.body.getPosition().y+platform.dimension.y-.03f;
 			}
 		}
 		else if(hitLeftEdge)

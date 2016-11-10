@@ -77,9 +77,9 @@ public class GroundedState extends PlayerState
 	@Override
 	public void onCollisionWith(Platform platform) 
 	{
-		if(platform.currentVelocity.x != 0)
+		if(platform.body.getLinearVelocity().x != 0)
 		{
-			player.currentVelocity.x = platform.currentVelocity.x;
+			player.currentVelocity.x = platform.body.getLinearVelocity().x;
 			player.currentFriction = 0;
 			player.currentParticleEffect.allowCompletion();
 			player.activeMovement = false;

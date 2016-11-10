@@ -40,6 +40,8 @@ import com.douge.gdx.game.objects.RedCoin;
 import com.douge.gdx.game.objects.Trees;
 import com.douge.gdx.game.objects.Platform;
 import com.douge.gdx.game.objects.BlackOverlay;
+import com.douge.gdx.game.objects.XMovingPlatform;
+import com.douge.gdx.game.objects.YMovingPlatform;
 import com.douge.gdx.game.screen.GameScreen;
 import com.douge.gdx.game.screen.transition.DirectedGame;
 
@@ -217,7 +219,7 @@ public class LevelLoader
 				{
 					if (lastPixel != currentPixel) 
 					{
-						obj = new Platform();
+						obj = new XMovingPlatform();
 						Platform platform = (Platform)obj;
 						platform.regMiddle = currentLevel.platform.regMiddle;
 						platform.position.set(pixelX, baseHeight + expOffset);
@@ -234,7 +236,7 @@ public class LevelLoader
 				{
 					if (lastPixel != currentPixel) 
 					{
-						obj = new Platform();
+						obj = new YMovingPlatform();
 						Platform platform = (Platform)obj;
 						platform.regMiddle = currentLevel.platform.regMiddle;
 						platform.position.set(pixelX, baseHeight + expOffset);
