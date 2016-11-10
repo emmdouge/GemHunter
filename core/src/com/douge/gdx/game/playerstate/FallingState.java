@@ -20,22 +20,26 @@ public class FallingState extends PlayerState
 	public void execute(float deltaTime) 
 	{
 		player.currentAnimation = Assets.instance.survivor.fallingAnimation;
+		player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
 		if (player.currentVelocity.x != 0) 
 		{
 			// Apply friction
 			if (player.currentVelocity.x > 0) 
 			{
-				player.currentVelocity.x = Math.max(player.currentVelocity.x - player.friction * deltaTime, 0);
+				player.currentVelocity.x = Math.max(player.currentVelocity.x + player.friction * deltaTime, 0);
 			} 
 			else 
 			{
-				player.currentVelocity.x = Math.min(player.currentVelocity.x + player.friction * deltaTime, 0);
+				player.currentVelocity.x = Math.min(player.currentVelocity.x - player.friction * deltaTime, 0);
 			}
+			// Make sure the object's velocity does not exceed the
+			// positive or negative terminal velocity
+			player.currentVelocity.x = MathUtils.clamp(player.currentVelocity.x, -player.maxVelocity.x, player.maxVelocity.x);
+			// Move to new position
+			player.position.x += player.currentVelocity.x * deltaTime;
 		}
 
-		// Make sure the object's velocity does not exceed the
-		// positive or negative terminal velocity
-		player.currentVelocity.x = MathUtils.clamp(player.currentVelocity.x, -player.maxVelocity.x, player.maxVelocity.x);
+
 		
 		// Add delta times to track jump time
 		player.timeJumping += deltaTime;
@@ -54,11 +58,6 @@ public class FallingState extends PlayerState
 		// positive or negative terminal velocity
 		player.currentVelocity.y = MathUtils.clamp(player.currentVelocity.y, -player.maxVelocity.y, player.maxVelocity.y);
 		
-		if (player.currentVelocity.x != 0) 
-		{
-			player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
-		}
-		
 		if (player.timeLeftJumpPowerup > 0 && player.timeJumping < player.JUMP_TIME_MAX) 
 		{
 			player.timeLeftJumpPowerup -= deltaTime;
@@ -70,8 +69,7 @@ public class FallingState extends PlayerState
 			player.setJumpPowerup(false);
 		}
 		
-		// Move to new position
-		player.position.x += player.currentVelocity.x * deltaTime;
+
 		player.position.y += player.currentVelocity.y * deltaTime;
 		
 	}

@@ -28,7 +28,7 @@ public class GroundedState extends PlayerState
 		
 		player.currentAnimation = Assets.instance.survivor.standingAnimation;
 		player.currentParticleEffect = Assets.instance.survivor.dustParticles;
-		
+		player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
 		if (player.currentVelocity.x != 0) 
 		{
 			// Apply friction
@@ -42,15 +42,9 @@ public class GroundedState extends PlayerState
 				player.currentVelocity.x = Math.min(player.currentVelocity.x + player.currentFriction * deltaTime, 0);
 				player.currentParticleEffect.setPosition(player.position.x + player.bounds.width, player.position.y);
 			}
-		}
-
-		// Make sure the object's velocity does not exceed the
-		// positive or negative terminal velocity
-		player.currentVelocity.x = MathUtils.clamp(player.currentVelocity.x, -player.maxVelocity.x, player.maxVelocity.x);
-		
-		if (player.currentVelocity.x != 0) 
-		{
-			player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
+			// Make sure the object's velocity does not exceed the
+			// positive or negative terminal velocity
+			player.currentVelocity.x = MathUtils.clamp(player.currentVelocity.x, -player.maxVelocity.x, player.maxVelocity.x);
 			if(player.activeMovement)
 			{
 				player.currentAnimation = Assets.instance.survivor.runAnimation;
