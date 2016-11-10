@@ -28,9 +28,10 @@ public class GroundedState extends PlayerState
 		
 		player.currentAnimation = Assets.instance.survivor.standingAnimation;
 		player.currentParticleEffect = Assets.instance.survivor.dustParticles;
-		player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
+		
 		if (player.currentVelocity.x != 0) 
 		{
+			player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
 			// Apply friction
 			if (player.currentVelocity.x > 0) 
 			{
