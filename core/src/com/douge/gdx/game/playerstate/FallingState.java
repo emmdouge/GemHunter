@@ -20,17 +20,17 @@ public class FallingState extends PlayerState
 	public void execute(float deltaTime) 
 	{
 		player.currentAnimation = Assets.instance.survivor.fallingAnimation;
-		player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
 		if (player.currentVelocity.x != 0) 
 		{
+			player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
 			// Apply friction
 			if (player.currentVelocity.x > 0) 
 			{
-				player.currentVelocity.x = Math.max(player.currentVelocity.x + player.friction * deltaTime, 0);
+				player.currentVelocity.x = Math.max(player.currentVelocity.x - player.friction * deltaTime, 0);
 			} 
 			else 
 			{
-				player.currentVelocity.x = Math.min(player.currentVelocity.x - player.friction * deltaTime, 0);
+				player.currentVelocity.x = Math.min(player.currentVelocity.x + player.friction * deltaTime, 0);
 			}
 			// Make sure the object's velocity does not exceed the
 			// positive or negative terminal velocity
@@ -124,7 +124,7 @@ public class FallingState extends PlayerState
 			player.currentVelocity.x = 0;
 			
 			//since the rocks are all linked together, rock's bound witdth is the entire platform
-			player.position.x = platform.position.x - 1;
+			player.position.x = platform.position.x - player.bounds.width;
 			
 			player.maxVelocity.x = 0f;
 			if(player.currentVelocity.y == 0)
