@@ -1,4 +1,4 @@
-package com.douge.gdx.game.enemy;
+package com.douge.gdx.game.objects.enemy;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;

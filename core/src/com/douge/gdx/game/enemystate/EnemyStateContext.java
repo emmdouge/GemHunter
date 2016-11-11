@@ -2,9 +2,9 @@ package com.douge.gdx.game.enemystate;
 
 import com.badlogic.gdx.Gdx;
 import com.douge.gdx.game.assets.enemy.AssetBat;
-import com.douge.gdx.game.enemy.Bat;
-import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.enemystate.EnemyFallingState;
+import com.douge.gdx.game.objects.enemy.Bat;
+import com.douge.gdx.game.objects.enemy.Enemy;
 
 public class EnemyStateContext
 {

@@ -1,8 +1,8 @@
 package com.douge.gdx.game.enemystate;
 
-import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.objects.Platform;
 import com.douge.gdx.game.objects.Player;
+import com.douge.gdx.game.objects.enemy.Enemy;
 
 public abstract class EnemyState 
 {

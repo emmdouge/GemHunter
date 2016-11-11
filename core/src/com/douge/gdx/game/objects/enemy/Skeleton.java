@@ -1,4 +1,4 @@
-package com.douge.gdx.game.enemy;
+package com.douge.gdx.game.objects.enemy;
 
 import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.VIEW_DIRECTION;

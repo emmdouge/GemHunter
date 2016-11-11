@@ -1,4 +1,4 @@
-package com.douge.gdx.game.collectible;
+package com.douge.gdx.game.objects.collectible;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.douge.gdx.game.assets.Assets;

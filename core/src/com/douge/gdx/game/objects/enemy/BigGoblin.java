@@ -1,4 +1,4 @@
-package com.douge.gdx.game.enemy;
+package com.douge.gdx.game.objects.enemy;
 
 import com.douge.gdx.game.VIEW_DIRECTION;
 import com.douge.gdx.game.assets.enemy.AssetGoblin;

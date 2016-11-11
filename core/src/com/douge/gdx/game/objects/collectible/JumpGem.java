@@ -1,4 +1,4 @@
-package com.douge.gdx.game.collectible;
+package com.douge.gdx.game.objects.collectible;
 
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.effect.JumpBoostEffect;
