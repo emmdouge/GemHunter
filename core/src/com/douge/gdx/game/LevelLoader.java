@@ -16,6 +16,10 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.assets.Assets;
+import com.douge.gdx.game.collectible.Collectible;
+import com.douge.gdx.game.collectible.Collectible;
+import com.douge.gdx.game.collectible.GoldCoin;
+import com.douge.gdx.game.collectible.LevelGem;
 import com.douge.gdx.game.effect.HealthBoostEffect;
 import com.douge.gdx.game.effect.JumpBoostEffect;
 import com.douge.gdx.game.enemy.Bat;
@@ -32,11 +36,8 @@ import com.douge.gdx.game.objects.NullGameObject;
 import com.douge.gdx.game.objects.PlatformSnow;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.Clouds;
-import com.douge.gdx.game.objects.Coin;
-import com.douge.gdx.game.objects.Gem;
 import com.douge.gdx.game.objects.BackgroundTile;
 import com.douge.gdx.game.objects.PlatformRock;
-import com.douge.gdx.game.objects.RedCoin;
 import com.douge.gdx.game.objects.Trees;
 import com.douge.gdx.game.objects.Platform;
 import com.douge.gdx.game.objects.BlackOverlay;
@@ -59,9 +60,8 @@ public class LevelLoader
 	//objects
 	public Player player; 
 	public Crow crow;
-	public Array<Coin> coins;
-	public RedCoin redCoin;
-	public Array<Gem> gems; 
+	public Array<Collectible> collectibles;
+	public LevelGem redCoin;
 	public Array<Platform> platforms;
 	public Array<NullGameObject> reversingBoxes;	
 	public Array<BackgroundTile> backgroundTiles;
@@ -103,8 +103,7 @@ public class LevelLoader
 		if(instance == null)
 		{
 			instance = new LevelLoader();
-			instance.coins = new Array<Coin>(); 
-			instance.gems = new Array<Gem>(); 
+			instance.collectibles = new Array<Collectible>(); 
 			instance.platforms = new Array<Platform>();
 			instance.reversingBoxes = new Array<NullGameObject>();
 			instance.backgroundTiles = new Array<BackgroundTile>();
@@ -126,8 +125,7 @@ public class LevelLoader
 	
 	private void clearLevel() 
 	{
-		coins.clear();
-		gems.clear();
+		collectibles.clear();
 		platforms.clear();
 		reversingBoxes.clear();
 		backgroundTiles.clear();
@@ -270,26 +268,26 @@ public class LevelLoader
 				// jump gem
 				else if (BLOCK_TYPE.ITEM_JUMP_GEM.sameColor(currentPixel)) 
 				{
-			          obj = new Gem(Assets.instance.gems.jumpGem, new JumpBoostEffect()); 
+			          obj = new Collectible(Assets.instance.gems.jumpGem, new JumpBoostEffect()); 
 			          obj.position.set(pixelX, baseHeight + expOffset); 
-			          gems.add((Gem)obj); 
+			          collectibles.add((Collectible)obj); 
 				}
 		
 				// gold coin
 				else if (BLOCK_TYPE.ITEM_GOLD_COIN.sameColor(currentPixel)) 
 				{
-			          obj = new Coin(); 
+			          obj = new GoldCoin(); 
 			          obj.position.set(pixelX + obj.origin.x,baseHeight + expOffset); 
-			          coins.add((Coin)obj); 
+			          collectibles.add((Collectible)obj); 
 				}
 				
 				// gold coin
-				else if (BLOCK_TYPE.ITEM_RED_COIN.sameColor(currentPixel)) 
+				else if (BLOCK_TYPE.ITEM_LEVEL_GEM.sameColor(currentPixel)) 
 				{
-			          obj = new RedCoin(); 
+			          obj = new LevelGem(); 
 			          obj.position.set(pixelX + obj.origin.x,baseHeight + expOffset); 
-			          coins.add((RedCoin)obj);
-			          redCoin = (RedCoin)obj;
+			          collectibles.add((LevelGem)obj);
+			          redCoin = (LevelGem)obj;
 				}
 				
 				// slime
@@ -371,11 +369,8 @@ public class LevelLoader
 		for(Platform rock : platforms)
 		rock.update(deltaTime);
 		
-		for(Coin goldCoin : coins)
-		goldCoin.update(deltaTime);
-		
-		for(Gem greenHeart : gems)
-		greenHeart.update(deltaTime);
+		for(Collectible collectible : collectibles)
+		collectible.update(deltaTime);
 		
 		for(int i = 0; i < enemies.size; i++)
 		enemies.get(i).update(deltaTime);
@@ -388,22 +383,24 @@ public class LevelLoader
 		{
 			if(enemy.isDead)
 			{
-				Coin coin;
+				Collectible coin;
+				FixtureDef coinFixtureDef = new FixtureDef();
 				if(enemy.isBoss)
 				{
-					coin = new RedCoin();
+					coin = new LevelGem();
+					coinFixtureDef.density = 0;
+					coinFixtureDef.restitution = 0.15f;
+					coinFixtureDef.friction = 4f;
 				}
 				else
 				{
-					coin = new Coin();
+					coin = new GoldCoin();
+					coinFixtureDef.density = 0;
+					coinFixtureDef.restitution = 0.75f;
+					coinFixtureDef.friction = 0.5f;
 				}
 				
 				BodyEditorLoader loader = new BodyEditorLoader(Gdx.files.internal("../core/assets/physics/coin.json"));
-				
-				FixtureDef coinFixtureDef = new FixtureDef();
-				coinFixtureDef.density = 25;
-				coinFixtureDef.restitution = 0.75f;
-				coinFixtureDef.friction = 0.5f;
 
 				BodyDef coinBodyDef = new BodyDef();	
 				coinBodyDef.type = BodyType.DynamicBody;
@@ -415,11 +412,11 @@ public class LevelLoader
 				//must name it in body editor or in json(manually)
 				coin.origin = loader.getOrigin("coinBody", coin.dimension.x);
 				loader.attachFixture(coin.body, "coinBody", coinFixtureDef, coin.origin.x);
-				coins.add(coin);
+				collectibles.add(coin);
 				
 				if(enemy.dropsHealth && !enemy.droppedHealth)	
 				{
-					Gem healthGem = new Gem(Assets.instance.gems.heartGem, new HealthBoostEffect());
+					Collectible healthGem = new Collectible(Assets.instance.gems.heartGem, new HealthBoostEffect());
 					healthGem.position.x = enemy.position.x + (enemy.origin.x/2);
 					healthGem.position.y = enemy.position.y;
 					loader = new BodyEditorLoader(Gdx.files.internal("../core/assets/physics/heart.json"));
@@ -439,7 +436,7 @@ public class LevelLoader
 					//must manually define the name in the json file 
 					healthGem.origin = loader.getOrigin("heartBody", healthGem.dimension.x);
 					loader.attachFixture(healthGem.body, "heartBody", heartFixtureDef, healthGem.origin.x);
-					gems.add(healthGem);
+					collectibles.add(healthGem);
 					enemy.droppedHealth = true;
 				}
 
@@ -489,12 +486,8 @@ public class LevelLoader
 		trees.render(batch);
 		
 	    // Draw Gold Coins 
-	    for (Coin goldCoin : coins) 
-	    goldCoin.render(batch); 
-	     
-	    // Draw Feathers 
-	    for (Gem gem : gems) 
-	    gem.render(batch); 
+	    for (Collectible collectible : collectibles) 
+	    collectible.render(batch); 
 	     
 	    batch.setColor(Color.WHITE);
 	    

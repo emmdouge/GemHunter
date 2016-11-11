@@ -57,7 +57,7 @@ public class Assets implements Disposable, AssetErrorListener
 		
 		//load texture atlases
 		assetManager.load(Constants.GEM_HUNTER_ATLAS_PATH, TextureAtlas.class);
-	     
+		
 	    // load sounds 
 	    assetManager.load("../core/assets/sounds/jump.wav", Sound.class); 
 	    assetManager.load("../core/assets/sounds/jump_with_potion.wav", Sound.class); 

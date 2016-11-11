@@ -19,14 +19,15 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.douge.gdx.game.assets.Assets;
+import com.douge.gdx.game.collectible.Collectible;
+import com.douge.gdx.game.collectible.Collectible;
+import com.douge.gdx.game.collectible.LevelGem;
+import com.douge.gdx.game.effect.NullEffect;
 import com.douge.gdx.game.enemy.Enemy;
 import com.douge.gdx.game.objects.Fireball;
 import com.douge.gdx.game.objects.NullGameObject;
 import com.douge.gdx.game.objects.Player;
-import com.douge.gdx.game.objects.Coin;
-import com.douge.gdx.game.objects.Gem;
 import com.douge.gdx.game.objects.Platform;
-import com.douge.gdx.game.objects.RedCoin;
 import com.douge.gdx.game.objects.XMovingPlatform;
 import com.douge.gdx.game.objects.YMovingPlatform;
 import com.douge.gdx.game.screen.GameScreen;
@@ -204,14 +205,22 @@ public class WorldController extends InputAdapter implements Disposable
 	/**
 	 * When player collects goldcoin, 
 	 * stop rendering it and update score
-	 * @param coin
+	 * @param collectible
 	 */
-	private void onCollisionPlayerWithCoin(Coin coin) 
+	private void onCollisionPlayerWithCollectible(Collectible collectible) 
 	{
-		AudioManager.instance.play(Assets.instance.sounds.pickupCoin); 
-		coin.collected = true;
-		score += coin.getScore();
-		if(coin instanceof RedCoin)
+		if(collectible.effect instanceof NullEffect)
+		{
+			AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
+		}
+		else
+		{
+			AudioManager.instance.play(Assets.instance.sounds.pickupGem);
+		}
+		collectible.collected = true;
+		collectible.effect.activate(LevelLoader.getInstance().player);
+		score += collectible.getScore();
+		if(collectible instanceof LevelGem)
 		{
 			if(levelLoader.currentLevelIndex+1 < levelLoader.levels.size())
 			{
@@ -224,20 +233,7 @@ public class WorldController extends InputAdapter implements Disposable
 				game.setScreen(new MenuScreen(game));			
 			}
 		}
-		Gdx.app.log(TAG, "Gold coin collected");
-	};
-	
-	/**
-	 * turns on players jump powerup
-	 * @param jumpPotion
-	 */
-	private void onCollisionPlayerWithGem(Gem gem) 
-	{
-		AudioManager.instance.play(Assets.instance.sounds.pickupPotion);
-		gem.collected = true;
-		score += gem.getScore();
-		gem.effect.activate(LevelLoader.getInstance().player);
-		Gdx.app.log(TAG, "gem collected");
+		Gdx.app.log(TAG, "Collectible collected");
 	};
 	
 	/**
@@ -333,39 +329,22 @@ public class WorldController extends InputAdapter implements Disposable
 		}
 		
 		// Test collision: player <-> Gold Coins
-		for (Coin goldcoin : levelLoader.coins) 
+		for (Collectible collectible : levelLoader.collectibles) 
 		{
-			if (goldcoin.collected) 
+			if (collectible.collected) 
 			{
 				continue;
 			}
 		
-			r2.set(goldcoin.position.x, goldcoin.position.y,
-					goldcoin.bounds.width, goldcoin.bounds.height);
+			r2.set(collectible.position.x, collectible.position.y,
+					collectible.bounds.width, collectible.bounds.height);
 			
 			if (!r1.overlaps(r2)) 
 			{
 				continue;
 			}
 			
-			onCollisionPlayerWithCoin(goldcoin);
-			break;
-		}
-		
-		// Test collision: Bunny Head <-> Feathers
-		for (Gem gem : levelLoader.gems) 
-		{
-			if (gem.collected) 
-			{
-				continue;
-			}
-			r2.set(gem.position.x, gem.position.y,
-					gem.bounds.width, gem.bounds.height);
-			if (!r1.overlaps(r2)) 
-			{
-				continue;
-			}
-			onCollisionPlayerWithGem(gem);
+			onCollisionPlayerWithCollectible(collectible);
 			break;
 		}
 	}

@@ -305,12 +305,11 @@ public class WorldRenderer implements Disposable
 				}
 			}
 			batch.setColor(Color.YELLOW);
-			batch.draw(Assets.instance.gems.jumpGem,
+			batch.draw(Assets.instance.gems.jumpGem.getKeyFrame(0f).getTexture(),
 					x, y, 
-					50, 50, 
-					100, 100, 
-					0.35f, -0.35f,
-					0);
+					50f, 50f, 
+					100f, 100f, 
+					0.35f, -0.35f);
 		
 			batch.setColor(1, 1, 1, 1);
 			Assets.instance.fonts.defaultSmall.draw(batch, "" + (int)timeLeftJumpPowerup, x + 60, y + 57);
