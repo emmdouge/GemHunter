@@ -10,7 +10,6 @@ public class Platform extends AbstractGameObject
 	public TextureRegion regMiddle;
 	
 	private int length;
-	
 	public Platform () 
 	{
 		init();

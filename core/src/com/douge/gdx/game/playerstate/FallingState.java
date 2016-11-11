@@ -93,6 +93,7 @@ public class FallingState extends PlayerState
 			player.currentGravity = 0;
 			player.currentVelocity.y = 0;
 			player.position.y = platform.position.y + platform.bounds.height - 0.001f;
+			player.friction = platform.body.getFixtureList().get(0).getFriction();
 			if(platform.currentVelocity.y >= 0)
 			{
 				player.currentVelocity.y = platform.currentVelocity.y;

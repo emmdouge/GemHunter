@@ -75,7 +75,6 @@ public class GroundedState extends PlayerState
 		if(platform.body.getLinearVelocity().x != 0)
 		{
 			player.currentVelocity.x = platform.body.getLinearVelocity().x;
-			player.currentFriction = 0;
 			player.currentParticleEffect.allowCompletion();
 			player.activeMovement = false;
 		}

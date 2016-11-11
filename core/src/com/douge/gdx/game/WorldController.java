@@ -22,6 +22,8 @@ import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.effect.NullEffect;
 import com.douge.gdx.game.objects.Fireball;
 import com.douge.gdx.game.objects.NullGameObject;
+import com.douge.gdx.game.objects.PlatformRock;
+import com.douge.gdx.game.objects.PlatformSnow;
 import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.Platform;
 import com.douge.gdx.game.objects.XMovingPlatform;
@@ -388,6 +390,10 @@ public class WorldController extends InputAdapter implements Disposable
 					levelLoader.player.currentVelocity.x = levelLoader.player.maxVelocity.x;
 					levelLoader.player.activeMovement = true;
 				} 
+				else
+				{
+					levelLoader.player.activeMovement = false;
+				}
 				levelLoader.player.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed, attackKeyPressed);
 			}
 			else
@@ -488,13 +494,22 @@ public class WorldController extends InputAdapter implements Disposable
 			else
 			{	
 				bodyDef.type = BodyType.StaticBody;
-			}	
-
+			}
 			
+			FixtureDef fixtureDef = new FixtureDef();
+			
+			if(platform instanceof PlatformSnow)
+			{
+				fixtureDef.friction = 1f;
+			}
+			else if(platform instanceof PlatformRock)
+			{
+				fixtureDef.friction = 10f;
+			}
 			PolygonShape polygonShape = new PolygonShape();
 			polygonShape.setAsBox(platform.origin.x, platform.origin.y, platform.origin, 0);
 			
-			FixtureDef fixtureDef = new FixtureDef();
+
 			fixtureDef.shape = polygonShape;
 			platform.body = box2DWorld.createBody(bodyDef);
 			platform.body.createFixture(fixtureDef);
