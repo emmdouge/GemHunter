@@ -112,7 +112,7 @@ public class JumpAttackState extends PlayerState
 			player.currentGravity = 0;
 			player.currentVelocity.y = 0;
 			player.timeJumping = player.JUMP_TIME_MAX;
-			player.position.y = platform.position.y - player.bounds.height - .001f;
+			player.position.y = platform.position.y - player.bounds.height - .1f;
 			context.setPlayerState(context.getJumpFallingState());
 		}
 		else if(hitLeftEdge)

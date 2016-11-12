@@ -111,6 +111,7 @@ public class FallingState extends PlayerState
 			player.timeJumping = player.JUMP_TIME_MAX;
 			if(platform.body.getLinearVelocity().y >= 0)
 			{
+				player.position.y = platform.position.y - player.bounds.height - .1f;
 				context.setPlayerState(context.getFallingState());
 			}
 			else if(platform.body.getLinearVelocity().y < 0)
