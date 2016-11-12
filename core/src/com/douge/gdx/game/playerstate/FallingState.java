@@ -79,13 +79,13 @@ public class FallingState extends PlayerState
 	{
 		//drawn starting from bottom left
 		float diffBetweenBottomOfPlayerAndTopOfPlatform = platform.position.y + platform.bounds.height - player.position.y;
-		float diffBetweenLeftSideOfPlayerAndRightSideOfPlatform = platform.position.x + platform.bounds.x - player.position.x;
+		float diffBetweenLeftSideOfPlayerAndRightSideOfPlatform = platform.position.x + platform.bounds.width - player.position.x;
 		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = player.position.x + player.bounds.width - platform.position.x;
 		float diffBetweenTopOfPlayerAndBottomOfPlatform = player.position.y + player.bounds.height + .001f - platform.position.y;
 		
 		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfPlatform <= 0.07f;
 		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.2f;
-		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.08f;
+		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.07f;
 		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 0.07f;
 		
 		if(landOnTop)
@@ -109,15 +109,14 @@ public class FallingState extends PlayerState
 			player.currentGravity = 0;
 			player.currentVelocity.y = 0;
 			player.timeJumping = player.JUMP_TIME_MAX;
-			if(platform.body.getLinearVelocity().y == 0)
+			if(platform.body.getLinearVelocity().y >= 0)
 			{
-				player.position.y = platform.position.y - player.bounds.height - .001f;
+				context.setPlayerState(context.getFallingState());
 			}
 			else if(platform.body.getLinearVelocity().y < 0)
 			{
-				player.position.y = platform.position.y - player.bounds.height - .1f;
+				context.setPlayerState(context.getHurtState());
 			}
-			context.setPlayerState(context.getFallingState());
 		}
 		else if(hitLeftEdge)
 		{

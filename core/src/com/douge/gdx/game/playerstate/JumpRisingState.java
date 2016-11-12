@@ -84,7 +84,7 @@ public class JumpRisingState extends PlayerState
 	{
 		//drawn starting from bottom left
 		float diffBetweenTopOfPlayerAndBottomOfRock = player.position.y + player.bounds.height + .001f - platform.position.y;
-		float diffBetweenLeftSideOfPlayerAndRightSideOfRock = platform.position.x + platform.bounds.x - player.position.x;
+		float diffBetweenLeftSideOfPlayerAndRightSideOfRock = platform.position.x + platform.bounds.width - player.position.x;
 		float diffBetweenBottomOfPlayerAndTopOfRock = platform.position.y + platform.bounds.height - player.position.y;
 		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = player.position.x + player.bounds.width - platform.position.x;
 		

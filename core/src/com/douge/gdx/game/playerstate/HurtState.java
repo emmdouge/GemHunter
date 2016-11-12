@@ -73,26 +73,24 @@ public class HurtState extends PlayerState
 	public void onCollisionWith(Platform platform) 
 	{
 		//drawn starting from bottom left
-		float diffBetweenTopOfPlayerAndBottomOfPlatform = player.position.y + player.bounds.height + .001f - platform.position.y;
+		float diffBetweenTopOfPlayerAndBottomOfPlatform = player.position.y + player.bounds.height - platform.position.y;
 		float diffBetweenLeftSideOfPlayerAndRightSideOfPlatform = platform.position.x + platform.bounds.x - player.position.x;
 		float diffBetweenBottomOfPlayerAndTopOfPlatform = platform.position.y + platform.bounds.height - player.position.y + .001f;
-		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = player.position.x + player.bounds.width + .001f - platform.position.x;
+		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = player.position.x + player.bounds.width - platform.position.x;
 		
 		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfPlatform <= 0.07f;
-		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.07f;
-		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 0.07f;
-		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.07f;
+		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.3f;
+		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 0.3f;
+		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.2f;
 		
-		if(hitTop)
-		{
-			player.currentGravity = 0;
-			player.currentVelocity.y = 0;
-			player.position.y = platform.position.y - player.bounds.height - .001f;
-		}
-		else if(onTopOfRock)
+		if(onTopOfRock)
 		{
 			player.currentVelocity.y = 0;
 			player.position.y = platform.position.y + platform.bounds.height + 0.001f;
+		}
+		else if(hitTop)
+		{
+			player.currentVelocity.y = player.gravity;
 		}
 		else if(hitLeftEdge)
 		{
@@ -100,7 +98,7 @@ public class HurtState extends PlayerState
 			player.currentVelocity.x = 0;
 			
 			//since the rocks are all linked together, rock's bound witdth is the entire platform
-			player.position.x = platform.position.x - 1;
+			player.position.x = platform.position.x - player.bounds.width;
 		}
 		else if(hitRightEdge)
 		{

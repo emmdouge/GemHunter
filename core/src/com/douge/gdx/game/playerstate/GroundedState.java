@@ -72,6 +72,7 @@ public class GroundedState extends PlayerState
 	@Override
 	public void onCollisionWith(Platform platform) 
 	{
+		//on moving platform
 		if(platform.body.getLinearVelocity().x != 0)
 		{
 			player.currentVelocity.x = platform.body.getLinearVelocity().x;
