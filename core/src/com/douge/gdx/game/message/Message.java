@@ -1,4 +1,4 @@
-package com.douge.gdx.game;
+package com.douge.gdx.game.message;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
+import com.douge.gdx.game.Constants;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.objects.Player;
 
@@ -31,7 +32,7 @@ public class Message
 	private boolean iconIsRendered = false;
 	private Sprite icon;
 	private float iconX;
-	boolean textIsRendered = false;
+	public boolean textIsRendered = false;
 	public boolean shouldBeRendered = false;
 	public Message nextNode;
 	public float stateTime = 0;

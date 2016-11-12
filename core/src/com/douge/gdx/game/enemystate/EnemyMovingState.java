@@ -1,11 +1,11 @@
 package com.douge.gdx.game.enemystate;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.douge.gdx.game.VIEW_DIRECTION;
 import com.douge.gdx.game.assets.Assets;
-import com.douge.gdx.game.objects.Platform;
+import com.douge.gdx.game.objects.VIEW_DIRECTION;
 import com.douge.gdx.game.objects.enemy.Bat;
 import com.douge.gdx.game.objects.enemy.Enemy;
+import com.douge.gdx.game.objects.platform.Platform;
 
 public class EnemyMovingState extends EnemyState
 {

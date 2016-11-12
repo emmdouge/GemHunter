@@ -1,4 +1,4 @@
-package com.douge.gdx.game;
+package com.douge.gdx.game.objects;
 
 
 /**

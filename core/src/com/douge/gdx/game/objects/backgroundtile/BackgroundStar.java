@@ -1,4 +1,4 @@
-package com.douge.gdx.game.objects;
+package com.douge.gdx.game.objects.backgroundtile;
 
 import com.douge.gdx.game.assets.Assets;
 

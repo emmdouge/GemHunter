@@ -1,10 +1,11 @@
-package com.douge.gdx.game.objects;
+package com.douge.gdx.game.objects.environment;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.douge.gdx.game.assets.*;
+import com.douge.gdx.game.objects.AbstractGameObject;
 
 public class Trees extends AbstractGameObject
 {

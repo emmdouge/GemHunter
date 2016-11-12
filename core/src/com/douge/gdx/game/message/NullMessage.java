@@ -1,4 +1,4 @@
-package com.douge.gdx.game;
+package com.douge.gdx.game.message;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.douge.gdx.game.assets.Assets;

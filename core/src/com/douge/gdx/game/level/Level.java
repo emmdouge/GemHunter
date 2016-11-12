@@ -1,4 +1,4 @@
-package com.douge.gdx.game;
+package com.douge.gdx.game.level;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
-import com.douge.gdx.game.objects.Platform;
+import com.douge.gdx.game.message.MessageQueue;
+import com.douge.gdx.game.objects.platform.Platform;
 
 public class Level
 {

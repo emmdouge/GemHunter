@@ -1,8 +1,9 @@
-package com.douge.gdx.game.objects;
+package com.douge.gdx.game.objects.environment;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.douge.gdx.game.assets.Assets;
+import com.douge.gdx.game.objects.AbstractGameObject;
 
 public class BlackOverlay extends AbstractGameObject
 {

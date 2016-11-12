@@ -3,9 +3,9 @@ package com.douge.gdx.game.playerstate;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.douge.gdx.game.assets.Assets;
-import com.douge.gdx.game.objects.Platform;
 import com.douge.gdx.game.objects.Player;
-import com.douge.gdx.game.VIEW_DIRECTION;
+import com.douge.gdx.game.objects.VIEW_DIRECTION;
+import com.douge.gdx.game.objects.platform.Platform;
 
 public class HurtState extends PlayerState
 {

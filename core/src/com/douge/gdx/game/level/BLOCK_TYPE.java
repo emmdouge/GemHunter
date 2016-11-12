@@ -1,4 +1,4 @@
-package com.douge.gdx.game;
+package com.douge.gdx.game.level;
 
 /**
  * types of blocks in level by color

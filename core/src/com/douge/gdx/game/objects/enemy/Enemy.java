@@ -8,11 +8,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.Array;
 import com.douge.gdx.game.Constants;
-import com.douge.gdx.game.VIEW_DIRECTION;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.assets.enemy.AssetEnemy;
 import com.douge.gdx.game.enemystate.EnemyStateContext;
 import com.douge.gdx.game.objects.AbstractGameObject;
+import com.douge.gdx.game.objects.VIEW_DIRECTION;
 import com.douge.gdx.game.screen.CharacterSkin;
 import com.douge.gdx.game.utils.GamePreferences;
 

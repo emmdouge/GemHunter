@@ -1,7 +1,7 @@
 package com.douge.gdx.game.playerstate;
 
 import com.douge.gdx.game.objects.Player;
-import com.douge.gdx.game.objects.Platform;
+import com.douge.gdx.game.objects.platform.Platform;
 
 public abstract class PlayerState 
 {

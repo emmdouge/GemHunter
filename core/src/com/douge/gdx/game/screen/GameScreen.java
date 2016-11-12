@@ -6,9 +6,9 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.douge.gdx.game.LevelLoader;
 import com.douge.gdx.game.WorldController;
 import com.douge.gdx.game.WorldRenderer;
+import com.douge.gdx.game.level.LevelLoader;
 import com.douge.gdx.game.screen.transition.DirectedGame;
 import com.douge.gdx.game.utils.GamePreferences;
 

@@ -1,16 +1,17 @@
-package com.douge.gdx.game.objects;
+package com.douge.gdx.game.objects.platform;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.douge.gdx.game.assets.Assets;
+import com.douge.gdx.game.objects.AbstractGameObject;
 
-public abstract class BackgroundTile extends AbstractGameObject{
-	protected TextureRegion regMiddle;
+public class Platform extends AbstractGameObject
+{
+	public TextureRegion regMiddle;
 	
 	private int length;
-	
-	public BackgroundTile () 
+	public Platform () 
 	{
 		init();
 	}
@@ -18,6 +19,7 @@ public abstract class BackgroundTile extends AbstractGameObject{
 	private void init () 
 	{
 		dimension.set(1, 1);
+		origin.y = dimension.y/2f;
 		// Start length of this rock
 		setLength(1);
 	}
@@ -25,6 +27,10 @@ public abstract class BackgroundTile extends AbstractGameObject{
 	public void setLength (int length) 
 	{
 		this.length = length;
+		
+	    // Update bounding box for collision detection 
+	    bounds.set(0, 0, dimension.x * length, dimension.y);
+	    origin.x = bounds.width/2f;
 	}
 	public void increaseLength (int amount) 
 	{
@@ -34,11 +40,15 @@ public abstract class BackgroundTile extends AbstractGameObject{
 	@Override
 	public void render(SpriteBatch batch) 
 	{
-		batch.setColor(Color.DARK_GRAY);
+		batch.setColor(Color.GRAY);
+		
+		TextureRegion reg = null;
 		float relX = 0;
 		float relY = 0;
-
-		TextureRegion reg = regMiddle;
+		
+		// Draw middle
+		relX = 0;
+		reg = regMiddle;
 		for (int i = 0; i < length; i++) 
 		{
 			batch.draw(reg.getTexture(), 
@@ -54,4 +64,5 @@ public abstract class BackgroundTile extends AbstractGameObject{
 			relX += dimension.x;
 		}
 	}
+
 }
