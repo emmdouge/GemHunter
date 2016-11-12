@@ -98,14 +98,7 @@ public class JumpRisingState extends PlayerState
 			player.currentGravity = 0;
 			player.currentVelocity.y = 0;
 			player.timeJumping = player.JUMP_TIME_MAX;
-			if(platform.body.getLinearVelocity().y == 0)
-			{
-				player.position.y = platform.position.y - player.bounds.height - .001f;
-			}
-			else if(platform.body.getLinearVelocity().y < 0)
-			{
-				player.position.y = platform.position.y - player.bounds.height - .1f;
-			}
+			player.position.y = platform.position.y - player.bounds.height - .1f;
 			context.setPlayerState(context.getJumpFallingState());
 		}
 		else if(onTopOfRock)
