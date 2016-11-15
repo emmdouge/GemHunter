@@ -50,14 +50,14 @@ public class DashState extends PlayerState
 	@Override
 	public void onCollisionWith(Platform platform) 
 	{
-
-		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = platform.position.x - player.position.x - player.bounds.width;
-		float diffBetweenLeftSideOfPlayerAndRightSideOfPlatform = platform.position.x + platform.bounds.width - player.position.x;
-		float diffBetweenBottomOfPlayerAndTopOfPlatform = platform.position.y + platform.bounds.height - player.position.y;
+		float diffBetweenTopOfPlayerAndBottomOfPlatform = Math.abs(player.position.y + player.bounds.height + .001f - platform.position.y);
+		float diffBetweenLeftSideOfPlayerAndRightSideOfPlatform = Math.abs(platform.position.x + platform.bounds.width - player.position.x);
+		float diffBetweenBottomOfPlayerAndTopOfPlatform = Math.abs(platform.position.y + platform.bounds.height - player.position.y);
+		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = Math.abs(player.position.x + player.bounds.width - platform.position.x);
 		
-		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.07f;
-		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 1f;
-		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.07f;
+		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.3f;
+		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 0.3f;
+		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.2f;
 
 		if(onTopOfRock)
 		{
@@ -69,21 +69,21 @@ public class DashState extends PlayerState
 			player.currentVelocity.x = 0;
 			if(platform.currentVelocity.x != 0)
 			{
-				context.setPlayerState(context.getJumpFallingState());
+				context.setPlayerState(context.getFallingState());
 			}
 			
 			//since the rocks are all linked together, rock's bound witdth is the entire platform
-			player.position.x = platform.position.x - 1;
+			player.position.x = platform.position.x - player.bounds.width - .01f;
 		}
-		if(hitRightEdge)
+		else if(hitRightEdge)
 		{
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
 			if(platform.currentVelocity.x != 0)
 			{
-				context.setPlayerState(context.getJumpFallingState());
+				context.setPlayerState(context.getFallingState());
 			}
-			player.position.x = platform.position.x + platform.bounds.width;
+			player.position.x = platform.position.x + platform.bounds.width + .01f;
 		}
 	}
 

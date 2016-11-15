@@ -78,15 +78,15 @@ public class FallingState extends PlayerState
 	public void onCollisionWith(Platform platform) 
 	{
 		//drawn starting from bottom left
-		float diffBetweenBottomOfPlayerAndTopOfPlatform = platform.position.y + platform.bounds.height - player.position.y;
-		float diffBetweenLeftSideOfPlayerAndRightSideOfPlatform = platform.position.x + platform.bounds.width - player.position.x;
-		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = player.position.x + player.bounds.width - platform.position.x;
-		float diffBetweenTopOfPlayerAndBottomOfPlatform = player.position.y + player.bounds.height + .001f - platform.position.y;
+		float diffBetweenTopOfPlayerAndBottomOfPlatform = Math.abs(player.position.y + player.bounds.height + .001f - platform.position.y);
+		float diffBetweenLeftSideOfPlayerAndRightSideOfPlatform = Math.abs(platform.position.x + platform.bounds.width - player.position.x);
+		float diffBetweenBottomOfPlayerAndTopOfPlatform = Math.abs(platform.position.y + platform.bounds.height - player.position.y);
+		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = Math.abs(player.position.x + player.bounds.width - platform.position.x);
 		
 		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfPlatform <= 0.07f;
-		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.2f;
-		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.07f;
-		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 0.07f;
+		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.1f;
+		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.1f;
+		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 0.1f;
 		
 		if(landOnTop)
 		{
@@ -94,14 +94,7 @@ public class FallingState extends PlayerState
 			player.currentVelocity.y = 0;
 			player.position.y = platform.position.y + platform.bounds.height - 0.001f;
 			player.friction = platform.body.getFixtureList().get(0).getFriction();
-			if(platform.currentVelocity.y >= 0)
-			{
-				player.currentVelocity.y = platform.currentVelocity.y;
-			}
-			else
-			{
-				player.position.y = platform.body.getPosition().y+platform.dimension.y-.03f;
-			}
+			player.currentVelocity.y = platform.currentVelocity.y;
 			context.setPlayerState(context.getGroundState());
 		}
 		else if(hitTop)
@@ -125,7 +118,7 @@ public class FallingState extends PlayerState
 			player.currentVelocity.x = 0;
 			
 			//since the rocks are all linked together, rock's bound witdth is the entire platform
-			player.position.x = platform.position.x - player.bounds.width;
+			player.position.x = platform.position.x - player.bounds.width - .01f;
 			
 			player.maxVelocity.x = 0f;
 			if(player.currentVelocity.y == 0)
@@ -138,7 +131,7 @@ public class FallingState extends PlayerState
 		{
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
-			player.position.x = platform.position.x + platform.bounds.width;
+			player.position.x = platform.position.x + platform.bounds.width + .01f;
 			player.maxVelocity.x = 0f;
 			if(player.currentVelocity.y == 0)
 			{

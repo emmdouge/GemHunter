@@ -101,6 +101,7 @@ public class PlayerStateContext
 			{
 				AudioManager.instance.play(Assets.instance.sounds.jump); 
 				player.timeJumping = 0;
+				player.position.y += .3f;
 				setPlayerState(jumpRisingState);
 			}
 			else if(currentState == fallingState || currentState == jumpFallingState)
@@ -117,6 +118,10 @@ public class PlayerStateContext
 				if(player.timeJumping > player.JUMP_TIME_MAX)
 				{
 					setPlayerState(fallingState);
+				}
+				else
+				{
+					player.currentVelocity.y = player.maxVelocity.y;
 				}
 			}
 		}

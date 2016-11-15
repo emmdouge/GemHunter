@@ -97,8 +97,8 @@ public class LevelLoader
 		messages.enqueue(new Message("Press Left Shift to Dash!", new Vector2(0, 0), Assets.instance.survivor.survivor));
 		messages.enqueue(new NullMessage());
 		
-		levels.add(level2);
 		levels.add(level1);
+		levels.add(level2);
 	}
 	
 	public static LevelLoader getInstance() 

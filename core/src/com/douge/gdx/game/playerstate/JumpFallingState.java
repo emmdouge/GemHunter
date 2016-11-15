@@ -48,7 +48,7 @@ public class JumpFallingState extends PlayerState
 		}
 		
 		// Apply acceleration
-		player.currentVelocity.y += player.gravity * deltaTime;
+		player.currentVelocity.y += player.currentGravity * deltaTime;
 		
 		// Make sure the object's velocity does not exceed the
 		// positive or negative terminal velocity
@@ -80,15 +80,15 @@ public class JumpFallingState extends PlayerState
 	public void onCollisionWith(Platform platform) 
 	{
 		//drawn starting from bottom left
-		float diffBetweenBottomOfPlayerAndTopOfRock = platform.position.y + platform.bounds.height - player.position.y;
-		float diffBetweenLeftSideOfPlayerAndRightSideOfRock = platform.position.x + platform.bounds.width - player.position.x;
-		float diffBetweenTopOfPlayerAndBottomOfRock = player.position.y + player.bounds.height + .001f - platform.position.y;
-		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = player.position.x + player.bounds.width - platform.position.x;
+		float diffBetweenTopOfPlayerAndBottomOfRock = Math.abs(player.position.y + player.bounds.height + .001f - platform.position.y);
+		float diffBetweenLeftSideOfPlayerAndRightSideOfRock = Math.abs(platform.position.x + platform.bounds.width - player.position.x);
+		float diffBetweenBottomOfPlayerAndTopOfRock = Math.abs(platform.position.y + platform.bounds.height - player.position.y);
+		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = Math.abs(player.position.x + player.bounds.width - platform.position.x);
 		
 		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfRock <= 0.07f;
-		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.2f;
-		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.07f;
-		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfRock <= 0.07f;
+		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.1f;
+		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.1f;
+		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfRock <= 0.1f;
 		
 		if(landOnTop)
 		{
@@ -110,14 +110,14 @@ public class JumpFallingState extends PlayerState
 		{
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
-			player.position.x = platform.position.x - 1 - .001f;
+			player.position.x = platform.position.x - player.bounds.width - .01f;
 			player.maxVelocity.x = 0f;
 		}
 		else if(hitRightEdge)
 		{
 			player.currentFriction = 0;
 			player.currentVelocity.x = 0;
-			player.position.x = platform.position.x + platform.bounds.width;			
+			player.position.x = platform.position.x + platform.bounds.width + .01f;			
 			player.maxVelocity.x = 0f;
 		}
 	}
