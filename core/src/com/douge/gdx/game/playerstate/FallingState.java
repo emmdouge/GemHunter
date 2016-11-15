@@ -83,8 +83,8 @@ public class FallingState extends PlayerState
 		float diffBetweenBottomOfPlayerAndTopOfPlatform = Math.abs(platform.position.y + platform.bounds.height - player.position.y);
 		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = Math.abs(player.position.x + player.bounds.width - platform.position.x);
 		
-		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfPlatform <= 0.07f;
-		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.1f;
+		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfPlatform <= 0.1f;
+		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.2f;
 		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.1f;
 		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 0.1f;
 		

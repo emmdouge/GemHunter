@@ -95,11 +95,9 @@ public class JumpRisingState extends PlayerState
 		
 		if(hitTop)
 		{
-			player.currentGravity = 0;
-			player.currentVelocity.y = 0;
+			player.currentVelocity.y = player.gravity;
 			player.timeJumping = player.JUMP_TIME_MAX;
-			player.position.y = platform.position.y - player.bounds.height - .1f;
-			context.setPlayerState(context.getJumpFallingState());
+			context.setPlayerState(context.getFallingState());
 		}
 		else if(onTopOfRock)
 		{
@@ -108,18 +106,12 @@ public class JumpRisingState extends PlayerState
 		}
 		else if(hitLeftEdge)
 		{
-			//Gdx.app.log(tag, "rock: " + rock.position.x + "+" + rock.bounds.height + "=" + (rock.position.y+rock.bounds.height) + ", player: " + player.position.y + " " +(4.5-player.position.y) );
-			player.currentFriction = 0;
-			player.currentVelocity.x = 0;
-			
 			//since the rocks are all linked together, rock's bound witdth is the entire platform
 			player.position.x = platform.position.x - player.bounds.width - .01f;
 			player.maxVelocity.x = 0f;
 		}
 		else if(hitRightEdge)
 		{
-			player.currentFriction = 0;
-			player.currentVelocity.x = 0;
 			player.position.x = platform.position.x + platform.bounds.width + .01f;
 			player.maxVelocity.x = 0f;
 		}

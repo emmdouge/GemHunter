@@ -69,11 +69,14 @@ public class DashState extends PlayerState
 			player.currentVelocity.x = 0;
 			if(platform.currentVelocity.x != 0)
 			{
+				player.timeJumping = player.JUMP_TIME_MAX;
 				context.setPlayerState(context.getFallingState());
 			}
-			
-			//since the rocks are all linked together, rock's bound witdth is the entire platform
-			player.position.x = platform.position.x - player.bounds.width - .01f;
+			else
+			{
+				//since the rocks are all linked together, rock's bound witdth is the entire platform
+				player.position.x = platform.position.x - player.bounds.width - .01f;
+			}
 		}
 		else if(hitRightEdge)
 		{
@@ -81,9 +84,13 @@ public class DashState extends PlayerState
 			player.currentVelocity.x = 0;
 			if(platform.currentVelocity.x != 0)
 			{
+				player.timeJumping = player.JUMP_TIME_MAX;
 				context.setPlayerState(context.getFallingState());
 			}
-			player.position.x = platform.position.x + platform.bounds.width + .01f;
+			else
+			{
+				player.position.x = platform.position.x + platform.bounds.width + .01f;
+			}
 		}
 	}
 

@@ -99,12 +99,10 @@ public class JumpFallingState extends PlayerState
 		}
 		else if(hitTop)
 		{
-			//Gdx.app.log(tag, "player: " + player.position.y + " " + rock.position.y);
-			player.currentGravity = 0;
-			player.currentVelocity.y = 0;
+			player.currentVelocity.y = player.gravity;
 			player.timeJumping = player.JUMP_TIME_MAX;
 			player.position.y = platform.position.y - player.bounds.height - .1f;
-			context.setPlayerState(context.getJumpFallingState());
+			context.setPlayerState(context.getFallingState());
 		}
 		else if(hitLeftEdge)
 		{
