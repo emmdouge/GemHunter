@@ -88,10 +88,10 @@ public class JumpRisingState extends PlayerState
 		float diffBetweenBottomOfPlayerAndTopOfRock = Math.abs(platform.position.y + platform.bounds.height - player.position.y);
 		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = Math.abs(player.position.x + player.bounds.width - platform.position.x);
 		
-		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfRock <= 0.07f;
+		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfRock <= 0.1f;
 		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.1f;
 		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfRock <= 0.1f;
-		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.1f;
+		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.2f;
 		
 		if(hitTop)
 		{
