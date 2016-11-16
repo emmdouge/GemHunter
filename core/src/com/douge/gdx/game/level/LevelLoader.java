@@ -493,9 +493,6 @@ public class LevelLoader
 	    collectible.render(batch); 
 	     
 	    batch.setColor(Color.WHITE);
-	    
-	    // Draw Player Character 
-	    player.render(batch); 
 		
 		// Draw Water Overlay
 		blackOverlay.render(batch);
@@ -525,6 +522,9 @@ public class LevelLoader
 		currentLevel.particleEffect.draw(batch);
 
 		batch.setColor(Color.WHITE);
+		
+	    // Draw Player Character 
+	    player.render(batch); 
 	}
 
 
