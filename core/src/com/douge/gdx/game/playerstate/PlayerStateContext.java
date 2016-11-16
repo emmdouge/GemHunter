@@ -224,7 +224,6 @@ public class PlayerStateContext
 				enemy.context.setEnemyState(enemy.context.getDeadState());
 				player.timeJumping = 0;
 				player.timeDashing = 0;
-				jump(true);
 				setPlayerState(jumpRisingState);
 			}
 			else

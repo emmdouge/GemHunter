@@ -84,7 +84,7 @@ public class FallingState extends PlayerState
 		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = Math.abs(player.position.x + player.bounds.width - platform.position.x);
 		
 		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfPlatform <= 0.1f;
-		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.2f;
+		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.3f;
 		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.1f;
 		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 0.1f;
 		
@@ -95,6 +95,8 @@ public class FallingState extends PlayerState
 			player.position.y = platform.position.y + platform.bounds.height - 0.001f;
 			player.friction = platform.body.getFixtureList().get(0).getFriction();
 			player.currentVelocity.y = platform.currentVelocity.y;
+			if(platform.currentVelocity.y < 0) 
+			      player.position.y = platform.position.y + platform.bounds.height - .01f; 
 			context.setPlayerState(context.getGroundState());
 		}
 		else if(hitTop)
