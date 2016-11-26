@@ -11,7 +11,6 @@ public class EnemyStateContext
 	private EnemyFallingState fallingState;
 	private EnemyDeadState deadState;
 	private EnemyAttackingState attackingState;
-	private EnemyMovingState movingState;
 	private EnemyState currentState;
 	private Enemy enemy;
 	
@@ -21,8 +20,7 @@ public class EnemyStateContext
 		fallingState = new EnemyFallingState(enemy, this);
 		deadState = new EnemyDeadState(enemy, this);
 		attackingState = new EnemyAttackingState(enemy, this);
-		movingState = new EnemyMovingState(enemy, this);
-		currentState = movingState;
+		currentState = fallingState;
 	}
 	
 	public EnemyState getCurrentState()
@@ -38,11 +36,6 @@ public class EnemyStateContext
 	public EnemyFallingState getFallingState()
 	{
 		return fallingState;
-	}
-	
-	public EnemyMovingState getMovingState()
-	{
-		return movingState;
 	}
 	
 	public EnemyAttackingState getAttackingState()
@@ -64,5 +57,6 @@ public class EnemyStateContext
 	{
 		enemy.currentGravity = enemy.gravity;
 		enemy.currentFriction = enemy.friction;
+		enemy.inContactWithPlatform = false;
 	}
 }

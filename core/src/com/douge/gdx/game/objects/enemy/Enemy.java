@@ -47,6 +47,7 @@ public abstract class Enemy extends AbstractGameObject
 	public boolean hasBeenKilled = false;
 	
 	public boolean droppedHealth = false;
+	public boolean inContactWithPlatform;
 	
 	public Enemy(AssetEnemy assetEnemy, float moveSpeed, VIEW_DIRECTION direction) 
 	{

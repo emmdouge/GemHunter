@@ -15,11 +15,13 @@ public class EnemyDeadState extends EnemyState
 	@Override
 	public void execute(float deltaTime) 
 	{
+		enemy.isHurtable = false;
 		enemy.currentAnimation = enemy.assets.deadAnimation;
 		if(enemy.currentAnimation.isAnimationFinished(enemy.stateTime+.05f))
 		{
 			enemy.killed();
 		}
+		enemy.position.y += enemy.currentVelocity.y * deltaTime;
 	}
 
 	@Override
@@ -35,11 +37,10 @@ public class EnemyDeadState extends EnemyState
 		if(!enemy.canFly)
 		{
 			context.noRockCollision();
-			context.setEnemyState(context.getFallingState());
 		}
 		else
 		{
-			enemy.position.y -= .025f;
+			enemy.currentVelocity.y = -1f;
 		}
 	}
 
