@@ -17,6 +17,6 @@ public abstract class EnemyState
 	}
 
 	public abstract void execute(float deltaTime);
-	public abstract void onCollisionWith(Platform rock);
+	public abstract void onCollisionWith(Platform platform);
 	public abstract void noRockCollision();
 }
