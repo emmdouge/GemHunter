@@ -55,7 +55,7 @@ public class HurtState extends PlayerState
 				player.isStunned = false;
 				player.timeJumping = player.JUMP_TIME_MAX;
 				player.timeStunned = 0;
-				player.context.setPlayerState(player.context.getJumpFallingState());
+				player.context.setPlayerState(player.context.getFallingState());
 			}
 		}
 		else
@@ -73,33 +73,54 @@ public class HurtState extends PlayerState
 	public void onCollisionWith(Platform platform) 
 	{
 		//drawn starting from bottom left
-		float diffBetweenTopOfPlayerAndBottomOfPlatform = player.position.y + player.bounds.height - platform.position.y;
-		float diffBetweenLeftSideOfPlayerAndRightSideOfPlatform = platform.position.x + platform.bounds.x - player.position.x;
-		float diffBetweenBottomOfPlayerAndTopOfPlatform = platform.position.y + platform.bounds.height - player.position.y;
-		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = player.position.x + player.bounds.width - platform.position.x;
+		float diffBetweenTopOfPlayerAndBottomOfPlatform = Math.abs(player.position.y + player.bounds.height + .001f - platform.position.y);
+		float diffBetweenLeftSideOfPlayerAndRightSideOfPlatform = Math.abs(player.position.x  - platform.bounds.width - platform.position.x);
+		float diffBetweenBottomOfPlayerAndTopOfPlatform = Math.abs(platform.position.y + platform.bounds.height - player.position.y);
+		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = Math.abs(player.position.x + player.bounds.width - platform.position.x);
 		
-		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfPlatform <= 0.01f;
+		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfPlatform <= 0.1f;
+		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.1f;
 		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.3f;
 		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 0.3f;
-		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.1f;
 		
 		if(onTopOfRock)
 		{
 			player.currentVelocity.y = 0;
-			player.position.y = platform.position.y + platform.bounds.height;
+			player.position.y = platform.position.y + platform.bounds.height + .05f;
 		}
 		else if(hitTop)
 		{
-			player.currentVelocity.y = player.gravity;
+			player.timeJumping = player.JUMP_TIME_MAX;
+			if(platform.body.getLinearVelocity().y < 0)
+			{
+				context.setPlayerState(context.getHurtState());
+			}
 		}
 		else if(hitLeftEdge)
-		{	
-			//since the rocks are all linked together, rock's bound witdth is the entire platform
+		{
+			player.currentFriction = 0;
+			player.currentVelocity.x = 0;
 			player.position.x = platform.position.x - player.bounds.width;
+			
+			//increment the ram processors to use with the graphics apix
+			player.maxVelocity.x = 0f;
+			if(player.currentVelocity.y == 0)
+			{
+				player.maxVelocity.x = 3f;
+				player.currentGravity = 0f;
+			}
 		}
 		else if(hitRightEdge)
 		{
+			player.currentFriction = 0;
+			player.currentVelocity.x = 0;
 			player.position.x = platform.position.x + platform.bounds.width;
+			player.maxVelocity.x = 0f;
+			if(player.currentVelocity.y == 0)
+			{
+				player.maxVelocity.x = 3f;
+				player.currentGravity = 0f;
+			}
 		}
 	}
 
