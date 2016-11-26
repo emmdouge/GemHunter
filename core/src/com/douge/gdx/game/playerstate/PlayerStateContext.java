@@ -13,7 +13,7 @@ import com.douge.gdx.game.utils.AudioManager;
 public class PlayerStateContext 
 {
 	private FallingState fallingState;
-	private GroundedState groundedState;
+//	private GroundedState groundedState;
 	private JumpFallingState jumpFallingState;
 	private JumpRisingState jumpRisingState;
 	private DashState dashState;
@@ -27,7 +27,7 @@ public class PlayerStateContext
 	{
 		this.player = player;
 		fallingState = new FallingState(this);
-		groundedState = new GroundedState(this);
+//		groundedState = new GroundedState(this);
 		jumpFallingState = new JumpFallingState(this);
 		jumpRisingState = new JumpRisingState(this);
 		dashState = new DashState(this);
@@ -35,7 +35,7 @@ public class PlayerStateContext
 		jumpAttackState = new JumpAttackState(this);
 		groundedAttackState = new GroundedAttackState(this);
 		
-		currentState = groundedState;
+		currentState = fallingState;
 	}
 	
 	public PlayerState getCurrentState()
@@ -53,10 +53,10 @@ public class PlayerStateContext
 		return fallingState;
 	}
 	
-	public GroundedState getGroundState()
-	{
-		return groundedState;
-	}
+//	public GroundedState getGroundState()
+//	{
+//		return groundedState;
+//	}
 	
 	public HurtState getHurtState()
 	{
@@ -97,14 +97,12 @@ public class PlayerStateContext
 	{
 		if(jumpKeyPressed)
 		{
-			if(currentState == groundedState)
+			if(currentState == fallingState)
 			{
-				AudioManager.instance.play(Assets.instance.sounds.jump); 
-				player.timeJumping = 0;
-				player.position.y += .3f;
+				AudioManager.instance.play(Assets.instance.sounds.jump);
 				setPlayerState(jumpRisingState);
 			}
-			else if(currentState == fallingState || currentState == jumpFallingState)
+			else if(currentState == jumpFallingState)
 			{
 				if(player.hasJumpPowerup && player.timeJumping < player.JUMP_TIME_MAX)
 				{
@@ -117,7 +115,7 @@ public class PlayerStateContext
 			{
 				if(player.timeJumping > player.JUMP_TIME_MAX)
 				{
-					setPlayerState(fallingState);
+					setPlayerState(jumpFallingState);
 				}
 				else
 				{
@@ -129,6 +127,7 @@ public class PlayerStateContext
 		{
 			if(currentState == jumpRisingState)
 			{
+				player.timeJumping = player.JUMP_TIME_MAX;
 				setPlayerState(jumpFallingState);
 			}
 		}
@@ -160,7 +159,8 @@ public class PlayerStateContext
 				AudioManager.instance.playUntilDone(Assets.instance.music.throwingSound);
 				float xOffset = player.viewDirection == VIEW_DIRECTION.LEFT? -1 : 1;
 				float yOffset = .2f;
-				if(currentState == jumpRisingState || currentState == jumpFallingState || currentState == fallingState)
+				boolean inAir =  player.currentVelocity.y != 0;
+				if(currentState == jumpRisingState || currentState == jumpFallingState || inAir)
 				{
 					//only get called the before we enter the attack states
 					jumpAttackState.stateTime = 0f;
@@ -171,7 +171,7 @@ public class PlayerStateContext
 					player.numFireballs--;
 					setPlayerState(jumpAttackState);
 				}
-				else if(currentState == groundedState)
+				else if(!inAir)
 				{
 					groundedAttackState.stateTime = 0f;
 					Fireball fireball = new Fireball(player.viewDirection);
@@ -191,6 +191,7 @@ public class PlayerStateContext
 	
 	public void setStateBasedOnCollisionWithPlatform(Platform platform)
 	{
+		player.inContactWithPlatform = true;
 		currentState.onCollisionWith(platform);
 	}
 
@@ -209,6 +210,7 @@ public class PlayerStateContext
 		player.currentGravity = player.gravity;
 		player.currentFriction = player.friction;
 		player.currentParticleEffect.allowCompletion();
+		player.inContactWithPlatform = false;
 	}
 	
 	public void onCollisionWith(Enemy enemy)
@@ -225,6 +227,7 @@ public class PlayerStateContext
 				player.timeJumping = 0;
 				player.timeDashing = 0;
 				setPlayerState(jumpRisingState);
+				jump(true);
 			}
 			else
 			{

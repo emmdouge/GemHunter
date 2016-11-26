@@ -62,6 +62,8 @@ public class Player extends AbstractGameObject
 	public int invincibleSwitch = 0;
 	
 	public float timeInvincibleLeft = 0;
+
+	public boolean inContactWithPlatform;
 	
 	public Player() 
 	{

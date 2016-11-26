@@ -20,6 +20,7 @@ public class Platform extends AbstractGameObject
 	{
 		dimension.set(1, 1);
 		origin.y = dimension.y/2f;
+		origin.x = dimension.x/2f;
 		// Start length of this rock
 		setLength(1);
 	}
@@ -29,8 +30,9 @@ public class Platform extends AbstractGameObject
 		this.length = length;
 		
 	    // Update bounding box for collision detection 
-	    bounds.set(0, 0, dimension.x * length, dimension.y);
+	    bounds.set(0, 0, dimension.x , dimension.y * length);
 	    origin.x = bounds.width/2f;
+	    origin.y = bounds.height/2f;
 	}
 	public void increaseLength (int amount) 
 	{
@@ -61,7 +63,7 @@ public class Platform extends AbstractGameObject
 					reg.getRegionWidth(), reg.getRegionHeight(), 
 					false, false);
 			
-			relX += dimension.x;
+			relY += dimension.y;
 		}
 	}
 

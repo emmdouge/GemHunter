@@ -75,35 +75,30 @@ public class HurtState extends PlayerState
 		//drawn starting from bottom left
 		float diffBetweenTopOfPlayerAndBottomOfPlatform = player.position.y + player.bounds.height - platform.position.y;
 		float diffBetweenLeftSideOfPlayerAndRightSideOfPlatform = platform.position.x + platform.bounds.x - player.position.x;
-		float diffBetweenBottomOfPlayerAndTopOfPlatform = platform.position.y + platform.bounds.height - player.position.y + .001f;
+		float diffBetweenBottomOfPlayerAndTopOfPlatform = platform.position.y + platform.bounds.height - player.position.y;
 		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = player.position.x + player.bounds.width - platform.position.x;
 		
-		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfPlatform <= 0.07f;
+		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfPlatform <= 0.01f;
 		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfPlatform <= 0.3f;
 		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfPlatform <= 0.3f;
-		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.2f;
+		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfPlatform <= 0.1f;
 		
 		if(onTopOfRock)
 		{
 			player.currentVelocity.y = 0;
-			player.position.y = platform.position.y + platform.bounds.height + 0.001f;
+			player.position.y = platform.position.y + platform.bounds.height;
 		}
 		else if(hitTop)
 		{
 			player.currentVelocity.y = player.gravity;
 		}
 		else if(hitLeftEdge)
-		{
-			player.currentFriction = 0;
-			player.currentVelocity.x = 0;
-			
+		{	
 			//since the rocks are all linked together, rock's bound witdth is the entire platform
 			player.position.x = platform.position.x - player.bounds.width;
 		}
 		else if(hitRightEdge)
 		{
-			player.currentFriction = 0;
-			player.currentVelocity.x = 0;
 			player.position.x = platform.position.x + platform.bounds.width;
 		}
 	}

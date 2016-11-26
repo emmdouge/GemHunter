@@ -104,7 +104,7 @@ public class JumpAttackState extends PlayerState
 			player.currentGravity = 0;
 			player.currentVelocity.y = 0;
 			player.position.y = platform.position.y + platform.bounds.height - 0.001f;
-			context.setPlayerState(context.getGroundState());
+			context.setPlayerState(context.getFallingState());
 		}
 		else if(hitTop)
 		{

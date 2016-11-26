@@ -151,9 +151,9 @@ public class LevelLoader
 		
 		// scan pixels from top-left to bottom-right
 		int lastPixel = -1;
-		for (int pixelY = 0; pixelY < pixmap.getHeight(); pixelY++) 
+		for (int pixelX = pixmap.getWidth(); pixelX >= 0; pixelX--) 
 		{
-			for (int pixelX = 0; pixelX < pixmap.getWidth(); pixelX++) 
+			for (int pixelY = pixmap.getHeight(); pixelY >= 0; pixelY--) 
 			{
 				AbstractGameObject obj = null;
 				

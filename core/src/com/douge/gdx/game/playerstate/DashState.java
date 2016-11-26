@@ -43,14 +43,13 @@ public class DashState extends PlayerState
 		else
 		{
 			player.timeJumping = player.JUMP_TIME_MAX;
-			context.setPlayerState(context.getFallingState());
+			context.setPlayerState(context.getJumpFallingState());
 		}
 	}
 
 	@Override
 	public void onCollisionWith(Platform platform) 
 	{
-		float diffBetweenTopOfPlayerAndBottomOfPlatform = Math.abs(player.position.y + player.bounds.height + .001f - platform.position.y);
 		float diffBetweenLeftSideOfPlayerAndRightSideOfPlatform = Math.abs(platform.position.x + platform.bounds.width - player.position.x);
 		float diffBetweenBottomOfPlayerAndTopOfPlatform = Math.abs(platform.position.y + platform.bounds.height - player.position.y);
 		float diffBetweenRightSideOfPlayerAndLeftSideOfPlatform = Math.abs(player.position.x + player.bounds.width - platform.position.x);
@@ -70,7 +69,7 @@ public class DashState extends PlayerState
 			if(platform.currentVelocity.x != 0)
 			{
 				player.timeJumping = player.JUMP_TIME_MAX;
-				context.setPlayerState(context.getFallingState());
+				context.setPlayerState(context.getJumpFallingState());
 			}
 			else
 			{
@@ -85,7 +84,7 @@ public class DashState extends PlayerState
 			if(platform.currentVelocity.x != 0)
 			{
 				player.timeJumping = player.JUMP_TIME_MAX;
-				context.setPlayerState(context.getFallingState());
+				context.setPlayerState(context.getJumpFallingState());
 			}
 			else
 			{

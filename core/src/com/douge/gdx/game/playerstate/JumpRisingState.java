@@ -59,11 +59,12 @@ public class JumpRisingState extends PlayerState
 		{
 			player.viewDirection = player.currentVelocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
 		}
+
+		player.timeLeftJumpPowerup -= deltaTime;
 		
 		if (player.timeLeftJumpPowerup > 0 && player.timeJumping < player.JUMP_TIME_MAX*1.5) 
 		{
-			player.timeLeftJumpPowerup -= deltaTime;
-			player.currentVelocity.y = player.maxVelocity.y;
+			player.currentGravity = 0;
 			player.afterImageJump.addNode(player, player.currentAnimation.getKeyFrame(player.stateTime));
 		}
 		if (player.timeLeftJumpPowerup < 0) 
@@ -89,20 +90,26 @@ public class JumpRisingState extends PlayerState
 		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = Math.abs(player.position.x + player.bounds.width - platform.position.x);
 		
 		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfRock <= 0.1f;
-		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.1f;
-		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfRock <= 0.1f;
+		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.3f;
+		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfRock <= 0.3f;
 		boolean onTopOfRock =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.2f;
 		
 		if(hitTop)
 		{
-			player.currentVelocity.y = player.gravity;
 			player.timeJumping = player.JUMP_TIME_MAX;
-			context.setPlayerState(context.getFallingState());
+			if(platform.body.getLinearVelocity().y < 0)
+			{
+				context.setPlayerState(context.getHurtState());
+			}
+			else
+			{
+				player.currentVelocity.y = player.gravity;
+				context.setPlayerState(context.getFallingState());
+			}
 		}
 		else if(onTopOfRock)
 		{
-			player.currentVelocity.y = player.maxVelocity.y;
-			
+			player.position.y += .01f;
 		}
 		else if(hitLeftEdge)
 		{

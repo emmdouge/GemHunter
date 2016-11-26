@@ -19,6 +19,7 @@ public class JumpFallingState extends PlayerState
 	@Override
 	public void execute(float deltaTime) 
 	{
+		player.timeJumping = player.JUMP_TIME_MAX;
 		player.currentAnimation = Assets.instance.survivor.jumpingAnimation;
 		if (player.currentVelocity.x != 0) 
 		{
@@ -86,23 +87,30 @@ public class JumpFallingState extends PlayerState
 		float diffBetweenRightSideOfPlayerAndLeftSideOfRock = Math.abs(player.position.x + player.bounds.width - platform.position.x);
 		
 		boolean hitTop =  diffBetweenTopOfPlayerAndBottomOfRock <= 0.1f;
-		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.3f;
-		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.2f;
-		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfRock <= 0.2f;
+		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfRock <= 0.2f;
+		boolean hitLeftEdge = diffBetweenRightSideOfPlayerAndLeftSideOfRock <= 0.3f;
+		boolean hitRightEdge = diffBetweenLeftSideOfPlayerAndRightSideOfRock <= 0.3f;
 		
 		if(landOnTop)
 		{
 			player.currentGravity = 0;
 			player.currentVelocity.y = 0;
 			player.position.y = platform.position.y + platform.bounds.height - 0.001f;
-			context.setPlayerState(context.getGroundState());
+			player.timeJumping = 0;
+			context.setPlayerState(context.getFallingState());
 		}
 		else if(hitTop)
 		{
-			player.currentVelocity.y = player.gravity;
 			player.timeJumping = player.JUMP_TIME_MAX;
-			player.position.y = platform.position.y - player.bounds.height - .1f;
-			context.setPlayerState(context.getFallingState());
+			if(platform.body.getLinearVelocity().y < 0)
+			{
+				context.setPlayerState(context.getHurtState());
+			}
+			else
+			{
+				player.currentVelocity.y = player.gravity;
+				player.position.y = platform.position.y - player.bounds.height - .1f;
+			}
 		}
 		else if(hitLeftEdge)
 		{
