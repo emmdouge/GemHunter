@@ -125,18 +125,11 @@ public class WorldController extends InputAdapter implements Disposable
 		box2DWorld.step(deltaTime, 24, 3);
 			
 		cameraHelper.update(deltaTime);
-		if (!isGameOver() && isPlayerInWater()) 
+		if (isGameOver() || isPlayerInWater()) 
 		{
-		    AudioManager.instance.play(Assets.instance.sounds.liveLost); 
-			levelLoader.player.numLives--;
-			if (isGameOver())
-			{
-				timeLeftGameOverDelay = Constants.TIME_DELAY_GAME_OVER;
-			}
-			else
-			{
-				game.setScreen(new GameScreen(game));
-			}
+		    AudioManager.instance.play(Assets.instance.sounds.liveLost);
+			timeLeftGameOverDelay = Constants.TIME_DELAY_GAME_OVER;
+			game.setScreen(new GameScreen(game));
 		}
 		levelLoader.trees.updateScrollPosition(cameraHelper.getPosition());
 		if (livesVisual> levelLoader.player.numLives)

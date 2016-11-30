@@ -133,15 +133,14 @@ public class LevelLoader
 		reversingBoxes.clear();
 		backgroundTiles.clear();
 		enemies.clear();
+		
 	}
 
 	public void initCurrentLevel(int currentLevelIndex) 
 	{
+		clearLevel();
 		this.currentLevelIndex  = currentLevelIndex;
 	    currentLevel = levels.get(currentLevelIndex);
-	    
-	    // objects 
-
 		
 		// load image file that represents the level data
 		//**had to remove underscore in filename to get it to load
