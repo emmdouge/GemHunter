@@ -91,12 +91,12 @@ public class HighscoreScreen extends AbstractGameScreen
 	        // Always close files.
 	        bufferedReader.close(); 
 	        
-	        String newScore = GamePreferences.instance.name + ":" + game.score + "\n";
+	        String newScore = GamePreferences.instance.name + ":" + game.score;
 	        FileWriter fw = new FileWriter("../core/highscores.txt", true);
 	        BufferedWriter bw = new BufferedWriter(fw);
 	        PrintWriter out = new PrintWriter(bw);
-	        out.append(System.getProperty("line.separator"));
 	        out.append(newScore);
+	        out.append(System.getProperty("line.separator"));
 	        out.close();
 	        text += newScore;
 	        
