@@ -34,6 +34,7 @@ import com.douge.gdx.game.objects.platform.PlatformSnow;
 import com.douge.gdx.game.objects.platform.XMovingPlatform;
 import com.douge.gdx.game.objects.platform.YMovingPlatform;
 import com.douge.gdx.game.screen.GameScreen;
+import com.douge.gdx.game.screen.HighscoreScreen;
 import com.douge.gdx.game.screen.MenuScreen;
 import com.douge.gdx.game.screen.transition.DirectedGame;
 import com.douge.gdx.game.screen.transition.Fade;
@@ -44,10 +45,9 @@ public class WorldController extends InputAdapter implements Disposable
 {
 	private static final String TAG = WorldController.class.getName();
 	
-	private DirectedGame game;
+	DirectedGame game;
 	
 	public LevelLoader levelLoader;
-	public int score;
 	public float scoreVisual;
 	public float livesVisual;
 	public int fireballsVisual;
@@ -88,8 +88,7 @@ public class WorldController extends InputAdapter implements Disposable
 	    timeLeftGameOverDelay = 0; 
 	    livesVisual = Constants.MAX_LIVES;
 	    fireballsVisual = Constants.FIREBALLS_START;
-		scoreVisual = 0;
-		score = 0;
+		scoreVisual = game.score;
 		message = levelLoader.currentLevel.messages.head;
 	}
 	
@@ -136,9 +135,9 @@ public class WorldController extends InputAdapter implements Disposable
 		{
 			livesVisual = Math.max(levelLoader.player.numLives, livesVisual-deltaTime);
 		}
-		if (scoreVisual< score)
+		if (scoreVisual< game.score)
 		{
-			scoreVisual = Math.min(score, scoreVisual + 250 * deltaTime);
+			scoreVisual = Math.min(game.score, scoreVisual + 250 * deltaTime);
 		}
 		
 	}
@@ -215,7 +214,7 @@ public class WorldController extends InputAdapter implements Disposable
 		}
 		collectible.collected = true;
 		collectible.effect.activate(LevelLoader.getInstance().player);
-		score += collectible.getScore();
+		game.score += collectible.getScore();
 		if(collectible instanceof LevelGem)
 		{
 			if(levelLoader.currentLevelIndex+1 < levelLoader.levels.size())
@@ -226,7 +225,7 @@ public class WorldController extends InputAdapter implements Disposable
 			}
 			else
 			{
-				game.setScreen(new MenuScreen(game));			
+				game.setScreen(new HighscoreScreen(game));			
 			}
 		}
 		Gdx.app.log(TAG, "Collectible collected");

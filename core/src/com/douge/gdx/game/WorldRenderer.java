@@ -161,7 +161,7 @@ public class WorldRenderer implements Disposable
 		float y = -15;
 		float offsetX = 50;
 		float offsetY = 50;
-		if (worldController.scoreVisual<worldController.score) 
+		if (worldController.scoreVisual<worldController.game.score) 
 		{
 			long shakeAlpha = System.currentTimeMillis() % 360;
 			float shakeDist = 1.5f;

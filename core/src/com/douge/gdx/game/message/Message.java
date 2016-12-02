@@ -29,7 +29,7 @@ public class Message
 	public Vector2 conditions;
 	private Rectangle box;
 	private boolean boxIsRendered = false;
-	private boolean iconIsRendered = false;
+	public boolean iconIsRendered = false;
 	private Sprite icon;
 	private float iconX;
 	public boolean textIsRendered = false;
@@ -41,18 +41,26 @@ public class Message
 
 	public Message(String text, Vector2 conditions, TextureRegion reg) 
 	{
+		this(text, conditions, reg, 50f);
+	}
+	
+	public Message(String text, Vector2 conditions, TextureRegion reg, float size) 
+	{
 		this.text = text;
 		text += " ";
 		this.conditions = conditions;
 		//drawn from top left to bottom right
-		box = new Rectangle(0, Constants.VIEWPORT_GUI_HEIGHT - 50, Constants.VIEWPORT_GUI_WIDTH, 0);
+		box = new Rectangle(0, Constants.VIEWPORT_GUI_HEIGHT - size, Constants.VIEWPORT_GUI_WIDTH, 0);
 		maxHeight = Constants.VIEWPORT_GUI_HEIGHT - box.y;
-		icon = new Sprite(reg);
-		icon.setRegion(reg, 0, 0, reg.getRegionWidth(), reg.getRegionWidth() / 2);
-		iconX = -50f;
-		icon.setX(iconX);
-		icon.setY(box.y - 40f);
-		icon.flip(false, true);
+		if(reg != null)
+		{
+			icon = new Sprite(reg);
+			icon.setRegion(reg, 0, 0, reg.getRegionWidth(), reg.getRegionWidth() / 2);
+			iconX = size;
+			icon.setX(iconX);
+			icon.setY(box.y - 40f);
+			icon.flip(false, true);
+		}
 	}
 
 	public void updateText(float deltaTime, Player player) 
@@ -63,9 +71,12 @@ public class Message
 			textIndex++;
 			timeBetweenCharacters = 0;
 		}
-		if (player.position.x >= conditions.x && player.position.y >= conditions.y) 
+		if(player != null)
 		{
-			shouldBeRendered = true;
+			if (player.position.x >= conditions.x && player.position.y >= conditions.y) 
+			{
+				shouldBeRendered = true;
+			}
 		}
 		stateTime += deltaTime;
 	}
@@ -102,12 +113,15 @@ public class Message
 				{
 					boxIsRendered = true;
 				}
-				iconX += .75f;
-				iconX = MathUtils.clamp(iconX, -50f, 0 + 1f);
-				icon.setX(iconX);
-				if (iconX >= 1f) 
+				if(icon != null)
 				{
-					iconIsRendered = true;
+					iconX += .75f;
+					iconX = MathUtils.clamp(iconX, -50f, 0 + 1f);
+					icon.setX(iconX);
+					if (iconX >= 1f) 
+					{
+						iconIsRendered = true;
+					}
 				}
 			}
 		}
@@ -128,7 +142,9 @@ public class Message
 				false, false);		
 	}
 
-	private void renderIcon(SpriteBatch batch) {
+	private void renderIcon(SpriteBatch batch) 
+	{
+		if(icon != null)
 		batch.draw(icon, iconX, icon.getY(), 0, 0, icon.getWidth(), icon.getHeight(), 4, 2, 0f);
 	}
 

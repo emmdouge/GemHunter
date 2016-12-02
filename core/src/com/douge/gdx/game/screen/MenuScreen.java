@@ -19,8 +19,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.douge.gdx.game.Constants;
 import com.douge.gdx.game.assets.Assets;
@@ -57,7 +59,7 @@ public class MenuScreen extends AbstractGameScreen {
 	private SelectBox<CharacterSkin> selCharSkin;
 	private Image imgCharSkin;
 	private CheckBox chkShowFpsCounter;
-
+	private TextField text;
 	// debug
 	private final float DEBUG_REBUILD_INTERVAL = 5.0f;
 	private boolean debugEnabled = false;
@@ -66,6 +68,7 @@ public class MenuScreen extends AbstractGameScreen {
 	public MenuScreen(DirectedGame game) 
 	{
 		super(game);
+		Gdx.input.setInputProcessor(stage);
 	}
 	
 	@Override
@@ -75,7 +78,8 @@ public class MenuScreen extends AbstractGameScreen {
 	}
 
 	@Override
-	public void render(float deltaTime) {
+	public void render(float deltaTime) 
+	{
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		if (debugEnabled) 
@@ -89,7 +93,6 @@ public class MenuScreen extends AbstractGameScreen {
 		}
 		stage.act(deltaTime);
 		stage.draw();
-		
 	}
 
 	@Override
@@ -267,6 +270,7 @@ public class MenuScreen extends AbstractGameScreen {
 		sldSound.setValue(prefs.volSound);
 		chkMusic.setChecked(prefs.music);
 		sldMusic.setValue(prefs.volMusic);
+		text.setMessageText(prefs.name);
 		selCharSkin.setSelectedIndex(prefs.charSkin);
 		onCharSkinSelected(prefs.charSkin);
 		chkShowFpsCounter.setChecked(prefs.showFpsCounter);
@@ -278,6 +282,7 @@ public class MenuScreen extends AbstractGameScreen {
 		prefs.sound = chkSound.isChecked();
 		prefs.volSound = sldSound.getValue();
 		prefs.music = chkMusic.isChecked();
+		prefs.name = text.getText();
 		prefs.volMusic = sldMusic.getValue();
 		prefs.charSkin = selCharSkin.getSelectedIndex();
 		prefs.showFpsCounter = chkShowFpsCounter.isChecked();
@@ -311,8 +316,7 @@ public class MenuScreen extends AbstractGameScreen {
 		
 		// + Title: "Audio"
 		tbl.pad(10, 10, 0, 10);
-		tbl.add(new Label("Audio", skinLibgdx, "default-font",
-		Color.ORANGE)).colspan(3);
+		tbl.add(new Label("Audio", skinLibgdx, "default-font", Color.ORANGE)).colspan(3);
 		tbl.row();
 		tbl.columnDefaults(0).padRight(10);
 		tbl.columnDefaults(1).padRight(10);
@@ -332,6 +336,19 @@ public class MenuScreen extends AbstractGameScreen {
 		sldMusic = new Slider(0.0f, 1.0f, 0.1f, false, skinLibgdx);
 		tbl.add(sldMusic);
 		tbl.row();
+		
+		// + Title: "Audio"
+		tbl.pad(10, 10, 0, 10);
+		tbl.add(new Label("Name", skinLibgdx, "default-font", Color.ORANGE)).colspan(3);
+		tbl.row();
+		tbl.pad(10, 0, 0, 10);
+		text = new TextField("", skinLibgdx);
+		text.setMessageText("Click here!");
+		text.setAlignment(Align.center);
+		tbl.add(text).colspan(3);
+		tbl.columnDefaults(0).padRight(10);
+		tbl.columnDefaults(1).padRight(10);
+		tbl.row();
 		return tbl;
 	}
 	
@@ -340,8 +357,7 @@ public class MenuScreen extends AbstractGameScreen {
 		Table tbl = new Table();
 		// + Title: "Character Skin"
 		tbl.pad(10, 10, 0, 10);
-		tbl.add(new Label("Character Skin", skinLibgdx,
-		"default-font", Color.ORANGE)).colspan(2);
+		tbl.add(new Label("Character Skin", skinLibgdx, "default-font", Color.ORANGE)).colspan(2);
 		tbl.row();
 		// + Drop down box filled with skin items
 		selCharSkin = new SelectBox<CharacterSkin>(skinLibgdx);

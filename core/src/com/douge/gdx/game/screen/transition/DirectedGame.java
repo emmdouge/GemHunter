@@ -10,6 +10,7 @@ import com.douge.gdx.game.screen.AbstractGameScreen;
 public abstract class DirectedGame implements ApplicationListener
 {
 	private boolean init;
+	public int score;
 	private AbstractGameScreen currScreen;
 	private AbstractGameScreen nextScreen;
 	private FrameBuffer currFbo;

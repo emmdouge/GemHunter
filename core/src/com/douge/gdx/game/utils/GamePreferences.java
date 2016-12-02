@@ -16,6 +16,7 @@ public class GamePreferences
 	public float volSound;
 	public float volMusic;
 	public int charSkin;
+	public String name;
 	public boolean showFpsCounter;
 	private Preferences prefs;
 			
@@ -33,6 +34,7 @@ public class GamePreferences
 		volMusic = MathUtils.clamp(prefs.getFloat("volMusic", 0.5f), 0.0f, 1.0f);
 		charSkin = MathUtils.clamp(prefs.getInteger("charSkin", 0), 0, 2);
 		showFpsCounter = prefs.getBoolean("showFpsCounter", false);
+		name = prefs.getString("name");
 	}
 	public void save () 
 	{
@@ -42,6 +44,7 @@ public class GamePreferences
 		prefs.putFloat("volMusic", volMusic);
 		prefs.putInteger("charSkin", charSkin);
 		prefs.putBoolean("showFpsCounter", showFpsCounter);
+		prefs.putString("name", name);
 		prefs.flush();
 	}
 }
