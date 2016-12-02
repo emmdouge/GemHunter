@@ -141,7 +141,7 @@ public class HighscoreScreen extends AbstractGameScreen
 	@Override
 	public void hide() 
 	{
-
+		highscoreList = null;
 	}
 
 	@Override
