@@ -48,6 +48,7 @@ import com.douge.gdx.game.objects.platform.XMovingPlatform;
 import com.douge.gdx.game.objects.platform.YMovingPlatform;
 import com.douge.gdx.game.screen.GameScreen;
 import com.douge.gdx.game.screen.transition.DirectedGame;
+import com.douge.gdx.game.utils.AudioManager;
 
 /**
  * Level 1 of the game
@@ -88,17 +89,17 @@ public class LevelLoader
 		MessageQueue messages = new MessageQueue();
 	    
 		Level level1 = new Level(BLOCK_TYPE.STAR_BACK.getColor(), new PlatformSnow(), "../core/assets/levels/level01.png", messages, Assets.instance.snow);
-
+		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(3, 1)));
 		messages.enqueue(new NullMessage());
 		
 		messages = new MessageQueue();
 		Level level2 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), new PlatformRock(), "../core/assets/levels/level02.png", messages, Assets.instance.forest);
-		messages.enqueue(new Message("Press F to Attack!", new Vector2(0, 0), Assets.instance.survivor.survivor));
-		messages.enqueue(new Message("Press Left Shift to Dash!", new Vector2(0, 0), Assets.instance.survivor.survivor));
+		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(1, 1)));
+		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(2, 2)));
 		messages.enqueue(new NullMessage());
 		
-		levels.add(level1);
 		levels.add(level2);
+		levels.add(level1);
 	}
 	
 	public static LevelLoader getInstance() 

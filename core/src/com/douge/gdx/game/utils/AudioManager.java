@@ -1,6 +1,7 @@
 package com.douge.gdx.game.utils;
 
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Music.OnCompletionListener;
 import com.badlogic.gdx.audio.Sound;
 
 /**
@@ -15,6 +16,7 @@ public class AudioManager
 		
 		//so that it can be played once and not over itself
 		private Music sound;
+		public boolean completed = false;
 		
 		// singleton: prevent instantiation from other classes
 		private AudioManager () { }
@@ -81,14 +83,27 @@ public class AudioManager
 			}
 		}
 		
-		public void playUntilDone(Music music)
+		public boolean playUntilDone(Music music)
 		{
 			sound = music;
-			sound.setLooping(false);
-			if(!sound.isPlaying())
+			OnCompletionListener complete = new Music.OnCompletionListener() 
 			{
+				@Override
+				public void onCompletion(Music music) 
+				{
+					completed = true;
+					sound.stop();
+				}
+			};
+			sound.setOnCompletionListener(complete);
+			sound.setLooping(false);
+			if(!sound.isPlaying() && completed == false)
+			{
+				completed = false;
 				sound.play();
 			}
+
+			return completed;
 		}
 			
 		/**

@@ -363,13 +363,18 @@ public class WorldController extends InputAdapter implements Disposable
 			boolean dashKeyPressed = Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT) || Gdx.input.justTouched();
 			boolean attackKeyPressed = Gdx.input.isKeyJustPressed(Keys.F);
 			boolean jumpKeyPressed = Gdx.input.isKeyPressed(Keys.SPACE);
-			boolean crowAttackKeyPressed = Gdx.input.isKeyJustPressed(Keys.Q);
-			if(message.textIsRendered && message.shouldBeRendered)
+			boolean skipKeyPressed = Gdx.input.isKeyJustPressed(Keys.A);
+			if(message.shouldBeRendered)
 			{
-				if(!message.playerSkipped && (jumpKeyPressed || dashKeyPressed))
+				if(!message.playerSkipped && (skipKeyPressed) && message.completed)
 				{
 					message.playerSkipped = true;
 					levelLoader.currentLevel.messages.dequeue();
+				}
+				else
+				{
+					levelLoader.player.currentVelocity.x = 0f;
+					levelLoader.player.context.setPlayerStateBasedOnInput(false, false, false);
 				}
 			}
 			else if(!message.shouldBeRendered)

@@ -13,7 +13,7 @@ public class NullMessage extends Message
 {
 	public NullMessage()
 	{
-		super(null, null, Assets.instance.survivor.survivor);
+		super(null, null);
 		playerSkipped = true;
 	}
 	
