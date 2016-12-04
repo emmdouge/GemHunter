@@ -19,7 +19,7 @@ public class AssetBat extends AssetEnemy
 		
 		regions = new Array<AtlasRegion>();
 		
-		for(int i = 71; i <= 79; i++)
+		for(int i = 50; i <= 59; i++)
 		{
 			regions.add(atlas.findRegion("bat"+i));
 		}

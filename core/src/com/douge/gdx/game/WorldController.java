@@ -29,8 +29,8 @@ import com.douge.gdx.game.objects.collectible.Collectible;
 import com.douge.gdx.game.objects.collectible.LevelGem;
 import com.douge.gdx.game.objects.enemy.Enemy;
 import com.douge.gdx.game.objects.platform.Platform;
-import com.douge.gdx.game.objects.platform.PlatformRock;
-import com.douge.gdx.game.objects.platform.PlatformSnow;
+import com.douge.gdx.game.objects.platform.PlatformLevel1;
+import com.douge.gdx.game.objects.platform.PlatformLevel2;
 import com.douge.gdx.game.objects.platform.XMovingPlatform;
 import com.douge.gdx.game.objects.platform.YMovingPlatform;
 import com.douge.gdx.game.screen.GameScreen;
@@ -498,11 +498,11 @@ public class WorldController extends InputAdapter implements Disposable
 			
 			FixtureDef fixtureDef = new FixtureDef();
 			
-			if(platform instanceof PlatformSnow)
+			if(platform instanceof PlatformLevel2)
 			{
 				fixtureDef.friction = 1f;
 			}
-			else if(platform instanceof PlatformRock)
+			else if(platform instanceof PlatformLevel1)
 			{
 				fixtureDef.friction = 10f;
 			}

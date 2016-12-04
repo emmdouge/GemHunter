@@ -219,7 +219,7 @@ public class PlayerStateContext
 		boolean landOnTop =  diffBetweenBottomOfPlayerAndTopOfEnemy <= 0.07f;
 		if(!enemy.hasBeenKilled && currentState != hurtState && !player.isInvincible)
 		{
-			if(landOnTop && enemy.isHurtable)
+			if(landOnTop && enemy.isHurtable && !enemy.isHorse)
 			{
 				enemy.stateTime = 0f;
 				enemy.hasBeenKilled = true;
@@ -228,6 +228,10 @@ public class PlayerStateContext
 				player.timeDashing = 0;
 				setPlayerState(jumpRisingState);
 				jump(true);
+			}
+			else if(enemy.isHorse)
+			{
+				//do nothing
 			}
 			else
 			{

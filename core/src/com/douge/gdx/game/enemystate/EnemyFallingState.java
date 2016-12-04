@@ -40,12 +40,16 @@ public class EnemyFallingState extends EnemyState
 			{
 				enemy.currentAnimation = enemy.assets.movingAnimation;
 			}
-			else if(!enemy.inContactWithPlatform && enemy.currentVelocity.y != 0)
+			else if(enemy.currentVelocity.y != 0 && enemy.gravity != 0 && !enemy.canFly)
 			{	
 				enemy.currentAnimation = enemy.assets.fallingAnimation;
 			}
+			else
+			{
+				enemy.currentAnimation = enemy.assets.movingAnimation;
+			}
 		}
-		else if(enemy.currentVelocity.y == 0)
+		else if(enemy.currentVelocity.y == 0 && enemy.gravity != 0 && !enemy.canFly)
 		{
 			enemy.currentAnimation = enemy.assets.standingAnimation;
 		}
@@ -57,15 +61,13 @@ public class EnemyFallingState extends EnemyState
 		// positive or negative terminal velocity
 		enemy.currentVelocity.y = MathUtils.clamp(enemy.currentVelocity.y, -enemy.maxVelocity.y, enemy.maxVelocity.y);
 		
+		if(enemy.canFly)
+		enemy.currentVelocity.y = 0f;
+		
 		enemy.position.y += enemy.currentVelocity.y * deltaTime;
 		enemy.position.x += enemy.currentVelocity.x * deltaTime;
 		
-		if((int)(Math.random()*100) == 1)
-		{
-			enemy.stateTime = 0;
-			context.setEnemyState(context.getAttackingState());
-		}
-		else if((int)(Math.random()*100) == 2)
+		if((int)(Math.random()*100) == 2)
 		{
 			enemy.viewDirection = VIEW_DIRECTION.opposite(enemy.viewDirection);
 		}
@@ -103,7 +105,6 @@ public class EnemyFallingState extends EnemyState
 		}
 		else
 		{
-			if(!enemy.canFly)
 			enemy.currentGravity = enemy.gravity;
 		}
 	}

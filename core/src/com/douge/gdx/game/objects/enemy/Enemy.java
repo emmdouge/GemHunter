@@ -25,7 +25,8 @@ public abstract class Enemy extends AbstractGameObject
 	public TextureRegion reg;
 	public float stateTime;
 	public float moveSpeed;
-	
+
+	public boolean isHorse = false;
 	public VIEW_DIRECTION viewDirection;
 	
 	//flag for level to clean up dead enemies

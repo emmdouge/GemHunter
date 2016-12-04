@@ -10,7 +10,6 @@ public class EnemyStateContext
 {
 	private EnemyFallingState fallingState;
 	private EnemyDeadState deadState;
-	private EnemyAttackingState attackingState;
 	private EnemyState currentState;
 	private Enemy enemy;
 	
@@ -19,7 +18,6 @@ public class EnemyStateContext
 		this.enemy = enemy;
 		fallingState = new EnemyFallingState(enemy, this);
 		deadState = new EnemyDeadState(enemy, this);
-		attackingState = new EnemyAttackingState(enemy, this);
 		currentState = fallingState;
 	}
 	
@@ -36,11 +34,6 @@ public class EnemyStateContext
 	public EnemyFallingState getFallingState()
 	{
 		return fallingState;
-	}
-	
-	public EnemyAttackingState getAttackingState()
-	{
-		return attackingState;
 	}
 	
 	public EnemyDeadState getDeadState()

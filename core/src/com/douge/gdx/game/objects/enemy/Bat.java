@@ -11,8 +11,8 @@ public class Bat extends Enemy
 	{
 		super(assets, 1f, VIEW_DIRECTION.RIGHT);
 		canFly = true;
-		gravity = 0;
-		currentGravity = 0;
+		gravity = 0f;
+		currentGravity = 0f;
 		currentVelocity.x = 1f;
 		position.y += flightHeight;
 	}

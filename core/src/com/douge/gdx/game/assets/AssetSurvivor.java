@@ -34,7 +34,10 @@ public class AssetSurvivor
 		
 		Array<AtlasRegion> regions = new Array<AtlasRegion>();
 		
-		regions.add(survivor);
+		for(int i = 0; i <= 2; i++)
+		{
+			regions.add(atlas.findRegion("survivor0"+i));
+		}
 		standingAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
 		
 		regions = new Array<AtlasRegion>();
@@ -49,7 +52,7 @@ public class AssetSurvivor
 		
 		regions = new Array<AtlasRegion>();
 		
-		for(int i = 19; i <= 25; i++)
+		for(int i = 19; i <= 24; i++)
 		{
 			regions.add(atlas.findRegion("survivor"+i));
 		}

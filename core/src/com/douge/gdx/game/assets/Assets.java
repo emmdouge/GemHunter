@@ -14,10 +14,10 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.douge.gdx.game.Constants;
 import com.douge.gdx.game.assets.enemy.AssetBat;
-import com.douge.gdx.game.assets.enemy.AssetGoblin;
+import com.douge.gdx.game.assets.enemy.AssetNote;
 import com.douge.gdx.game.assets.enemy.AssetRanger;
-import com.douge.gdx.game.assets.enemy.AssetSkeleton;
-import com.douge.gdx.game.assets.enemy.AssetSlime;
+import com.douge.gdx.game.assets.enemy.AssetMouse;
+import com.douge.gdx.game.assets.enemy.AssetHorse;
 
 public class Assets implements Disposable, AssetErrorListener 
 {
@@ -32,11 +32,11 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetTiles tiles;
 	public AssetGem gems;
 	public AssetBat bat;
-	public AssetSkeleton skeleton;
+	public AssetMouse skeleton;
 	public AssetRanger ranger;
-	public AssetSlime slime;
+	public AssetHorse horse;
 	public AssetFireball fireball;
-	public AssetGoblin goblin;
+	public AssetNote goblin;
 	public AssetSounds sounds; 
 	public AssetMusic music; 
 	public AssetUI ui;
@@ -84,13 +84,13 @@ public class Assets implements Disposable, AssetErrorListener
 		TextureAtlas atlas = assetManager.get(Constants.GEM_HUNTER_ATLAS_PATH);
 		survivor = new AssetSurvivor(atlas);
 		gems = new AssetGem(atlas);
-		slime = new AssetSlime(atlas);
-		skeleton = new AssetSkeleton(atlas);
+		horse = new AssetHorse(atlas);
+		skeleton = new AssetMouse(atlas);
 		ranger = new AssetRanger(atlas);
 		bat = new AssetBat(atlas);
 		fireball = new AssetFireball(atlas);
 		goldCoin = new AssetGoldCoin(atlas);
-		goblin = new AssetGoblin(atlas);
+		goblin = new AssetNote(atlas);
 		env = new AssetEnvironment(atlas);
 		tiles = new AssetTiles(atlas);
 		crow = new AssetCrow(atlas);

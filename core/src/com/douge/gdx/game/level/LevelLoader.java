@@ -27,23 +27,28 @@ import com.douge.gdx.game.objects.Crow;
 import com.douge.gdx.game.objects.Fireball;
 import com.douge.gdx.game.objects.NullGameObject;
 import com.douge.gdx.game.objects.Player;
+import com.douge.gdx.game.objects.backgroundtile.BackgroundLevel1;
+import com.douge.gdx.game.objects.backgroundtile.BackgroundLevel3;
+import com.douge.gdx.game.objects.backgroundtile.BackgroundLevel4;
 import com.douge.gdx.game.objects.backgroundtile.BackgroundRock;
-import com.douge.gdx.game.objects.backgroundtile.BackgroundStar;
+import com.douge.gdx.game.objects.backgroundtile.BackgroundLevel2;
 import com.douge.gdx.game.objects.backgroundtile.BackgroundTile;
 import com.douge.gdx.game.objects.collectible.Collectible;
 import com.douge.gdx.game.objects.collectible.GoldCoin;
 import com.douge.gdx.game.objects.collectible.LevelGem;
 import com.douge.gdx.game.objects.enemy.Bat;
-import com.douge.gdx.game.objects.enemy.BigGoblin;
+import com.douge.gdx.game.objects.enemy.BigNote;
 import com.douge.gdx.game.objects.enemy.Enemy;
-import com.douge.gdx.game.objects.enemy.Skeleton;
-import com.douge.gdx.game.objects.enemy.Slime;
+import com.douge.gdx.game.objects.enemy.Mouse;
+import com.douge.gdx.game.objects.enemy.Horse;
 import com.douge.gdx.game.objects.environment.BlackOverlay;
 import com.douge.gdx.game.objects.environment.Clouds;
 import com.douge.gdx.game.objects.environment.Trees;
 import com.douge.gdx.game.objects.platform.Platform;
-import com.douge.gdx.game.objects.platform.PlatformRock;
-import com.douge.gdx.game.objects.platform.PlatformSnow;
+import com.douge.gdx.game.objects.platform.PlatformLevel1;
+import com.douge.gdx.game.objects.platform.PlatformLevel2;
+import com.douge.gdx.game.objects.platform.PlatformLevel3;
+import com.douge.gdx.game.objects.platform.PlatformLevel4;
 import com.douge.gdx.game.objects.platform.XMovingPlatform;
 import com.douge.gdx.game.objects.platform.YMovingPlatform;
 import com.douge.gdx.game.screen.GameScreen;
@@ -88,18 +93,32 @@ public class LevelLoader
 	{	    
 		MessageQueue messages = new MessageQueue();
 	    
-		Level level1 = new Level(BLOCK_TYPE.STAR_BACK.getColor(), new PlatformSnow(), "../core/assets/levels/level01.png", messages, Assets.instance.snow);
-		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(3, 1)));
+		Level level1 = new Level(BLOCK_TYPE.LEVEL1_BACK.getColor(), new PlatformLevel1(), "../core/assets/levels/level01.png", messages, Assets.instance.forest);
+//		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(3, 1)));
 		messages.enqueue(new NullMessage());
 		
 		messages = new MessageQueue();
-		Level level2 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), new PlatformRock(), "../core/assets/levels/level02.png", messages, Assets.instance.forest);
-		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(1, 1)));
-		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(2, 2)));
+		Level level2 = new Level(BLOCK_TYPE.LEVEL2_BACK.getColor(), new PlatformLevel2(), "../core/assets/levels/level02.png", messages, Assets.instance.snow);
+//		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(1, 1)));
+//		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(2, 2)));
 		messages.enqueue(new NullMessage());
 		
-		levels.add(level2);
+		messages = new MessageQueue();
+		Level level3 = new Level(BLOCK_TYPE.LEVEL3_BACK.getColor(), new PlatformLevel3(), "../core/assets/levels/level03.png", messages, Assets.instance.forest);
+//		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(1, 1)));
+//		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(2, 2)));
+		messages.enqueue(new NullMessage());
+		
+		messages = new MessageQueue();
+		Level level4 = new Level(BLOCK_TYPE.LEVEL4_BACK.getColor(), new PlatformLevel4(), "../core/assets/levels/level04.png", messages, Assets.instance.forest);
+//		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(1, 1)));
+//		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(2, 2)));
+		messages.enqueue(new NullMessage());
+		
 		levels.add(level1);
+		levels.add(level2);
+		levels.add(level3);
+		levels.add(level4);
 	}
 	
 	public static LevelLoader getInstance() 
@@ -175,24 +194,32 @@ public class LevelLoader
 				if(BLOCK_TYPE.validColor(currentPixel))
 				{
 					// rock back
-					if (BLOCK_TYPE.ROCK_BACK.sameColor(currentLevel.back)) 
+					if (BLOCK_TYPE.LEVEL1_BACK.sameColor(currentLevel.back)) 
 					{
-						obj = new BackgroundRock();
+						obj = new BackgroundLevel1();
 					}
-					else if(BLOCK_TYPE.STAR_BACK.sameColor(currentLevel.back))
+					else if(BLOCK_TYPE.LEVEL2_BACK.sameColor(currentLevel.back))
 					{
-						obj = new BackgroundStar();					
+						obj = new BackgroundLevel2();					
+					}
+					else if(BLOCK_TYPE.LEVEL3_BACK.sameColor(currentLevel.back))
+					{
+						obj = new BackgroundLevel3();					
+					}
+					else if(BLOCK_TYPE.LEVEL4_BACK.sameColor(currentLevel.back))
+					{
+						obj = new BackgroundLevel4();					
 					}
 					obj.position.set(pixelX, baseHeight);
 					backgroundTiles.add((BackgroundTile)obj);
 				}
 				
 				// rock
-				if (BLOCK_TYPE.ROCK_PLATFORM.sameColor(currentPixel)) 
+				if (BLOCK_TYPE.LEVEL1_PLATFORM.sameColor(currentPixel)) 
 				{
 					if (lastPixel != currentPixel) 
-					{
-						obj = new PlatformRock();
+					{ 
+						obj = new PlatformLevel1();
 						obj.position.set(pixelX, baseHeight + expOffset);
 						platforms.add((Platform)obj);
 					} 
@@ -202,11 +229,39 @@ public class LevelLoader
 					}
 				}
 				
-				else if (BLOCK_TYPE.SNOW_PLATFORM.sameColor(currentPixel)) 
+				else if (BLOCK_TYPE.LEVEL2_PLATFORM.sameColor(currentPixel)) 
 				{
 					if (lastPixel != currentPixel) 
 					{
-						obj = new PlatformSnow();
+						obj = new PlatformLevel2();
+						obj.position.set(pixelX, baseHeight + expOffset);
+						platforms.add((Platform)obj);
+					} 
+					else 
+					{
+						platforms.get(platforms.size - 1).increaseLength(1);
+					}
+				}
+				
+				else if (BLOCK_TYPE.LEVEL3_PLATFORM.sameColor(currentPixel)) 
+				{
+					if (lastPixel != currentPixel) 
+					{
+						obj = new PlatformLevel3();
+						obj.position.set(pixelX, baseHeight + expOffset);
+						platforms.add((Platform)obj);
+					} 
+					else 
+					{
+						platforms.get(platforms.size - 1).increaseLength(1);
+					}
+				}
+				
+				else if (BLOCK_TYPE.LEVEL4_PLATFORM.sameColor(currentPixel)) 
+				{
+					if (lastPixel != currentPixel) 
+					{
+						obj = new PlatformLevel4();
 						obj.position.set(pixelX, baseHeight + expOffset);
 						platforms.add((Platform)obj);
 					} 
@@ -294,19 +349,19 @@ public class LevelLoader
 				}
 				
 				// slime
-				else if(BLOCK_TYPE.ENEMY_SLIME.sameColor(currentPixel))
+				else if(BLOCK_TYPE.ENEMY_HORSE.sameColor(currentPixel))
 				{
-			          obj = new Slime(Assets.instance.slime); 
+			          obj = new Horse(Assets.instance.horse); 
 			          obj.position.set(pixelX,baseHeight + expOffset); 
-			          enemies.add((Slime)obj); 	
+			          enemies.add((Horse)obj); 	
 				}
 				
 				// skeleton
-				else if(BLOCK_TYPE.ENEMY_SKELETON.sameColor(currentPixel))
+				else if(BLOCK_TYPE.ENEMY_MOUSE.sameColor(currentPixel))
 				{
-			          obj = new Skeleton(Assets.instance.skeleton); 
+			          obj = new Mouse(Assets.instance.skeleton); 
 			          obj.position.set(pixelX, baseHeight + expOffset); 
-			          enemies.add((Skeleton)obj); 	
+			          enemies.add((Mouse)obj); 	
 				}
 				
 				// bat
@@ -318,11 +373,11 @@ public class LevelLoader
 				}
 				
 				// bat
-				else if(BLOCK_TYPE.ENEMY_BIGGOBLIN.sameColor(currentPixel))
+				else if(BLOCK_TYPE.ENEMY_BIGNOTE.sameColor(currentPixel))
 				{
-			          obj = new BigGoblin(Assets.instance.goblin); 
+			          obj = new BigNote(Assets.instance.goblin); 
 			          obj.position.set(pixelX, baseHeight + expOffset);
-			          enemies.add((BigGoblin)obj); 	
+			          enemies.add((BigNote)obj); 	
 				}
 				
 				// unknown object/pixel color

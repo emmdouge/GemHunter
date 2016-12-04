@@ -18,6 +18,15 @@ public class AssetTiles
 	public final AtlasRegion tileStar3;
 	public final TextureRegion snow1;
 	public final TextureRegion snow2;
+	public final TextureRegion level1Ground;
+	public final TextureRegion level1Sky;
+	public final TextureRegion level2Ground;
+
+	public final TextureRegion level3Ground1;
+	public final TextureRegion level3Ground2;
+	public final TextureRegion level3Sky;
+
+	public final TextureRegion level4;
 	
 	protected AssetTiles(TextureAtlas atlas) 
 	{
@@ -32,6 +41,17 @@ public class AssetTiles
 		
 		snow1 = atlas.findRegion("snow1");
 		snow2 = atlas.findRegion("snow2");
+		
+		level1Ground = atlas.findRegion("level1Ground");
+		level1Sky = atlas.findRegion("level1Sky");
+		
+		level2Ground = atlas.findRegion("level2Ground");
+		
+		level3Ground1 = atlas.findRegion("level3Ground1");
+		level3Ground2 = atlas.findRegion("level3Ground2");
+		level3Sky = atlas.findRegion("level3Sky");
+		
+		level4 = atlas.findRegion("level4");
 		
 		Array<AtlasRegion> regions = new Array<AtlasRegion>();
 		for(int i = 0; i <= 2; i++)

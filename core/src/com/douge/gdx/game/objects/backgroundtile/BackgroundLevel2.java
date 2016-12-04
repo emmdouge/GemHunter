@@ -2,9 +2,9 @@ package com.douge.gdx.game.objects.backgroundtile;
 
 import com.douge.gdx.game.assets.Assets;
 
-public class BackgroundStar extends BackgroundTile
+public class BackgroundLevel2 extends BackgroundTile
 {
-	public BackgroundStar()
+	public BackgroundLevel2()
 	{
 		super();
 		int randomStarTile = (int) (Math.random()*3);

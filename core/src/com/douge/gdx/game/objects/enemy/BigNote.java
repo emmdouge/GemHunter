@@ -1,15 +1,14 @@
 package com.douge.gdx.game.objects.enemy;
 
-import com.douge.gdx.game.assets.enemy.AssetGoblin;
+import com.douge.gdx.game.assets.enemy.AssetNote;
 import com.douge.gdx.game.objects.VIEW_DIRECTION;
 
-public class BigGoblin extends Enemy
+public class BigNote extends Enemy
 {
-	public BigGoblin(AssetGoblin assets) 
+	public BigNote(AssetNote assets) 
 	{
-		super(assets, 1f, VIEW_DIRECTION.LEFT);
-		int multiplier = 4;
-		isBoss = true;
+		super(assets, 1f, VIEW_DIRECTION.RIGHT);
+		int multiplier = 1;
 		dimension.x *= multiplier;
 		dimension.y *= multiplier;
 		bounds.height = dimension.y - 1;
