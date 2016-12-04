@@ -42,7 +42,7 @@ public class Platform extends AbstractGameObject
 	@Override
 	public void render(SpriteBatch batch) 
 	{
-		batch.setColor(Color.GRAY);
+		batch.setColor(Color.WHITE);
 		
 		TextureRegion reg = null;
 		float relX = 0;

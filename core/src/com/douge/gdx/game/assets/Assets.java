@@ -18,6 +18,8 @@ import com.douge.gdx.game.assets.enemy.AssetNote;
 import com.douge.gdx.game.assets.enemy.AssetRanger;
 import com.douge.gdx.game.assets.enemy.AssetMouse;
 import com.douge.gdx.game.assets.enemy.AssetHorse;
+import com.douge.gdx.game.assets.enemy.AssetRock;
+import com.douge.gdx.game.assets.enemy.AssetShadow;
 
 public class Assets implements Disposable, AssetErrorListener 
 {
@@ -32,18 +34,20 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetTiles tiles;
 	public AssetGem gems;
 	public AssetBat bat;
-	public AssetMouse skeleton;
+	public AssetMouse mouse;
 	public AssetRanger ranger;
 	public AssetHorse horse;
 	public AssetFireball fireball;
-	public AssetNote goblin;
+	public AssetNote note;
 	public AssetSounds sounds; 
 	public AssetMusic music; 
 	public AssetUI ui;
 	public AssetCrow crow;
 	public ParticleEffect snow;
 	public ParticleEffect forest;
-	
+	public AssetRock rock;
+	public AssetShadow shadow;
+
 	private Assets()
 	{
 		//prevent instantiation from other classes
@@ -70,6 +74,16 @@ public class Assets implements Disposable, AssetErrorListener
 	    assetManager.load("../core/assets/music/latenights.mp3", Music.class); 
 	    assetManager.load("../core/assets/music/throwingSound.mp3", Music.class);
 	    assetManager.load("../core/assets/music/evilmonster.mp3", Music.class);
+	    assetManager.load("../core/assets/music/lvl1.mp3", Music.class);
+	    assetManager.load("../core/assets/music/lvl2.mp3", Music.class);
+	    assetManager.load("../core/assets/music/lvl3.mp3", Music.class);
+	    assetManager.load("../core/assets/music/lvl4.mp3", Music.class);
+	    assetManager.load("../core/assets/music/lvl5.mp3", Music.class);
+	    assetManager.load("../core/assets/music/lvl6.mp3", Music.class);
+	    assetManager.load("../core/assets/music/lvl7.mp3", Music.class);
+
+	    assetManager.load("../core/assets/music/intro.mp3", Music.class);
+	    assetManager.load("../core/assets/music/outro.mp3", Music.class);
 	    
 		assetManager.finishLoading();
 		
@@ -85,12 +99,14 @@ public class Assets implements Disposable, AssetErrorListener
 		survivor = new AssetSurvivor(atlas);
 		gems = new AssetGem(atlas);
 		horse = new AssetHorse(atlas);
-		skeleton = new AssetMouse(atlas);
+		mouse = new AssetMouse(atlas);
 		ranger = new AssetRanger(atlas);
 		bat = new AssetBat(atlas);
 		fireball = new AssetFireball(atlas);
 		goldCoin = new AssetGoldCoin(atlas);
-		goblin = new AssetNote(atlas);
+		note = new AssetNote(atlas);
+		rock = new AssetRock(atlas);
+		shadow = new AssetShadow(atlas);
 		env = new AssetEnvironment(atlas);
 		tiles = new AssetTiles(atlas);
 		crow = new AssetCrow(atlas);

@@ -30,6 +30,9 @@ import com.douge.gdx.game.objects.Player;
 import com.douge.gdx.game.objects.backgroundtile.BackgroundLevel1;
 import com.douge.gdx.game.objects.backgroundtile.BackgroundLevel3;
 import com.douge.gdx.game.objects.backgroundtile.BackgroundLevel4;
+import com.douge.gdx.game.objects.backgroundtile.BackgroundLevel5;
+import com.douge.gdx.game.objects.backgroundtile.BackgroundLevel6;
+import com.douge.gdx.game.objects.backgroundtile.BackgroundLevel7;
 import com.douge.gdx.game.objects.backgroundtile.BackgroundRock;
 import com.douge.gdx.game.objects.backgroundtile.BackgroundLevel2;
 import com.douge.gdx.game.objects.backgroundtile.BackgroundTile;
@@ -41,6 +44,8 @@ import com.douge.gdx.game.objects.enemy.BigNote;
 import com.douge.gdx.game.objects.enemy.Enemy;
 import com.douge.gdx.game.objects.enemy.Mouse;
 import com.douge.gdx.game.objects.enemy.Horse;
+import com.douge.gdx.game.objects.enemy.Rock;
+import com.douge.gdx.game.objects.enemy.Shadow;
 import com.douge.gdx.game.objects.environment.BlackOverlay;
 import com.douge.gdx.game.objects.environment.Clouds;
 import com.douge.gdx.game.objects.environment.Trees;
@@ -49,6 +54,9 @@ import com.douge.gdx.game.objects.platform.PlatformLevel1;
 import com.douge.gdx.game.objects.platform.PlatformLevel2;
 import com.douge.gdx.game.objects.platform.PlatformLevel3;
 import com.douge.gdx.game.objects.platform.PlatformLevel4;
+import com.douge.gdx.game.objects.platform.PlatformLevel5;
+import com.douge.gdx.game.objects.platform.PlatformLevel6;
+import com.douge.gdx.game.objects.platform.PlatformLevel7;
 import com.douge.gdx.game.objects.platform.XMovingPlatform;
 import com.douge.gdx.game.objects.platform.YMovingPlatform;
 import com.douge.gdx.game.screen.GameScreen;
@@ -94,31 +102,48 @@ public class LevelLoader
 		MessageQueue messages = new MessageQueue();
 	    
 		Level level1 = new Level(BLOCK_TYPE.LEVEL1_BACK.getColor(), new PlatformLevel1(), "../core/assets/levels/level01.png", messages, Assets.instance.forest);
-//		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(3, 1)));
+		messages.enqueue(new Message(Assets.instance.music.intro, new Vector2(3, 1)));
+		messages.enqueue(new Message(Assets.instance.music.lvl1, new Vector2(3, 1)));
 		messages.enqueue(new NullMessage());
 		
 		messages = new MessageQueue();
 		Level level2 = new Level(BLOCK_TYPE.LEVEL2_BACK.getColor(), new PlatformLevel2(), "../core/assets/levels/level02.png", messages, Assets.instance.snow);
-//		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(1, 1)));
-//		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(2, 2)));
+		messages.enqueue(new Message(Assets.instance.music.lvl2, new Vector2(3, 1)));
 		messages.enqueue(new NullMessage());
 		
 		messages = new MessageQueue();
 		Level level3 = new Level(BLOCK_TYPE.LEVEL3_BACK.getColor(), new PlatformLevel3(), "../core/assets/levels/level03.png", messages, Assets.instance.forest);
-//		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(1, 1)));
-//		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(2, 2)));
+		messages.enqueue(new Message(Assets.instance.music.lvl3, new Vector2(3, 1)));
 		messages.enqueue(new NullMessage());
 		
 		messages = new MessageQueue();
 		Level level4 = new Level(BLOCK_TYPE.LEVEL4_BACK.getColor(), new PlatformLevel4(), "../core/assets/levels/level04.png", messages, Assets.instance.forest);
-//		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(1, 1)));
-//		messages.enqueue(new Message(Assets.instance.music.evilMonster, new Vector2(2, 2)));
+		messages.enqueue(new Message(Assets.instance.music.lvl4, new Vector2(3, 1)));
+		messages.enqueue(new NullMessage());
+		
+		messages = new MessageQueue();
+		Level level5 = new Level(BLOCK_TYPE.LEVEL5_BACK.getColor(), new PlatformLevel5(), "../core/assets/levels/level05.png", messages, Assets.instance.forest);
+		messages.enqueue(new Message(Assets.instance.music.lvl5, new Vector2(3, 1)));
+		messages.enqueue(new NullMessage());
+		
+		messages = new MessageQueue();
+		Level level6 = new Level(BLOCK_TYPE.LEVEL6_BACK.getColor(), new PlatformLevel6(), "../core/assets/levels/level06.png", messages, Assets.instance.forest);
+		messages.enqueue(new Message(Assets.instance.music.lvl6, new Vector2(3, 1)));
+		messages.enqueue(new NullMessage());
+		
+		messages = new MessageQueue();
+		Level level7 = new Level(BLOCK_TYPE.LEVEL7_BACK.getColor(), new PlatformLevel7(), "../core/assets/levels/level07.png", messages, Assets.instance.forest);
+		messages.enqueue(new Message(Assets.instance.music.lvl7, new Vector2(3, 1)));
+		messages.enqueue(new Message(Assets.instance.music.outro, new Vector2(3, 1)));
 		messages.enqueue(new NullMessage());
 		
 		levels.add(level1);
 		levels.add(level2);
 		levels.add(level3);
 		levels.add(level4);
+		levels.add(level5);
+		levels.add(level6);
+		levels.add(level7);
 	}
 	
 	public static LevelLoader getInstance() 
@@ -210,6 +235,18 @@ public class LevelLoader
 					{
 						obj = new BackgroundLevel4();					
 					}
+					else if(BLOCK_TYPE.LEVEL5_BACK.sameColor(currentLevel.back))
+					{
+						obj = new BackgroundLevel5();					
+					}
+					else if(BLOCK_TYPE.LEVEL6_BACK.sameColor(currentLevel.back))
+					{
+						obj = new BackgroundLevel6();					
+					}
+					else if(BLOCK_TYPE.LEVEL7_BACK.sameColor(currentLevel.back))
+					{
+						obj = new BackgroundLevel7();					
+					}
 					obj.position.set(pixelX, baseHeight);
 					backgroundTiles.add((BackgroundTile)obj);
 				}
@@ -271,6 +308,45 @@ public class LevelLoader
 					}
 				}
 				
+				else if (BLOCK_TYPE.LEVEL5_PLATFORM.sameColor(currentPixel)) 
+				{
+					if (lastPixel != currentPixel) 
+					{
+						obj = new PlatformLevel5();
+						obj.position.set(pixelX, baseHeight + expOffset);
+						platforms.add((Platform)obj);
+					} 
+					else 
+					{
+						platforms.get(platforms.size - 1).increaseLength(1);
+					}
+				}
+				else if (BLOCK_TYPE.LEVEL6_PLATFORM.sameColor(currentPixel)) 
+				{
+					if (lastPixel != currentPixel) 
+					{
+						obj = new PlatformLevel6();
+						obj.position.set(pixelX, baseHeight + expOffset);
+						platforms.add((Platform)obj);
+					} 
+					else 
+					{
+						platforms.get(platforms.size - 1).increaseLength(1);
+					}
+				}
+				else if (BLOCK_TYPE.LEVEL7_PLATFORM.sameColor(currentPixel)) 
+				{
+					if (lastPixel != currentPixel) 
+					{
+						obj = new PlatformLevel7();
+						obj.position.set(pixelX, baseHeight + expOffset);
+						platforms.add((Platform)obj);
+					} 
+					else 
+					{
+						platforms.get(platforms.size - 1).increaseLength(1);
+					}
+				}
 				else if(BLOCK_TYPE.X_MOVING_PLATFORM.sameColor(currentPixel)) 
 				{
 					if (lastPixel != currentPixel) 
@@ -359,7 +435,7 @@ public class LevelLoader
 				// skeleton
 				else if(BLOCK_TYPE.ENEMY_MOUSE.sameColor(currentPixel))
 				{
-			          obj = new Mouse(Assets.instance.skeleton); 
+			          obj = new Mouse(Assets.instance.mouse); 
 			          obj.position.set(pixelX, baseHeight + expOffset); 
 			          enemies.add((Mouse)obj); 	
 				}
@@ -375,9 +451,25 @@ public class LevelLoader
 				// bat
 				else if(BLOCK_TYPE.ENEMY_BIGNOTE.sameColor(currentPixel))
 				{
-			          obj = new BigNote(Assets.instance.goblin); 
+			          obj = new BigNote(Assets.instance.note); 
 			          obj.position.set(pixelX, baseHeight + expOffset);
 			          enemies.add((BigNote)obj); 	
+				}
+				
+				// bat
+				else if(BLOCK_TYPE.ENEMY_ROCK.sameColor(currentPixel))
+				{
+			          obj = new Rock(Assets.instance.rock); 
+			          obj.position.set(pixelX, baseHeight + expOffset);
+			          enemies.add((Rock)obj); 	
+				}
+				
+				// bat
+				else if(BLOCK_TYPE.ENEMY_SHADOW.sameColor(currentPixel))
+				{
+			          obj = new Shadow(Assets.instance.shadow); 
+			          obj.position.set(pixelX, baseHeight + expOffset);
+			          enemies.add((Shadow)obj); 	
 				}
 				
 				// unknown object/pixel color

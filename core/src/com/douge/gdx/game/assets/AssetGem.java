@@ -26,7 +26,10 @@ public class AssetGem
 		magicGem = new Animation(1/10f, regions, Animation.PlayMode.LOOP);
 		
 		regions = new Array<AtlasRegion>();
-		regions.add(atlas.findRegion("gem5"));
+		for(int i = 0; i <= 2; i++)
+		{
+			regions.add(atlas.findRegion("wizard"+i));
+		}
 		levelGem = new Animation(1/10f, regions, Animation.PlayMode.LOOP);
 	}
 
