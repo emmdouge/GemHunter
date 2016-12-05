@@ -211,7 +211,7 @@ public class WorldController extends InputAdapter implements Disposable
 		}
 		else
 		{
-			AudioManager.instance.play(Assets.instance.sounds.pickupGem);
+			//AudioManager.instance.play(Assets.instance.sounds.pickupGem);
 		}
 		collectible.collected = true;
 		collectible.effect.activate(LevelLoader.getInstance().player);
@@ -366,6 +366,7 @@ public class WorldController extends InputAdapter implements Disposable
 			boolean skipKeyPressed = Gdx.input.isKeyJustPressed(Keys.A);
 			if(message.shouldBeRendered)
 			{
+				levelLoader.currentLevel.levelSong.stop();
 				if(!message.playerSkipped && (skipKeyPressed) && message.completed)
 				{
 					message.playerSkipped = true;
@@ -379,6 +380,7 @@ public class WorldController extends InputAdapter implements Disposable
 			}
 			else if(!message.shouldBeRendered)
 			{
+				levelLoader.currentLevel.levelSong.play();
 				// Player Movement
 				if (Gdx.input.isKeyPressed(Keys.LEFT)) 
 				{
@@ -394,7 +396,7 @@ public class WorldController extends InputAdapter implements Disposable
 				{
 					levelLoader.player.activeMovement = false;
 				}
-				levelLoader.player.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed, attackKeyPressed);
+				levelLoader.player.context.setPlayerStateBasedOnInput(jumpKeyPressed, dashKeyPressed, false);
 			}
 			else
 			{

@@ -18,6 +18,14 @@ public class AssetMusic
 	public final Music intro;
 	public final Music outro;
 	
+	public final Music lvl1music;
+	public final Music lvl2music;
+	public final Music lvl3music;
+	public final Music lvl4music;
+	public final Music lvl5music;
+	public final Music lvl6music;
+	public final Music lvl7music;
+	
 	public AssetMusic (AssetManager assetManager) 
 	{
 		song01 = assetManager.get("../core/assets/music/latenights.mp3", Music.class);
@@ -31,6 +39,14 @@ public class AssetMusic
 		lvl5 = assetManager.get("../core/assets/music/lvl5.mp3", Music.class);
 		lvl6 = assetManager.get("../core/assets/music/lvl6.mp3", Music.class);
 		lvl7 = assetManager.get("../core/assets/music/lvl7.mp3", Music.class);
+		
+		lvl1music = assetManager.get("../core/assets/music/lvl1music.mp3", Music.class);
+		lvl2music = assetManager.get("../core/assets/music/lvl2music.mp3", Music.class);
+		lvl3music = assetManager.get("../core/assets/music/lvl3music.mp3", Music.class);
+		lvl4music = assetManager.get("../core/assets/music/lvl4music.mp3", Music.class);
+		lvl5music = assetManager.get("../core/assets/music/lvl5music.mp3", Music.class);
+		lvl6music = assetManager.get("../core/assets/music/lvl6music.mp3", Music.class);
+		lvl7music = assetManager.get("../core/assets/music/lvl7music.mp3", Music.class);
 		
 		intro = assetManager.get("../core/assets/music/intro.mp3", Music.class);
 		outro = assetManager.get("../core/assets/music/outro.mp3", Music.class);

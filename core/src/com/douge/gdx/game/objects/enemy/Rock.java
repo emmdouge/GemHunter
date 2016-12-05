@@ -11,7 +11,6 @@ public class Rock extends Enemy
 		super(rock, 0.5f, VIEW_DIRECTION.RIGHT);
 		this.dimension.x = 2f;
 		this.dimension.y = 1.5f;
-		this.isHorse = true;
 		dropsHealth = true;
 	}
 }

@@ -37,6 +37,14 @@ public class AssetTiles
 
 	public final TextureRegion level7Ground;
 	public final TextureRegion level7Sky;
+
+	public final Animation goal1;
+	public final Animation goal2;
+	public final Animation goal3;
+	public final Animation goal4;
+	public final Animation goal5;
+	public final Animation goal6;
+	public final Animation goal7;
 	
 	protected AssetTiles(TextureAtlas atlas) 
 	{
@@ -74,6 +82,22 @@ public class AssetTiles
 		level7Sky = atlas.findRegion("level7Sky");
 		
 		Array<AtlasRegion> regions = new Array<AtlasRegion>();
+		regions.add(atlas.findRegion("goal1"));
+		goal1 = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
+		goal2 = null;
+		regions = new Array<AtlasRegion>();
+		regions.add(atlas.findRegion("goal3"));
+		goal3 = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
+		goal4 = null;
+		regions = new Array<AtlasRegion>();
+		regions.add(atlas.findRegion("goal5"));
+		goal5 = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
+		regions = new Array<AtlasRegion>();
+		regions.add(atlas.findRegion("goal6"));
+		goal6 = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
+		goal7 = null;
+		
+		regions = new Array<AtlasRegion>();
 		for(int i = 0; i <= 2; i++)
 		{
 			regions.add(atlas.findRegion("press"+i));

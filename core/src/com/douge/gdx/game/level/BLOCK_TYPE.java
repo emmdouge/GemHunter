@@ -33,6 +33,7 @@ public enum BLOCK_TYPE
 	Y_MOVING_PLATFORM(99, 44, 99), 
 	
 	PLAYER_SPAWNPOINT(255, 255, 255), // white
+	WIZARD(44, 21, 93),
 	
 	ITEM_JUMP_GEM(255, 0, 255), // purple
 	ITEM_GOLD_COIN(255, 255, 0), // yellow

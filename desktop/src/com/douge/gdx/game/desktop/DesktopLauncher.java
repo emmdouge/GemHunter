@@ -10,7 +10,7 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 
 public class DesktopLauncher 
 {
-	private static final boolean drawDebugOutline = true;
+	private static final boolean drawDebugOutline = false;
 	
 	public static void main (String[] arg) 
 	{

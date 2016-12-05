@@ -11,19 +11,27 @@ public class AssetSurvivor
 {
 
 	public final AtlasRegion survivor;
-	public final Animation runAnimation;
-	public final Animation standingAnimation;
-	public final Animation fallingAnimation;
-	public final Animation jumpingAnimation;
-	public final Animation dashingAnimation;
+	public Animation runAnimation;
+	public Animation standingAnimation;
+	public Animation fallingAnimation;
+	public Animation jumpingAnimation;
+	public Animation dashingAnimation;
+	public final Animation humanSAnimation;
+	public final Animation humanFAnimation;
+	public final Animation humanJAnimation;
+	public final Animation humanDAnimation;
+	public final Animation humanRAnimation;
 	public final Animation hurtAnimation;
 	public final ParticleEffect dustParticles;
 	public final ParticleEffect dustJumpParticles;
 	public final Animation jumpAttackAnimation;
 	public final Animation groundedAttackAnimation;
+	public final Animation wizard;
+	public final TextureAtlas atlas;
 	
 	protected AssetSurvivor(TextureAtlas atlas) 
 	{
+		this.atlas = atlas;
 		survivor = atlas.findRegion("survivor0");
 		
 		// Particles
@@ -82,6 +90,43 @@ public class AssetSurvivor
 			regions.add(atlas.findRegion("survivor"+i));
 		}
 		jumpAttackAnimation = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.NORMAL);
+		
+		regions = new Array<AtlasRegion>();
+		for(int i = 0; i <= 2; i++)
+		{
+			regions.add(atlas.findRegion("wizard"+i));
+		}
+		wizard = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP);
+		
+		
+		regions = new Array<AtlasRegion>();
+		regions.add(atlas.findRegion("survivor000"));
+		
+		humanSAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
+		
+		regions = new Array<AtlasRegion>();
+		
+		regions.add(atlas.findRegion("survivor006"));
+		humanFAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
+		
+		regions = new Array<AtlasRegion>();
+		
+		regions.add(atlas.findRegion("survivor001"));
+		humanJAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
+		
+		regions = new Array<AtlasRegion>();
+		
+		for(int i = 19; i <= 23; i++)
+		{
+			regions.add(atlas.findRegion("survivor0"+i));
+		}
+		humanRAnimation = new Animation(1.0f / 10.0f, regions, Animation.PlayMode.LOOP);
+		
+		regions = new Array<AtlasRegion>();
+		
+		regions.add(atlas.findRegion("survivor019"));
+		humanDAnimation = new Animation(1.0f/10.0f, regions, Animation.PlayMode.LOOP);
+		
 	}
 
 }

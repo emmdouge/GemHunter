@@ -82,6 +82,14 @@ public class Assets implements Disposable, AssetErrorListener
 	    assetManager.load("../core/assets/music/lvl6.mp3", Music.class);
 	    assetManager.load("../core/assets/music/lvl7.mp3", Music.class);
 
+	    assetManager.load("../core/assets/music/lvl1music.mp3", Music.class);
+	    assetManager.load("../core/assets/music/lvl2music.mp3", Music.class);
+	    assetManager.load("../core/assets/music/lvl3music.mp3", Music.class);
+	    assetManager.load("../core/assets/music/lvl4music.mp3", Music.class);
+	    assetManager.load("../core/assets/music/lvl5music.mp3", Music.class);
+	    assetManager.load("../core/assets/music/lvl6music.mp3", Music.class);
+	    assetManager.load("../core/assets/music/lvl7music.mp3", Music.class);
+	    
 	    assetManager.load("../core/assets/music/intro.mp3", Music.class);
 	    assetManager.load("../core/assets/music/outro.mp3", Music.class);
 	    

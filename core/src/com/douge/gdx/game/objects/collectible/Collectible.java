@@ -42,6 +42,8 @@ public class Collectible extends AbstractGameObject
 			return;
 		}
 		batch.setColor(color);
+		
+		if(animation != null)
 		batch.draw(animation.getKeyFrame(stateTime).getTexture(), 
 				position.x, position.y,
 				origin.x, origin.y, 

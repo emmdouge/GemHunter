@@ -35,7 +35,7 @@ public abstract class BackgroundTile extends AbstractGameObject{
 	@Override
 	public void render(SpriteBatch batch) 
 	{
-		if(this instanceof BackgroundLevel5 || this instanceof BackgroundLevel7)
+		if(this instanceof BackgroundLevel5 || this instanceof BackgroundLevel7 || this instanceof BackgroundLevel6)
 		{
 			batch.setColor(Color.WHITE);
 		}

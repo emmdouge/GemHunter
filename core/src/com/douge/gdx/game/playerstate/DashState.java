@@ -20,6 +20,10 @@ public class DashState extends PlayerState
 		// Keep track of jump time
 		player.timeDashing += deltaTime;
 		player.currentAnimation = Assets.instance.survivor.dashingAnimation;
+		if(player.isHuman)
+		{
+			player.currentAnimation = Assets.instance.survivor.humanDAnimation;
+		}
 		if(player.timeDashing <= player.DASH_TIME_MAX)
 		{
 			player.afterImageDash.addNode(player, player.currentAnimation.getKeyFrame(player.stateTime));

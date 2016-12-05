@@ -99,14 +99,14 @@ public class PlayerStateContext
 		{
 			if(currentState == fallingState)
 			{
-				AudioManager.instance.play(Assets.instance.sounds.jump);
+				//AudioManager.instance.play(Assets.instance.sounds.jump);
 				setPlayerState(jumpRisingState);
 			}
 			else if(currentState == jumpFallingState)
 			{
 				if(player.hasJumpPowerup && player.timeJumping < player.JUMP_TIME_MAX)
 				{
-			        AudioManager.instance.play(Assets.instance.sounds.jumpWithPotion, 1, MathUtils.random(1.0f, 1.1f));
+			        //AudioManager.instance.play(Assets.instance.sounds.jumpWithPotion, 1, MathUtils.random(1.0f, 1.1f));
 					setPlayerState(jumpRisingState);
 				}
 			}

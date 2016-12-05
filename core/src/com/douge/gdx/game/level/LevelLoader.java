@@ -6,7 +6,10 @@ import com.aurelienribon.bodyeditor.BodyEditorLoader;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -27,6 +30,7 @@ import com.douge.gdx.game.objects.Crow;
 import com.douge.gdx.game.objects.Fireball;
 import com.douge.gdx.game.objects.NullGameObject;
 import com.douge.gdx.game.objects.Player;
+import com.douge.gdx.game.objects.Wizard;
 import com.douge.gdx.game.objects.backgroundtile.BackgroundLevel1;
 import com.douge.gdx.game.objects.backgroundtile.BackgroundLevel3;
 import com.douge.gdx.game.objects.backgroundtile.BackgroundLevel4;
@@ -76,6 +80,7 @@ public class LevelLoader
 	
 	//objects
 	public Player player; 
+	public Array<Wizard> wizards = new Array<Wizard>();
 	public Crow crow;
 	public Array<Collectible> collectibles;
 	public LevelGem redCoin;
@@ -101,40 +106,40 @@ public class LevelLoader
 	{	    
 		MessageQueue messages = new MessageQueue();
 	    
-		Level level1 = new Level(BLOCK_TYPE.LEVEL1_BACK.getColor(), new PlatformLevel1(), "../core/assets/levels/level01.png", messages, Assets.instance.forest);
-		messages.enqueue(new Message(Assets.instance.music.intro, new Vector2(3, 1)));
-		messages.enqueue(new Message(Assets.instance.music.lvl1, new Vector2(3, 1)));
+		Level level1 = new Level(BLOCK_TYPE.LEVEL1_BACK.getColor(), new PlatformLevel1(), "../core/assets/levels/level01.png", messages, Assets.instance.forest, Assets.instance.music.lvl1music, Assets.instance.tiles.goal1);
+		messages.enqueue(new Message(Assets.instance.music.intro, new Vector2(0, 0)));
+		messages.enqueue(new Message(Assets.instance.music.lvl1, new Vector2(125, 0)));
 		messages.enqueue(new NullMessage());
 		
 		messages = new MessageQueue();
-		Level level2 = new Level(BLOCK_TYPE.LEVEL2_BACK.getColor(), new PlatformLevel2(), "../core/assets/levels/level02.png", messages, Assets.instance.snow);
-		messages.enqueue(new Message(Assets.instance.music.lvl2, new Vector2(3, 1)));
+		Level level2 = new Level(BLOCK_TYPE.LEVEL2_BACK.getColor(), new PlatformLevel2(), "../core/assets/levels/level02.png", messages, Assets.instance.snow, Assets.instance.music.lvl2music, Assets.instance.tiles.goal2);
+		messages.enqueue(new Message(Assets.instance.music.lvl2, new Vector2(122, -50)));
 		messages.enqueue(new NullMessage());
 		
 		messages = new MessageQueue();
-		Level level3 = new Level(BLOCK_TYPE.LEVEL3_BACK.getColor(), new PlatformLevel3(), "../core/assets/levels/level03.png", messages, Assets.instance.forest);
-		messages.enqueue(new Message(Assets.instance.music.lvl3, new Vector2(3, 1)));
+		Level level3 = new Level(BLOCK_TYPE.LEVEL3_BACK.getColor(), new PlatformLevel3(), "../core/assets/levels/level03.png", messages, Assets.instance.forest, Assets.instance.music.lvl3music, Assets.instance.tiles.goal3);
+		messages.enqueue(new Message(Assets.instance.music.lvl3, new Vector2(123, 0)));
 		messages.enqueue(new NullMessage());
 		
 		messages = new MessageQueue();
-		Level level4 = new Level(BLOCK_TYPE.LEVEL4_BACK.getColor(), new PlatformLevel4(), "../core/assets/levels/level04.png", messages, Assets.instance.forest);
-		messages.enqueue(new Message(Assets.instance.music.lvl4, new Vector2(3, 1)));
+		Level level4 = new Level(BLOCK_TYPE.LEVEL4_BACK.getColor(), new PlatformLevel4(), "../core/assets/levels/level04.png", messages, Assets.instance.forest, Assets.instance.music.lvl4music, Assets.instance.tiles.goal4);
+		messages.enqueue(new Message(Assets.instance.music.lvl4, new Vector2(123, -50)));
 		messages.enqueue(new NullMessage());
 		
 		messages = new MessageQueue();
-		Level level5 = new Level(BLOCK_TYPE.LEVEL5_BACK.getColor(), new PlatformLevel5(), "../core/assets/levels/level05.png", messages, Assets.instance.forest);
-		messages.enqueue(new Message(Assets.instance.music.lvl5, new Vector2(3, 1)));
+		Level level5 = new Level(BLOCK_TYPE.LEVEL5_BACK.getColor(), new PlatformLevel5(), "../core/assets/levels/level05.png", messages, Assets.instance.forest, Assets.instance.music.lvl5music, Assets.instance.tiles.goal5);
+		messages.enqueue(new Message(Assets.instance.music.lvl5, new Vector2(123, -50)));
 		messages.enqueue(new NullMessage());
 		
 		messages = new MessageQueue();
-		Level level6 = new Level(BLOCK_TYPE.LEVEL6_BACK.getColor(), new PlatformLevel6(), "../core/assets/levels/level06.png", messages, Assets.instance.forest);
-		messages.enqueue(new Message(Assets.instance.music.lvl6, new Vector2(3, 1)));
+		Level level6 = new Level(BLOCK_TYPE.LEVEL6_BACK.getColor(), new PlatformLevel6(), "../core/assets/levels/level06.png", messages, Assets.instance.forest, Assets.instance.music.lvl6music, Assets.instance.tiles.goal6);
+		messages.enqueue(new Message(Assets.instance.music.lvl6, new Vector2(124, -50)));
 		messages.enqueue(new NullMessage());
 		
 		messages = new MessageQueue();
-		Level level7 = new Level(BLOCK_TYPE.LEVEL7_BACK.getColor(), new PlatformLevel7(), "../core/assets/levels/level07.png", messages, Assets.instance.forest);
-		messages.enqueue(new Message(Assets.instance.music.lvl7, new Vector2(3, 1)));
-		messages.enqueue(new Message(Assets.instance.music.outro, new Vector2(3, 1)));
+		Level level7 = new Level(BLOCK_TYPE.LEVEL7_BACK.getColor(), new PlatformLevel7(), "../core/assets/levels/level07.png", messages, Assets.instance.forest, Assets.instance.music.lvl7music, Assets.instance.tiles.goal7);
+		messages.enqueue(new Message(Assets.instance.music.lvl7, new Vector2(0, 0)));
+		messages.enqueue(new Message(Assets.instance.music.outro, new Vector2(0, 0)));
 		messages.enqueue(new NullMessage());
 		
 		levels.add(level1);
@@ -178,6 +183,7 @@ public class LevelLoader
 		reversingBoxes.clear();
 		backgroundTiles.clear();
 		enemies.clear();
+		wizards.clear();
 		
 	}
 
@@ -186,7 +192,8 @@ public class LevelLoader
 		clearLevel();
 		this.currentLevelIndex  = currentLevelIndex;
 	    currentLevel = levels.get(currentLevelIndex);
-		
+	    
+	    AudioManager.instance.play(currentLevel.levelSong); 
 		// load image file that represents the level data
 		//**had to remove underscore in filename to get it to load
 		Pixmap pixmap = new Pixmap(Gdx.files.internal(currentLevel.filepath));
@@ -396,7 +403,17 @@ public class LevelLoader
 			          obj = new Player(); 
 			          obj.position.set(pixelX, baseHeight + expOffset); 
 			          player = (Player)obj; 
-			          crow = new Crow(player);
+			  	    if(currentLevel.platform instanceof PlatformLevel7)
+				    {
+				    	player.isHuman = true;
+				    }
+				}
+				
+				else if (BLOCK_TYPE.WIZARD.sameColor(currentPixel)) 
+				{
+			          obj = new Wizard(); 
+			          obj.position.set(pixelX, baseHeight + expOffset); 
+			          wizards.add((Wizard)obj); 
 				}
 				
 				// jump gem
@@ -418,7 +435,7 @@ public class LevelLoader
 				// gold coin
 				else if (BLOCK_TYPE.ITEM_LEVEL_GEM.sameColor(currentPixel)) 
 				{
-			          obj = new LevelGem(); 
+			          obj = new LevelGem(currentLevel); 
 			          obj.position.set(pixelX + obj.origin.x,baseHeight + expOffset); 
 			          collectibles.add((LevelGem)obj);
 			          redCoin = (LevelGem)obj;
@@ -529,71 +546,6 @@ public class LevelLoader
 		player.fireballs.get(i).update(deltaTime);
 		
 		int enemyIndex = 0;
-		for(Enemy enemy: enemies)
-		{
-			if(enemy.isDead)
-			{
-				Collectible coin;
-				FixtureDef coinFixtureDef = new FixtureDef();
-				if(enemy.isBoss)
-				{
-					coin = new LevelGem();
-					coinFixtureDef.density = 0;
-					coinFixtureDef.restitution = 0.15f;
-					coinFixtureDef.friction = 4f;
-				}
-				else
-				{
-					coin = new GoldCoin();
-					coinFixtureDef.density = 0;
-					coinFixtureDef.restitution = 0.75f;
-					coinFixtureDef.friction = 0.5f;
-				}
-				
-				BodyEditorLoader loader = new BodyEditorLoader(Gdx.files.internal("../core/assets/physics/coin.json"));
-
-				BodyDef coinBodyDef = new BodyDef();	
-				coinBodyDef.type = BodyType.DynamicBody;
-				coinBodyDef.linearVelocity.x = MathUtils.random(-2, 2);
-				coinBodyDef.linearVelocity.y = MathUtils.random(4, 7);
-				coinBodyDef.position.set(enemy.position);
-
-				coin.body = WorldController.box2DWorld.createBody(coinBodyDef);
-				//must name it in body editor or in json(manually)
-				coin.origin = loader.getOrigin("coinBody", coin.dimension.x);
-				loader.attachFixture(coin.body, "coinBody", coinFixtureDef, coin.origin.x);
-				collectibles.add(coin);
-				
-				if(enemy.dropsHealth && !enemy.droppedHealth)	
-				{
-					Collectible healthGem = new Collectible(Assets.instance.gems.heartGem, new HealthBoostEffect());
-					healthGem.position.x = enemy.position.x + (enemy.origin.x/2);
-					healthGem.position.y = enemy.position.y;
-					loader = new BodyEditorLoader(Gdx.files.internal("../core/assets/physics/heart.json"));
-					
-					FixtureDef heartFixtureDef = new FixtureDef();
-					heartFixtureDef.density = 25;
-					heartFixtureDef.restitution = 0.75f;
-					heartFixtureDef.friction = 0.5f;
-
-					BodyDef heartBodyDef = new BodyDef();	
-					heartBodyDef.type = BodyType.DynamicBody;
-					heartBodyDef.linearVelocity.x = MathUtils.random(-2, 2);
-					heartBodyDef.linearVelocity.y = MathUtils.random(4, 7);
-					heartBodyDef.position.set(healthGem.position);
-
-					healthGem.body = WorldController.box2DWorld.createBody(heartBodyDef);
-					//must manually define the name in the json file 
-					healthGem.origin = loader.getOrigin("heartBody", healthGem.dimension.x);
-					loader.attachFixture(healthGem.body, "heartBody", heartFixtureDef, healthGem.origin.x);
-					collectibles.add(healthGem);
-					enemy.droppedHealth = true;
-				}
-
-
-			}
-			enemyIndex++;
-		}
 		
 		enemyIndex = 0;
 		for(Enemy enemy: enemies)
@@ -618,7 +570,7 @@ public class LevelLoader
 		}
 		
 		clouds.update(deltaTime);
-		crow.update(deltaTime);
+		//crow.update(deltaTime);
 		
 		currentLevel.particleEffect.update(deltaTime);
 	}
@@ -633,7 +585,7 @@ public class LevelLoader
 		backTile.render(batch);
 		
 		// Draw trees
-		trees.render(batch);
+		//trees.render(batch);
 		
 	    // Draw Gold Coins 
 	    for (Collectible collectible : collectibles) 
@@ -660,7 +612,7 @@ public class LevelLoader
 			enemy.render(batch);
 		}
 		
-		crow.render(batch);
+		//crow.render(batch);
 		
 		// Draw Clouds
 		clouds.render(batch);
@@ -672,6 +624,9 @@ public class LevelLoader
 		
 	    // Draw Player Character 
 	    player.render(batch); 
+	    
+	    for(Wizard wizard: wizards)
+	    wizard.render(batch);
 	}
 
 

@@ -50,22 +50,38 @@ public class FallingState extends PlayerState
 				if(player.inContactWithPlatform)
 				{
 					player.currentAnimation = Assets.instance.survivor.runAnimation;
+					if(player.isHuman)
+					{
+						player.currentAnimation = Assets.instance.survivor.humanRAnimation;
+					}
 					player.currentParticleEffect.start();
 				}
 				else if(!player.inContactWithPlatform && player.currentVelocity.y != 0)
 				{	
 					player.currentAnimation = Assets.instance.survivor.fallingAnimation;
+					if(player.isHuman)
+					{
+						player.currentAnimation = Assets.instance.survivor.humanFAnimation;
+					}
 				}
 			}
 			else
 			{
 				player.currentAnimation = Assets.instance.survivor.standingAnimation;
+				if(player.isHuman)
+				{
+					player.currentAnimation = Assets.instance.survivor.humanSAnimation;
+				}
 			}
 		}
 		else if(player.currentVelocity.y == 0)
 		{
 			player.currentAnimation = Assets.instance.survivor.standingAnimation;
 			player.timeJumping = player.JUMP_TIME_MAX;
+			if(player.isHuman)
+			{
+				player.currentAnimation = Assets.instance.survivor.humanSAnimation;
+			}
 		}
 		
 		// Add delta times to track jump time

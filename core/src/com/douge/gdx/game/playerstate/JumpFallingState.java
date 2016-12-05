@@ -21,6 +21,10 @@ public class JumpFallingState extends PlayerState
 	{
 		player.timeJumping = player.JUMP_TIME_MAX;
 		player.currentAnimation = Assets.instance.survivor.jumpingAnimation;
+		if(player.isHuman)
+		{
+			player.currentAnimation = Assets.instance.survivor.humanFAnimation;
+		}
 		if (player.currentVelocity.x != 0) 
 		{
 			// Apply friction

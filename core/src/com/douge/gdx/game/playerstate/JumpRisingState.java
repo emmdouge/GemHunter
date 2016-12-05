@@ -21,6 +21,10 @@ public class JumpRisingState extends PlayerState
 	public void execute(float deltaTime) 
 	{
 		player.currentAnimation = Assets.instance.survivor.jumpingAnimation;
+		if(player.isHuman)
+		{
+			player.currentAnimation = Assets.instance.survivor.humanJAnimation;
+		}
 		if (player.currentVelocity.x != 0) 
 		{
 			// Apply friction

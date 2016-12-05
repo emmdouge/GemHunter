@@ -93,7 +93,15 @@ public abstract class Enemy extends AbstractGameObject
 	public void render(SpriteBatch batch)
 	{	
 		// Reset color to white
-		batch.setColor(1, 1, 1, 1);
+		
+		if(this instanceof Shadow)
+		{
+			batch.setColor(Color.BLACK);
+		}
+		else
+		{
+			batch.setColor(1, 1, 1, 1);
+		}
 		reg = currentAnimation.getKeyFrame(stateTime, true);
 		batch.draw(reg.getTexture(), 
 				position.x, position.y, 
@@ -105,13 +113,8 @@ public abstract class Enemy extends AbstractGameObject
 				reg.getRegionWidth(), reg.getRegionHeight(), 
 				viewDirection == flip, false);
 		
-		
+		batch.setColor(1, 1, 1, 1);
 		batch.end();
-		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-		shapeRenderer.begin(ShapeType.Line);
-		shapeRenderer.setColor(Color.RED);
-		shapeRenderer.rect(position.x + bounds.x, position.y + bounds.y, bounds.width, bounds.height);
-		shapeRenderer.end();
 		batch.begin();
 		
 	}

@@ -36,7 +36,6 @@ public class DougeGdxGame extends DirectedGame
 		
 	    // Load preferences for audio settings and start playing music 
 	    GamePreferences.instance.load(); 
-	    AudioManager.instance.play(Assets.instance.music.song01); 
 	    
 		// Start game at menu screen
 		ScreenTransition fade = Fade.init(0.75f);
