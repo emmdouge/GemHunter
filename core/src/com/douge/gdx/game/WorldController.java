@@ -370,6 +370,10 @@ public class WorldController extends InputAdapter implements Disposable
 					message.playerSkipped = true;
 					levelLoader.currentLevel.messages.dequeue();
 				}
+				else
+				{
+					levelLoader.player.context.setPlayerStateBasedOnInput(false, false, false);
+				}
 			}
 			else if(!message.shouldBeRendered)
 			{

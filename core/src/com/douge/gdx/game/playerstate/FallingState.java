@@ -60,6 +60,10 @@ public class FallingState extends PlayerState
 			else
 			{
 				player.currentAnimation = Assets.instance.survivor.standingAnimation;
+				if(player.currentVelocity.y < 0 && !player.inContactWithPlatform)
+				{
+					player.currentAnimation = Assets.instance.survivor.fallingAnimation;
+				}
 			}
 		}
 		else if(player.currentVelocity.y == 0)
