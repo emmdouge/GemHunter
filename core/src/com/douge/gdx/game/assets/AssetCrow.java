@@ -14,7 +14,7 @@ public class AssetCrow
 	protected AssetCrow(TextureAtlas atlas)
 	{
 		featherParticles = new ParticleEffect();
-		featherParticles.load(Gdx.files.internal("../core/assets/particles/feather.pfx"), Gdx.files.internal("../core/assets/particles"));
+		featherParticles.load(Gdx.files.internal("assets/particles/feather.pfx"), Gdx.files.internal("assets/particles"));
 		
 		Array<AtlasRegion> regions = new Array<AtlasRegion>();
 		for(int i = 0; i <= 4; i++)
