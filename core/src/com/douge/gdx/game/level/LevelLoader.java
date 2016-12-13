@@ -402,7 +402,7 @@ public class LevelLoader
 					coinFixtureDef.friction = 0.5f;
 				}
 				
-				BodyEditorLoader loader = new BodyEditorLoader(Gdx.files.internal("../core/assets/physics/coin.json"));
+				BodyEditorLoader loader = new BodyEditorLoader(Gdx.files.internal("assets/physics/coin.json"));
 
 				BodyDef coinBodyDef = new BodyDef();	
 				coinBodyDef.type = BodyType.DynamicBody;
@@ -421,7 +421,7 @@ public class LevelLoader
 					Collectible healthGem = new Collectible(Assets.instance.gems.heartGem, new HealthBoostEffect());
 					healthGem.position.x = enemy.position.x + (enemy.origin.x/2);
 					healthGem.position.y = enemy.position.y;
-					loader = new BodyEditorLoader(Gdx.files.internal("../core/assets/physics/heart.json"));
+					loader = new BodyEditorLoader(Gdx.files.internal("assets/physics/heart.json"));
 					
 					FixtureDef heartFixtureDef = new FixtureDef();
 					heartFixtureDef.density = 25;
