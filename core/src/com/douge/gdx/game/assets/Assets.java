@@ -59,16 +59,16 @@ public class Assets implements Disposable, AssetErrorListener
 		assetManager.load(Constants.GEM_HUNTER_ATLAS_PATH, TextureAtlas.class);
 		
 	    // load sounds 
-	    assetManager.load("assets/sounds/jump.wav", Sound.class); 
-	    assetManager.load("assets/sounds/jump_with_potion.wav", Sound.class); 
-	    assetManager.load("assets/sounds/pickup_coin.wav", Sound.class); 
-	    assetManager.load("assets/sounds/pickup_potion.wav", Sound.class); 
-	    assetManager.load("assets/sounds/live_lost.wav", Sound.class); 
-	    assetManager.load("assets/sounds/dash.wav", Sound.class);
+	    assetManager.load("sounds/jump.wav", Sound.class); 
+	    assetManager.load("sounds/jump_with_potion.wav", Sound.class); 
+	    assetManager.load("sounds/pickup_coin.wav", Sound.class); 
+	    assetManager.load("sounds/pickup_potion.wav", Sound.class); 
+	    assetManager.load("sounds/live_lost.wav", Sound.class); 
+	    assetManager.load("sounds/dash.wav", Sound.class);
 	    
 	    // load music 
-	    assetManager.load("assets/music/latenights.mp3", Music.class); 
-	    assetManager.load("assets/music/throwingSound.mp3", Music.class);
+	    assetManager.load("music/latenights.mp3", Music.class); 
+	    assetManager.load("music/throwingSound.mp3", Music.class);
 	    
 		assetManager.finishLoading();
 		
@@ -98,9 +98,9 @@ public class Assets implements Disposable, AssetErrorListener
 	    music = new AssetMusic(assetManager); 
 	    sounds = new AssetSounds(assetManager); 
 		snow = new ParticleEffect();
-		snow.load(Gdx.files.internal("assets/particles/snow.pfx"), Gdx.files.internal("assets/particles"));
+		snow.load(Gdx.files.internal("particles/snow.pfx"), Gdx.files.internal("particles"));
 		forest = new ParticleEffect();
-		forest.load(Gdx.files.internal("assets/particles/forest.pfx"), Gdx.files.internal("assets/particles"));
+		forest.load(Gdx.files.internal("particles/forest.pfx"), Gdx.files.internal("particles"));
 		
 		//enable texture smoothing for all textures in the atlas
 		for(Texture texture: atlas.getTextures())

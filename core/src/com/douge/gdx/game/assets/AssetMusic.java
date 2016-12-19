@@ -10,7 +10,7 @@ public class AssetMusic
 	
 	public AssetMusic (AssetManager assetManager) 
 	{
-		song01 = assetManager.get("assets/music/latenights.mp3", Music.class);
-		throwingSound = assetManager.get("assets/music/throwingSound.mp3", Music.class);
+		song01 = assetManager.get("music/latenights.mp3", Music.class);
+		throwingSound = assetManager.get("music/throwingSound.mp3", Music.class);
 	}
 }

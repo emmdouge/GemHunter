@@ -28,9 +28,9 @@ public class AssetSurvivor
 		
 		// Particles
 		dustParticles = new ParticleEffect();
-		dustParticles.load(Gdx.files.internal("assets/particles/dust.pfx"), Gdx.files.internal("assets/particles"));
+		dustParticles.load(Gdx.files.internal("particles/dust.pfx"), Gdx.files.internal("particles"));
 		dustJumpParticles = new ParticleEffect();
-		dustJumpParticles.load(Gdx.files.internal("assets/particles/dustJump.pfx"), Gdx.files.internal("assets/particles"));
+		dustJumpParticles.load(Gdx.files.internal("particles/dustJump.pfx"), Gdx.files.internal("particles"));
 		
 		Array<AtlasRegion> regions = new Array<AtlasRegion>();
 		

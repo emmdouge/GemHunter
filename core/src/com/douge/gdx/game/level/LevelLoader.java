@@ -87,12 +87,12 @@ public class LevelLoader
 	{	    
 		MessageQueue messages = new MessageQueue();
 	    
-		Level level1 = new Level(BLOCK_TYPE.STAR_BACK.getColor(), new PlatformSnow(), "assets/levels/level01.png", messages, Assets.instance.snow);
+		Level level1 = new Level(BLOCK_TYPE.STAR_BACK.getColor(), new PlatformSnow(), "levels/level01.png", messages, Assets.instance.snow);
 
 		messages.enqueue(new NullMessage());
 		
 		messages = new MessageQueue();
-		Level level2 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), new PlatformRock(), "assets/levels/level02.png", messages, Assets.instance.forest);
+		Level level2 = new Level(BLOCK_TYPE.ROCK_BACK.getColor(), new PlatformRock(), "levels/level02.png", messages, Assets.instance.forest);
 		messages.enqueue(new Message("Press F to Attack!", new Vector2(0, 0), Assets.instance.survivor.survivor));
 		messages.enqueue(new Message("Press Left Shift to Dash!", new Vector2(0, 0), Assets.instance.survivor.survivor));
 		messages.enqueue(new NullMessage());
@@ -402,7 +402,7 @@ public class LevelLoader
 					coinFixtureDef.friction = 0.5f;
 				}
 				
-				BodyEditorLoader loader = new BodyEditorLoader(Gdx.files.internal("assets/physics/coin.json"));
+				BodyEditorLoader loader = new BodyEditorLoader(Gdx.files.internal("physics/coin.json"));
 
 				BodyDef coinBodyDef = new BodyDef();	
 				coinBodyDef.type = BodyType.DynamicBody;
@@ -421,7 +421,7 @@ public class LevelLoader
 					Collectible healthGem = new Collectible(Assets.instance.gems.heartGem, new HealthBoostEffect());
 					healthGem.position.x = enemy.position.x + (enemy.origin.x/2);
 					healthGem.position.y = enemy.position.y;
-					loader = new BodyEditorLoader(Gdx.files.internal("assets/physics/heart.json"));
+					loader = new BodyEditorLoader(Gdx.files.internal("physics/heart.json"));
 					
 					FixtureDef heartFixtureDef = new FixtureDef();
 					heartFixtureDef.density = 25;

@@ -14,11 +14,11 @@ public class AssetSounds
 	
 	protected AssetSounds(AssetManager assetManager)
 	{
-		jump = assetManager.get("assets/sounds/jump.wav", Sound.class);		
-		jumpWithPotion = assetManager.get("assets/sounds/jump_with_potion.wav", Sound.class);
-		pickupCoin = assetManager.get("assets/sounds/pickup_coin.wav", Sound.class);
-		pickupGem = assetManager.get("assets/sounds/pickup_potion.wav", Sound.class);
-		liveLost = assetManager.get("assets/sounds/live_lost.wav", Sound.class);
-		dash = assetManager.get("assets/sounds/dash.wav", Sound.class);
+		jump = assetManager.get("sounds/jump.wav", Sound.class);		
+		jumpWithPotion = assetManager.get("sounds/jump_with_potion.wav", Sound.class);
+		pickupCoin = assetManager.get("sounds/pickup_coin.wav", Sound.class);
+		pickupGem = assetManager.get("sounds/pickup_potion.wav", Sound.class);
+		liveLost = assetManager.get("sounds/live_lost.wav", Sound.class);
+		dash = assetManager.get("sounds/dash.wav", Sound.class);
 	}
 }

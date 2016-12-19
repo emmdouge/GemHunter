@@ -24,12 +24,12 @@ public class Constants
 	// Amount of extra lives at level start
 	public static final int MAX_LIVES = 10;
 	
-	public static final String GEM_HUNTER_ATLAS_PATH = "assets/images/gemhunter.atlas";
+	public static final String GEM_HUNTER_ATLAS_PATH = "images/gemhunter.atlas";
 	
-	public static final String TEXTURE_ATLAS_UI = "assets/images/game-ui.atlas";
-	public static final String TEXTURE_ATLAS_LIBGDX_UI = "assets/images/uiskin.atlas";
-	public static final String SKIN_LIBGDX_UI = "assets/images/uiskin.json";
-	public static final String SKIN_CANYONBUNNY_UI = "assets/images/game-ui.json";
+	public static final String TEXTURE_ATLAS_UI = "images/game-ui.atlas";
+	public static final String TEXTURE_ATLAS_LIBGDX_UI = "images/uiskin.atlas";
+	public static final String SKIN_LIBGDX_UI = "images/uiskin.json";
+	public static final String SKIN_CANYONBUNNY_UI = "images/game-ui.json";
 	
 	public static final String PREFERENCES = "canyonbunny.prefs";
 	public static final int FIREBALLS_START = 10;
