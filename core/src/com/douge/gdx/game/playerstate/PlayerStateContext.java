@@ -125,7 +125,7 @@ public class PlayerStateContext
 		}
 		else //if button is not being held anymore
 		{
-			if(currentState == jumpRisingState)
+			if(currentState == jumpRisingState && player.timeJumping > player.JUMP_TIME_MIN)
 			{
 				player.timeJumping = player.JUMP_TIME_MAX;
 				setPlayerState(jumpFallingState);

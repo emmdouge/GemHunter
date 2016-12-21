@@ -23,8 +23,8 @@ public class Player extends AbstractGameObject
 
 	public final float INVINCIBLE_TIME_MAX = 1f;
 	
-	public final float JUMP_TIME_MAX = 0.4f;
-	public final float JUMP_TIME_MIN = 0.1f;
+	public final float JUMP_TIME_MAX = 0.5f;
+	public final float JUMP_TIME_MIN = 0.3f;
 	public float timeJumping;
 	public boolean hasJumpPowerup;
 	public float timeLeftJumpPowerup;

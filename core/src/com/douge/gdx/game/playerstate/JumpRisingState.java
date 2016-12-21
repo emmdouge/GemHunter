@@ -42,7 +42,7 @@ public class JumpRisingState extends PlayerState
 		player.timeJumping += deltaTime;
 
 		// Jump time left?
-		if (player.JUMP_TIME_MIN < player.timeJumping && player.timeJumping <= player.JUMP_TIME_MAX) 
+		if (player.timeJumping < player.JUMP_TIME_MIN || player.timeJumping <= player.JUMP_TIME_MAX) 
 		{
 			// Still jumping
 			player.currentVelocity.y = player.maxVelocity.y;

@@ -21,7 +21,7 @@ public class FallingState extends PlayerState
 	{
 		player.timeStunned = 0;
 		player.timeAttacking = 0;
-		player.timeJumping = player.JUMP_TIME_MAX;
+		player.timeJumping = 0;
 		player.afterImageJump.head = null;
 		player.afterImageJump.tail = null;
 		player.afterImageDash.head = null;

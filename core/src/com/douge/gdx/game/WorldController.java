@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -63,6 +64,8 @@ public class WorldController extends InputAdapter implements Disposable
 
 	public static World box2DWorld = null;
 	
+	private Vector2 lastTouch = new Vector2();
+	private Vector2 currentTouch  = new Vector2();
 	/**
 	 * initializes game and level
 	 * @param game
@@ -113,7 +116,7 @@ public class WorldController extends InputAdapter implements Disposable
 		{
 			handleInputGame(deltaTime);
 		}
-		
+		lastTouch.set(currentTouch.x, currentTouch.y);
 		levelLoader.update(deltaTime);
 		
 		message.updateText(deltaTime, levelLoader.player);
@@ -353,19 +356,15 @@ public class WorldController extends InputAdapter implements Disposable
 		if (cameraHelper.hasTarget(levelLoader.player) && !levelLoader.player.isStunned) 
 		{
 			// Execute auto-forward movement on non-desktop platform
-			if (Gdx.app.getType() != ApplicationType.Desktop) 
-			{
-				levelLoader.player.currentVelocity.x = levelLoader.player.maxVelocity.x;
-			}
+//			if (Gdx.app.getType() != ApplicationType.Desktop) 
+//			{
+//				levelLoader.player.currentVelocity.x = levelLoader.player.maxVelocity.x;
+//			}
 			message = levelLoader.currentLevel.messages.head;
-			// Bunny Jump
-			boolean dashKeyPressed = Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT) || Gdx.input.justTouched();
-			boolean attackKeyPressed = Gdx.input.isKeyJustPressed(Keys.F);
-			boolean jumpKeyPressed = Gdx.input.isKeyPressed(Keys.SPACE);
-			boolean crowAttackKeyPressed = Gdx.input.isKeyJustPressed(Keys.Q);
+			
 			if(message.textIsRendered && message.shouldBeRendered)
 			{
-				if(!message.playerSkipped && (jumpKeyPressed || dashKeyPressed))
+				if(!message.playerSkipped && currentTouch.x > Gdx.graphics.getWidth()/2)
 				{
 					message.playerSkipped = true;
 					levelLoader.currentLevel.messages.dequeue();
@@ -375,15 +374,26 @@ public class WorldController extends InputAdapter implements Disposable
 					levelLoader.player.context.setPlayerStateBasedOnInput(false, false, false);
 				}
 			}
-			else if(!message.shouldBeRendered)
+			else if(!message.shouldBeRendered && Gdx.input.isTouched())
 			{
+				currentTouch = new Vector2(Gdx.input.getX(),Gdx.input.getY());
+				int activeTouch = 0;
+				for (int i = 0; i < 20; i++) 
+				{
+				    if (Gdx.input.isTouched(i)) activeTouch++;
+				}
+				System.out.println(lastTouch.x + " " + currentTouch.x);
+				boolean dashKeyPressed = Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT) || (Math.abs(currentTouch.cpy().sub(lastTouch).x) > .15f*Gdx.graphics.getWidth());
+				boolean attackKeyPressed = Gdx.input.isKeyJustPressed(Keys.F) || activeTouch == 2;
+				boolean jumpKeyPressed = Gdx.input.isKeyPressed(Keys.SPACE) || (Math.abs(currentTouch.cpy().sub(lastTouch).y) > .15f*Gdx.graphics.getHeight());
+				boolean crowAttackKeyPressed = Gdx.input.isKeyJustPressed(Keys.Q);
 				// Player Movement
-				if (Gdx.input.isKeyPressed(Keys.LEFT)) 
+				if (Gdx.input.isKeyPressed(Keys.LEFT) || currentTouch.x < Gdx.graphics.getWidth()/2) 
 				{
 					levelLoader.player.currentVelocity.x = -levelLoader.player.maxVelocity.x;
 					levelLoader.player.activeMovement = true;
 				} 
-				else if (Gdx.input.isKeyPressed(Keys.RIGHT)) 
+				else if (Gdx.input.isKeyPressed(Keys.RIGHT) || currentTouch.x > Gdx.graphics.getWidth()/2) 
 				{
 					levelLoader.player.currentVelocity.x = levelLoader.player.maxVelocity.x;
 					levelLoader.player.activeMovement = true;
@@ -400,6 +410,13 @@ public class WorldController extends InputAdapter implements Disposable
 			}
 		}
 	}	
+	
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) 
+	{
+		lastTouch.set(screenX, screenY);
+		return true;
+    }
 	
 	/**
 	 * if player has no lives left
@@ -462,6 +479,8 @@ public class WorldController extends InputAdapter implements Disposable
 		
 		return false;
 	}
+	
+
 	
 	/**
 	 * set game's screen to menu
