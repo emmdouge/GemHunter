@@ -80,7 +80,7 @@ public class LevelLoader
 	public ArrayList<Level> levels;
 	public Level currentLevel;
 	public int currentLevelIndex = 0;
-	
+	private Rectangle view = new Rectangle(0, 0, 0, 0);
 	// decoration
 	public Clouds clouds;
 	public Trees trees;
@@ -491,13 +491,14 @@ public class LevelLoader
 	{
 		if(WorldRenderer.camera != null)
 		{
-			float x = WorldRenderer.camera.position.x - WorldRenderer.camera.viewportWidth/2 - 2;
+			float x = WorldRenderer.camera.position.x - WorldRenderer.camera.viewportWidth/2 - 1;
 			float y = WorldRenderer.camera.position.y - WorldRenderer.camera.viewportHeight/2 - 2;
-			Rectangle view = new Rectangle(x, y, Constants.VIEWPORT_WIDTH+4, Constants.VIEWPORT_HEIGHT+4);
+			view.set(x, y, Constants.VIEWPORT_WIDTH+4, Constants.VIEWPORT_HEIGHT+2);
+			Rectangle object = new Rectangle(0, 0, 0, 0);
 			int numBackTilesRendered = 0;
 			for(BackgroundTile backTile: backgroundTiles)
 			{
-				Rectangle object = new Rectangle(backTile.position.x, backTile.position.y, backTile.dimension.x, backTile.dimension.y);
+				object.set(backTile.position.x, backTile.position.y, backTile.dimension.x, backTile.dimension.y);
 				if(view.overlaps(object))
 				{
 					backTile.render(batch);
@@ -512,7 +513,7 @@ public class LevelLoader
 			// Draw Gold Coins 
 			for (Collectible collectible : collectibles) 
 			{
-				Rectangle object = new Rectangle(collectible.position.x, collectible.position.y, collectible.dimension.x, collectible.dimension.y);
+				object.set(collectible.position.x, collectible.position.y, collectible.dimension.x, collectible.dimension.y);
 				if(view.overlaps(object))
 					collectible.render(batch); 
 			}    
@@ -524,7 +525,7 @@ public class LevelLoader
 		   // Draw Rocks
 		   for (Platform platform : platforms)
 		   {
-			   Rectangle object = new Rectangle(platform.position.x, platform.position.y, platform.dimension.x, platform.dimension.y);
+			   object.set(platform.position.x, platform.position.y, platform.dimension.x, platform.dimension.y);
 				if(view.overlaps(object))
 					platform.render(batch);
 		   }	
@@ -537,7 +538,7 @@ public class LevelLoader
 		   for(int enemyIndex = 0; enemyIndex < enemies.size; enemyIndex++)
 			{
 				Enemy enemy = enemies.get(enemyIndex);
-				Rectangle object = new Rectangle(enemy.position.x, enemy.position.y, enemy.dimension.x, enemy.dimension.y);
+				object.set(enemy.position.x, enemy.position.y, enemy.dimension.x, enemy.dimension.y);
 				if(view.overlaps(object))
 				enemy.render(batch);
 			}
