@@ -123,24 +123,7 @@ public class Player extends AbstractGameObject
 		batch.setColor(CharacterSkin.values()[GamePreferences.instance.charSkin].getColor());
 		
 		// Draw image
-		Node currentNode = afterImageNeutral.head;
-		for(int i = 0; currentNode != null && context.getCurrentState() != context.getDashState() && i < afterImageNeutral.MAX_NUM_NODES-1; i++)
-		{
-			batch.setColor(Color.GRAY);
-			batch.draw(currentNode.reg.getTexture(), 
-					currentNode.position.x, currentNode.position.y, 
-					currentNode.origin.x, currentNode.origin.y, 
-					currentNode.dimension.x, currentNode.dimension.y, 
-					currentNode.scale.x, currentNode.scale.y, 
-					currentNode.rotation,
-					currentNode.reg.getRegionX(), currentNode.reg.getRegionY(), 
-					currentNode.reg.getRegionWidth(), currentNode.reg.getRegionHeight(), 
-					viewDirection == VIEW_DIRECTION.LEFT, false);
-			currentNode = currentNode.nextNode;
-		}
-		
-		// Draw image
-		currentNode = afterImageDash.head;
+		Node currentNode = afterImageDash.head;
 		for(int i = 0; currentNode != null && context.getCurrentState() == context.getDashState() && i < afterImageDash.MAX_NUM_NODES-1; i++)
 		{
 			batch.setColor(Color.BLUE);

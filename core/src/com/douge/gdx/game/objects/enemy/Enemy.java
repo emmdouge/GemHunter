@@ -41,7 +41,7 @@ public abstract class Enemy extends AbstractGameObject
 	
 	protected VIEW_DIRECTION flip;
 	
-	public ShapeRenderer shapeRenderer = new ShapeRenderer();
+	//public ShapeRenderer shapeRenderer = new ShapeRenderer();
 	
 	//disables player ability to kill enemy
 	public boolean hasBeenKilled = false;
@@ -105,13 +105,13 @@ public abstract class Enemy extends AbstractGameObject
 				viewDirection == flip, false);
 		
 		
-		batch.end();
-		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-		shapeRenderer.begin(ShapeType.Line);
-		shapeRenderer.setColor(Color.RED);
-		shapeRenderer.rect(position.x + bounds.x, position.y + bounds.y, bounds.width, bounds.height);
-		shapeRenderer.end();
-		batch.begin();
+//		batch.end();
+//		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+//		shapeRenderer.begin(ShapeType.Line);
+//		shapeRenderer.setColor(Color.RED);
+//		shapeRenderer.rect(position.x + bounds.x, position.y + bounds.y, bounds.width, bounds.height);
+//		shapeRenderer.end();
+//		batch.begin();
 		
 	}
 	

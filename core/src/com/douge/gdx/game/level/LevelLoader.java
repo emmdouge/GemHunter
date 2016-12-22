@@ -81,6 +81,7 @@ public class LevelLoader
 	public Level currentLevel;
 	public int currentLevelIndex = 0;
 	private Rectangle view = new Rectangle(0, 0, 0, 0);
+	private Rectangle object = new Rectangle(0, 0, 0, 0);
 	// decoration
 	public Clouds clouds;
 	public Trees trees;
@@ -477,10 +478,10 @@ public class LevelLoader
 			fireballIndex++;
 		}
 		
-		clouds.update(deltaTime);
+		//clouds.update(deltaTime);
 		crow.update(deltaTime);
 		
-		currentLevel.particleEffect.update(deltaTime);
+		//currentLevel.particleEffect.update(deltaTime);
 	}
 	
 	/**
@@ -491,10 +492,9 @@ public class LevelLoader
 	{
 		if(WorldRenderer.camera != null)
 		{
-			float x = WorldRenderer.camera.position.x - WorldRenderer.camera.viewportWidth/2 - 1;
-			float y = WorldRenderer.camera.position.y - WorldRenderer.camera.viewportHeight/2 - 2;
-			view.set(x, y, Constants.VIEWPORT_WIDTH+4, Constants.VIEWPORT_HEIGHT+2);
-			Rectangle object = new Rectangle(0, 0, 0, 0);
+			float x = WorldRenderer.camera.position.x - WorldRenderer.camera.viewportWidth/2;
+			float y = WorldRenderer.camera.position.y - WorldRenderer.camera.viewportHeight/2 - 1;
+			view.set(x, y, Constants.VIEWPORT_WIDTH+3, Constants.VIEWPORT_HEIGHT+2);
 			int numBackTilesRendered = 0;
 			for(BackgroundTile backTile: backgroundTiles)
 			{
@@ -518,8 +518,9 @@ public class LevelLoader
 					collectible.render(batch); 
 			}    
 		   batch.setColor(Color.WHITE);
-				
-		   // Draw Water Overlay
+			
+		   object.set(blackOverlay.position.x, blackOverlay.position.y, blackOverlay.dimension.x, blackOverlay.dimension.y);
+			if(view.overlaps(object))
 		   blackOverlay.render(batch);
 				
 		   // Draw Rocks
@@ -545,11 +546,8 @@ public class LevelLoader
 				
 				crow.render(batch);
 				
-				// Draw Clouds
-				clouds.render(batch);
-				
-				currentLevel.particleEffect.start();
-				currentLevel.particleEffect.draw(batch);
+				//currentLevel.particleEffect.start();
+				//currentLevel.particleEffect.draw(batch);
 		
 				batch.setColor(Color.WHITE);
 				

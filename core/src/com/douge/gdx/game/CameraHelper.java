@@ -19,7 +19,7 @@ public class CameraHelper {
 	public OrthographicCamera camera;
 	private Vector2 position;
 	private AbstractGameObject target;
-	
+	Vector2 newPos = new Vector2();
 	public CameraHelper()
 	{
 		position = new Vector2();
@@ -35,7 +35,7 @@ public class CameraHelper {
 		 */
 		if(target != null)
 		{
-			Vector2 newPos = new Vector2(target.position.x+target.origin.x, target.position.y);
+			newPos.set(target.position.x+target.origin.x, target.position.y);
 			//incrementally move from camera position to target position
 			position.lerp(newPos, FOLLOW_SPEED * deltaTime);
 		}

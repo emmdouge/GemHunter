@@ -13,7 +13,7 @@ public class Crow extends AbstractGameObject
 	private Animation flying;
 	private ParticleEffect featherEffect;
 	private Player player;
-	
+	Vector2 newPos = new Vector2();
 	public Crow(Player player)
 	{
 		this.player = player;
@@ -36,7 +36,7 @@ public class Crow extends AbstractGameObject
 	{
 		stateTime += deltaTime;
 		float xOffset = player.viewDirection == VIEW_DIRECTION.RIGHT ? -dimension.x : player.dimension.x;
-		Vector2 newPos = new Vector2(player.position.x + xOffset, player.position.y);
+		newPos.set(player.position.x + xOffset, player.position.y);
 		position.lerp(newPos, 1.25f * deltaTime);
 		featherEffect.setPosition(position.x+origin.x, position.y+1f);
 		featherEffect.update(deltaTime);
