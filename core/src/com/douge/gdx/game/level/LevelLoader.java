@@ -5,17 +5,25 @@ import java.util.ArrayList;
 import com.aurelienribon.bodyeditor.BodyEditorLoader;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
+import com.douge.gdx.game.Constants;
 import com.douge.gdx.game.WorldController;
+import com.douge.gdx.game.WorldRenderer;
 import com.douge.gdx.game.assets.Assets;
 import com.douge.gdx.game.effect.HealthBoostEffect;
 import com.douge.gdx.game.effect.JumpBoostEffect;
@@ -481,49 +489,72 @@ public class LevelLoader
 	 */
 	public void render (SpriteBatch batch) 
 	{
-		for(BackgroundTile backTile: backgroundTiles)
-		backTile.render(batch);
-		
-		// Draw trees
-		trees.render(batch);
-		
-	    // Draw Gold Coins 
-	    for (Collectible collectible : collectibles) 
-	    collectible.render(batch); 
-	     
-	    batch.setColor(Color.WHITE);
-		
-		// Draw Water Overlay
-		blackOverlay.render(batch);
-		
-		// Draw Rocks
-		for (Platform platform : platforms)
-		platform.render(batch);
-		
-		for(int fireballIndex = 0; fireballIndex < player.fireballs.size; fireballIndex++)
+		if(WorldRenderer.camera != null)
 		{
-			Fireball fireball = player.fireballs.get(fireballIndex);
-			fireball.render(batch);
-		}
+			float x = WorldRenderer.camera.position.x - WorldRenderer.camera.viewportWidth/2 - 2;
+			float y = WorldRenderer.camera.position.y - WorldRenderer.camera.viewportHeight/2 - 2;
+			Rectangle view = new Rectangle(x, y, Constants.VIEWPORT_WIDTH+4, Constants.VIEWPORT_HEIGHT+4);
+			int numBackTilesRendered = 0;
+			for(BackgroundTile backTile: backgroundTiles)
+			{
+				Rectangle object = new Rectangle(backTile.position.x, backTile.position.y, backTile.dimension.x, backTile.dimension.y);
+				if(view.overlaps(object))
+				{
+					backTile.render(batch);
+					numBackTilesRendered++;
+				}
+			}
+			System.out.println(numBackTilesRendered);
+			
+			// Draw trees
+			trees.render(batch);
+			
+			// Draw Gold Coins 
+			for (Collectible collectible : collectibles) 
+			{
+				Rectangle object = new Rectangle(collectible.position.x, collectible.position.y, collectible.dimension.x, collectible.dimension.y);
+				if(view.overlaps(object))
+					collectible.render(batch); 
+			}    
+		   batch.setColor(Color.WHITE);
+				
+		   // Draw Water Overlay
+		   blackOverlay.render(batch);
+				
+		   // Draw Rocks
+		   for (Platform platform : platforms)
+		   {
+			   Rectangle object = new Rectangle(platform.position.x, platform.position.y, platform.dimension.x, platform.dimension.y);
+				if(view.overlaps(object))
+					platform.render(batch);
+		   }	
+		   for(int fireballIndex = 0; fireballIndex < player.fireballs.size; fireballIndex++)
+		   {
+			   Fireball fireball = player.fireballs.get(fireballIndex);
+			   fireball.render(batch);
+		   }
+				
+		   for(int enemyIndex = 0; enemyIndex < enemies.size; enemyIndex++)
+			{
+				Enemy enemy = enemies.get(enemyIndex);
+				Rectangle object = new Rectangle(enemy.position.x, enemy.position.y, enemy.dimension.x, enemy.dimension.y);
+				if(view.overlaps(object))
+				enemy.render(batch);
+			}
+				
+				crow.render(batch);
+				
+				// Draw Clouds
+				clouds.render(batch);
+				
+				currentLevel.particleEffect.start();
+				currentLevel.particleEffect.draw(batch);
 		
-		for(int enemyIndex = 0; enemyIndex < enemies.size; enemyIndex++)
-		{
-			Enemy enemy = enemies.get(enemyIndex);
-			enemy.render(batch);
-		}
-		
-		crow.render(batch);
-		
-		// Draw Clouds
-		clouds.render(batch);
-		
-		currentLevel.particleEffect.start();
-		currentLevel.particleEffect.draw(batch);
-
-		batch.setColor(Color.WHITE);
-		
-	    // Draw Player Character 
-	    player.render(batch); 
+				batch.setColor(Color.WHITE);
+				
+				// Draw Player Character 
+			    player.render(batch);
+		}				
 	}
 
 

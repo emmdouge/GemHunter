@@ -17,8 +17,8 @@ import com.douge.gdx.game.utils.GamePreferences;
 
 public class WorldRenderer implements Disposable
 {
-	private OrthographicCamera camera;
-	private OrthographicCamera cameraGUI;
+	public static OrthographicCamera camera;
+	public static OrthographicCamera cameraGUI;
 	
 	private SpriteBatch batch;
 	private WorldController worldController;
