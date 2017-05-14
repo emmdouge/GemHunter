@@ -2,11 +2,12 @@ buildscript {
     repositories {
         jcenter()
         maven {
-            url 'C:\\android-tools\\extras\\google\\m2repository'
+            //url 'C:\\android-tools\\extras\\google\\m2repository'
+            url 'C:\\Users\\Herby\\AppData\\Local\\Android\\sdk\\extras\\google\\m2repository'
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:2.3.2'
         classpath 'com.google.gms:google-services:3.0.0'
         classpath 'com.google.android.gms:play-services-ads:10.0.0@aar'
     }
