@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "542135715252",
-    "firebase_url": "https://gem-hunter.firebaseio.com",
-    "project_id": "gem-hunter",
-    "storage_bucket": "gem-hunter.appspot.com"
+    "project_number": "256932548553",
+    "firebase_url": "https://gemhunter-1421e.firebaseio.com",
+    "project_id": "gemhunter-1421e",
+    "storage_bucket": "gemhunter-1421e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:542135715252:android:a65132a75c855a32",
+        "mobilesdk_app_id": "1:256932548553:android:a65132a75c855a32",
         "android_client_info": {
           "package_name": "com.douge.gdx.game"
         }
       },
       "oauth_client": [
         {
-          "client_id": "542135715252-h3r0vo2cg1gm8rja4l8ss0nk5tpqppbi.apps.googleusercontent.com",
+          "client_id": "256932548553-o2r38ftbknt1d49celr9rbnn6biaq9g2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAC6jlzW2nxF3x90rv92nBR9FRyPh0JfBc"
+          "current_key": "AIzaSyDhPc9FjkG2RU8PChWb6KxiMCMcnYTUyf0"
         }
       ],
       "services": {

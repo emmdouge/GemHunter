@@ -5,11 +5,12 @@ buildscript {
             //url 'C:\\android-tools\\extras\\google\\m2repository'
             url 'C:\\Users\\Herby\\AppData\\Local\\Android\\sdk\\extras\\google\\m2repository'
         }
+        maven { url "http://jcenter.bintray.com"}
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.2'
         classpath 'com.google.gms:google-services:3.0.0'
-        classpath 'com.google.android.gms:play-services-ads:10.0.0@aar'
+        //classpath 'com.google.android.gms:play-services-ads:10.2.4@aar'
     }
 }
 
@@ -43,7 +44,7 @@ project(":desktop") {
     dependencies {
         compile project(":core")
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
-         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop" 
         compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop" 
         compile "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-desktop"
@@ -56,6 +57,7 @@ project(":desktop") {
 
 project(":android") {
     apply plugin: "android"
+
 
     configurations { natives }
 
@@ -84,6 +86,7 @@ project(":android") {
 		
 		compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
     }
+
 }
 
 project(":core") {
